@@ -1,0 +1,35 @@
+﻿.card {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 10px 10px rgba(153, 153, 153, 0.1);
+}
+
+#headingOne, #headingTwo, #headingThree {
+    border-bottom: none;
+    background-color: #e4ebed;
+    border-radius: 0;
+}
+
+#btnPago{
+    color: #fff;
+}
+
+a {
+    color: #ffba00;
+}
+a:hover {
+    color: #ff6d00;
+}
+
+.row {
+    margin-right: -30px;
+    margin-left: -30px;
+}
+
+.order_box {
+    box-shadow: 0 10px 10px rgba(153, 153, 153, 0.1);
+}
+
+.contact_form{
+    margin: unset;
+}

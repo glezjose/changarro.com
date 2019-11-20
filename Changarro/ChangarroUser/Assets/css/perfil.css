@@ -1,0 +1,28 @@
+﻿.card {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 10px 10px rgba(153, 153, 153, 0.1);
+}
+
+.blog_title {
+    border: 1px solid #eeeeee;
+    background: #e5ecee;
+    padding: 15px;
+}
+
+.form-control {
+    background: no-repeat center bottom, center calc(100% - 1px);
+    background-size: 0 100%, 100% 100%;
+    border: 0;
+    height: 36px;
+    transition: background 0s ease-out;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0;
+    font-size: 14px;
+}
+
+.form-control,
+.is-focused .form-control {
+    background-image: linear-gradient(to top, #ff7f00 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+}

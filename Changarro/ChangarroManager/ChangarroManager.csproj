@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -43,6 +44,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -88,7 +95,130 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\amcharts4\charts.js" />
+    <Content Include="Assets\amcharts4\core.js" />
+    <Content Include="Assets\amcharts4\deps\canvg.js" />
+    <Content Include="Assets\amcharts4\deps\pdfmake.js" />
+    <Content Include="Assets\amcharts4\deps\xlsx.js" />
+    <Content Include="Assets\amcharts4\lang\ar.js" />
+    <Content Include="Assets\amcharts4\lang\bs_BA.js" />
+    <Content Include="Assets\amcharts4\lang\ca_ES.js" />
+    <Content Include="Assets\amcharts4\lang\cs_CZ.js" />
+    <Content Include="Assets\amcharts4\lang\da_DK.js" />
+    <Content Include="Assets\amcharts4\lang\de_CH.js" />
+    <Content Include="Assets\amcharts4\lang\de_DE.js" />
+    <Content Include="Assets\amcharts4\lang\el_GR.js" />
+    <Content Include="Assets\amcharts4\lang\en.js" />
+    <Content Include="Assets\amcharts4\lang\en_CA.js" />
+    <Content Include="Assets\amcharts4\lang\en_US.js" />
+    <Content Include="Assets\amcharts4\lang\es_ES.js" />
+    <Content Include="Assets\amcharts4\lang\et_EE.js" />
+    <Content Include="Assets\amcharts4\lang\fi_FI.js" />
+    <Content Include="Assets\amcharts4\lang\fr_FR.js" />
+    <Content Include="Assets\amcharts4\lang\he_IL.js" />
+    <Content Include="Assets\amcharts4\lang\hi_IN.js" />
+    <Content Include="Assets\amcharts4\lang\hr_HR.js" />
+    <Content Include="Assets\amcharts4\lang\hu_HU.js" />
+    <Content Include="Assets\amcharts4\lang\id_ID.js" />
+    <Content Include="Assets\amcharts4\lang\it_IT.js" />
+    <Content Include="Assets\amcharts4\lang\ja_JP.js" />
+    <Content Include="Assets\amcharts4\lang\ko_KR.js" />
+    <Content Include="Assets\amcharts4\lang\lt_LT.js" />
+    <Content Include="Assets\amcharts4\lang\lv_LV.js" />
+    <Content Include="Assets\amcharts4\lang\nb_NO.js" />
+    <Content Include="Assets\amcharts4\lang\nl_NL.js" />
+    <Content Include="Assets\amcharts4\lang\pl_PL.js" />
+    <Content Include="Assets\amcharts4\lang\pt_BR.js" />
+    <Content Include="Assets\amcharts4\lang\pt_PT.js" />
+    <Content Include="Assets\amcharts4\lang\ro_RO.js" />
+    <Content Include="Assets\amcharts4\lang\ru_RU.js" />
+    <Content Include="Assets\amcharts4\lang\sl_SL.js" />
+    <Content Include="Assets\amcharts4\lang\sr_RS.js" />
+    <Content Include="Assets\amcharts4\lang\sv_SE.js" />
+    <Content Include="Assets\amcharts4\lang\th_TH.js" />
+    <Content Include="Assets\amcharts4\lang\tr_TR.js" />
+    <Content Include="Assets\amcharts4\lang\uk_UA.js" />
+    <Content Include="Assets\amcharts4\lang\vi_VN.js" />
+    <Content Include="Assets\amcharts4\lang\zh_Hans.js" />
+    <Content Include="Assets\amcharts4\lang\zh_Hant.js" />
+    <Content Include="Assets\amcharts4\plugins\annotation.js" />
+    <Content Include="Assets\amcharts4\plugins\bullets.js" />
+    <Content Include="Assets\amcharts4\plugins\forceDirected.js" />
+    <Content Include="Assets\amcharts4\plugins\overlapBuster.js" />
+    <Content Include="Assets\amcharts4\plugins\regression.js" />
+    <Content Include="Assets\amcharts4\plugins\sliceGrouper.js" />
+    <Content Include="Assets\amcharts4\plugins\stock.js" />
+    <Content Include="Assets\amcharts4\plugins\sunburst.js" />
+    <Content Include="Assets\amcharts4\plugins\timeline.js" />
+    <Content Include="Assets\amcharts4\plugins\wordCloud.js" />
+    <Content Include="Assets\amcharts4\themes\amcharts.js" />
+    <Content Include="Assets\amcharts4\themes\amchartsdark.js" />
+    <Content Include="Assets\amcharts4\themes\animated.js" />
+    <Content Include="Assets\amcharts4\themes\dark.js" />
+    <Content Include="Assets\amcharts4\themes\dataviz.js" />
+    <Content Include="Assets\amcharts4\themes\frozen.js" />
+    <Content Include="Assets\amcharts4\themes\kelly.js" />
+    <Content Include="Assets\amcharts4\themes\material.js" />
+    <Content Include="Assets\amcharts4\themes\microchart.js" />
+    <Content Include="Assets\amcharts4\themes\moonrisekingdom.js" />
+    <Content Include="Assets\amcharts4\themes\patterns.js" />
+    <Content Include="Assets\amcharts4\themes\spiritedaway.js" />
+    <Content Include="Assets\css\bootstrap.min.css" />
+    <Content Include="Assets\css\clientes.css" />
+    <Content Include="Assets\css\datatables.min.css" />
+    <Content Include="Assets\css\demo.css" />
+    <Content Include="Assets\css\graficas.css" />
+    <Content Include="Assets\css\material-dashboard.css" />
+    <Content Include="Assets\css\material-dashboard.min.css" />
+    <Content Include="Assets\css\productos.css" />
+    <Content Include="Assets\fontawesome\css\all.min.css" />
+    <Content Include="Assets\fontawesome\webfonts\fa-brands-400.svg" />
+    <Content Include="Assets\fontawesome\webfonts\fa-regular-400.svg" />
+    <Content Include="Assets\fontawesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Assets\img\angular.png" />
+    <Content Include="Assets\img\apple-icon.png" />
+    <Content Include="Assets\img\cover.jpg" />
+    <Content Include="Assets\img\ex1.png" />
+    <Content Include="Assets\img\ex2.png" />
+    <Content Include="Assets\img\ex3.png" />
+    <Content Include="Assets\img\faces\avatar.jpg" />
+    <Content Include="Assets\img\faces\card-profile1-square.jpg" />
+    <Content Include="Assets\img\faces\card-profile2-square.jpg" />
+    <Content Include="Assets\img\faces\marc.jpg" />
+    <Content Include="Assets\img\faces\perfil.jpg" />
+    <Content Include="Assets\img\favicon.png" />
+    <Content Include="Assets\img\html.png" />
+    <Content Include="Assets\img\imac1.png" />
+    <Content Include="Assets\img\ipad.png" />
+    <Content Include="Assets\img\iPad2.png" />
+    <Content Include="Assets\img\iphonex.png" />
+    <Content Include="Assets\img\logo.png" />
+    <Content Include="Assets\img\Macbook.png" />
+    <Content Include="Assets\img\mask.png" />
+    <Content Include="Assets\img\new_logo.png" />
+    <Content Include="Assets\img\notification.png" />
+    <Content Include="Assets\img\react.png" />
+    <Content Include="Assets\img\sidebar-1.jpg" />
+    <Content Include="Assets\img\sidebar-2.jpg" />
+    <Content Include="Assets\img\sidebar-3.jpg" />
+    <Content Include="Assets\img\sidebar-4.jpg" />
+    <Content Include="Assets\img\table.png" />
+    <Content Include="Assets\img\vue.png" />
+    <Content Include="Assets\js\bootstrap.min.js" />
+    <Content Include="Assets\js\core\bootstrap-material-design.min.js" />
+    <Content Include="Assets\js\core\jquery.min.js" />
+    <Content Include="Assets\js\core\popper.min.js" />
+    <Content Include="Assets\js\datatables.min.js" />
+    <Content Include="Assets\js\demo.js" />
+    <Content Include="Assets\js\dropzone.js" />
+    <Content Include="Assets\js\jquery-3.4.1.min.js" />
+    <Content Include="Assets\js\jquery.dataTables.min.js" />
+    <Content Include="Assets\js\jquery.min.js" />
+    <Content Include="Assets\js\jquery.validate.min.js" />
+    <Content Include="Assets\js\material-dashboard.js" />
+    <Content Include="Assets\js\perfect-scrollbar.jquery.min.js" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -100,7 +230,90 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <Content Include="Assets\amcharts4\charts.js.map" />
+    <Content Include="Assets\amcharts4\core.js.map" />
+    <Content Include="Assets\amcharts4\deps\canvg.js.map" />
+    <Content Include="Assets\amcharts4\deps\pdfmake.js.map" />
+    <Content Include="Assets\amcharts4\deps\xlsx.js.map" />
+    <Content Include="Assets\amcharts4\lang\ar.js.map" />
+    <Content Include="Assets\amcharts4\lang\bs_BA.js.map" />
+    <Content Include="Assets\amcharts4\lang\ca_ES.js.map" />
+    <Content Include="Assets\amcharts4\lang\cs_CZ.js.map" />
+    <Content Include="Assets\amcharts4\lang\da_DK.js.map" />
+    <Content Include="Assets\amcharts4\lang\de_CH.js.map" />
+    <Content Include="Assets\amcharts4\lang\de_DE.js.map" />
+    <Content Include="Assets\amcharts4\lang\el_GR.js.map" />
+    <Content Include="Assets\amcharts4\lang\en.js.map" />
+    <Content Include="Assets\amcharts4\lang\en_CA.js.map" />
+    <Content Include="Assets\amcharts4\lang\en_US.js.map" />
+    <Content Include="Assets\amcharts4\lang\es_ES.js.map" />
+    <Content Include="Assets\amcharts4\lang\et_EE.js.map" />
+    <Content Include="Assets\amcharts4\lang\fi_FI.js.map" />
+    <Content Include="Assets\amcharts4\lang\fr_FR.js.map" />
+    <Content Include="Assets\amcharts4\lang\he_IL.js.map" />
+    <Content Include="Assets\amcharts4\lang\hi_IN.js.map" />
+    <Content Include="Assets\amcharts4\lang\hr_HR.js.map" />
+    <Content Include="Assets\amcharts4\lang\hu_HU.js.map" />
+    <Content Include="Assets\amcharts4\lang\id_ID.js.map" />
+    <Content Include="Assets\amcharts4\lang\it_IT.js.map" />
+    <Content Include="Assets\amcharts4\lang\ja_JP.js.map" />
+    <Content Include="Assets\amcharts4\lang\ko_KR.js.map" />
+    <Content Include="Assets\amcharts4\lang\lt_LT.js.map" />
+    <Content Include="Assets\amcharts4\lang\lv_LV.js.map" />
+    <Content Include="Assets\amcharts4\lang\nb_NO.js.map" />
+    <Content Include="Assets\amcharts4\lang\nl_NL.js.map" />
+    <Content Include="Assets\amcharts4\lang\pl_PL.js.map" />
+    <Content Include="Assets\amcharts4\lang\pt_BR.js.map" />
+    <Content Include="Assets\amcharts4\lang\pt_PT.js.map" />
+    <Content Include="Assets\amcharts4\lang\ro_RO.js.map" />
+    <Content Include="Assets\amcharts4\lang\ru_RU.js.map" />
+    <Content Include="Assets\amcharts4\lang\sl_SL.js.map" />
+    <Content Include="Assets\amcharts4\lang\sr_RS.js.map" />
+    <Content Include="Assets\amcharts4\lang\sv_SE.js.map" />
+    <Content Include="Assets\amcharts4\lang\th_TH.js.map" />
+    <Content Include="Assets\amcharts4\lang\tr_TR.js.map" />
+    <Content Include="Assets\amcharts4\lang\uk_UA.js.map" />
+    <Content Include="Assets\amcharts4\lang\vi_VN.js.map" />
+    <Content Include="Assets\amcharts4\lang\zh_Hans.js.map" />
+    <Content Include="Assets\amcharts4\lang\zh_Hant.js.map" />
+    <Content Include="Assets\amcharts4\plugins\annotation.js.map" />
+    <Content Include="Assets\amcharts4\plugins\bullets.js.map" />
+    <Content Include="Assets\amcharts4\plugins\forceDirected.js.map" />
+    <Content Include="Assets\amcharts4\plugins\overlapBuster.js.map" />
+    <Content Include="Assets\amcharts4\plugins\regression.js.map" />
+    <Content Include="Assets\amcharts4\plugins\sliceGrouper.js.map" />
+    <Content Include="Assets\amcharts4\plugins\stock.js.map" />
+    <Content Include="Assets\amcharts4\plugins\sunburst.js.map" />
+    <Content Include="Assets\amcharts4\plugins\timeline.js.map" />
+    <Content Include="Assets\amcharts4\plugins\wordCloud.js.map" />
+    <Content Include="Assets\amcharts4\themes\amcharts.js.map" />
+    <Content Include="Assets\amcharts4\themes\amchartsdark.js.map" />
+    <Content Include="Assets\amcharts4\themes\animated.js.map" />
+    <Content Include="Assets\amcharts4\themes\dark.js.map" />
+    <Content Include="Assets\amcharts4\themes\dataviz.js.map" />
+    <Content Include="Assets\amcharts4\themes\frozen.js.map" />
+    <Content Include="Assets\amcharts4\themes\kelly.js.map" />
+    <Content Include="Assets\amcharts4\themes\material.js.map" />
+    <Content Include="Assets\amcharts4\themes\microchart.js.map" />
+    <Content Include="Assets\amcharts4\themes\moonrisekingdom.js.map" />
+    <Content Include="Assets\amcharts4\themes\patterns.js.map" />
+    <Content Include="Assets\amcharts4\themes\spiritedaway.js.map" />
+    <Content Include="Assets\fontawesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Assets\fontawesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Assets\fontawesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Assets\fontawesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Assets\fontawesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Assets\fontawesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Assets\fontawesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Assets\fontawesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Assets\fontawesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Assets\fontawesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Assets\fontawesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Assets\fontawesome\webfonts\fa-solid-900.woff2" />
     <None Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Modal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -112,6 +325,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Changarro.Business\Changarro.Business.csproj">
+      <Project>{52cdee56-1d2d-42c3-8bbd-77c1a0bdfda5}</Project>
+      <Name>Changarro.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Changarro.Model\Changarro.Model.csproj">
+      <Project>{0b767269-f756-43d8-a7c2-8881089e0cb7}</Project>
+      <Name>Changarro.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -143,7 +366,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

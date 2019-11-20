@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4e720266782c432e9939ade3b12aef51" Name="Diagram1">
+        <EntityTypeShape EntityType="CHANGARROModel.tbl_DetalleCarrito" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHANGARROModel.tbl_DetalleCompra" Width="1.5" PointX="7.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHANGARROModel.tbl_Estado" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Administrador" Width="1.5" PointX="7.625" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Carrito" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Categoria" Width="1.5" PointX="3.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Cliente" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Compra" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Direccion" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Producto" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Tarjeta" Width="1.5" PointX="2.75" PointY="13.125" IsExpanded="true" />
+        <AssociationConnector Association="CHANGARROModel.FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="CHANGARROModel.FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra" ManuallyRouted="false" />
+        <AssociationConnector Association="CHANGARROModel.FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="CHANGARROModel.FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado" ManuallyRouted="false" />
+        <AssociationConnector Association="CHANGARROModel.FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="CHANGARROModel.FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria" ManuallyRouted="false" />
+        <AssociationConnector Association="CHANGARROModel.FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="CHANGARROModel.FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="CHANGARROModel.FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="CHANGARROModel.FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion" ManuallyRouted="false" />
+        <AssociationConnector Association="CHANGARROModel.FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta" ManuallyRouted="false" />
+        <AssociationConnector Association="CHANGARROModel.FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

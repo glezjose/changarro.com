@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -43,6 +44,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -88,7 +95,165 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\css\availability-calendar.css" />
+    <Content Include="Assets\css\bootstrap.css" />
+    <Content Include="Assets\css\carrito.css" />
+    <Content Include="Assets\css\compra.css" />
+    <Content Include="Assets\css\font-awesome.min.css" />
+    <Content Include="Assets\css\ion.rangeSlider.css" />
+    <Content Include="Assets\css\ion.rangeSlider.skinFlat.css" />
+    <Content Include="Assets\css\jquerysctipttop.css" />
+    <Content Include="Assets\css\linearicons.css" />
+    <Content Include="Assets\css\magnific-popup.css" />
+    <Content Include="Assets\css\main.css" />
+    <Content Include="Assets\css\nice-select.css" />
+    <Content Include="Assets\css\nouislider.min.css" />
+    <Content Include="Assets\css\owl.carousel.css" />
+    <Content Include="Assets\css\perfil.css" />
+    <Content Include="Assets\css\themify-icons.css" />
+    <Content Include="Assets\img\author.png" />
+    <Content Include="Assets\img\banner\banner-bg.jpg" />
+    <Content Include="Assets\img\banner\banner-img.png" />
+    <Content Include="Assets\img\banner\changarro-banner.png" />
+    <Content Include="Assets\img\banner\changarro-banner2.png" />
+    <Content Include="Assets\img\banner\common-banner.jpg" />
+    <Content Include="Assets\img\banner\next.png" />
+    <Content Include="Assets\img\banner\prev.png" />
+    <Content Include="Assets\img\banner\small-banner.jpg" />
+    <Content Include="Assets\img\cart.jpg" />
+    <Content Include="Assets\img\exclusive.jpg" />
+    <Content Include="Assets\img\fav.png" />
+    <Content Include="Assets\img\features\f-icon1.png" />
+    <Content Include="Assets\img\features\f-icon2.png" />
+    <Content Include="Assets\img\features\f-icon3.png" />
+    <Content Include="Assets\img\features\f-icon4.png" />
+    <Content Include="Assets\img\i1.jpg" />
+    <Content Include="Assets\img\i2.jpg" />
+    <Content Include="Assets\img\i3.jpg" />
+    <Content Include="Assets\img\i4.jpg" />
+    <Content Include="Assets\img\i5.jpg" />
+    <Content Include="Assets\img\i6.jpg" />
+    <Content Include="Assets\img\i7.jpg" />
+    <Content Include="Assets\img\i8.jpg" />
+    <Content Include="Assets\img\l1.jpg" />
+    <Content Include="Assets\img\l2.jpg" />
+    <Content Include="Assets\img\l3.jpg" />
+    <Content Include="Assets\img\l4.jpg" />
+    <Content Include="Assets\img\l5.jpg" />
+    <Content Include="Assets\img\l6.jpg" />
+    <Content Include="Assets\img\l7.jpg" />
+    <Content Include="Assets\img\l8.jpg" />
+    <Content Include="Assets\img\login.jpg" />
+    <Content Include="Assets\img\logo.png" />
+    <Content Include="Assets\img\men-bg.jpg" />
+    <Content Include="Assets\img\ob1.jpg" />
+    <Content Include="Assets\img\ob2.jpg" />
+    <Content Include="Assets\img\ob3.jpg" />
+    <Content Include="Assets\img\organic-food\b1.png" />
+    <Content Include="Assets\img\organic-food\b2.png" />
+    <Content Include="Assets\img\organic-food\b3.png" />
+    <Content Include="Assets\img\organic-food\b4.png" />
+    <Content Include="Assets\img\organic-food\c1.jpg" />
+    <Content Include="Assets\img\organic-food\c2.jpg" />
+    <Content Include="Assets\img\organic-food\c3.jpg" />
+    <Content Include="Assets\img\organic-food\c4.jpg" />
+    <Content Include="Assets\img\organic-food\cd-bg.jpg" />
+    <Content Include="Assets\img\organic-food\cd.png" />
+    <Content Include="Assets\img\organic-food\ci1.jpg" />
+    <Content Include="Assets\img\organic-food\ci2.jpg" />
+    <Content Include="Assets\img\organic-food\ci3.jpg" />
+    <Content Include="Assets\img\organic-food\f1.jpg" />
+    <Content Include="Assets\img\organic-food\f2.jpg" />
+    <Content Include="Assets\img\organic-food\f3.jpg" />
+    <Content Include="Assets\img\organic-food\f4.jpg" />
+    <Content Include="Assets\img\organic-food\m1.png" />
+    <Content Include="Assets\img\organic-food\mp1.jpg" />
+    <Content Include="Assets\img\organic-food\mp10.jpg" />
+    <Content Include="Assets\img\organic-food\mp11.jpg" />
+    <Content Include="Assets\img\organic-food\mp12.jpg" />
+    <Content Include="Assets\img\organic-food\mp2.jpg" />
+    <Content Include="Assets\img\organic-food\mp3.jpg" />
+    <Content Include="Assets\img\organic-food\mp4.jpg" />
+    <Content Include="Assets\img\organic-food\mp5.jpg" />
+    <Content Include="Assets\img\organic-food\mp6.jpg" />
+    <Content Include="Assets\img\organic-food\mp7.jpg" />
+    <Content Include="Assets\img\organic-food\mp8.jpg" />
+    <Content Include="Assets\img\organic-food\mp9.jpg" />
+    <Content Include="Assets\img\organic-food\ob1.jpg" />
+    <Content Include="Assets\img\organic-food\ob2.jpg" />
+    <Content Include="Assets\img\organic-food\ob3.jpg" />
+    <Content Include="Assets\img\organic-food\p1.jpg" />
+    <Content Include="Assets\img\organic-food\p2.jpg" />
+    <Content Include="Assets\img\organic-food\p3.jpg" />
+    <Content Include="Assets\img\organic-food\p4.jpg" />
+    <Content Include="Assets\img\organic-food\p5.jpg" />
+    <Content Include="Assets\img\organic-food\p6.jpg" />
+    <Content Include="Assets\img\organic-food\p7.jpg" />
+    <Content Include="Assets\img\organic-food\p8.jpg" />
+    <Content Include="Assets\img\organic-food\pl1.jpg" />
+    <Content Include="Assets\img\organic-food\pl2.jpg" />
+    <Content Include="Assets\img\organic-food\pl3.jpg" />
+    <Content Include="Assets\img\organic-food\pl4.jpg" />
+    <Content Include="Assets\img\organic-food\pl5.jpg" />
+    <Content Include="Assets\img\organic-food\pl6.jpg" />
+    <Content Include="Assets\img\organic-food\pl7.jpg" />
+    <Content Include="Assets\img\organic-food\pl8.jpg" />
+    <Content Include="Assets\img\organic-food\pm.jpg" />
+    <Content Include="Assets\img\organic-food\q1.jpg" />
+    <Content Include="Assets\img\organic-food\u1.png" />
+    <Content Include="Assets\img\organic-food\u2.png" />
+    <Content Include="Assets\img\organic-food\u3.png" />
+    <Content Include="Assets\img\product\card.jpg" />
+    <Content Include="Assets\img\product\e-p1.png" />
+    <Content Include="Assets\img\product\next.png" />
+    <Content Include="Assets\img\product\p1.jpg" />
+    <Content Include="Assets\img\product\p2.jpg" />
+    <Content Include="Assets\img\product\p3.jpg" />
+    <Content Include="Assets\img\product\p4.jpg" />
+    <Content Include="Assets\img\product\p5.jpg" />
+    <Content Include="Assets\img\product\p6.jpg" />
+    <Content Include="Assets\img\product\p7.jpg" />
+    <Content Include="Assets\img\product\p8.jpg" />
+    <Content Include="Assets\img\product\prev.png" />
+    <Content Include="Assets\img\product\review-1.png" />
+    <Content Include="Assets\img\product\review-2.png" />
+    <Content Include="Assets\img\product\review-3.png" />
+    <Content Include="Assets\img\product\s-p1.jpg" />
+    <Content Include="Assets\img\q1.jpg" />
+    <Content Include="Assets\img\r1.jpg" />
+    <Content Include="Assets\img\r10.jpg" />
+    <Content Include="Assets\img\r11.jpg" />
+    <Content Include="Assets\img\r12.jpg" />
+    <Content Include="Assets\img\r2.jpg" />
+    <Content Include="Assets\img\r3.jpg" />
+    <Content Include="Assets\img\r4.jpg" />
+    <Content Include="Assets\img\r5.jpg" />
+    <Content Include="Assets\img\r6.jpg" />
+    <Content Include="Assets\img\r7.jpg" />
+    <Content Include="Assets\img\r8.jpg" />
+    <Content Include="Assets\img\r9.jpg" />
+    <Content Include="Assets\img\sd\c1.jpg" />
+    <Content Include="Assets\img\sd\c2.jpg" />
+    <Content Include="Assets\img\sd\c3.jpg" />
+    <Content Include="Assets\img\sd\c4.jpg" />
+    <Content Include="Assets\img\sd\c5.jpg" />
+    <Content Include="Assets\js\compra.js" />
+    <Content Include="Assets\js\countdown.js" />
+    <Content Include="Assets\js\gmaps.min.js" />
+    <Content Include="Assets\js\ion.rangeSlider.js" />
+    <Content Include="Assets\js\jquery.ajaxchimp.min.js" />
+    <Content Include="Assets\js\jquery.magnific-popup.min.js" />
+    <Content Include="Assets\js\jquery.nice-select.min.js" />
+    <Content Include="Assets\js\jquery.sticky.js" />
+    <Content Include="Assets\js\main.js" />
+    <Content Include="Assets\js\nouislider.min.js" />
+    <Content Include="Assets\js\owl.carousel.min.js" />
+    <Content Include="Assets\js\parallax.min.js" />
+    <Content Include="Assets\js\vendor\bootstrap.min.js" />
+    <Content Include="Assets\js\vendor\jquery-2.2.4.min.js" />
+    <Content Include="Assets\js\vendor\popper.js" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -100,7 +265,33 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <Content Include="Assets\css\.DS_Store" />
+    <Content Include="Assets\css\bootstrap.map" />
+    <Content Include="Assets\css\main.css.map" />
+    <Content Include="Assets\css\main.map" />
+    <Content Include="Assets\img\.DS_Store" />
+    <Content Include="Assets\img\organic-food\.DS_Store" />
+    <Content Include="Assets\js\.DS_Store" />
+    <Content Include="Assets\js\vendor\popper.js.map" />
+    <Content Include="Assets\scss\.DS_Store" />
+    <Content Include="Assets\scss\main.scss" />
+    <Content Include="Assets\scss\theme\_banner.scss" />
+    <Content Include="Assets\scss\theme\_blog.scss" />
+    <Content Include="Assets\scss\theme\_common.scss" />
+    <Content Include="Assets\scss\theme\_contact.scss" />
+    <Content Include="Assets\scss\theme\_elements.scss" />
+    <Content Include="Assets\scss\theme\_footer.scss" />
+    <Content Include="Assets\scss\theme\_header.scss" />
+    <Content Include="Assets\scss\theme\_home.scss" />
+    <Content Include="Assets\scss\theme\_mixins.scss" />
+    <Content Include="Assets\scss\theme\_predefine.scss" />
+    <Content Include="Assets\scss\theme\_product.scss" />
+    <Content Include="Assets\scss\theme\_reset.scss" />
+    <Content Include="Assets\scss\theme\_variables.scss" />
     <None Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Modal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -112,6 +303,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Changarro.Business\Changarro.Business.csproj">
+      <Project>{52cdee56-1d2d-42c3-8bbd-77c1a0bdfda5}</Project>
+      <Name>Changarro.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Changarro.Model\Changarro.Model.csproj">
+      <Project>{0b767269-f756-43d8-a7c2-8881089e0cb7}</Project>
+      <Name>Changarro.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -143,7 +344,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/Assets/img/fav.png">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>changarro</title>
+
+    <link rel="stylesheet" href="~/Assets/css/bootstrap.css">
+    <link rel="stylesheet" href="https://rawgit.com/lykmapipo/themify-icons/master/css/themify-icons.css">
+    <link rel="stylesheet" href="~/Assets/css/nice-select.css">
+    <link rel="stylesheet" href="~/Assets/css/main.css">
+    @RenderSection("styles", required: false)
+
+</head>
+<body>
+    <!-- Start Header Area -->
+    <header class="header_area sticky-header">
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light main_box">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <a class="navbar-brand logo_h" href="@Url.Action("Index","Default")"><img src="~/Assets/img/logo.png" alt=""></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item submenu dropdown">
+                                <a href="category" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                   aria-expanded="false">Categorías</a>
+                                <ul class="dropdown-menu">
+
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("category","Default")">Moda</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("category","Default")">Tecnología</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("category","Default")">Joyas y Relojes</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("category","Default")">Belleza</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Infantil</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Deportes y Fitness</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Vehículos</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Hogar</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Videojuegos</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Mascota</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-item submenu dropdown">
+
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="modal" role="button" aria-haspopup="true"
+                                   data-target="#exampleModalCenter"
+                                   aria-expanded="false">Perfil</a>
+
+                                <ul class="dropdown-menu">
+
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Default")">Iniciar Sesión</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+
+                            <li class="nav-item">
+                                <a href="@Url.Action("Carrito", "Default")" class="cart">
+                                    <i class="ti-bag"></i>
+                                    <span class="badge badge-primary">3</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <button class="search"><i class="ti-search" id="search"></i></button>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="search_input" id="search_input_box">
+            <div class="container">
+                <form class="d-flex justify-content-between">
+                    <input type="text" class="form-control" id="search_input" placeholder="Ingresar Busqueda">
+                    <button type="submit" class="btn"></button>
+                    <span class="ti-close" id="close_search" title="Close Search"></span>
+                </form>
+            </div>
+        </div>
+    </header>
+    <!-- End Header Area -->
+
+    <div class="container body-content">
+        @RenderBody()
+
+        <br />
+
+        <!-- start footer Area -->
+        <footer class="footer-area section_gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3  col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6>Sobre Nosotros</h6>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
+                                magna aliqua.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
+                    <p class="footer-text m-0">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
+        </footer>
+        <!-- End footer Area -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalGeneral" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    </div>
+
+    <script src="~/Assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="~/Assets/js/vendor/bootstrap.min.js"></script>
+    <script src="~/Assets/js/jquery.nice-select.min.js"></script>
+    <script src="~/Assets/js/jquery.sticky.js"></script>
+    <script src="~/Assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
