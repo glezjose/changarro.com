@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Titulo{
+    <a class="navbar-brand"><b>Dashboard</b></a>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Productos más vendidos</h4>
+                <p class="card-category">Lista de Productos más cotizados esta temporada</p>
+                <div class="amchartdiv" id="productosVendidos" rows="10"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Lista de usuarios con más Compras</h4>
+                <p class="card-category">Este mes</p>
+                <div class="amchartdiv" id="clientesCompras"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Categoria de productos</h4>
+                <p class="card-category">Cantidad total de productos en existencia</p>
+                <div class="amchartdiv" id="categoriasProductos"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/assets/amcharts4/core.js"></script>
+    <script src="~/assets/amcharts4/charts.js"></script>
+    <script src="~/assets/amcharts4/themes/animated.js"></script>
+    <script src="~/assets/amcharts4/lang/es_ES.js"></script>
+    <script src="~/Scripts/productosVendidos.js"></script>
+    <script src="~/Scripts/clientesCompras.js"></script>
+    <script src="~/Scripts/categorias.js"></script>
+
+
+}
