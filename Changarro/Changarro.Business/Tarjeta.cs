@@ -6,15 +6,12 @@
 //  Original author: jose.gonzalez
 ///////////////////////////////////////////////////////////
 
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
+using Changarro.Model.DTO;
 
-
-
-namespace ChangarroBusiness {
-	public class Tarjeta {
+namespace ChangarroBusiness
+{
+    public class Tarjeta {
 
 		public Tarjeta(){
 
@@ -37,7 +34,7 @@ namespace ChangarroBusiness {
 
 		/// 
 		/// <param name="iIdCliente"></param>
-		public List<TarjetasDTO> ObtenerTarjetas(int iIdCliente){
+		public List<TarjetaDTO> ObtenerTarjetas(int iIdCliente){
 
 			return null;
 		}

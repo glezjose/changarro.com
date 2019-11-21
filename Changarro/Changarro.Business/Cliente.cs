@@ -6,18 +6,12 @@
 //  Original author: jose.gonzalez
 ///////////////////////////////////////////////////////////
 
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
+using Changarro.Model.DTO;
 
-
-
-using ChangarroBusiness;
-namespace ChangarroBusiness {
-	public class Cliente {
-
-		public ChangarroBusiness.Direccion m_Direccion;
+namespace ChangarroBusiness
+{
+    public class Cliente {
 
 		public Cliente(){
 
@@ -65,7 +59,7 @@ namespace ChangarroBusiness {
 
 		public ClienteDTO ValidarCliente(){
 
-			return false;
+			return null;
 		}
 
 	}//end Cliente

@@ -6,15 +6,12 @@
 //  Original author: jose.gonzalez
 ///////////////////////////////////////////////////////////
 
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
+using Changarro.Model.DTO;
 
-
-
-namespace ChangarroBusiness {
-	public class Domicilio {
+namespace ChangarroBusiness
+{
+    public class Domicilio {
 
 		public Domicilio(){
 

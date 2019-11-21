@@ -10,8 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-
-
+using Changarro.Model;
 
 namespace ChangarroBusiness {
 	public class Carrito {
@@ -38,7 +37,7 @@ namespace ChangarroBusiness {
 
 		/// 
 		/// <param name="iIdCliente"></param>
-		public List<CarritoProductos> ObtenerCarrito(int iIdCliente){
+		public List<tbl_DetalleCarrito> ObtenerCarrito(int iIdCliente){
 
 			return null;
 		}

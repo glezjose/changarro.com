@@ -13,7 +13,7 @@ using System.IO;
 
 
 
-namespace ChangarroDTO {
+namespace Changarro.Model.DTO {
 	public class CategoriasDTO {
 
 		public CategoriasDTO(){

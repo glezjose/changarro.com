@@ -6,15 +6,13 @@
 //  Original author: jose.gonzalez
 ///////////////////////////////////////////////////////////
 
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
+using Changarro.Model;
+using Changarro.Model.DTO;
 
-
-
-namespace ChangarroBusiness {
-	public class Categoria {
+namespace ChangarroBusiness
+{
+    public class Categoria {
 
 		public Categoria(){
 
@@ -24,7 +22,7 @@ namespace ChangarroBusiness {
 
 		}
 
-		public CategoriaDTO AgregarCategoria(){
+		public CategoriasDTO AgregarCategoria(){
 
 			return null;
 		}
@@ -37,17 +35,17 @@ namespace ChangarroBusiness {
 
 		/// 
 		/// <param name="iIdCategoria"></param>
-		public CategoriaDTO EditarCategoria(int iIdCategoria){
+		public CategoriasDTO EditarCategoria(int iIdCategoria){
 
 			return null;
 		}
 
-		public List<tblCategoria> ObtenerCategorias(){
+		public List<tblCat_Categoria> ObtenerCategorias(){
 
 			return null;
 		}
 
-		public List<ProductoDTO> ObtenerProductos(){
+		public List<ProductosDTO> ObtenerProductos(){
 
 			return null;
 		}

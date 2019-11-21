@@ -6,21 +6,15 @@
 //  Original author: Mike
 ///////////////////////////////////////////////////////////
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
+namespace Changarro.Model.DTO
+{
+    public class DomicilioDTO {
 
-
-
-namespace ChangarroDTO {
-	public class DireccionClienteDTO {
-
-		public DireccionClienteDTO(){
+		public DomicilioDTO(){
 
 		}
 
-		~DireccionClienteDTO(){
+		~DomicilioDTO(){
 
 		}
 

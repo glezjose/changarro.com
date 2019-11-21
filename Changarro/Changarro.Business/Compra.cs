@@ -10,8 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-
-
+using Changarro.Model;
 
 namespace ChangarroBusiness {
 	public class Compra {
@@ -32,7 +31,7 @@ namespace ChangarroBusiness {
 
 		/// 
 		/// <param name="iIdCliente"></param>
-		public List<CompraDTO> ObtenerCompras(int iIdCliente){
+		public List<tblCat_Compra> ObtenerCompras(int iIdCliente){
 
 			return null;
 		}

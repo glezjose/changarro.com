@@ -13,7 +13,7 @@ using System.IO;
 
 
 
-namespace ChangarroDTO {
+namespace Changarro.Model.DTO {
 	public class GestionProductoDTO {
 
 		public GestionProductoDTO(){
@@ -51,7 +51,7 @@ namespace ChangarroDTO {
 			}
 		}
 
-		public datetime dtFechaAlta{
+		public DateTime dtFechaAlta{
 			get{
 				return dtFechaAlta;
 			}
@@ -60,7 +60,7 @@ namespace ChangarroDTO {
 			}
 		}
 
-		public datetime dtFechaModificacion{
+		public DateTime dtFechaModificacion{
 			get{
 				return dtFechaModificacion;
 			}

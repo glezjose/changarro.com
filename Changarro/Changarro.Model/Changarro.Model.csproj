@@ -72,13 +72,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CHANGARRO.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DTO\AdministradorDTO.cs" />
     <Compile Include="DTO\CarritoDTO.cs" />
     <Compile Include="DTO\CategoriasDTO.cs" />
     <Compile Include="DTO\ClienteAdministradorDTO.cs" />
     <Compile Include="DTO\ClienteDTO.cs" />
     <Compile Include="DTO\DatosClienteDTO.cs" />
     <Compile Include="DTO\DetallesProductoDTO.cs" />
-    <Compile Include="DTO\DireccionClienteDTO.cs" />
+    <Compile Include="DTO\DomicilioDTO.cs" />
     <Compile Include="DTO\GestionProductoDTO.cs" />
     <Compile Include="DTO\LoginDTO.cs" />
     <Compile Include="DTO\ProductosDTO.cs" />
