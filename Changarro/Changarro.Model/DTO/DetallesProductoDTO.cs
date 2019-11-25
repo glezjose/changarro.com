@@ -16,41 +16,14 @@ using System.IO;
 namespace Changarro.Model.DTO {
 	public class DetallesProductoDTO {
 
-		public DetallesProductoDTO(){
+        public int iIdProducto { get; set; }
+        public int iIdCategoria { get; set; }
+        public int iCantidad { get; set; }
+        public decimal dPrecio { get; set; }
+        public string cNombre { get; set; }
+        public string cImagen { get; set; }
+        public string cDescripcion { get; set; }
 
-		}
+    }
 
-		~DetallesProductoDTO(){
-
-		}
-
-		public string cCategoria{
-			get{
-				return cCategoria;
-			}
-			set{
-				cCategoria = value;
-			}
-		}
-
-		public string cDescripcion{
-			get{
-				return cDescripcion;
-			}
-			set{
-				cDescripcion = value;
-			}
-		}
-
-		public int iCantidad{
-			get{
-				return iCantidad;
-			}
-			set{
-				iCantidad = value;
-			}
-		}
-
-	}//end DetallesProductoDTO
-
-}//end namespace ChangarroDTO
+}

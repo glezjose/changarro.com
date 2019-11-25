@@ -6,49 +6,137 @@
 //  Original author: jose.gonzalez
 ///////////////////////////////////////////////////////////
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Changarro.Model;
 using Changarro.Model.DTO;
 
-namespace ChangarroBusiness
+namespace Changarro.Business
 {
-    public class Productos {
+    public class Productos
+    {
+        private readonly CHANGARROEntities db;
+        
+        public Productos()
+        {
+            db = new CHANGARROEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
+        }
 
-		public Productos(){
+        ~Productos()
+        {
 
-		}
+        }
 
-		~Productos(){
+        public ProductosDTO AgregarProducto()
+        {
 
-		}
+            return null;
+        }
 
-		public ProductosDTO AgregarProducto(){
+        /// 
+        /// <param name="iIdProducto"></param>
+        public void DesactivarProducto(int iIdProducto)
+        {
 
-			return null;
-		}
+        }
 
-		/// 
-		/// <param name="iIdProducto"></param>
-		public void DesactivarProducto(int iIdProducto){
+        /// 
+        /// <param name="iIdProducto"></param>
+        public ProductosDTO EditarProducto(int iIdProducto)
+        {
 
-		}
+            return null;
+        }
 
-		/// 
-		/// <param name="iIdProducto"></param>
-		public ProductosDTO EditarProducto(int iIdProducto){
+        public List<ProductosDTO> ObtenerProductos()
+        {
 
-			return null;
-		}
+            return null;
+        }
 
-		public List<ProductosDTO> ObtenerProductos(){
+        public List<ProductosDTO> ObtenerTopProductos()
+        {
 
-			return null;
-		}
+            return null;
+        }
 
-		public List<ProductosDTO> ObtenerTopProductos(){
+        /// <summary>
+        /// Obtiene una lista de los 6 productos mas recientes que han sido agregados a la BD.
+        /// </summary>
+        /// <returns>Regresa la lista de los 6 productos</returns>
+        public List<CatalogoProductosDTO> ObtenerProductosRecientes()
+        {
+            List<CatalogoProductosDTO> _lstProductos = db.tblCat_Producto.AsNoTracking().Select(p => new CatalogoProductosDTO()
+            {
+                iIdProducto = p.iIdProducto,
+                iIdCategoria = p.iIdCategoria,
+                dPrecio = p.dPrecio,
+                cNombre = p.cNombre,
+                cImagen = p.cImagen,
+                dtFechaAlta = (DateTime) p.dtFechaAlta
+            }).OrderByDescending(p => p.dtFechaAlta).Take(6).ToList();
+            return _lstProductos;
 
-			return null;
-		}
+        }
 
-	}//end Productos
+        /// <summary>
+        /// Este método obtiene los productos relacionados a la categoría seleccionada.
+        /// </summary>
+        /// <param name="iIdCategoria">La id de la categoría seleccionada.</param>
+        /// <returns>Regresa un listado de los productos relacionados.</returns>
+        public List<CatalogoProductosDTO> ObtenerProductosPorCategoria(int iIdCategoria)
+        {
+            List<CatalogoProductosDTO> _lstProductos = db.tblCat_Producto.AsNoTracking().Select(p => new CatalogoProductosDTO()
+            {
+                iIdProducto = p.iIdProducto,
+                iIdCategoria = p.iIdCategoria,
+                dPrecio = p.dPrecio,
+                cNombre = p.cNombre,
+                cImagen = p.cImagen,
+                dtFechaAlta = (DateTime)p.dtFechaAlta
+            }).Where(p => p.iIdCategoria == iIdCategoria).ToList();
+
+            return _lstProductos;
+        }
+
+        public List<CatalogoProductosDTO> ObtenerProductosPorBusqueda(string cBusqueda)
+        {
+            List<CatalogoProductosDTO> _lstProductos = db.tblCat_Producto.AsNoTracking().Select(p => new CatalogoProductosDTO()
+            {
+                iIdProducto = p.iIdProducto,
+                iIdCategoria = p.iIdCategoria,
+                dPrecio = p.dPrecio,
+                cNombre = p.cNombre,
+                cImagen = p.cImagen,
+                dtFechaAlta = (DateTime)p.dtFechaAlta
+            }).Where(p => p.cNombre.Contains(cBusqueda)).ToList();
+
+            return _lstProductos;
+        }
+
+        /// <summary>
+        /// Obtiene un objeto del producto seleccionado para ver detalles.
+        /// </summary>
+        /// <param name="iIdProducto">La id del producto seleccionado.</param>
+        /// <returns>Regresa el objeto encontrado con la id.</returns>
+        public DetallesProductoDTO ObtenerDetallesProducto(int iIdProducto)
+        {
+            DetallesProductoDTO _oProducto = db.tblCat_Producto.AsNoTracking().Select(p => new DetallesProductoDTO()
+            {
+                iIdProducto = p.iIdProducto,
+                iIdCategoria = p.iIdCategoria,
+                iCantidad = p.iCantidad,
+                dPrecio = p.dPrecio,
+                cNombre = p.cNombre,
+                cImagen = p.cImagen,
+                cDescripcion = p.cDescripcion
+            }).FirstOrDefault(p => p.iIdProducto == iIdProducto);
+
+            return _oProducto;
+        }
+    }//end Productos
 
 }//end namespace ChangarroBusiness

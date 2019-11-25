@@ -94,6 +94,10 @@
     </div>
     <div class="modal fade" id="modalGeneral" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
     </div>
+
+    <script>
+        var ruta = "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority,Url.Content("~/"))"
+    </script>
     <script src="~/Assets/js/core/jquery.min.js"></script>
     <script src="~/Assets/js/core/popper.min.js"></script>
     @*<script src="~/assets/js/bootstrap.min.js"></script>*@

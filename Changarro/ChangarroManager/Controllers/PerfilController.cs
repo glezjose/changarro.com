@@ -3,12 +3,12 @@ using Changarro.Model.DTO;
 using ChangarroBusiness;
 using Newtonsoft.Json;
 
-namespace ChangarroUser.Controllers
+namespace ChangarroManager.Controllers
 {
-    public class InicioController : Controller
+    public class PerfilController : Controller
     {
-        // GET: Inicio
-        public ActionResult Inicio()
+        // GET: Perfil
+        public ActionResult Index()
         {
             return View();
         }

@@ -3889,8 +3889,6 @@ label {
 ============================================================================================ */
 /* Single Product Area css
 ============================================================================================ */
-.product_image_area {
-  padding-top: 120px; }
 
 .s_Product_carousel .owl-dots {
   position: absolute;
@@ -5834,4 +5832,8 @@ text-align: center;
 .modal-content {
     border-radius: 0;
     border: none;
+}
+
+.banner-area{
+    margin-bottom: 100px;
 }
