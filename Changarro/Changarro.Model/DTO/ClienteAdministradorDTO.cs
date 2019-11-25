@@ -14,88 +14,37 @@ using System.IO;
 
 
 namespace Changarro.Model.DTO {
-	public class ClienteAdministradorDTO {
+    public class ClienteAdministradorDTO {
 
-		public ClienteAdministradorDTO(){
+        public ClienteAdministradorDTO(){
 
-		}
+        }
 
-		~ClienteAdministradorDTO(){
+        ~ClienteAdministradorDTO(){
 
-		}
+        }
 
-		public string cApellido{
-			get{
-				return cApellido;
-			}
-			set{
-				cApellido = value;
-			}
-		}
+        public string cApellido { get; set; }
 
-		public string cCorreo{
-			get{
-				return cCorreo;
-			}
-			set{
-				cCorreo = value;
-			}
-		}
+        public string cCorreo { get; set; }
 
-		public string cNombre{
-			get{
-				return cNombre;
-			}
-			set{
-				cNombre = value;
-			}
-		}
+        public string cNombre { get; set; }
 
-		public DateTime dtFechaAlta{
-			get{
-				return dtFechaAlta;
-			}
-			set{
-				dtFechaAlta = value;
-			}
-		}
+        public string cTelefono { get; set; }
 
-		public DateTime dtFechaBaja{
-			get{
-				return dtFechaBaja;
-			}
-			set{
-				dtFechaBaja = value;
-			}
-		}
+        public DateTime? dtFechaAlta { get; set; }
 
-		public DateTime dtFechaModificacion{
-			get{
-				return dtFechaModificacion;
-			}
-			set{
-				dtFechaModificacion = value;
-			}
-		}
+        public DateTime? dtFechaBaja { get; set; }
 
-		public int iIdCliente{
-			get{
-				return iIdCliente;
-			}
-			set{
-				iIdCliente = value;
-			}
-		}
+        public DateTime? dtFechaModificacion { get; set; }
 
-		public bool lEstatus{
-			get{
-				return lEstatus;
-			}
-			set{
-				lEstatus = value;
-			}
-		}
+        public int iIdCliente { get; set; }
 
-	}//end ClienteAdministradorDTO
+        public bool lEstatus { get; set; }
+    }
 
-}//end namespace ChangarroDTO
+}
+
+//end ClienteAdministradorDTO
+
+//end namespace ChangarroDTO

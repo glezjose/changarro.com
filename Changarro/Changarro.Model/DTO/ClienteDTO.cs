@@ -15,18 +15,18 @@ using System.IO;
 
 namespace Changarro.Model.DTO {
 	public class ClienteDTO {
+      
+
         public string cApellido { get; set; }
-        public string cContrasenia { get; set; }
 
         public string cCorreo { get; set; }
-
-        public string cImagen { get; set; }
 
         public string cNombre { get; set; }
 
         public string cTelefono { get; set; }
 
         public int iIdCliente { get; set; }
+
         public ClienteDTO(){
 
 		}
