@@ -10,7 +10,14 @@ namespace ChangarroBusiness
 {
     public class RegistroUsuario
     {
-        CHANGARROEntities ctx = new CHANGARROEntities();
+        private readonly CHANGARROEntities ctx;
+
+        public RegistroUsuario()
+        {
+            ctx = new CHANGARROEntities();
+            ctx.Configuration.LazyLoadingEnabled = false;
+            ctx.Configuration.ProxyCreationEnabled = false;
+        }
 
         /// <summary>
         /// Método para registrar usuarios
