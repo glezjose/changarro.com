@@ -1,6 +1,6 @@
 ﻿using Changarro.Model.DTO;
 using Changarro.Model;
-using ChangarroBusiness;
+using Changarro.Business;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -8,6 +8,7 @@ namespace ChangarroManager.Controllers
 {
     public class ClienteController : Controller
     {
+
         Cliente lista = new Cliente();  // Instancia de la clase de negocios ClienteBusiness
         Cliente cliente = new Cliente();  // Instancia de la clase de negocios ClienteBusiness
 
