@@ -1,32 +1,5 @@
-﻿$(document).ready(function () {
+﻿function funcion() {
 
-    $('#compradores').dataTable({
-        "columnDefs": [
-            {
-                "targets": [0],
-                "visible": false,
-                "searchable": false
-            },
-
-        ],
-        "scrollX": false,
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ productos por página",
-            "info": "Mostrando página _PAGE_ de _PAGES_",
-            "search": "Buscar:",
-        }
-    });
-
-    ClassicEditor.create(document.querySelector('#editor'));
-
-    funcion();
-
-});
-
-function funcion() {
-    $('#modalClick').click(function (e) {
-        e.preventDefault();
-        $('#modalito').modal("show");
         Continuar();
         $('#myTab a[href="#detallesPanel"]').click(function (e) {
             e.preventDefault();
@@ -49,7 +22,6 @@ function funcion() {
             $('#myTab a[href="#imagenPanel"]').tab('show');
             CambiarBtn(3);
         });
-    });
 }
 function Continuar() {
     $('#continuar').click(function (e) {
