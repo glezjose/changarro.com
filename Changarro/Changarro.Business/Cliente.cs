@@ -7,61 +7,131 @@
 ///////////////////////////////////////////////////////////
 
 using System.Collections.Generic;
+using Changarro.Model;
 using Changarro.Model.DTO;
+using System.Linq;
+using System;
 
 namespace Changarro.Business
 {
-    public class Cliente {
+    public class Cliente
+    {
+        CHANGARROEntities db = new CHANGARROEntities();  //Instancia de las entidades de la base de datos Changarro.
+  
+        public Cliente()
+        {
 
-		public Cliente(){
+        }
 
-		}
+        ~Cliente()
+        {
 
-		~Cliente(){
+        }
 
-		}
+        public ClienteDTO AgregarCliente()
+        {
 
-		public ClienteDTO AgregarCliente(){
+            return null;
+        }
 
-			return null;
-		}
+        /// <summary>
+        /// Método para habilitar o desabilitar a un Cliente
+        /// </summary>
+        /// <param name="iIdCliente"> ID del Cliente seleccionado</param>
+        /// <param name="lEstatus"> Estado del Cliente seleccionado </param>
+        /// <returns></returns>
+        public ClienteAdministradorDTO CambiarEstatusCliente(int iIdCliente, bool lEstatus)
+        {
+            DateTime? _dtFechaBaja;
+            if (lEstatus == true)
+            {
+                _dtFechaBaja = null;
+            }
+            else
+            {
+                _dtFechaBaja = DateTime.Now;
+            }
 
-		/// 
-		/// <param name="iIdCliente"></param>
-		public bool DesactivarCliente(int iIdCliente){
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
 
-			return false;
-		}
+            tblCat_Cliente _oCliente = db.tblCat_Cliente.Where(c => c.iIdCliente == iIdCliente).FirstOrDefault();
 
-		/// 
-		/// <param name="iIdCliente"></param>
-		public ClienteDTO EditarDatos(int iIdCliente){
+            _oCliente.lEstatus = lEstatus;
+            _oCliente.dtFechaBaja = _dtFechaBaja;
 
-			return null;
-		}
+            db.SaveChanges();
 
-		public List<ClienteAdministradorDTO> ObtenerClientes(){
+            ClienteAdministradorDTO _oClienteActualizado = new ClienteAdministradorDTO()
+            {
+                iIdCliente = _oCliente.iIdCliente,
+                cNombre = _oCliente.cNombre,
+                cApellido = _oCliente.cApellido,
+                cTelefono = _oCliente.cTelefono,
+                cCorreo = _oCliente.cCorreo,
+                lEstatus = _oCliente.lEstatus,
+                dtFechaAlta = _oCliente.dtFechaAlta,
+                dtFechaBaja = _oCliente.dtFechaBaja,
+                dtFechaModificacion = _oCliente.dtFechaModificacion,
 
-			return null;
-		}
+            };
 
-		/// 
-		/// <param name="iIdCliente"></param>
-		public ClienteDTO ObtenerDatos(int iIdCliente){
+            return _oClienteActualizado;
+        }
 
-			return null;
-		}
+        /// 
+        /// <param name="iIdCliente"></param>
+        public ClienteDTO EditarDatos(int iIdCliente)
+        {
 
-		public List<ClienteAdministradorDTO> ObtenerTopClientes(){
+            return null;
+        }
 
-			return null;
-		}
+        /// <summary>
+        /// Método para crear una lista con los datos de los clientes
+        /// </summary>
+        /// <returns>Lista con los datos de los clientes</returns>
+        public List<ClienteAdministradorDTO> ObtenerClientes()
+        {
+            List<ClienteAdministradorDTO> listClientes = db.tblCat_Cliente.AsNoTracking().Select(c => new ClienteAdministradorDTO()
+            {
+                iIdCliente = c.iIdCliente,
+                cNombre = c.cNombre,
+                cApellido = c.cApellido,
+                cTelefono = c.cTelefono,
+                cCorreo = c.cCorreo,
+                lEstatus = c.lEstatus,
+                dtFechaAlta = c.dtFechaAlta,
+                dtFechaBaja = c.dtFechaBaja,
+                dtFechaModificacion = c.dtFechaModificacion,
+                
+            }).ToList();
+            return listClientes;
+        }
 
-		public ClienteDTO ValidarCliente(){
+    /// <summary>
+    /// Método para obtener el ID de un cliente
+    /// </summary>
+    /// <param name="iIdCliente"> ID del Cliente seleccionado </param>
+    /// <returns>Objeto oCliente</returns>
+    public tblCat_Cliente ObtenerDatos(int iIdCliente)
+    {
+           tblCat_Cliente oCliente = db.tblCat_Cliente.AsNoTracking().FirstOrDefault(c => c.iIdCliente == iIdCliente);
+           return oCliente;
+    }
 
-			return null;
-		}
+    public List<ClienteAdministradorDTO> ObtenerTopClientes()
+    {
 
-	}//end Cliente
+        return null;
+    }
+
+    public ClienteDTO ValidarCliente()
+    {
+
+        return null;
+    }
+
+}//end Cliente
 
 }//end namespace ChangarroBusiness
