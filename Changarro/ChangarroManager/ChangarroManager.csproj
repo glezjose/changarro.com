@@ -220,10 +220,14 @@
     <Content Include="Assets\js\perfect-scrollbar.jquery.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\categorias.js" />
+    <Content Include="Scripts\CategoriasJS.js" />
     <Content Include="Scripts\clientes.js" />
     <Content Include="Scripts\clientesCompras.js" />
     <Content Include="Scripts\Cliente\Cliente.js" />
+    <Content Include="Scripts\date.format.js" />
+    <Content Include="Scripts\Modal.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\ProductoJS.js" />
     <Content Include="Scripts\productos.js" />
     <Content Include="Scripts\productosVendidos.js" />
     <Content Include="Web.config" />
@@ -231,8 +235,10 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
+    <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -329,6 +335,14 @@
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Perfil\Index.cshtml" />
     <Content Include="Views\Cliente\VerDetallesCliente.cshtml" />
+    <Content Include="Views\Producto\VerProductos.cshtml" />
+    <Content Include="Views\Producto\AddProducto.cshtml" />
+    <Content Include="Views\Producto\VisualizarProducto.cshtml" />
+    <Content Include="Views\Shared\_ModalCat.cshtml" />
+    <Content Include="Views\Producto\Categoria.cshtml" />
+    <Content Include="Views\Producto\addcat.cshtml" />
+    <Content Include="Views\Producto\EditarProducto.cshtml" />
+    <Content Include="Views\Categoria\Categoria.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

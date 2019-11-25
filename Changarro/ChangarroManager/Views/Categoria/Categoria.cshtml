@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Changarro.Model.DTO.CategoriasDTO>
+@{
+    ViewBag.Title = "Categoria";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="tab-pane fade show active" id="detallesPanel" role="tabpanel">
+            <h4>Categorías</h4>
+            <form class="row contact_form" action="#" method="post" novalidate="novalidate" id="forcat">
+                <div class="col-md-6 form-group p_star">
+                    <label for="cNombre">Nombre de la categoría</label>
+                    <input type="text" class="form-control" id="cNombre" placeholder="Nombre" name="cNombre" value="Alvin">
+                </div>
+            </form>
+        </div>
+        <div class="container">
+            <button type="button" class="btn btn-primary" onclick="prueba()">Guardar</button>
+            @*<a name="add" class="button" onclick="prueba()">aaa</a>*@
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table" id="tblCategoria" style="width:99%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> 1
+                            </td>
+                            <td>
+                                Deportes
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "VerProductos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Titulo{
+    <a class="navbar-brand"><b>Productos</b></a>
+}
+
+@section styles{
+
+    <link href="~/assets/css/productos.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="d-flex justify-content-start col-2">
+                        <div class="dropdown">
+                            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ti-settings icon"></i>
+                                Herramientas
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#" id="categoria">Categorias</a>
+                                <a class="dropdown-item" href="#">Descargar Plantilla</a>
+                                <a class="dropdown-item" href="#">Importar productos</a>
+                                <a class="dropdown-item" href="#">Exportar productos</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end col-10">
+                        <button id="addproducto" class="btn btn-success btn-round">
+                            <i class="ti-plus icon"></i>
+                        </button>
+                        <button class="btn btn-primary btn-round">
+                            <i class="ti-pencil icon"></i>
+                        </button>
+                        <button id="verproducto" class="btn btn-info btn-round">
+                            <i class="ti-eye icon"></i>
+                        </button>
+                        <button class="btn btn-danger btn-round">
+                            <i class="ti-close icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="tblProducto" style="width:99%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Categoría</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Fecha Alta</th>
+                                <th scope="col">Fecha Modificación</th>
+                                <th scope="col">Estatus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script src="~/Assets/js/jquery.validate.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
+    <script src="~/Assets/js/dropzone.js"></script>
+    <script src="~/Scripts/date.format.js"></script>
+    <script src="~/Scripts/productos.js"></script>
+    <script src="~/Scripts/Modal.js"></script>
+    <script src="~/Scripts/ProductoJS.js"></script>
+    <script src="~/Scripts/CategoriasJS.js"></script>
+
+}
