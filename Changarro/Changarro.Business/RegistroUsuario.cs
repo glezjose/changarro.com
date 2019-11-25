@@ -1,6 +1,7 @@
 ﻿using Changarro.Model;
 using Changarro.Model.DTO;
 using System;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -17,21 +18,41 @@ namespace ChangarroBusiness
         /// <param name="oCliente">Objeto con los datos del Cliente</param>
         public void RegistrarCliente(RegistroDTO oCliente)
         {
-            tblCat_Cliente _oCliente = new tblCat_Cliente()
+
+            try
             {
-                cNombre = oCliente.cNombre,
-                cApellido = oCliente.cApellido,
-                cTelefono = "N/A",
-                cCorreo = oCliente.cCorreo,
-                cContrasenia = GenerarHash(oCliente.cContrasenia),
-                cImagen = "1574316321_ImagenClienteDef",
-                dtFechaAlta = DateTime.Today,
-                lEstatus = true
-            };
+                tblCat_Cliente _oCliente = new tblCat_Cliente()
+                {
+                    cNombre = oCliente.cNombre,
+                    cApellido = oCliente.cApellido,
+                    cTelefono = "N/A",
+                    cCorreo = oCliente.cCorreo,
+                    cContrasenia = GenerarHash(oCliente.cContrasenia),
+                    cImagen = "1574316321_ImagenClienteDef",
+                    dtFechaAlta = DateTime.Today,
+                    lEstatus = true
+                };
 
-            ctx.tblCat_Cliente.Add(_oCliente);
+                ctx.tblCat_Cliente.Add(_oCliente);
 
-            ctx.SaveChanges();
+                ctx.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
+
         }
 
         /// <summary>

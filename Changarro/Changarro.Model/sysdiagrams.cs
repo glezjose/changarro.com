@@ -12,14 +12,12 @@ namespace Changarro.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_DetalleCarrito
+    public partial class sysdiagrams
     {
-        public int iIdDetalleCarrito { get; set; }
-        public int iIdCarrito { get; set; }
-        public int iIdProducto { get; set; }
-        public decimal iCantidad { get; set; }
-    
-        public virtual tblCat_Carrito tblCat_Carrito { get; set; }
-        public virtual tblCat_Producto tblCat_Producto { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

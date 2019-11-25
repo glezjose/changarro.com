@@ -34,17 +34,7 @@ namespace ChangarroUser.Controllers
             string _clienteJSON = Request["oCliente"];
             RegistroDTO _oUsuario = JsonConvert.DeserializeObject<RegistroDTO>(_clienteJSON);
             RegistroUsuario Registro = new RegistroUsuario();
-            RegistroDTO _oMensajesError = Registro.ValidarDatos(_oUsuario);
 
-            if (_oMensajesError == null)
-            {
-                Registro.RegistrarCliente(_oUsuario);
-            }
-            else
-            {
-                _oUsuario = _oMensajesError;
-            }
-            /*
             try
             {
                 RegistroDTO _oMensajesError = Registro.ValidarDatos(_oUsuario);
@@ -61,7 +51,7 @@ namespace ChangarroUser.Controllers
             catch (System.Exception)
             {
                 _cMensajeError = "Ha ocurrido un error al registrarse por favor intente mas tarde";
-            }*/
+            }
             return Json(new { _cMensajeError, _oUsuario });
         }
 

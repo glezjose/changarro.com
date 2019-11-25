@@ -60,7 +60,7 @@ function RegistrarCliente(oNuevoCliente, cUrl) {
         data: { oCliente: JSON.stringify(oNuevoCliente) },
         async: false,
         success: function (data) {
-
+            console.log(data._oUsuario);
             Toast.fire({
                 icon: 'success',
                 title: 'Empleado registrado con éxito'
