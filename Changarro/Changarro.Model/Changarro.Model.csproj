@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="DTO\AdministradorDTO.cs" />
     <Compile Include="DTO\CarritoDTO.cs" />
+    <Compile Include="DTO\CatalogoProductosDTO.cs" />
     <Compile Include="DTO\CategoriasDTO.cs" />
     <Compile Include="DTO\ClienteAdministradorDTO.cs" />
     <Compile Include="DTO\ClienteDTO.cs" />
@@ -89,6 +90,9 @@
     <Compile Include="DTO\TarjetaDTO.cs" />
     <Compile Include="DTO\VerDetallesProducto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>CHANGARRO.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblCat_Administrador.cs">
       <DependentUpon>CHANGARRO.tt</DependentUpon>
     </Compile>

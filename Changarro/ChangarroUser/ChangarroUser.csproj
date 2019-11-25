@@ -54,6 +54,15 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -110,6 +119,7 @@
     <Content Include="Assets\css\nouislider.min.css" />
     <Content Include="Assets\css\owl.carousel.css" />
     <Content Include="Assets\css\perfil.css" />
+    <Content Include="Assets\css\sweetalert2.min.css" />
     <Content Include="Assets\css\themify-icons.css" />
     <Content Include="Assets\img\author.png" />
     <Content Include="Assets\img\banner\banner-bg.jpg" />
@@ -245,20 +255,29 @@
     <Content Include="Assets\js\jquery.magnific-popup.min.js" />
     <Content Include="Assets\js\jquery.nice-select.min.js" />
     <Content Include="Assets\js\jquery.sticky.js" />
+    <Content Include="Assets\js\jquery.validate.min.js" />
     <Content Include="Assets\js\main.js" />
     <Content Include="Assets\js\nouislider.min.js" />
     <Content Include="Assets\js\owl.carousel.min.js" />
     <Content Include="Assets\js\parallax.min.js" />
+    <Content Include="Assets\js\sweetalert2.all.min.js" />
     <Content Include="Assets\js\vendor\bootstrap.min.js" />
     <Content Include="Assets\js\vendor\jquery-2.2.4.min.js" />
     <Content Include="Assets\js\vendor\popper.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Inicio\Inicio.js" />
+    <Content Include="Scripts\Inicio\ValidarRegistro.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Producto\Producto.js" />
+    <Content Include="Scripts\Utileria.js" />
+    <Content Include="Scripts\Inicio\Sesion.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\InicioController.cs" />
+    <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -293,7 +312,16 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
+    <Content Include="Views\Producto\Inicio.cshtml" />
+    <Content Include="Views\Shared\_ModalLg.cshtml" />
+    <Content Include="Views\Producto\VerDetalles.cshtml" />
+    <Content Include="Views\Producto\MenuCategorias.cshtml" />
+    <Content Include="Views\Producto\VerProductosPorCategoria.cshtml" />
+    <Content Include="Views\Producto\ColumnaCategorias.cshtml" />
+    <Content Include="Views\Producto\VerProductosPorBusqueda.cshtml" />
     <Content Include="Views\Inicio\Inicio.cshtml" />
+    <Content Include="Views\Inicio\Registro.cshtml" />
+    <Content Include="Views\Inicio\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

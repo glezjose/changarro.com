@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CHANGARROModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="tbl_DetalleCarrito">
           <Key>
             <PropertyRef Name="iIdDetalleCarrito" />
@@ -55,6 +65,7 @@
           </Key>
           <Property Name="iIdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="cNombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="lEstatus" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tblCat_Cliente">
           <Key>
@@ -65,8 +76,8 @@
           <Property Name="cApellido" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cTelefono" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="cCorreo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cContrasenia" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cImagen" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cContrasenia" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="cImagen" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="lEstatus" Type="bit" Nullable="false" />
           <Property Name="dtFechaAlta" Type="datetime" />
           <Property Name="dtFechaBaja" Type="datetime" />
@@ -110,7 +121,7 @@
           <Property Name="dPrecio" Type="decimal" Precision="7" Scale="2" Nullable="false" />
           <Property Name="cDescripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="cNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cImagen" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cImagen" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="lEstatus" Type="bit" Nullable="false" />
           <Property Name="dtFechaAlta" Type="datetime" />
           <Property Name="dfFechaBaja" Type="datetime" />
@@ -278,6 +289,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CHANGARROModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DetalleCarrito" EntityType="Self.tbl_DetalleCarrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DetalleCompra" EntityType="Self.tbl_DetalleCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Estado" EntityType="Self.tbl_Estado" Schema="dbo" store:Type="Tables" />
@@ -342,6 +354,78 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CHANGARROModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CHANGARROEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="CHANGARROModel.sysdiagrams" />
+          <EntitySet Name="tbl_DetalleCarrito" EntityType="CHANGARROModel.tbl_DetalleCarrito" />
+          <EntitySet Name="tbl_DetalleCompra" EntityType="CHANGARROModel.tbl_DetalleCompra" />
+          <EntitySet Name="tbl_Estado" EntityType="CHANGARROModel.tbl_Estado" />
+          <EntitySet Name="tblCat_Administrador" EntityType="CHANGARROModel.tblCat_Administrador" />
+          <EntitySet Name="tblCat_Carrito" EntityType="CHANGARROModel.tblCat_Carrito" />
+          <EntitySet Name="tblCat_Categoria" EntityType="CHANGARROModel.tblCat_Categoria" />
+          <EntitySet Name="tblCat_Cliente" EntityType="CHANGARROModel.tblCat_Cliente" />
+          <EntitySet Name="tblCat_Compra" EntityType="CHANGARROModel.tblCat_Compra" />
+          <EntitySet Name="tblCat_Direccion" EntityType="CHANGARROModel.tblCat_Direccion" />
+          <EntitySet Name="tblCat_Producto" EntityType="CHANGARROModel.tblCat_Producto" />
+          <EntitySet Name="tblCat_Tarjeta" EntityType="CHANGARROModel.tblCat_Tarjeta" />
+          <AssociationSet Name="FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito" Association="CHANGARROModel.FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito">
+            <End Role="tblCat_Carrito" EntitySet="tblCat_Carrito" />
+            <End Role="tbl_DetalleCarrito" EntitySet="tbl_DetalleCarrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto" Association="CHANGARROModel.FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto">
+            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
+            <End Role="tbl_DetalleCarrito" EntitySet="tbl_DetalleCarrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra" Association="CHANGARROModel.FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra">
+            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
+            <End Role="tbl_DetalleCompra" EntitySet="tbl_DetalleCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto" Association="CHANGARROModel.FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto">
+            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
+            <End Role="tbl_DetalleCompra" EntitySet="tbl_DetalleCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado" Association="CHANGARROModel.FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado">
+            <End Role="tbl_Estado" EntitySet="tbl_Estado" />
+            <End Role="tblCat_Direccion" EntitySet="tblCat_Direccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente" Association="CHANGARROModel.FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente">
+            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
+            <End Role="tblCat_Carrito" EntitySet="tblCat_Carrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria" Association="CHANGARROModel.FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria">
+            <End Role="tblCat_Categoria" EntitySet="tblCat_Categoria" />
+            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente" Association="CHANGARROModel.FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente">
+            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
+            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente" Association="CHANGARROModel.FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente">
+            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
+            <End Role="tblCat_Direccion" EntitySet="tblCat_Direccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente" Association="CHANGARROModel.FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente">
+            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
+            <End Role="tblCat_Tarjeta" EntitySet="tblCat_Tarjeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion" Association="CHANGARROModel.FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion">
+            <End Role="tblCat_Direccion" EntitySet="tblCat_Direccion" />
+            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta" Association="CHANGARROModel.FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta">
+            <End Role="tblCat_Tarjeta" EntitySet="tblCat_Tarjeta" />
+            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="tbl_DetalleCarrito">
           <Key>
             <PropertyRef Name="iIdDetalleCarrito" />
@@ -349,9 +433,9 @@
           <Property Name="iIdDetalleCarrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdCarrito" Type="Int32" Nullable="false" />
           <Property Name="iIdProducto" Type="Int32" Nullable="false" />
-          <Property Name="iCantidad" Type="Decimal" Precision="7" Scale="0" Nullable="false" />
-          <NavigationProperty Name="tblCat_Producto" Relationship="Self.FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto" FromRole="tbl_DetalleCarrito" ToRole="tblCat_Producto" />
+          <Property Name="iCantidad" Type="Decimal" Nullable="false" Precision="7" Scale="0" />
           <NavigationProperty Name="tblCat_Carrito" Relationship="CHANGARROModel.FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito" FromRole="tbl_DetalleCarrito" ToRole="tblCat_Carrito" />
+          <NavigationProperty Name="tblCat_Producto" Relationship="CHANGARROModel.FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto" FromRole="tbl_DetalleCarrito" ToRole="tblCat_Producto" />
         </EntityType>
         <EntityType Name="tbl_DetalleCompra">
           <Key>
@@ -361,27 +445,27 @@
           <Property Name="iIdCompra" Type="Int32" Nullable="false" />
           <Property Name="iIdProducto" Type="Int32" Nullable="false" />
           <Property Name="iCantidad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblCat_Compra" Relationship="Self.FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra" FromRole="tbl_DetalleCompra" ToRole="tblCat_Compra" />
-          <NavigationProperty Name="tblCat_Producto" Relationship="Self.FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto" FromRole="tbl_DetalleCompra" ToRole="tblCat_Producto" />
+          <NavigationProperty Name="tblCat_Compra" Relationship="CHANGARROModel.FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra" FromRole="tbl_DetalleCompra" ToRole="tblCat_Compra" />
+          <NavigationProperty Name="tblCat_Producto" Relationship="CHANGARROModel.FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto" FromRole="tbl_DetalleCompra" ToRole="tblCat_Producto" />
         </EntityType>
         <EntityType Name="tbl_Estado">
           <Key>
             <PropertyRef Name="iIdEstado" />
           </Key>
           <Property Name="iIdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cNombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tblCat_Direccion" Relationship="Self.FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado" FromRole="tbl_Estado" ToRole="tblCat_Direccion" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCat_Direccion" Relationship="CHANGARROModel.FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado" FromRole="tbl_Estado" ToRole="tblCat_Direccion" />
         </EntityType>
         <EntityType Name="tblCat_Administrador">
           <Key>
             <PropertyRef Name="iIdAdministrador" />
           </Key>
           <Property Name="iIdAdministrador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cTelefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cContrasenia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cApellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cTelefono" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cCorreo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cContrasenia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cImagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblCat_Carrito">
@@ -390,36 +474,37 @@
           </Key>
           <Property Name="iIdCarrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdCliente" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblCat_Cliente" Relationship="Self.FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Carrito" ToRole="tblCat_Cliente" />
           <NavigationProperty Name="tbl_DetalleCarrito" Relationship="CHANGARROModel.FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito" FromRole="tblCat_Carrito" ToRole="tbl_DetalleCarrito" />
+          <NavigationProperty Name="tblCat_Cliente" Relationship="CHANGARROModel.FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Carrito" ToRole="tblCat_Cliente" />
         </EntityType>
         <EntityType Name="tblCat_Categoria">
           <Key>
             <PropertyRef Name="iIdCategoria" />
           </Key>
           <Property Name="iIdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cNombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tblCat_Producto" Relationship="Self.FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria" FromRole="tblCat_Categoria" ToRole="tblCat_Producto" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="lEstatus" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblCat_Producto" Relationship="CHANGARROModel.FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria" FromRole="tblCat_Categoria" ToRole="tblCat_Producto" />
         </EntityType>
         <EntityType Name="tblCat_Cliente">
           <Key>
             <PropertyRef Name="iIdCliente" />
           </Key>
           <Property Name="iIdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cTelefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cContrasenia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cImagen" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cApellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cTelefono" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cCorreo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cContrasenia" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="cImagen" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
           <Property Name="dtFechaAlta" Type="DateTime" Precision="3" />
           <Property Name="dtFechaBaja" Type="DateTime" Precision="3" />
           <Property Name="dtFechaModificacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblCat_Carrito" Relationship="Self.FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Cliente" ToRole="tblCat_Carrito" />
-          <NavigationProperty Name="tblCat_Compra" Relationship="Self.FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Cliente" ToRole="tblCat_Compra" />
-          <NavigationProperty Name="tblCat_Direccion" Relationship="Self.FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Cliente" ToRole="tblCat_Direccion" />
-          <NavigationProperty Name="tblCat_Tarjeta" Relationship="Self.FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Cliente" ToRole="tblCat_Tarjeta" />
+          <NavigationProperty Name="tblCat_Carrito" Relationship="CHANGARROModel.FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Cliente" ToRole="tblCat_Carrito" />
+          <NavigationProperty Name="tblCat_Compra" Relationship="CHANGARROModel.FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Cliente" ToRole="tblCat_Compra" />
+          <NavigationProperty Name="tblCat_Direccion" Relationship="CHANGARROModel.FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Cliente" ToRole="tblCat_Direccion" />
+          <NavigationProperty Name="tblCat_Tarjeta" Relationship="CHANGARROModel.FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Cliente" ToRole="tblCat_Tarjeta" />
         </EntityType>
         <EntityType Name="tblCat_Compra">
           <Key>
@@ -431,10 +516,10 @@
           <Property Name="iIdDireccion" Type="Int32" Nullable="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
           <Property Name="dtFechaCompra" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_DetalleCompra" Relationship="Self.FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra" FromRole="tblCat_Compra" ToRole="tbl_DetalleCompra" />
-          <NavigationProperty Name="tblCat_Cliente" Relationship="Self.FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Compra" ToRole="tblCat_Cliente" />
-          <NavigationProperty Name="tblCat_Direccion" Relationship="Self.FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion" FromRole="tblCat_Compra" ToRole="tblCat_Direccion" />
-          <NavigationProperty Name="tblCat_Tarjeta" Relationship="Self.FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta" FromRole="tblCat_Compra" ToRole="tblCat_Tarjeta" />
+          <NavigationProperty Name="tbl_DetalleCompra" Relationship="CHANGARROModel.FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra" FromRole="tblCat_Compra" ToRole="tbl_DetalleCompra" />
+          <NavigationProperty Name="tblCat_Cliente" Relationship="CHANGARROModel.FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Compra" ToRole="tblCat_Cliente" />
+          <NavigationProperty Name="tblCat_Direccion" Relationship="CHANGARROModel.FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion" FromRole="tblCat_Compra" ToRole="tblCat_Direccion" />
+          <NavigationProperty Name="tblCat_Tarjeta" Relationship="CHANGARROModel.FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta" FromRole="tblCat_Compra" ToRole="tblCat_Tarjeta" />
         </EntityType>
         <EntityType Name="tblCat_Direccion">
           <Key>
@@ -444,17 +529,17 @@
           <Property Name="iIdCliente" Type="Int32" Nullable="false" />
           <Property Name="iIdEstado" Type="Int32" Nullable="false" />
           <Property Name="iCodigoPostal" Type="Int32" Nullable="false" />
-          <Property Name="cNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cCalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cCalle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cNumeroExterior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="cNumeroInterior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="cColonia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cMunicipio" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="cDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="tbl_Estado" Relationship="Self.FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado" FromRole="tblCat_Direccion" ToRole="tbl_Estado" />
-          <NavigationProperty Name="tblCat_Cliente" Relationship="Self.FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Direccion" ToRole="tblCat_Cliente" />
-          <NavigationProperty Name="tblCat_Compra" Relationship="Self.FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion" FromRole="tblCat_Direccion" ToRole="tblCat_Compra" />
+          <NavigationProperty Name="tbl_Estado" Relationship="CHANGARROModel.FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado" FromRole="tblCat_Direccion" ToRole="tbl_Estado" />
+          <NavigationProperty Name="tblCat_Cliente" Relationship="CHANGARROModel.FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Direccion" ToRole="tblCat_Cliente" />
+          <NavigationProperty Name="tblCat_Compra" Relationship="CHANGARROModel.FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion" FromRole="tblCat_Direccion" ToRole="tblCat_Compra" />
         </EntityType>
         <EntityType Name="tblCat_Producto">
           <Key>
@@ -463,17 +548,17 @@
           <Property Name="iIdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdCategoria" Type="Int32" Nullable="false" />
           <Property Name="iCantidad" Type="Int32" Nullable="false" />
-          <Property Name="dPrecio" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
-          <Property Name="cDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cImagen" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dPrecio" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="cDescripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cImagen" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
           <Property Name="dtFechaAlta" Type="DateTime" Precision="3" />
           <Property Name="dfFechaBaja" Type="DateTime" Precision="3" />
           <Property Name="dtFechaModificacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_DetalleCarrito" Relationship="Self.FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto" FromRole="tblCat_Producto" ToRole="tbl_DetalleCarrito" />
-          <NavigationProperty Name="tbl_DetalleCompra" Relationship="Self.FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto" FromRole="tblCat_Producto" ToRole="tbl_DetalleCompra" />
-          <NavigationProperty Name="tblCat_Categoria" Relationship="Self.FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria" FromRole="tblCat_Producto" ToRole="tblCat_Categoria" />
+          <NavigationProperty Name="tbl_DetalleCarrito" Relationship="CHANGARROModel.FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto" FromRole="tblCat_Producto" ToRole="tbl_DetalleCarrito" />
+          <NavigationProperty Name="tbl_DetalleCompra" Relationship="CHANGARROModel.FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto" FromRole="tblCat_Producto" ToRole="tbl_DetalleCompra" />
+          <NavigationProperty Name="tblCat_Categoria" Relationship="CHANGARROModel.FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria" FromRole="tblCat_Producto" ToRole="tblCat_Categoria" />
         </EntityType>
         <EntityType Name="tblCat_Tarjeta">
           <Key>
@@ -481,210 +566,15 @@
           </Key>
           <Property Name="iIdTarjeta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdCliente" Type="Int32" Nullable="false" />
-          <Property Name="cNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cTitular" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cNumeroTarjeta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cTitular" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cNumeroTarjeta" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
           <Property Name="dtMesExpiracion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="dtAnioExpiracion" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="tblCat_Cliente" Relationship="Self.FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Tarjeta" ToRole="tblCat_Cliente" />
-          <NavigationProperty Name="tblCat_Compra" Relationship="Self.FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta" FromRole="tblCat_Tarjeta" ToRole="tblCat_Compra" />
+          <NavigationProperty Name="tblCat_Cliente" Relationship="CHANGARROModel.FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Tarjeta" ToRole="tblCat_Cliente" />
+          <NavigationProperty Name="tblCat_Compra" Relationship="CHANGARROModel.FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta" FromRole="tblCat_Tarjeta" ToRole="tblCat_Compra" />
         </EntityType>
-        <Association Name="FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto">
-          <End Role="tblCat_Producto" Type="Self.tblCat_Producto" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="tbl_DetalleCarrito" Type="Self.tbl_DetalleCarrito" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Producto">
-              <PropertyRef Name="iIdProducto" />
-            </Principal>
-            <Dependent Role="tbl_DetalleCarrito">
-              <PropertyRef Name="iIdProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra">
-          <End Role="tblCat_Compra" Type="Self.tblCat_Compra" Multiplicity="1" />
-          <End Role="tbl_DetalleCompra" Type="Self.tbl_DetalleCompra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Compra">
-              <PropertyRef Name="iIdCompra" />
-            </Principal>
-            <Dependent Role="tbl_DetalleCompra">
-              <PropertyRef Name="iIdCompra" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto">
-          <End Role="tblCat_Producto" Type="Self.tblCat_Producto" Multiplicity="1" />
-          <End Role="tbl_DetalleCompra" Type="Self.tbl_DetalleCompra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Producto">
-              <PropertyRef Name="iIdProducto" />
-            </Principal>
-            <Dependent Role="tbl_DetalleCompra">
-              <PropertyRef Name="iIdProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado">
-          <End Role="tbl_Estado" Type="Self.tbl_Estado" Multiplicity="1" />
-          <End Role="tblCat_Direccion" Type="Self.tblCat_Direccion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Estado">
-              <PropertyRef Name="iIdEstado" />
-            </Principal>
-            <Dependent Role="tblCat_Direccion">
-              <PropertyRef Name="iIdEstado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente">
-          <End Role="tblCat_Cliente" Type="Self.tblCat_Cliente" Multiplicity="1" />
-          <End Role="tblCat_Carrito" Type="Self.tblCat_Carrito" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Cliente">
-              <PropertyRef Name="iIdCliente" />
-            </Principal>
-            <Dependent Role="tblCat_Carrito">
-              <PropertyRef Name="iIdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria">
-          <End Role="tblCat_Categoria" Type="Self.tblCat_Categoria" Multiplicity="1" />
-          <End Role="tblCat_Producto" Type="Self.tblCat_Producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Categoria">
-              <PropertyRef Name="iIdCategoria" />
-            </Principal>
-            <Dependent Role="tblCat_Producto">
-              <PropertyRef Name="iIdCategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente">
-          <End Role="tblCat_Cliente" Type="Self.tblCat_Cliente" Multiplicity="1" />
-          <End Role="tblCat_Compra" Type="Self.tblCat_Compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Cliente">
-              <PropertyRef Name="iIdCliente" />
-            </Principal>
-            <Dependent Role="tblCat_Compra">
-              <PropertyRef Name="iIdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente">
-          <End Role="tblCat_Cliente" Type="Self.tblCat_Cliente" Multiplicity="1" />
-          <End Role="tblCat_Direccion" Type="Self.tblCat_Direccion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Cliente">
-              <PropertyRef Name="iIdCliente" />
-            </Principal>
-            <Dependent Role="tblCat_Direccion">
-              <PropertyRef Name="iIdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente">
-          <End Role="tblCat_Cliente" Type="Self.tblCat_Cliente" Multiplicity="1" />
-          <End Role="tblCat_Tarjeta" Type="Self.tblCat_Tarjeta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Cliente">
-              <PropertyRef Name="iIdCliente" />
-            </Principal>
-            <Dependent Role="tblCat_Tarjeta">
-              <PropertyRef Name="iIdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion">
-          <End Role="tblCat_Direccion" Type="Self.tblCat_Direccion" Multiplicity="1" />
-          <End Role="tblCat_Compra" Type="Self.tblCat_Compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Direccion">
-              <PropertyRef Name="iIdDireccion" />
-            </Principal>
-            <Dependent Role="tblCat_Compra">
-              <PropertyRef Name="iIdDireccion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta">
-          <End Role="tblCat_Tarjeta" Type="Self.tblCat_Tarjeta" Multiplicity="1" />
-          <End Role="tblCat_Compra" Type="Self.tblCat_Compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Tarjeta">
-              <PropertyRef Name="iIdTarjeta" />
-            </Principal>
-            <Dependent Role="tblCat_Compra">
-              <PropertyRef Name="iIdTarjeta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="CHANGARROEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tbl_DetalleCarrito" EntityType="Self.tbl_DetalleCarrito" />
-          <EntitySet Name="tbl_DetalleCompra" EntityType="Self.tbl_DetalleCompra" />
-          <EntitySet Name="tbl_Estado" EntityType="Self.tbl_Estado" />
-          <EntitySet Name="tblCat_Administrador" EntityType="Self.tblCat_Administrador" />
-          <EntitySet Name="tblCat_Carrito" EntityType="Self.tblCat_Carrito" />
-          <EntitySet Name="tblCat_Categoria" EntityType="Self.tblCat_Categoria" />
-          <EntitySet Name="tblCat_Cliente" EntityType="Self.tblCat_Cliente" />
-          <EntitySet Name="tblCat_Compra" EntityType="Self.tblCat_Compra" />
-          <EntitySet Name="tblCat_Direccion" EntityType="Self.tblCat_Direccion" />
-          <EntitySet Name="tblCat_Producto" EntityType="Self.tblCat_Producto" />
-          <EntitySet Name="tblCat_Tarjeta" EntityType="Self.tblCat_Tarjeta" />
-          <AssociationSet Name="FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto" Association="Self.FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto">
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
-            <End Role="tbl_DetalleCarrito" EntitySet="tbl_DetalleCarrito" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra" Association="Self.FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra">
-            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
-            <End Role="tbl_DetalleCompra" EntitySet="tbl_DetalleCompra" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto" Association="Self.FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto">
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
-            <End Role="tbl_DetalleCompra" EntitySet="tbl_DetalleCompra" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado" Association="Self.FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado">
-            <End Role="tbl_Estado" EntitySet="tbl_Estado" />
-            <End Role="tblCat_Direccion" EntitySet="tblCat_Direccion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente" Association="Self.FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente">
-            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
-            <End Role="tblCat_Carrito" EntitySet="tblCat_Carrito" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria" Association="Self.FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria">
-            <End Role="tblCat_Categoria" EntitySet="tblCat_Categoria" />
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente" Association="Self.FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente">
-            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
-            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente" Association="Self.FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente">
-            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
-            <End Role="tblCat_Direccion" EntitySet="tblCat_Direccion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente" Association="Self.FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente">
-            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
-            <End Role="tblCat_Tarjeta" EntitySet="tblCat_Tarjeta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion" Association="Self.FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion">
-            <End Role="tblCat_Direccion" EntitySet="tblCat_Direccion" />
-            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta" Association="Self.FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta">
-            <End Role="tblCat_Tarjeta" EntitySet="tblCat_Tarjeta" />
-            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito" Association="CHANGARROModel.FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito">
-            <End Role="tblCat_Carrito" EntitySet="tblCat_Carrito" />
-            <End Role="tbl_DetalleCarrito" EntitySet="tbl_DetalleCarrito" />
-          </AssociationSet>
-        </EntityContainer>
         <Association Name="FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito">
           <End Type="CHANGARROModel.tblCat_Carrito" Role="tblCat_Carrito" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -699,144 +589,290 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto">
+          <End Type="CHANGARROModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CHANGARROModel.tbl_DetalleCarrito" Role="tbl_DetalleCarrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Producto">
+              <PropertyRef Name="iIdProducto" />
+            </Principal>
+            <Dependent Role="tbl_DetalleCarrito">
+              <PropertyRef Name="iIdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra">
+          <End Type="CHANGARROModel.tblCat_Compra" Role="tblCat_Compra" Multiplicity="1" />
+          <End Type="CHANGARROModel.tbl_DetalleCompra" Role="tbl_DetalleCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Compra">
+              <PropertyRef Name="iIdCompra" />
+            </Principal>
+            <Dependent Role="tbl_DetalleCompra">
+              <PropertyRef Name="iIdCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto">
+          <End Type="CHANGARROModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1" />
+          <End Type="CHANGARROModel.tbl_DetalleCompra" Role="tbl_DetalleCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Producto">
+              <PropertyRef Name="iIdProducto" />
+            </Principal>
+            <Dependent Role="tbl_DetalleCompra">
+              <PropertyRef Name="iIdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado">
+          <End Type="CHANGARROModel.tbl_Estado" Role="tbl_Estado" Multiplicity="1" />
+          <End Type="CHANGARROModel.tblCat_Direccion" Role="tblCat_Direccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Estado">
+              <PropertyRef Name="iIdEstado" />
+            </Principal>
+            <Dependent Role="tblCat_Direccion">
+              <PropertyRef Name="iIdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente">
+          <End Type="CHANGARROModel.tblCat_Cliente" Role="tblCat_Cliente" Multiplicity="1" />
+          <End Type="CHANGARROModel.tblCat_Carrito" Role="tblCat_Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Cliente">
+              <PropertyRef Name="iIdCliente" />
+            </Principal>
+            <Dependent Role="tblCat_Carrito">
+              <PropertyRef Name="iIdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria">
+          <End Type="CHANGARROModel.tblCat_Categoria" Role="tblCat_Categoria" Multiplicity="1" />
+          <End Type="CHANGARROModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Categoria">
+              <PropertyRef Name="iIdCategoria" />
+            </Principal>
+            <Dependent Role="tblCat_Producto">
+              <PropertyRef Name="iIdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente">
+          <End Type="CHANGARROModel.tblCat_Cliente" Role="tblCat_Cliente" Multiplicity="1" />
+          <End Type="CHANGARROModel.tblCat_Compra" Role="tblCat_Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Cliente">
+              <PropertyRef Name="iIdCliente" />
+            </Principal>
+            <Dependent Role="tblCat_Compra">
+              <PropertyRef Name="iIdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente">
+          <End Type="CHANGARROModel.tblCat_Cliente" Role="tblCat_Cliente" Multiplicity="1" />
+          <End Type="CHANGARROModel.tblCat_Direccion" Role="tblCat_Direccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Cliente">
+              <PropertyRef Name="iIdCliente" />
+            </Principal>
+            <Dependent Role="tblCat_Direccion">
+              <PropertyRef Name="iIdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente">
+          <End Type="CHANGARROModel.tblCat_Cliente" Role="tblCat_Cliente" Multiplicity="1" />
+          <End Type="CHANGARROModel.tblCat_Tarjeta" Role="tblCat_Tarjeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Cliente">
+              <PropertyRef Name="iIdCliente" />
+            </Principal>
+            <Dependent Role="tblCat_Tarjeta">
+              <PropertyRef Name="iIdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion">
+          <End Type="CHANGARROModel.tblCat_Direccion" Role="tblCat_Direccion" Multiplicity="1" />
+          <End Type="CHANGARROModel.tblCat_Compra" Role="tblCat_Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Direccion">
+              <PropertyRef Name="iIdDireccion" />
+            </Principal>
+            <Dependent Role="tblCat_Compra">
+              <PropertyRef Name="iIdDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta">
+          <End Type="CHANGARROModel.tblCat_Tarjeta" Role="tblCat_Tarjeta" Multiplicity="1" />
+          <End Type="CHANGARROModel.tblCat_Compra" Role="tblCat_Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Tarjeta">
+              <PropertyRef Name="iIdTarjeta" />
+            </Principal>
+            <Dependent Role="tblCat_Compra">
+              <PropertyRef Name="iIdTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CHANGARROModelStoreContainer" CdmEntityContainer="CHANGARROEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CHANGARROModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_DetalleCarrito">
             <EntityTypeMapping TypeName="CHANGARROModel.tbl_DetalleCarrito">
               <MappingFragment StoreEntitySet="tbl_DetalleCarrito">
-                <ScalarProperty Name="iIdDetalleCarrito" ColumnName="iIdDetalleCarrito" />
-                <ScalarProperty Name="iIdCarrito" ColumnName="iIdCarrito" />
-                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
                 <ScalarProperty Name="iCantidad" ColumnName="iCantidad" />
+                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
+                <ScalarProperty Name="iIdCarrito" ColumnName="iIdCarrito" />
+                <ScalarProperty Name="iIdDetalleCarrito" ColumnName="iIdDetalleCarrito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_DetalleCompra">
             <EntityTypeMapping TypeName="CHANGARROModel.tbl_DetalleCompra">
               <MappingFragment StoreEntitySet="tbl_DetalleCompra">
-                <ScalarProperty Name="iIdDetalleCompra" ColumnName="iIdDetalleCompra" />
-                <ScalarProperty Name="iIdCompra" ColumnName="iIdCompra" />
-                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
                 <ScalarProperty Name="iCantidad" ColumnName="iCantidad" />
+                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
+                <ScalarProperty Name="iIdCompra" ColumnName="iIdCompra" />
+                <ScalarProperty Name="iIdDetalleCompra" ColumnName="iIdDetalleCompra" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Estado">
             <EntityTypeMapping TypeName="CHANGARROModel.tbl_Estado">
               <MappingFragment StoreEntitySet="tbl_Estado">
-                <ScalarProperty Name="iIdEstado" ColumnName="iIdEstado" />
                 <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iIdEstado" ColumnName="iIdEstado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCat_Administrador">
             <EntityTypeMapping TypeName="CHANGARROModel.tblCat_Administrador">
               <MappingFragment StoreEntitySet="tblCat_Administrador">
-                <ScalarProperty Name="iIdAdministrador" ColumnName="iIdAdministrador" />
-                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
-                <ScalarProperty Name="cApellido" ColumnName="cApellido" />
-                <ScalarProperty Name="cTelefono" ColumnName="cTelefono" />
-                <ScalarProperty Name="cCorreo" ColumnName="cCorreo" />
-                <ScalarProperty Name="cContrasenia" ColumnName="cContrasenia" />
                 <ScalarProperty Name="cImagen" ColumnName="cImagen" />
+                <ScalarProperty Name="cContrasenia" ColumnName="cContrasenia" />
+                <ScalarProperty Name="cCorreo" ColumnName="cCorreo" />
+                <ScalarProperty Name="cTelefono" ColumnName="cTelefono" />
+                <ScalarProperty Name="cApellido" ColumnName="cApellido" />
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iIdAdministrador" ColumnName="iIdAdministrador" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCat_Carrito">
             <EntityTypeMapping TypeName="CHANGARROModel.tblCat_Carrito">
               <MappingFragment StoreEntitySet="tblCat_Carrito">
-                <ScalarProperty Name="iIdCarrito" ColumnName="iIdCarrito" />
                 <ScalarProperty Name="iIdCliente" ColumnName="iIdCliente" />
+                <ScalarProperty Name="iIdCarrito" ColumnName="iIdCarrito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCat_Categoria">
             <EntityTypeMapping TypeName="CHANGARROModel.tblCat_Categoria">
               <MappingFragment StoreEntitySet="tblCat_Categoria">
-                <ScalarProperty Name="iIdCategoria" ColumnName="iIdCategoria" />
+                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
                 <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iIdCategoria" ColumnName="iIdCategoria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCat_Cliente">
             <EntityTypeMapping TypeName="CHANGARROModel.tblCat_Cliente">
               <MappingFragment StoreEntitySet="tblCat_Cliente">
-                <ScalarProperty Name="iIdCliente" ColumnName="iIdCliente" />
-                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
-                <ScalarProperty Name="cApellido" ColumnName="cApellido" />
-                <ScalarProperty Name="cTelefono" ColumnName="cTelefono" />
-                <ScalarProperty Name="cCorreo" ColumnName="cCorreo" />
-                <ScalarProperty Name="cContrasenia" ColumnName="cContrasenia" />
-                <ScalarProperty Name="cImagen" ColumnName="cImagen" />
-                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
-                <ScalarProperty Name="dtFechaAlta" ColumnName="dtFechaAlta" />
-                <ScalarProperty Name="dtFechaBaja" ColumnName="dtFechaBaja" />
                 <ScalarProperty Name="dtFechaModificacion" ColumnName="dtFechaModificacion" />
+                <ScalarProperty Name="dtFechaBaja" ColumnName="dtFechaBaja" />
+                <ScalarProperty Name="dtFechaAlta" ColumnName="dtFechaAlta" />
+                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
+                <ScalarProperty Name="cImagen" ColumnName="cImagen" />
+                <ScalarProperty Name="cContrasenia" ColumnName="cContrasenia" />
+                <ScalarProperty Name="cCorreo" ColumnName="cCorreo" />
+                <ScalarProperty Name="cTelefono" ColumnName="cTelefono" />
+                <ScalarProperty Name="cApellido" ColumnName="cApellido" />
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iIdCliente" ColumnName="iIdCliente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCat_Compra">
             <EntityTypeMapping TypeName="CHANGARROModel.tblCat_Compra">
               <MappingFragment StoreEntitySet="tblCat_Compra">
-                <ScalarProperty Name="iIdCompra" ColumnName="iIdCompra" />
-                <ScalarProperty Name="iIdTarjeta" ColumnName="iIdTarjeta" />
-                <ScalarProperty Name="iIdCliente" ColumnName="iIdCliente" />
-                <ScalarProperty Name="iIdDireccion" ColumnName="iIdDireccion" />
-                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
                 <ScalarProperty Name="dtFechaCompra" ColumnName="dtFechaCompra" />
+                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
+                <ScalarProperty Name="iIdDireccion" ColumnName="iIdDireccion" />
+                <ScalarProperty Name="iIdCliente" ColumnName="iIdCliente" />
+                <ScalarProperty Name="iIdTarjeta" ColumnName="iIdTarjeta" />
+                <ScalarProperty Name="iIdCompra" ColumnName="iIdCompra" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCat_Direccion">
             <EntityTypeMapping TypeName="CHANGARROModel.tblCat_Direccion">
               <MappingFragment StoreEntitySet="tblCat_Direccion">
-                <ScalarProperty Name="iIdDireccion" ColumnName="iIdDireccion" />
-                <ScalarProperty Name="iIdCliente" ColumnName="iIdCliente" />
-                <ScalarProperty Name="iIdEstado" ColumnName="iIdEstado" />
-                <ScalarProperty Name="iCodigoPostal" ColumnName="iCodigoPostal" />
-                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
-                <ScalarProperty Name="cCalle" ColumnName="cCalle" />
-                <ScalarProperty Name="cNumeroExterior" ColumnName="cNumeroExterior" />
-                <ScalarProperty Name="cNumeroInterior" ColumnName="cNumeroInterior" />
-                <ScalarProperty Name="cColonia" ColumnName="cColonia" />
-                <ScalarProperty Name="cMunicipio" ColumnName="cMunicipio" />
-                <ScalarProperty Name="cDescripcion" ColumnName="cDescripcion" />
                 <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
+                <ScalarProperty Name="cDescripcion" ColumnName="cDescripcion" />
+                <ScalarProperty Name="cMunicipio" ColumnName="cMunicipio" />
+                <ScalarProperty Name="cColonia" ColumnName="cColonia" />
+                <ScalarProperty Name="cNumeroInterior" ColumnName="cNumeroInterior" />
+                <ScalarProperty Name="cNumeroExterior" ColumnName="cNumeroExterior" />
+                <ScalarProperty Name="cCalle" ColumnName="cCalle" />
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iCodigoPostal" ColumnName="iCodigoPostal" />
+                <ScalarProperty Name="iIdEstado" ColumnName="iIdEstado" />
+                <ScalarProperty Name="iIdCliente" ColumnName="iIdCliente" />
+                <ScalarProperty Name="iIdDireccion" ColumnName="iIdDireccion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCat_Producto">
             <EntityTypeMapping TypeName="CHANGARROModel.tblCat_Producto">
               <MappingFragment StoreEntitySet="tblCat_Producto">
-                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
-                <ScalarProperty Name="iIdCategoria" ColumnName="iIdCategoria" />
-                <ScalarProperty Name="iCantidad" ColumnName="iCantidad" />
-                <ScalarProperty Name="dPrecio" ColumnName="dPrecio" />
-                <ScalarProperty Name="cDescripcion" ColumnName="cDescripcion" />
-                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
-                <ScalarProperty Name="cImagen" ColumnName="cImagen" />
-                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
-                <ScalarProperty Name="dtFechaAlta" ColumnName="dtFechaAlta" />
-                <ScalarProperty Name="dfFechaBaja" ColumnName="dfFechaBaja" />
                 <ScalarProperty Name="dtFechaModificacion" ColumnName="dtFechaModificacion" />
+                <ScalarProperty Name="dfFechaBaja" ColumnName="dfFechaBaja" />
+                <ScalarProperty Name="dtFechaAlta" ColumnName="dtFechaAlta" />
+                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
+                <ScalarProperty Name="cImagen" ColumnName="cImagen" />
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="cDescripcion" ColumnName="cDescripcion" />
+                <ScalarProperty Name="dPrecio" ColumnName="dPrecio" />
+                <ScalarProperty Name="iCantidad" ColumnName="iCantidad" />
+                <ScalarProperty Name="iIdCategoria" ColumnName="iIdCategoria" />
+                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCat_Tarjeta">
             <EntityTypeMapping TypeName="CHANGARROModel.tblCat_Tarjeta">
               <MappingFragment StoreEntitySet="tblCat_Tarjeta">
-                <ScalarProperty Name="iIdTarjeta" ColumnName="iIdTarjeta" />
-                <ScalarProperty Name="iIdCliente" ColumnName="iIdCliente" />
-                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
-                <ScalarProperty Name="cTitular" ColumnName="cTitular" />
-                <ScalarProperty Name="cNumeroTarjeta" ColumnName="cNumeroTarjeta" />
-                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
-                <ScalarProperty Name="dtMesExpiracion" ColumnName="dtMesExpiracion" />
                 <ScalarProperty Name="dtAnioExpiracion" ColumnName="dtAnioExpiracion" />
+                <ScalarProperty Name="dtMesExpiracion" ColumnName="dtMesExpiracion" />
+                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
+                <ScalarProperty Name="cNumeroTarjeta" ColumnName="cNumeroTarjeta" />
+                <ScalarProperty Name="cTitular" ColumnName="cTitular" />
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iIdCliente" ColumnName="iIdCliente" />
+                <ScalarProperty Name="iIdTarjeta" ColumnName="iIdTarjeta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

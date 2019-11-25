@@ -25,6 +25,7 @@ namespace Changarro.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tbl_DetalleCarrito> tbl_DetalleCarrito { get; set; }
         public virtual DbSet<tbl_DetalleCompra> tbl_DetalleCompra { get; set; }
         public virtual DbSet<tbl_Estado> tbl_Estado { get; set; }

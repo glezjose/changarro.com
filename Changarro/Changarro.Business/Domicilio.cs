@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using Changarro.Model.DTO;
 
-namespace ChangarroBusiness
+namespace Changarro.Business
 {
     public class Domicilio {
 

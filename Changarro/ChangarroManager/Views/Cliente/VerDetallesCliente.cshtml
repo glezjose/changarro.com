@@ -1,0 +1,107 @@
+﻿@model Changarro.Model.tblCat_Cliente
+
+@{
+    ViewBag.Title = "VerDetallesCliente";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<h2>VerDetallesCliente</h2>
+
+<div>
+    <h4>tblCat_Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.iIdCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.iIdCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cApellido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cApellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cTelefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cTelefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cCorreo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cCorreo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cContrasenia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cContrasenia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cImagen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cImagen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lEstatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lEstatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtFechaAlta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtFechaAlta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtFechaBaja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtFechaBaja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtFechaModificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtFechaModificacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -216,12 +216,14 @@
     <Content Include="Assets\js\jquery.min.js" />
     <Content Include="Assets\js\jquery.validate.min.js" />
     <Content Include="Assets\js\material-dashboard.js" />
+    <Content Include="Assets\js\moment.min.js" />
     <Content Include="Assets\js\perfect-scrollbar.jquery.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\categorias.js" />
     <Content Include="Scripts\CategoriasJS.js" />
     <Content Include="Scripts\clientes.js" />
     <Content Include="Scripts\clientesCompras.js" />
+    <Content Include="Scripts\Cliente\Cliente.js" />
     <Content Include="Scripts\date.format.js" />
     <Content Include="Scripts\Modal.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -232,8 +234,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
+    <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -322,11 +326,15 @@
     <Content Include="Assets\fontawesome\webfonts\fa-solid-900.ttf" />
     <Content Include="Assets\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Assets\fontawesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="Assets\spanish.json" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
     <Content Include="Views\Inicio\Inicio.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Perfil\Index.cshtml" />
+    <Content Include="Views\Cliente\VerDetallesCliente.cshtml" />
     <Content Include="Views\Producto\VerProductos.cshtml" />
     <Content Include="Views\Producto\AddProducto.cshtml" />
     <Content Include="Views\Producto\VisualizarProducto.cshtml" />

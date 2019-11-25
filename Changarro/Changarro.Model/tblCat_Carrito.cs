@@ -23,8 +23,8 @@ namespace Changarro.Model
         public int iIdCarrito { get; set; }
         public int iIdCliente { get; set; }
     
-        public virtual tblCat_Cliente tblCat_Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_DetalleCarrito> tbl_DetalleCarrito { get; set; }
+        public virtual tblCat_Cliente tblCat_Cliente { get; set; }
     }
 }

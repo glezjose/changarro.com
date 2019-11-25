@@ -22,6 +22,7 @@ namespace Changarro.Model
     
         public int iIdCategoria { get; set; }
         public string cNombre { get; set; }
+        public bool lEstatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCat_Producto> tblCat_Producto { get; set; }
