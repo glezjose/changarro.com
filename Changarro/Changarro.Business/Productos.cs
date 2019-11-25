@@ -13,18 +13,20 @@ using System.Linq;
 using System.Data.Entity;
 using System;
 
-namespace ChangarroBusiness
+namespace Changarro.Business
 {
 
     public class Productos
     {
-        CHANGARROEntities db = new CHANGARROEntities();
-        public Productos(CHANGARROEntities _ctx)
+        private readonly CHANGARROEntities db;
+
+        public Productos()
         {
-            this.db = _ctx;
-            this.db.Configuration.LazyLoadingEnabled = false;
-            this.db.Configuration.ProxyCreationEnabled = false;
+            db = new CHANGARROEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
         }
+
 
         ~Productos()
         {
@@ -108,6 +110,80 @@ namespace ChangarroBusiness
         {
             tblCat_Producto oProducto = db.tblCat_Producto.Where(p => p.iIdProducto == _iIdProducto).FirstOrDefault();
             return oProducto;
+        }
+        /// <summary>
+        /// Obtiene una lista de los 6 productos mas recientes que han sido agregados a la BD.
+        /// </summary>
+        /// <returns>Regresa la lista de los 6 productos</returns>
+        public List<CatalogoProductosDTO> ObtenerProductosRecientes()
+        {
+            List<CatalogoProductosDTO> _lstProductos = db.tblCat_Producto.AsNoTracking().Select(p => new CatalogoProductosDTO()
+            {
+                iIdProducto = p.iIdProducto,
+                iIdCategoria = p.iIdCategoria,
+                dPrecio = p.dPrecio,
+                cNombre = p.cNombre,
+                cImagen = p.cImagen,
+                dtFechaAlta = (DateTime)p.dtFechaAlta
+            }).OrderByDescending(p => p.dtFechaAlta).Take(6).ToList();
+            return _lstProductos;
+
+        }
+
+        /// <summary>
+        /// Este método obtiene los productos relacionados a la categoría seleccionada.
+        /// </summary>
+        /// <param name="iIdCategoria">La id de la categoría seleccionada.</param>
+        /// <returns>Regresa un listado de los productos relacionados.</returns>
+        public List<CatalogoProductosDTO> ObtenerProductosPorCategoria(int iIdCategoria)
+        {
+            List<CatalogoProductosDTO> _lstProductos = db.tblCat_Producto.AsNoTracking().Select(p => new CatalogoProductosDTO()
+            {
+                iIdProducto = p.iIdProducto,
+                iIdCategoria = p.iIdCategoria,
+                dPrecio = p.dPrecio,
+                cNombre = p.cNombre,
+                cImagen = p.cImagen,
+                dtFechaAlta = (DateTime)p.dtFechaAlta
+            }).Where(p => p.iIdCategoria == iIdCategoria).ToList();
+
+            return _lstProductos;
+        }
+
+        public List<CatalogoProductosDTO> ObtenerProductosPorBusqueda(string cBusqueda)
+        {
+            List<CatalogoProductosDTO> _lstProductos = db.tblCat_Producto.AsNoTracking().Select(p => new CatalogoProductosDTO()
+            {
+                iIdProducto = p.iIdProducto,
+                iIdCategoria = p.iIdCategoria,
+                dPrecio = p.dPrecio,
+                cNombre = p.cNombre,
+                cImagen = p.cImagen,
+                dtFechaAlta = (DateTime)p.dtFechaAlta
+            }).Where(p => p.cNombre.Contains(cBusqueda)).ToList();
+
+            return _lstProductos;
+        }
+
+        /// <summary>
+        /// Obtiene un objeto del producto seleccionado para ver detalles.
+        /// </summary>
+        /// <param name="iIdProducto">La id del producto seleccionado.</param>
+        /// <returns>Regresa el objeto encontrado con la id.</returns>
+        public DetallesProductoDTO ObtenerDetallesProducto(int iIdProducto)
+        {
+            DetallesProductoDTO _oProducto = db.tblCat_Producto.AsNoTracking().Select(p => new DetallesProductoDTO()
+            {
+                iIdProducto = p.iIdProducto,
+                iIdCategoria = p.iIdCategoria,
+                iCantidad = p.iCantidad,
+                dPrecio = p.dPrecio,
+                cNombre = p.cNombre,
+                cImagen = p.cImagen,
+                cDescripcion = p.cDescripcion
+            }).FirstOrDefault(p => p.iIdProducto == iIdProducto);
+
+            return _oProducto;
         }
     }//end Productos
 

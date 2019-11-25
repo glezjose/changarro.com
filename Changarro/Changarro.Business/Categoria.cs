@@ -13,16 +13,17 @@ using System.Data.Entity;
 using Changarro.Model;
 using Changarro.Model.DTO;
 
-namespace ChangarroBusiness
+namespace Changarro.Business
 {
     public class Categoria
     {
-        CHANGARROEntities db = new CHANGARROEntities();
-        public Categoria(CHANGARROEntities db)
+        private readonly CHANGARROEntities db;
+
+        public Categoria()
         {
-            this.db = db;
-            this.db.Configuration.LazyLoadingEnabled = false;
-            this.db.Configuration.ProxyCreationEnabled = false;
+            db = new CHANGARROEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
         }
 
         ~Categoria()
@@ -51,11 +52,6 @@ namespace ChangarroBusiness
             return null;
         }
 
-        public List<tblCat_Categoria> ObtenerCategorias()
-        {
-
-            return null;
-        }
         /// <summary>
         /// Obtiene una lista de las categorías de la tabla y lo manda al controlador
         /// </summary>
@@ -91,6 +87,37 @@ namespace ChangarroBusiness
                 throw;
             }
         }
+
+        /// <summary>
+        /// Este método obtiene una lista de las categorías en la BD.
+        /// </summary>
+        /// <returns>Regresa tal lista.</returns>
+        public List<tblCat_Categoria> ObtenerCategorias()
+        {
+
+            List<tblCat_Categoria> _lstCategorias = db.tblCat_Categoria.AsNoTracking().ToList();
+
+            return _lstCategorias;
+        }
+
+        public List<ProductosDTO> ObtenerProductos()
+        {
+
+            return null;
+        }
+
+        /// <summary>
+        /// Este método obtiene el nombre de la categoría por id.
+        /// </summary>
+        /// <param name="iIdCategoria">La id de la categoría.</param>
+        /// <returns>Regresa la cadena del nombre.</returns>
+        public string ObtenerNombreCategoria(int iIdCategoria)
+        {
+            string _cNombreCategoria = db.tblCat_Categoria.AsNoTracking().Where(c => c.iIdCategoria == iIdCategoria).FirstOrDefault().cNombre;
+
+            return _cNombreCategoria;
+        }
+
 
     }//end Categoria
 
