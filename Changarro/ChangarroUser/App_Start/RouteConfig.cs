@@ -16,7 +16,7 @@ namespace ChangarroUser
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Inicio", action = "Inicio", id = UrlParameter.Optional }
+                defaults: new { controller = "Producto", action = "Inicio", id = UrlParameter.Optional }
             );
         }
     }
