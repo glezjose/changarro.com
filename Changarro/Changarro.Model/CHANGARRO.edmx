@@ -39,7 +39,7 @@
           <Property Name="cApellido" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cTelefono" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cCorreo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cContrasenia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cContrasenia" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="cImagen" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblCat_Carrito">
@@ -65,8 +65,8 @@
           <Property Name="cApellido" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cTelefono" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="cCorreo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cContrasenia" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cImagen" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cContrasenia" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="cImagen" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="lEstatus" Type="bit" Nullable="false" />
           <Property Name="dtFechaAlta" Type="datetime" />
           <Property Name="dtFechaBaja" Type="datetime" />
@@ -110,7 +110,7 @@
           <Property Name="dPrecio" Type="decimal" Precision="7" Scale="2" Nullable="false" />
           <Property Name="cDescripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="cNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cImagen" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cImagen" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="lEstatus" Type="bit" Nullable="false" />
           <Property Name="dtFechaAlta" Type="datetime" />
           <Property Name="dfFechaBaja" Type="datetime" />
@@ -381,7 +381,7 @@
           <Property Name="cApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cTelefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cContrasenia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cContrasenia" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cImagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblCat_Carrito">
@@ -410,7 +410,7 @@
           <Property Name="cApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cTelefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cContrasenia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cContrasenia" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cImagen" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
           <Property Name="dtFechaAlta" Type="DateTime" Precision="3" />

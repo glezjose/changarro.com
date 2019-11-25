@@ -54,6 +54,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -110,6 +113,7 @@
     <Content Include="Assets\css\nouislider.min.css" />
     <Content Include="Assets\css\owl.carousel.css" />
     <Content Include="Assets\css\perfil.css" />
+    <Content Include="Assets\css\sweetalert2.min.css" />
     <Content Include="Assets\css\themify-icons.css" />
     <Content Include="Assets\img\author.png" />
     <Content Include="Assets\img\banner\banner-bg.jpg" />
@@ -245,15 +249,19 @@
     <Content Include="Assets\js\jquery.magnific-popup.min.js" />
     <Content Include="Assets\js\jquery.nice-select.min.js" />
     <Content Include="Assets\js\jquery.sticky.js" />
+    <Content Include="Assets\js\jquery.validate.min.js" />
     <Content Include="Assets\js\main.js" />
     <Content Include="Assets\js\nouislider.min.js" />
     <Content Include="Assets\js\owl.carousel.min.js" />
     <Content Include="Assets\js\parallax.min.js" />
+    <Content Include="Assets\js\sweetalert2.all.min.js" />
     <Content Include="Assets\js\vendor\bootstrap.min.js" />
     <Content Include="Assets\js\vendor\jquery-2.2.4.min.js" />
     <Content Include="Assets\js\vendor\popper.js" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Inicio\ValidarRegistro.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Inicio\Sesion.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -294,6 +302,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
     <Content Include="Views\Inicio\Inicio.cshtml" />
+    <Content Include="Views\Inicio\Registro.cshtml" />
+    <Content Include="Views\Inicio\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

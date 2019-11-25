@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Login/Register</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Login/Register</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<!--================ Área de Registro =================-->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <img class="img-fluid" src="~/Assets/img/login.jpg" alt="" height="677">
+                    <div class="hover">
+                        <h4>¿Ya tienes una cuenta?</h4>
+                        <p>Inicia sesión para poder adquirir tus productos favoritos</p>
+                        <a class="primary-btn" href="@Url.Action("Login", "Default")">Iniciar sesión</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+                    <h3>Crea una cuenta</h3>
+                    <form class="row login_form needs-validation" id="registroForm" novalidate>
+                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" id="cNombre" name="cNombre" placeholder="Nombre" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nombre'">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" id="cApellido" name="cApellido" placeholder="Apellido" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Apellido'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="cCorreo" name="cCorreo" placeholder="Correo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Correo'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="cContrasenia" name="cContrasenia" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contraseña'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="cConfirmContrasenia" name="cConfirmContrasenia" placeholder="Confirmar Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirmar Contraseña'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <button id="btnRegistro" class="primary-btn">Registrate!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ Fin del área de Registro =================-->
+
+<!--================ Sección de scripts =================-->
+@section scripts{
+    <script src="~/Scripts/Inicio/Sesion.js"></script>
+    <script src="~/Scripts/Inicio/ValidarRegistro.js"></script>
+}
+<!--================ Fin de Sección de scripts =================-->
