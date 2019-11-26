@@ -1,6 +1,6 @@
 ﻿using Changarro.Model;
 using Changarro.Model.DTO;
-using ChangarroBusiness;
+using Changarro.Business;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -27,7 +27,7 @@ namespace ChangarroManager.Controllers
         {
             List<ListaCategoriaDTO> lstCategoria = new List<ListaCategoriaDTO>();
 
-            Categoria categoriaSer = new Categoria(db);
+            Categoria categoriaSer = new Categoria();
             lstCategoria = categoriaSer.ObtenerListaCategoria();
 
             return Json(new { data = lstCategoria }, JsonRequestBehavior.AllowGet);
@@ -43,7 +43,7 @@ namespace ChangarroManager.Controllers
 
             try
             {
-                Categoria CategoriaService = new Categoria(db);
+                Categoria CategoriaService = new Categoria();
 
                 tblCat_Categoria obp = new tblCat_Categoria
                 {

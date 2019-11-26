@@ -1,6 +1,6 @@
 ﻿using Changarro.Model;
 using Changarro.Model.DTO;
-using ChangarroBusiness;
+using Changarro.Business;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -36,7 +36,7 @@ namespace ChangarroManager.Controllers
 
             try
             {
-                Productos ProductoBus = new Productos(ctx);
+                Productos ProductoBus = new Productos();
 
                 tblCat_Producto obp = new tblCat_Producto
                 {
@@ -60,7 +60,7 @@ namespace ChangarroManager.Controllers
         {
             using (ctx)
             {
-                Productos changarroBusiness = new Productos(ctx);
+                Productos changarroBusiness = new Productos();
                 tblCat_Producto oProducto = changarroBusiness.ObtenerProducto(id);
                 return View(oProducto);
             }
@@ -70,7 +70,7 @@ namespace ChangarroManager.Controllers
         {
             List<ListaProductosDTO> lstProducto = new List<ListaProductosDTO>();
 
-            Productos ProductoSer = new Productos(ctx);
+            Productos ProductoSer = new Productos();
             lstProducto = ProductoSer.ObtenerListaProductos();
 
             return Json(new { data = lstProducto }, JsonRequestBehavior.AllowGet);
