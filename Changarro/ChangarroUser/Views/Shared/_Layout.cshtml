@@ -84,6 +84,7 @@
                 @using (Html.BeginForm("VerProductosPorBusqueda", "Producto", FormMethod.Get, new { @class = "d-flex justify-content-between" }))
                 {
                         <input type="text" class="form-control" id="cBusqueda" name="cBusqueda" placeholder="Ingresar Busqueda">
+                        @Html.Hidden("iPagina", 1)
                         <button type="submit" class="btn"></button>
                         <span class="ti-close" id="close_search" title="Close Search"></span>
                 }

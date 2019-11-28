@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Productos", "Default")">
+                        <a class="nav-link" href="@Url.Action("VerProductos", "Producto")">
                             <i class="ti-package"></i>
                             <p>Productos</p>
                         </a>
@@ -93,6 +93,7 @@
         </div>
     </div>
     <div class="modal fade" id="modalGeneral" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    
     </div>
 
     <script>
@@ -100,10 +101,8 @@
     </script>
     <script src="~/Assets/js/core/jquery.min.js"></script>
     <script src="~/Assets/js/core/popper.min.js"></script>
-    @*<script src="~/assets/js/bootstrap.min.js"></script>*@
     <script src="~/Assets/js/core/bootstrap-material-design.min.js"></script>
     <script src="~/Assets/js/jquery.dataTables.min.js"></script>
-    @*<script src="~/assets/js/perfect-scrollbar.jquery.min.js"></script>*@
     <script src="~/Assets/js/material-dashboard.js"></script>
     <script src="~/Assets/js/demo.js"></script>
     @RenderSection("scripts", required: false)

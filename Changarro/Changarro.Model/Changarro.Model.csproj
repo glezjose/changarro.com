@@ -82,10 +82,13 @@
     <Compile Include="DTO\DetallesProductoDTO.cs" />
     <Compile Include="DTO\DomicilioDTO.cs" />
     <Compile Include="DTO\GestionProductoDTO.cs" />
+    <Compile Include="DTO\ListaCategoriaDTO.cs" />
+    <Compile Include="DTO\ListaProductosDTO.cs" />
     <Compile Include="DTO\LoginDTO.cs" />
     <Compile Include="DTO\ProductosDTO.cs" />
     <Compile Include="DTO\RegistroDTO.cs" />
     <Compile Include="DTO\TarjetaDTO.cs" />
+    <Compile Include="DTO\VerDetallesProducto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>CHANGARRO.tt</DependentUpon>

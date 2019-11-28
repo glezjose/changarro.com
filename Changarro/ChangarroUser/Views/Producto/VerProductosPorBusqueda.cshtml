@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Changarro.Model.DTO.CatalogoProductosDTO>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Changarro.Model.DTO.CatalogoProductosDTO>
 
 @{
     ViewBag.Title = "VerProductosPorBusqueda";
@@ -43,12 +44,7 @@
                 <div class="sorting mr-auto">
                 </div>
                 <div class="pagination">
-                    <a href="#" class="prev-arrow"><i class="ti-arrow-left" aria-hidden="true"></i></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#" class="next-arrow"><i class="ti-arrow-right" aria-hidden="true"></i></a>
+                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.cBusqueda, iPagina = iPagina }))
                 </div>
 
             </div>
@@ -89,24 +85,18 @@
                             </div>
                         </div>
                     }
-                <div class="col-lg-12">
-                <h5>@ViewBag.cMensaje</h5>
-                </div>
+                    <div class="col-lg-12">
+                        <h5>@ViewBag.cMensaje</h5>
+                    </div>
                 </div>
             </section>
             <br />
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center">
                 <div class="sorting mr-auto">
-
                 </div>
                 <div class="pagination">
-                    <a href="#" class="prev-arrow"><i class="ti-arrow-left" aria-hidden="true"></i></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#" class="next-arrow"><i class="ti-arrow-right" aria-hidden="true"></i></a>
+                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.cBusqueda, iPagina = iPagina }))
                 </div>
             </div>
             <!-- End Filter Bar -->

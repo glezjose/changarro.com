@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace ChangarroUser.Controllers
 {
@@ -96,15 +97,17 @@ namespace ChangarroUser.Controllers
         /// </summary>
         /// <param name="cBusqueda">Es la cadena de la búsqueda ingresada.</param>
         /// <returns>Regresa tal vista con el modelo que es un listado de productos relacionados a la cadena de búsqueda.</returns>
-        public ActionResult VerProductosPorBusqueda(string cBusqueda)
+        public ActionResult VerProductosPorBusqueda(string cBusqueda, int? iPagina)
         {
-            Productos productos = new Productos();
+            int _iIndicePagina = iPagina.HasValue ? Convert.ToInt32(iPagina) : 1;
 
-            ViewBag.cNombreBusqueda = cBusqueda;
+            Productos _productos = new Productos();
 
-            List<CatalogoProductosDTO> _lstProductos = productos.ObtenerProductosPorBusqueda(cBusqueda);
+            ViewBag.cBusqueda = cBusqueda;
 
-            if(_lstProductos.Count() == 0)
+            List<CatalogoProductosDTO> _lstProductos = _productos.ObtenerProductosPorBusqueda(cBusqueda);
+
+            if (_lstProductos.Count() == 0)
             {
                 ViewBag.cMensaje = "No existe productos relacionados con la búsqueda " + '"' + cBusqueda + '"';
             }
@@ -112,8 +115,9 @@ namespace ChangarroUser.Controllers
             {
                 ViewBag.cMensaje = "";
             }
+            IPagedList<CatalogoProductosDTO> _pagedlstProductos = _lstProductos.ToPagedList(9, _iIndicePagina);
 
-            return View(_lstProductos);
+            return View(_pagedlstProductos);
         }
         #endregion
     }
