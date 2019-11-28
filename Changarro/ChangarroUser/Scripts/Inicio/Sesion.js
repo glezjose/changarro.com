@@ -26,7 +26,7 @@ $("#btnLogin").click(function (e) {
         }
 
         const cUrl = "IniciarSesion";
-        RegistrarCliente(oLogin, cUrl);
+        ManejarSesionCliente(oLogin, cUrl);
     }
 })
 
@@ -43,28 +43,34 @@ $("#btnRegistro").click(function (e) {
             cContrasenia: $("#cContrasenia").val()
         }
 
-        const cUrl = "RegistrarCliente";
-        RegistrarCliente(oNuevoCliente, cUrl);
+        const cUrl = "ManejarSesionCliente";
+        ManejarSesionCliente(oNuevoCliente, cUrl);
     }
 })
 
 /**
  * /Función para registrar un nuevo cliente
- * @param {any} oNuevoCliente Objeto con los datos del nuevo cliente
+ * @param {any} oSesionCliente Objeto con los datos del nuevo cliente
  * @param {any} cUrl Cadena con la url del método para registrar clientes
  */
-function RegistrarCliente(oNuevoCliente, cUrl) {
+function ManejarSesionCliente(oSesionCliente, cUrl) {
     $.ajax({
         type: "POST",
         url: cUrl,
-        data: { oCliente: JSON.stringify(oNuevoCliente) },
+        data: { oCliente: JSON.stringify(oSesionCliente) },
         async: false,
         success: function (data) {
-            console.log(data._oUsuario);
-            Toast.fire({
-                icon: 'success',
-                title: 'Empleado registrado con éxito'
-            })
+            if (data._cMensajeError === null) {
+                const oMensajesError = data._oUsuario;
+                console.log(oMensajesError.cCorreo);
+                console.log(oMensajesError.cContrasenia);
+            }
+            else {
+                Toast.fire({
+                    icon: 'error',
+                    title: data._cMensajeError
+                })
+            }   
         }
     });
 }

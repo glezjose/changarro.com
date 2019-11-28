@@ -49,7 +49,7 @@
           <Property Name="cApellido" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cTelefono" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cCorreo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cContrasenia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cContrasenia" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="cImagen" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblCat_Carrito">
@@ -465,7 +465,7 @@
           <Property Name="cApellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cTelefono" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cCorreo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cContrasenia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cContrasenia" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="cImagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblCat_Carrito">

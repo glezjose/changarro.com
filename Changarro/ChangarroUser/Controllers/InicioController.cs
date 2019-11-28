@@ -1,4 +1,5 @@
-﻿using Changarro.Model.DTO;
+﻿using Changarro.Business;
+using Changarro.Model.DTO;
 using ChangarroBusiness;
 using Newtonsoft.Json;
 using System.Web.Mvc;
@@ -30,7 +31,7 @@ namespace ChangarroUser.Controllers
         [HttpPost]
         public JsonResult RegistrarCliente()
         {
-            string _cMensajeError = string.Empty;
+            string _cMensajeError = null;
             string _clienteJSON = Request["oCliente"];
             RegistroDTO _oUsuario = JsonConvert.DeserializeObject<RegistroDTO>(_clienteJSON);
             RegistroUsuario Registro = new RegistroUsuario();
@@ -58,23 +59,25 @@ namespace ChangarroUser.Controllers
         [HttpPost]
         public JsonResult IniciarSesion()
         {
-            string _cMensajeError = string.Empty;
-            string _loginJSON = Request["oLogin"];
+            string _cMensajeError = null;
+            string _loginJSON = Request["oCliente"];
             LoginDTO _oUsuario = JsonConvert.DeserializeObject<LoginDTO>(_loginJSON);
 
-            //InicioSesion Iniciar = new InicioSesion();
+            InicioSesion Login = new InicioSesion();
             try
             {
+                _cMensajeError = Login.ValidarLogin(_oUsuario); 
 
+                if (_cMensajeError == null)
+                {
+                    //redirect
+                }
             }
             catch (System.Exception)
             {
-
-                throw;
+                _cMensajeError = "Ha ocurrido un error al registrarse por favor intente mas tarde";
             }
-            return Json(null);
-
-
+            return Json(_cMensajeError);
         }
     }
 }
