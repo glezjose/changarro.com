@@ -1,6 +1,5 @@
 ﻿using Changarro.Business;
 using Changarro.Model.DTO;
-using ChangarroBusiness;
 using Newtonsoft.Json;
 using System;
 using System.Web.Mvc;
@@ -54,6 +53,7 @@ namespace ChangarroUser.Controllers
             RegistroDTO _oUsuario = JsonConvert.DeserializeObject<RegistroDTO>(Request["oCliente"]);
 
             RegistroUsuario Registro = new RegistroUsuario();
+            Carrito carrito = new Carrito();
 
             try
             {
@@ -61,7 +61,9 @@ namespace ChangarroUser.Controllers
 
                 if (_oMensajesError == null)
                 {
-                    Registro.RegistrarCliente(_oUsuario);
+                    int iIdCliente = Registro.RegistrarCliente(_oUsuario);
+                    carrito.RegistrarCarrito(iIdCliente);
+
                     _oUsuario = null;
                 }
                 else

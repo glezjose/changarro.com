@@ -276,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -322,6 +323,7 @@
     <Content Include="Views\Inicio\Inicio.cshtml" />
     <Content Include="Views\Inicio\Registro.cshtml" />
     <Content Include="Views\Inicio\Login.cshtml" />
+    <Content Include="Views\Carrito\ProductosCarrito.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

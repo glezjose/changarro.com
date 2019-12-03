@@ -66,8 +66,12 @@ namespace ChangarroUser.Controllers
         /// <param name="iIdCategoria"></param>
         /// <returns>Regresa la vista con el modelo que es un listado de los productos relacionados a la categoría.</returns>
         [HttpGet]
-        public ActionResult VerProductosPorCategoria(int iIdCategoria)
+        public ActionResult VerProductosPorCategoria(int iIdCategoria, int? iPagina)
         {
+            ViewBag.iIdCategoria = iIdCategoria;
+
+            int _iIndicePagina = iPagina.HasValue ? Convert.ToInt32(iPagina) : 1;
+
             Productos productos = new Productos();
             Categoria categoria = new Categoria();
 
@@ -75,7 +79,9 @@ namespace ChangarroUser.Controllers
 
             List<CatalogoProductosDTO> _lstProductos = productos.ObtenerProductosPorCategoria(iIdCategoria);
 
-            return View(_lstProductos);
+            IPagedList<CatalogoProductosDTO> _pagedlstProductos = _lstProductos.ToPagedList(_iIndicePagina, 1);
+
+            return View(_pagedlstProductos);
         }
 
         /// <summary>
@@ -99,11 +105,11 @@ namespace ChangarroUser.Controllers
         /// <returns>Regresa tal vista con el modelo que es un listado de productos relacionados a la cadena de búsqueda.</returns>
         public ActionResult VerProductosPorBusqueda(string cBusqueda, int? iPagina)
         {
+            ViewBag.cBusqueda = cBusqueda;
+
             int _iIndicePagina = iPagina.HasValue ? Convert.ToInt32(iPagina) : 1;
 
             Productos _productos = new Productos();
-
-            ViewBag.cBusqueda = cBusqueda;
 
             List<CatalogoProductosDTO> _lstProductos = _productos.ObtenerProductosPorBusqueda(cBusqueda);
 
@@ -115,7 +121,8 @@ namespace ChangarroUser.Controllers
             {
                 ViewBag.cMensaje = "";
             }
-            IPagedList<CatalogoProductosDTO> _pagedlstProductos = _lstProductos.ToPagedList(9, _iIndicePagina);
+
+            IPagedList<CatalogoProductosDTO> _pagedlstProductos = _lstProductos.ToPagedList(_iIndicePagina, 1);
 
             return View(_pagedlstProductos);
         }
