@@ -3,6 +3,6 @@
 @foreach (var item in Model)
 {
     <li class="nav-item">
-        <a class="nav-link linkCategoria" href="@Url.Action("VerProductosPorCategoria","Producto", new { iIdCategoria = item.iIdCategoria })">@item.cNombre</a>
+        <a class="nav-link linkCategoria" href="@Url.Action("VerProductosPorCategoria","Producto", new { iIdCategoria = item.iIdCategoria, iPagina = 1 })">@item.cNombre</a>
     </li>
 }

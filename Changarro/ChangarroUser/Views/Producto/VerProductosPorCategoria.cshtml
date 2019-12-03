@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Changarro.Model.DTO.CatalogoProductosDTO>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Changarro.Model.DTO.CatalogoProductosDTO>
 @{
     ViewBag.Title = "VerProductosPorCategoria";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,10 +23,10 @@
 </section>
 <!-- End Banner Area -->
 <div class="container">
-    <div class="row">
+    <div class="row-product">
         <div class="col-xl-3 col-lg-4 col-md-5">
             <div class="sidebar-categories">
-                <div class="head">Categorias</div>
+                <div class="head">Categorías</div>
                 <ul class="main-categories">
 
                     @{
@@ -42,23 +43,18 @@
                 <div class="sorting mr-auto">
                 </div>
                 <div class="pagination">
-                    <a href="#" class="prev-arrow"><i class="ti-arrow-left" aria-hidden="true"></i></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#" class="next-arrow"><i class="ti-arrow-right" aria-hidden="true"></i></a>
+                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.iIdCategoria, iPagina = iPagina }))
                 </div>
 
             </div>
             <!-- End Filter Bar -->
             <!-- Productos -->
             <section class="lattest-product-area pb-40 category-list">
-                <div class="row">
+                <div class="row-product">
                     @foreach (var item in Model)
                     {
                         <!-- single product -->
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-4 col-md-6 product-container">
                             <div class="single-product">
                                 <img class="img-fluid" src="@item.cImagen" alt="" style="width:180px;height:180px;">
                                 <div class="product-details">
@@ -71,15 +67,15 @@
                                     <div class="prd-bottom">
                                         @Html.Hidden("iIdProducto", item.iIdProducto)
 
-                                        <a id="btnComprarAhora" class="social-info">
+                                        <a class="social-info btnComprarAhora" href="#">
                                             <span class="ti-money"></span>
                                             <p class="hover-text">Comprar</p>
                                         </a>
-                                        <a id="btnAgregarCarrito" class="social-info">
+                                        <a class="social-info btnAgregarCarrito" href="#">
                                             <span class="ti-bag"></span>
                                             <p class="hover-text">Agregar</p>
                                         </a>
-                                        <a class="social-info btnVerDetalles">
+                                        <a class="social-info btnVerDetalles" href="#">
                                             <span class="ti-eye"></span>
                                             <p class="hover-text">Ver más</p>
                                         </a>
@@ -98,12 +94,7 @@
 
                 </div>
                 <div class="pagination">
-                    <a href="#" class="prev-arrow"><i class="ti-arrow-left" aria-hidden="true"></i></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#" class="next-arrow"><i class="ti-arrow-right" aria-hidden="true"></i></a>
+                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.iIdCategoria, iPagina = iPagina }))
                 </div>
             </div>
             <!-- End Filter Bar -->

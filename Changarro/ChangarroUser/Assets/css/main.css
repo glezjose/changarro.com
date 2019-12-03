@@ -3164,18 +3164,21 @@ label {
       border-radius: 0px; }
 
 .pagination {
-  margin-top: 10px;
-  border-left: 1px solid #eee;
+  margin-top: 5px;
   border-radius: 0px; }
   .pagination a {
     width: 40px;
     line-height: 40px;
     text-align: center;
     display: inline-block;
-    background: #fff; }
-    .pagination a.active {
-      color: #fff; }
-    .pagination a:hover {
+    background: #fff;
+    color: black;
+  }
+    .pagination li.active {
+        color: black;
+        background-color: #ffb901;
+    }
+    .pagination li:hover {
       color: #fff; }
   .pagination .dot-dot {
     width: auto;
@@ -3189,6 +3192,11 @@ label {
       border: 0px;
       border-right: 1px solid #eee;
       color: #cccccc; }
+    .pagination .filler {
+        width: 40px;
+        height: 43.5px;
+        display: inline-block;
+    }
 
 .single-organic-product-list {
   padding: 30px 0;
@@ -5606,7 +5614,9 @@ text-align: center;
 
 .footer-area {
   padding-top: 100px;
-  background-color: #222222; }
+  background-color: #222222;
+  margin-top: 100px;
+}
   .footer-area h6 {
     color: #fff;
     margin-bottom: 25px;
@@ -5822,7 +5832,7 @@ text-align: center;
 .badge-primary {
     background-color: #ff7f00;
     font-size: 9px;
-    text-align:
+    
 }
 
 .general_select {
@@ -5836,4 +5846,29 @@ text-align: center;
 
 .banner-area{
     margin-bottom: 100px;
+}
+
+.row-product {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -30px;
+    margin-left: -30px;
+}
+
+.product-container{
+    padding-left: 30px;
+}
+
+.filler-banner{
+    height: 24px;
+}
+
+.modal-header{
+    border-bottom: none;
+}
+
+.modal-footer{
+    border-top: none;
 }
