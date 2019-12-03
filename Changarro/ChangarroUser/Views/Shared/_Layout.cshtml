@@ -52,13 +52,23 @@
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="modal" role="button" aria-haspopup="true"
                                    data-target="#exampleModalCenter"
                                    aria-expanded="false">Perfil</a>
+                                    @Session["iIdCliente"]
 
-                                <ul class="dropdown-menu">
+                            <ul class="dropdown-menu">
+                                @if (Session["iIdCliente"] == null)
+                                {
                                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Registro", "Inicio")">Registrarte</a></li>
-
                                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Inicio")">Iniciar Sesión</a></li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Registro", "Inicio")">Mi perfil</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Inicio")">Historial de compras</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Inicio")">Cerrar Sesión</a></li>
+                                }
 
-                                </ul>
+
+                            </ul>
                             </li>
                         </ul>
 
@@ -83,10 +93,10 @@
             <div class="container">
                 @using (Html.BeginForm("VerProductosPorBusqueda", "Producto", FormMethod.Get, new { @class = "d-flex justify-content-between" }))
                 {
-                        <input type="text" class="form-control" id="cBusqueda" name="cBusqueda" placeholder="Ingresar Busqueda">
-                        @Html.Hidden("iPagina", 1)
-                        <button type="submit" class="btn"></button>
-                        <span class="ti-close" id="close_search" title="Close Search"></span>
+                    <input type="text" class="form-control" id="cBusqueda" name="cBusqueda" placeholder="Ingresar Busqueda">
+                    @Html.Hidden("iPagina", 1)
+                    <button type="submit" class="btn"></button>
+                    <span class="ti-close" id="close_search" title="Close Search"></span>
                 }
             </div>
         </div>
