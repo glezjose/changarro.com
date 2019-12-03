@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
-    ValidarCampos()
+    ValidarRegistro();
+    ValidarLogin();
+    BarraHerramientas();
+
 });
 
 const Toast = Swal.mixin({
@@ -14,58 +17,76 @@ const Toast = Swal.mixin({
     }
 })
 
-$("#btnLogin").click(function (e) {
+function BarraHerramientas() {
+    $("#btnLogin").click(function (e) {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    if ($('#registroForm').valid() === true) {
+        if ($('#loginForm').valid() === true) {
 
-        const oLogin = {
-            cCorreo: $("#cCorreo").val(),
-            cContrasenia: $("#cContrasenia").val()
+            const oLogin = {
+                cCorreo: $("#cCorreo").val().toLowerCase(),
+                cContrasenia: $("#cContrasenia").val()
+            }
+
+            ManejarSesionCliente("POST", "IniciarSesion", { oCliente: JSON.stringify(oLogin) }, IniciarSesion);
         }
+    })
 
-        const cUrl = "IniciarSesion";
-        RegistrarCliente(oLogin, cUrl);
-    }
-})
+    $("#btnRegistro").click(function (e) {
 
-$("#btnRegistro").click(function (e) {
+        e.preventDefault();
 
-    e.preventDefault();
+        if ($('#registroForm').valid() === true) {
 
-    if ($('#registroForm').valid() === true) { 
+            const oNuevoCliente = {
+                cNombre: $("#cNombre").val(),
+                cApellido: $("#cApellido").val(),
+                cCorreo: $("#cCorreo").val().toLowerCase(),
+                cContrasenia: $("#cContrasenia").val()
+            }
 
-        const oNuevoCliente = {
-            cNombre: $("#cNombre").val(),
-            cApellido: $("#cApellido").val(),
-            cCorreo: $("#cCorreo").val(),
-            cContrasenia: $("#cContrasenia").val()
+            ManejarSesionCliente("POST", "RegistrarCliente", { oCliente: JSON.stringify(oNuevoCliente) }, RegistarCliente);
         }
+    })
+}
 
-        const cUrl = "RegistrarCliente";
-        RegistrarCliente(oNuevoCliente, cUrl);
-    }
-})
-
-/**
- * /Función para registrar un nuevo cliente
- * @param {any} oNuevoCliente Objeto con los datos del nuevo cliente
- * @param {any} cUrl Cadena con la url del método para registrar clientes
- */
-function RegistrarCliente(oNuevoCliente, cUrl) {
+function ManejarSesionCliente(cTipo, cUrl, data, funcion) {
     $.ajax({
-        type: "POST",
+        type: cTipo,
         url: cUrl,
-        data: { oCliente: JSON.stringify(oNuevoCliente) },
         async: false,
-        success: function (data) {
-            console.log(data._oUsuario);
-            Toast.fire({
-                icon: 'success',
-                title: 'Empleado registrado con éxito'
-            })
+        data: data,
+        dataType: "json",
+        success: function (response) {
+            if (response._cMensajeError === null) {
+                funcion(response._oUsuario);                
+            }
+            else {
+                Toast.fire({
+                    icon: 'error',
+                    title: response._cMensajeError
+                })
+            } 
         }
     });
 }
 
+function RegistarCliente(oUsuario) {
+    if (oUsuario === null) {
+        window.location.href = '/changarro/Producto/Inicio';
+    } else {
+        console.log(oUsuario);        
+        ValidarRegistro(oUsuario.cNombre, oUsuario.cApellido, oUsuario.cCorreo);
+        $('#registroForm').valid();
+    }
+}
+
+function IniciarSesion(oUsuario) {
+    if (oUsuario === null) {
+        window.location.href = '/changarro/Producto/Inicio';
+    } else {
+        ValidarLogin(oUsuario.cCorreo, oUsuario.cContrasenia);
+        $('#loginForm').valid();
+    }
+}

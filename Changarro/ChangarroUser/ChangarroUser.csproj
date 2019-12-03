@@ -267,7 +267,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Inicio\Inicio.js" />
-    <Content Include="Scripts\Inicio\ValidarRegistro.js" />
+    <Content Include="Scripts\Inicio\ValidarFormularios.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Producto\Producto.js" />
     <Content Include="Scripts\Utileria.js" />

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Changarro.Business
+namespace ChangarroBusiness
 {
     public class RegistroUsuario
     {
@@ -23,47 +23,23 @@ namespace Changarro.Business
         /// Método para registrar usuarios
         /// </summary>
         /// <param name="oCliente">Objeto con los datos del Cliente</param>
-        public int RegistrarCliente(RegistroDTO oCliente)
+        public void RegistrarCliente(RegistroDTO oCliente)
         {
-
-            try
+            tblCat_Cliente _oCliente = new tblCat_Cliente()
             {
-                tblCat_Cliente _oCliente = new tblCat_Cliente()
-                {
-                    cNombre = oCliente.cNombre,
-                    cApellido = oCliente.cApellido,
-                    cTelefono = "N/A",
-                    cCorreo = oCliente.cCorreo,
-                    cContrasenia = GenerarHash(oCliente.cContrasenia),
-                    cImagen = "1574316321_ImagenClienteDef",
-                    dtFechaAlta = DateTime.Today,
-                    lEstatus = true
-                };
+                cNombre = oCliente.cNombre,
+                cApellido = oCliente.cApellido,
+                cTelefono = "N/A",
+                cCorreo = oCliente.cCorreo,
+                cContrasenia = GenerarHash(oCliente.cContrasenia),
+                cImagen = "1574316321_ImagenClienteDef",
+                dtFechaAlta = DateTime.Today,
+                lEstatus = true
+            };
 
-                ctx.tblCat_Cliente.Add(_oCliente);
+            ctx.tblCat_Cliente.Add(_oCliente);
 
-                ctx.SaveChanges();
-
-                int iIdCliente = _oCliente.iIdCliente;
-
-                return iIdCliente;
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
-
-
+            ctx.SaveChanges();
         }
 
         /// <summary>
@@ -73,15 +49,16 @@ namespace Changarro.Business
         /// <returns>Objeto con mensajes de campos inválidos</returns>
         public RegistroDTO ValidarDatos(RegistroDTO oUsuario)
         {
-            RegistroDTO _oUsuario = new RegistroDTO();
+            RegistroDTO _oUsuario = new RegistroDTO();            
 
             if (ctx.tblCat_Cliente.Any(c => c.cCorreo == oUsuario.cCorreo))
             {
-                _oUsuario.cCorreo = "Este correo ya ha sido registrado por otro usuario";
+                _oUsuario.cCorreo = oUsuario.cCorreo;
             }
-            else if (ctx.tblCat_Cliente.Any(c => (c.cNombre+c.cApellido).Trim().ToLower() == (oUsuario.cNombre+c.cApellido).Trim().ToLower()))
+            if (ctx.tblCat_Cliente.Any(c => (c.cNombre + c.cApellido).Trim().ToLower() == (oUsuario.cNombre + c.cApellido).Trim().ToLower()))
             {
-                _oUsuario.cNombre = "Ya existe un usuario con los mismos nombres";
+                _oUsuario.cNombre = oUsuario.cNombre.ToLower();
+                _oUsuario.cApellido = oUsuario.cApellido.ToLower();
             }
             else
             {
@@ -96,7 +73,7 @@ namespace Changarro.Business
         /// </summary>
         /// <param name="cContraseña">Contraseña del usuario</param>
         /// <returns>Regresa la contraseña cifrada del usuario</returns>
-        private string GenerarHash(string cContraseña)
+        public string GenerarHash(string cContraseña)
         {
             // Crea un hash tipo SHA256   
             using (SHA256 sha256Hash = SHA256.Create())
