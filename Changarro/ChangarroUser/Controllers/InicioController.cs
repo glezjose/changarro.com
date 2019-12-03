@@ -5,7 +5,7 @@ using System;
 using System.Web.Mvc;
 
 namespace ChangarroUser.Controllers
-{ 
+{
     public class InicioController : Controller
     {
         #region [Vistas]
@@ -54,6 +54,7 @@ namespace ChangarroUser.Controllers
 
             RegistroUsuario Registro = new RegistroUsuario();
             Carrito carrito = new Carrito();
+            InicioSesion Login = new InicioSesion();
 
             try
             {
@@ -63,6 +64,8 @@ namespace ChangarroUser.Controllers
                 {
                     int iIdCliente = Registro.RegistrarCliente(_oUsuario);
                     carrito.RegistrarCarrito(iIdCliente);
+
+                    Session["iIdCliente"] = iIdCliente.ToString();
 
                     _oUsuario = null;
                 }
@@ -82,13 +85,13 @@ namespace ChangarroUser.Controllers
         public JsonResult IniciarSesion()
         {
             string _cMensajeError = null;
-            
+
             LoginDTO _oUsuario = JsonConvert.DeserializeObject<LoginDTO>(Request["oCliente"]);
 
             InicioSesion Login = new InicioSesion();
             try
-            {               
-                LoginDTO _oLogin = Login.ValidarLogin(_oUsuario); 
+            {
+                LoginDTO _oLogin = Login.ValidarLogin(_oUsuario);
 
                 if (_oLogin.iIdUsuario > 0)
                 {
@@ -106,7 +109,7 @@ namespace ChangarroUser.Controllers
             {
                 _cMensajeError = "Ha ocurrido un error al iniciar sesión por favor intente mas tarde";
             }
-            return Json(new {_cMensajeError, _oUsuario });
+            return Json(new { _cMensajeError, _oUsuario });
         }
         #endregion
     }
