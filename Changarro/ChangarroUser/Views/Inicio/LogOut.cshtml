@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+@section header{
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">CerrarSesion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="ti-close"></span>
+        </button>
+    </div>
+}
+
+<p><strong>¡Estas a punto de cerrar sesión!</strong></p>
+<p>¿Desea continuar?</p>
+
+@section footer{
+    <div class="modal-footer">
+        <a class="genric-btn default radius" href="#" data-dismiss="modal">Cancelar</a>
+        <a href="#" class="genric-btn primary radius" id="btnLogOut">Aceptar</a>
+    </div>
+}
