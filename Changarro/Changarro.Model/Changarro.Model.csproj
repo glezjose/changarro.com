@@ -87,6 +87,7 @@
     <Compile Include="DTO\LoginDTO.cs" />
     <Compile Include="DTO\ProductosDTO.cs" />
     <Compile Include="DTO\RegistroDTO.cs" />
+    <Compile Include="DTO\ReporteCategorias.cs" />
     <Compile Include="DTO\TarjetaDTO.cs" />
     <Compile Include="DTO\VerDetallesProducto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
