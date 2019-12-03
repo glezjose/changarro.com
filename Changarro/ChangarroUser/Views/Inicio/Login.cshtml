@@ -36,12 +36,12 @@
             <div class="col-lg-6">
                 <div class="login_form_inner">
                     <h3>Inicio de sesión</h3>
-                    <form class="row login_form" id="loginForm" novalidate="novalidate">
+                    <form class="row login_form needs-validation" id="loginForm" novalidate>
                         <div class="col-md-12 form-group">
                             <input type="email" class="form-control" id="cCorreo" name="cCorreo" placeholder="Correo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="cContrasenia" name="cContrasenia" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <input type="password" class="form-control" id="cContrasenia" name="cContrasenia" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
                         </div>
                         <div class="col-md-12 form-group">
                             <button id="btnLogin" class="primary-btn">Iniciar sesión</button>
@@ -54,10 +54,9 @@
     </div>
 </section>
 <!--================ Fin de Area del Login =================-->
-
 <!--================ Sección de scripts =================-->
 @section scripts{
-    <script src="~/Scripts/Inicio/ValidarRegistro.js"></script>
     <script src="~/Scripts/Inicio/Sesion.js"></script>
+    <script src="~/Scripts/Inicio/ValidarFormularios.js"></script>
 }
 <!--================ Fin de Sección de scripts =================-->

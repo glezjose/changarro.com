@@ -5,18 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4e720266782c432e9939ade3b12aef51" Name="Diagram1" ZoomLevel="88">
-        <EntityTypeShape EntityType="CHANGARROModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="CHANGARROModel.tbl_DetalleCarrito" Width="1.5" PointX="5.25" PointY="17.75" />
-        <EntityTypeShape EntityType="CHANGARROModel.tbl_DetalleCompra" Width="1.5" PointX="7.5" PointY="8.5" />
-        <EntityTypeShape EntityType="CHANGARROModel.tbl_Estado" Width="1.5" PointX="0.75" PointY="3.875" />
-        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Administrador" Width="1.5" PointX="7.75" PointY="3.75" />
-        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Carrito" Width="1.5" PointX="3" PointY="18" />
-        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Categoria" Width="1.5" PointX="3" PointY="1.75" />
-        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Cliente" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Compra" Width="1.5" PointX="5.25" PointY="8.125" />
-        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Direccion" Width="1.5" PointX="3" PointY="5.75" />
-        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Producto" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Tarjeta" Width="1.5" PointX="3" PointY="10.625" />
+        <EntityTypeShape EntityType="CHANGARROModel.sysdiagrams" PointX="7.75" PointY="2.75" Width="1.5" />
+        <EntityTypeShape EntityType="CHANGARROModel.tbl_DetalleCarrito" PointX="5.25" PointY="14.125" Width="1.5" />
+        <EntityTypeShape EntityType="CHANGARROModel.tbl_DetalleCompra" PointX="7.5" PointY="8.5" Width="1.5" />
+        <EntityTypeShape EntityType="CHANGARROModel.tbl_Estado" PointX="0.75" PointY="3.875" Width="1.5" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Administrador" PointX="9.75" PointY="2.75" Width="1.5" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Carrito" PointX="3" PointY="14.25" Width="1.5" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Categoria" PointX="3" PointY="3.125" Width="1.5" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Cliente" PointX="0.75" PointY="6.75" Width="1.5" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Compra" PointX="5.25" PointY="8.125" Width="1.5" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Direccion" PointX="3" PointY="5.75" Width="1.5" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Producto" PointX="5.25" PointY="0.75" Width="1.5" />
+        <EntityTypeShape EntityType="CHANGARROModel.tblCat_Tarjeta" PointX="3" PointY="10.625" Width="1.5" />
         <AssociationConnector Association="CHANGARROModel.FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito" />
         <AssociationConnector Association="CHANGARROModel.FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto" />
         <AssociationConnector Association="CHANGARROModel.FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra" />

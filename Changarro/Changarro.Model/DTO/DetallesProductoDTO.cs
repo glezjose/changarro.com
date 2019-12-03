@@ -14,7 +14,7 @@ using System.IO;
 
 
 namespace Changarro.Model.DTO {
-	public class DetallesProductoDTO {
+    public class DetallesProductoDTO {
 
         public int iIdProducto { get; set; }
         public int iIdCategoria { get; set; }

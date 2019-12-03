@@ -2,28 +2,47 @@
 using Changarro.Model.DTO;
 using ChangarroBusiness;
 using Newtonsoft.Json;
+using System;
 using System.Web.Mvc;
 
 namespace ChangarroUser.Controllers
-{
+{ 
     public class InicioController : Controller
     {
-        // GET: Inicio
+        #region [Vistas]
+
+        /// <summary>
+        /// Método que carga la vista de la página principal
+        /// </summary>
+        /// <returns>Vista HTML</returns>
+        [HttpGet]
         public ActionResult Inicio()
         {
             return View();
         }
 
+        /// <summary>
+        /// Método que carga la página de registro
+        /// </summary>
+        /// <returns>Vista HTML</returns>
+        [HttpGet]
         public ActionResult Registro()
         {
             return View();
         }
 
+        /// <summary>
+        /// Método que carga la vista de la página de inicio de sesión
+        /// </summary>
+        /// <returns>Vista HTML</returns>
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
+        #endregion
 
+        #region [Métodos]
         /// <summary>
         /// Método para registrar clientes
         /// </summary>
@@ -32,8 +51,8 @@ namespace ChangarroUser.Controllers
         public JsonResult RegistrarCliente()
         {
             string _cMensajeError = null;
-            string _clienteJSON = Request["oCliente"];
-            RegistroDTO _oUsuario = JsonConvert.DeserializeObject<RegistroDTO>(_clienteJSON);
+            RegistroDTO _oUsuario = JsonConvert.DeserializeObject<RegistroDTO>(Request["oCliente"]);
+
             RegistroUsuario Registro = new RegistroUsuario();
 
             try
@@ -43,13 +62,14 @@ namespace ChangarroUser.Controllers
                 if (_oMensajesError == null)
                 {
                     Registro.RegistrarCliente(_oUsuario);
+                    _oUsuario = null;
                 }
                 else
                 {
                     _oUsuario = _oMensajesError;
                 }
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 _cMensajeError = "Ha ocurrido un error al registrarse por favor intente mas tarde";
             }
@@ -60,24 +80,32 @@ namespace ChangarroUser.Controllers
         public JsonResult IniciarSesion()
         {
             string _cMensajeError = null;
-            string _loginJSON = Request["oCliente"];
-            LoginDTO _oUsuario = JsonConvert.DeserializeObject<LoginDTO>(_loginJSON);
+            
+            LoginDTO _oUsuario = JsonConvert.DeserializeObject<LoginDTO>(Request["oCliente"]);
 
             InicioSesion Login = new InicioSesion();
             try
-            {
-                _cMensajeError = Login.ValidarLogin(_oUsuario); 
+            {               
+                LoginDTO _oLogin = Login.ValidarLogin(_oUsuario); 
 
-                if (_cMensajeError == null)
+                if (_oLogin.iIdUsuario > 0)
                 {
-                    //redirect
+                    Session["iIdCliente"] = _oLogin.iIdUsuario.ToString();
+                    _oUsuario = null;
+
+                    RedirectToAction("Inicio");
+                }
+                else
+                {
+                    _oUsuario = _oLogin;
                 }
             }
             catch (System.Exception)
             {
-                _cMensajeError = "Ha ocurrido un error al registrarse por favor intente mas tarde";
+                _cMensajeError = "Ha ocurrido un error al iniciar sesión por favor intente mas tarde";
             }
-            return Json(_cMensajeError);
+            return Json(new {_cMensajeError, _oUsuario });
         }
+        #endregion
     }
 }

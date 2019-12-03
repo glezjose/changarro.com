@@ -1,40 +1,52 @@
 ﻿using Changarro.Model;
 using Changarro.Model.DTO;
+using ChangarroBusiness;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Changarro.Business
 {
     public class InicioSesion
-    {
-        CHANGARROEntities ctx = new CHANGARROEntities();
-        public string ValidarLogin(LoginDTO oLogin)
+    {     
+        public LoginDTO ValidarLogin(LoginDTO oLogin)
         {
-            string _cMensaje;
-            try
+            RegistroUsuario Registro = new RegistroUsuario();
+
+            string _cHashContrasenia = Registro.GenerarHash(oLogin.cContrasenia);
+
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
-                if (ctx.tblCat_Cliente.Any(c => c.cCorreo == oLogin.cCorreo))
+                LoginDTO _oUsuario = (from c in ctx.tblCat_Cliente.AsNoTracking()
+                                     where c.cCorreo == oLogin.cCorreo
+                                     select (new LoginDTO
+                                     {
+                                         iIdUsuario = c.iIdCliente,
+                                         cCorreo = c.cCorreo,
+                                         cContrasenia = c.cContrasenia
+
+                                     })).FirstOrDefault();
+
+                if (_oUsuario != null)
                 {
-                    if (ctx.tblCat_Cliente.Any(c => c.cContrasenia == oLogin.cContrasenia))
+                    oLogin.cCorreo = null;
+
+                    if (_oUsuario.cContrasenia == _cHashContrasenia)
                     {
-                        _cMensaje = string.Empty;
+                        oLogin.cContrasenia = null;
+                        oLogin.iIdUsuario = _oUsuario.iIdUsuario;
                     }
                     else
                     {
-                        _cMensaje = "Contraseña incorrecta";
-                    }
+                        oLogin.cCorreo = null;
+                    }                    
                 }
                 else
                 {
-                    _cMensaje = "Esta dirección de correo no se encuentra registrada";
+                    oLogin.cContrasenia = null;
                 }
             }
-            catch (System.Exception)
-            {
 
-                _cMensaje = "Error de conexión por favor intente mas tarde";
-            }
-            
-            return _cMensaje;
+            return oLogin;
         }
     }
 }

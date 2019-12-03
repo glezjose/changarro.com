@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CHANGARROModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="CHANGARROModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Nullable="false" MaxLength="128" Type="nvarchar" />
+          <Property Name="principal_id" Nullable="false" Type="int" />
+          <Property Name="diagram_id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
@@ -19,66 +19,66 @@
           <Key>
             <PropertyRef Name="iIdDetalleCarrito" />
           </Key>
-          <Property Name="iIdDetalleCarrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="iIdCarrito" Type="int" Nullable="false" />
-          <Property Name="iIdProducto" Type="int" Nullable="false" />
-          <Property Name="iCantidad" Type="decimal" Precision="7" Scale="0" Nullable="false" />
+          <Property Name="iIdDetalleCarrito" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="iIdCarrito" Nullable="false" Type="int" />
+          <Property Name="iIdProducto" Nullable="false" Type="int" />
+          <Property Name="iCantidad" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="tbl_DetalleCompra">
           <Key>
             <PropertyRef Name="iIdDetalleCompra" />
           </Key>
-          <Property Name="iIdDetalleCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="iIdCompra" Type="int" Nullable="false" />
-          <Property Name="iIdProducto" Type="int" Nullable="false" />
-          <Property Name="iCantidad" Type="int" Nullable="false" />
+          <Property Name="iIdDetalleCompra" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="iIdCompra" Nullable="false" Type="int" />
+          <Property Name="iIdProducto" Nullable="false" Type="int" />
+          <Property Name="iCantidad" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Estado">
           <Key>
             <PropertyRef Name="iIdEstado" />
           </Key>
-          <Property Name="iIdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cNombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="iIdEstado" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="cNombre" Nullable="false" MaxLength="20" Type="varchar" />
         </EntityType>
         <EntityType Name="tblCat_Administrador">
           <Key>
             <PropertyRef Name="iIdAdministrador" />
           </Key>
-          <Property Name="iIdAdministrador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cApellido" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cTelefono" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cCorreo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cContrasenia" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="cImagen" Type="varchar" MaxLength="50" />
+          <Property Name="iIdAdministrador" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="cNombre" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cApellido" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cTelefono" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cCorreo" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cContrasenia" Nullable="false" MaxLength="256" Type="varchar" />
+          <Property Name="cImagen" MaxLength="50" Type="varchar" />
         </EntityType>
         <EntityType Name="tblCat_Carrito">
           <Key>
             <PropertyRef Name="iIdCarrito" />
           </Key>
-          <Property Name="iIdCarrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="iIdCliente" Type="int" Nullable="false" />
+          <Property Name="iIdCarrito" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="iIdCliente" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="tblCat_Categoria">
           <Key>
             <PropertyRef Name="iIdCategoria" />
           </Key>
-          <Property Name="iIdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cNombre" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="lEstatus" Type="bit" Nullable="false" />
+          <Property Name="iIdCategoria" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="cNombre" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="lEstatus" Nullable="false" Type="bit" />
         </EntityType>
         <EntityType Name="tblCat_Cliente">
           <Key>
             <PropertyRef Name="iIdCliente" />
           </Key>
-          <Property Name="iIdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cApellido" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cTelefono" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="cCorreo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cContrasenia" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="cImagen" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="lEstatus" Type="bit" Nullable="false" />
+          <Property Name="iIdCliente" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="cNombre" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cApellido" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cTelefono" Nullable="false" MaxLength="10" Type="varchar" />
+          <Property Name="cCorreo" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cContrasenia" Nullable="false" MaxLength="256" Type="varchar" />
+          <Property Name="cImagen" Nullable="false" MaxLength="30" Type="varchar" />
+          <Property Name="lEstatus" Nullable="false" Type="bit" />
           <Property Name="dtFechaAlta" Type="datetime" />
           <Property Name="dtFechaBaja" Type="datetime" />
           <Property Name="dtFechaModificacion" Type="datetime" />
@@ -87,42 +87,42 @@
           <Key>
             <PropertyRef Name="iIdCompra" />
           </Key>
-          <Property Name="iIdCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="iIdTarjeta" Type="int" Nullable="false" />
-          <Property Name="iIdCliente" Type="int" Nullable="false" />
-          <Property Name="iIdDireccion" Type="int" Nullable="false" />
-          <Property Name="lEstatus" Type="bit" Nullable="false" />
+          <Property Name="iIdCompra" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="iIdTarjeta" Nullable="false" Type="int" />
+          <Property Name="iIdCliente" Nullable="false" Type="int" />
+          <Property Name="iIdDireccion" Nullable="false" Type="int" />
+          <Property Name="lEstatus" Nullable="false" Type="bit" />
           <Property Name="dtFechaCompra" Type="datetime" />
         </EntityType>
         <EntityType Name="tblCat_Direccion">
           <Key>
             <PropertyRef Name="iIdDireccion" />
           </Key>
-          <Property Name="iIdDireccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="iIdCliente" Type="int" Nullable="false" />
-          <Property Name="iIdEstado" Type="int" Nullable="false" />
-          <Property Name="iCodigoPostal" Type="int" Nullable="false" />
-          <Property Name="cNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cCalle" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cNumeroExterior" Type="varchar" MaxLength="10" />
-          <Property Name="cNumeroInterior" Type="varchar" MaxLength="10" />
-          <Property Name="cColonia" Type="varchar" MaxLength="50" />
-          <Property Name="cMunicipio" Type="varchar" MaxLength="30" />
+          <Property Name="iIdDireccion" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="iIdCliente" Nullable="false" Type="int" />
+          <Property Name="iIdEstado" Nullable="false" Type="int" />
+          <Property Name="iCodigoPostal" Nullable="false" Type="int" />
+          <Property Name="cNombre" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cCalle" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cNumeroExterior" MaxLength="10" Type="varchar" />
+          <Property Name="cNumeroInterior" MaxLength="10" Type="varchar" />
+          <Property Name="cColonia" MaxLength="50" Type="varchar" />
+          <Property Name="cMunicipio" MaxLength="30" Type="varchar" />
           <Property Name="cDescripcion" Type="varchar(max)" />
-          <Property Name="lEstatus" Type="bit" Nullable="false" />
+          <Property Name="lEstatus" Nullable="false" Type="bit" />
         </EntityType>
         <EntityType Name="tblCat_Producto">
           <Key>
             <PropertyRef Name="iIdProducto" />
           </Key>
-          <Property Name="iIdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="iIdCategoria" Type="int" Nullable="false" />
-          <Property Name="iCantidad" Type="int" Nullable="false" />
-          <Property Name="dPrecio" Type="decimal" Precision="7" Scale="2" Nullable="false" />
-          <Property Name="cDescripcion" Type="varchar(max)" Nullable="false" />
-          <Property Name="cNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cImagen" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="lEstatus" Type="bit" Nullable="false" />
+          <Property Name="iIdProducto" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="iIdCategoria" Nullable="false" Type="int" />
+          <Property Name="iCantidad" Nullable="false" Type="int" />
+          <Property Name="dPrecio" Nullable="false" Precision="7" Scale="2" Type="decimal" />
+          <Property Name="cDescripcion" Nullable="false" Type="varchar(max)" />
+          <Property Name="cNombre" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cImagen" Nullable="false" MaxLength="30" Type="varchar" />
+          <Property Name="lEstatus" Nullable="false" Type="bit" />
           <Property Name="dtFechaAlta" Type="datetime" />
           <Property Name="dfFechaBaja" Type="datetime" />
           <Property Name="dtFechaModificacion" Type="datetime" />
@@ -131,20 +131,20 @@
           <Key>
             <PropertyRef Name="iIdTarjeta" />
           </Key>
-          <Property Name="iIdTarjeta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="iIdCliente" Type="int" Nullable="false" />
-          <Property Name="cNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cTitular" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cNumeroTarjeta" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="lEstatus" Type="bit" Nullable="false" />
-          <Property Name="dtMesExpiracion" Type="datetime" Nullable="false" />
-          <Property Name="dtAnioExpiracion" Type="datetime" Nullable="false" />
+          <Property Name="iIdTarjeta" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="iIdCliente" Nullable="false" Type="int" />
+          <Property Name="cNombre" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cTitular" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="cNumeroTarjeta" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="lEstatus" Nullable="false" Type="bit" />
+          <Property Name="dtMesExpiracion" Nullable="false" Type="datetime" />
+          <Property Name="dtAnioExpiracion" Nullable="false" Type="datetime" />
         </EntityType>
         <Association Name="FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito">
-          <End Role="tblCat_Carrito" Type="Self.tblCat_Carrito" Multiplicity="1">
+          <End Type="Self.tblCat_Carrito" Multiplicity="1" Role="tblCat_Carrito">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="tbl_DetalleCarrito" Type="Self.tbl_DetalleCarrito" Multiplicity="*" />
+          <End Type="Self.tbl_DetalleCarrito" Multiplicity="*" Role="tbl_DetalleCarrito" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Carrito">
               <PropertyRef Name="iIdCarrito" />
@@ -155,10 +155,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto">
-          <End Role="tblCat_Producto" Type="Self.tblCat_Producto" Multiplicity="1">
+          <End Type="Self.tblCat_Producto" Multiplicity="1" Role="tblCat_Producto">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="tbl_DetalleCarrito" Type="Self.tbl_DetalleCarrito" Multiplicity="*" />
+          <End Type="Self.tbl_DetalleCarrito" Multiplicity="*" Role="tbl_DetalleCarrito" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Producto">
               <PropertyRef Name="iIdProducto" />
@@ -169,8 +169,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra">
-          <End Role="tblCat_Compra" Type="Self.tblCat_Compra" Multiplicity="1" />
-          <End Role="tbl_DetalleCompra" Type="Self.tbl_DetalleCompra" Multiplicity="*" />
+          <End Type="Self.tblCat_Compra" Multiplicity="1" Role="tblCat_Compra" />
+          <End Type="Self.tbl_DetalleCompra" Multiplicity="*" Role="tbl_DetalleCompra" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Compra">
               <PropertyRef Name="iIdCompra" />
@@ -181,8 +181,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente">
-          <End Role="tblCat_Cliente" Type="Self.tblCat_Cliente" Multiplicity="1" />
-          <End Role="tblCat_Carrito" Type="Self.tblCat_Carrito" Multiplicity="*" />
+          <End Type="Self.tblCat_Cliente" Multiplicity="1" Role="tblCat_Cliente" />
+          <End Type="Self.tblCat_Carrito" Multiplicity="*" Role="tblCat_Carrito" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Cliente">
               <PropertyRef Name="iIdCliente" />
@@ -193,8 +193,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente">
-          <End Role="tblCat_Cliente" Type="Self.tblCat_Cliente" Multiplicity="1" />
-          <End Role="tblCat_Compra" Type="Self.tblCat_Compra" Multiplicity="*" />
+          <End Type="Self.tblCat_Cliente" Multiplicity="1" Role="tblCat_Cliente" />
+          <End Type="Self.tblCat_Compra" Multiplicity="*" Role="tblCat_Compra" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Cliente">
               <PropertyRef Name="iIdCliente" />
@@ -205,8 +205,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion">
-          <End Role="tblCat_Direccion" Type="Self.tblCat_Direccion" Multiplicity="1" />
-          <End Role="tblCat_Compra" Type="Self.tblCat_Compra" Multiplicity="*" />
+          <End Type="Self.tblCat_Direccion" Multiplicity="1" Role="tblCat_Direccion" />
+          <End Type="Self.tblCat_Compra" Multiplicity="*" Role="tblCat_Compra" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Direccion">
               <PropertyRef Name="iIdDireccion" />
@@ -217,8 +217,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta">
-          <End Role="tblCat_Tarjeta" Type="Self.tblCat_Tarjeta" Multiplicity="1" />
-          <End Role="tblCat_Compra" Type="Self.tblCat_Compra" Multiplicity="*" />
+          <End Type="Self.tblCat_Tarjeta" Multiplicity="1" Role="tblCat_Tarjeta" />
+          <End Type="Self.tblCat_Compra" Multiplicity="*" Role="tblCat_Compra" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Tarjeta">
               <PropertyRef Name="iIdTarjeta" />
@@ -229,8 +229,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto">
-          <End Role="tblCat_Producto" Type="Self.tblCat_Producto" Multiplicity="1" />
-          <End Role="tbl_DetalleCompra" Type="Self.tbl_DetalleCompra" Multiplicity="*" />
+          <End Type="Self.tblCat_Producto" Multiplicity="1" Role="tblCat_Producto" />
+          <End Type="Self.tbl_DetalleCompra" Multiplicity="*" Role="tbl_DetalleCompra" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Producto">
               <PropertyRef Name="iIdProducto" />
@@ -241,8 +241,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente">
-          <End Role="tblCat_Cliente" Type="Self.tblCat_Cliente" Multiplicity="1" />
-          <End Role="tblCat_Direccion" Type="Self.tblCat_Direccion" Multiplicity="*" />
+          <End Type="Self.tblCat_Cliente" Multiplicity="1" Role="tblCat_Cliente" />
+          <End Type="Self.tblCat_Direccion" Multiplicity="*" Role="tblCat_Direccion" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Cliente">
               <PropertyRef Name="iIdCliente" />
@@ -253,8 +253,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado">
-          <End Role="tbl_Estado" Type="Self.tbl_Estado" Multiplicity="1" />
-          <End Role="tblCat_Direccion" Type="Self.tblCat_Direccion" Multiplicity="*" />
+          <End Type="Self.tbl_Estado" Multiplicity="1" Role="tbl_Estado" />
+          <End Type="Self.tblCat_Direccion" Multiplicity="*" Role="tblCat_Direccion" />
           <ReferentialConstraint>
             <Principal Role="tbl_Estado">
               <PropertyRef Name="iIdEstado" />
@@ -265,8 +265,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria">
-          <End Role="tblCat_Categoria" Type="Self.tblCat_Categoria" Multiplicity="1" />
-          <End Role="tblCat_Producto" Type="Self.tblCat_Producto" Multiplicity="*" />
+          <End Type="Self.tblCat_Categoria" Multiplicity="1" Role="tblCat_Categoria" />
+          <End Type="Self.tblCat_Producto" Multiplicity="*" Role="tblCat_Producto" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Categoria">
               <PropertyRef Name="iIdCategoria" />
@@ -277,8 +277,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente">
-          <End Role="tblCat_Cliente" Type="Self.tblCat_Cliente" Multiplicity="1" />
-          <End Role="tblCat_Tarjeta" Type="Self.tblCat_Tarjeta" Multiplicity="*" />
+          <End Type="Self.tblCat_Cliente" Multiplicity="1" Role="tblCat_Cliente" />
+          <End Type="Self.tblCat_Tarjeta" Multiplicity="*" Role="tblCat_Tarjeta" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Cliente">
               <PropertyRef Name="iIdCliente" />
@@ -302,52 +302,52 @@
           <EntitySet Name="tblCat_Producto" EntityType="Self.tblCat_Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCat_Tarjeta" EntityType="Self.tblCat_Tarjeta" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito" Association="Self.FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito">
-            <End Role="tblCat_Carrito" EntitySet="tblCat_Carrito" />
-            <End Role="tbl_DetalleCarrito" EntitySet="tbl_DetalleCarrito" />
+            <End EntitySet="tblCat_Carrito" Role="tblCat_Carrito" />
+            <End EntitySet="tbl_DetalleCarrito" Role="tbl_DetalleCarrito" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto" Association="Self.FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto">
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
-            <End Role="tbl_DetalleCarrito" EntitySet="tbl_DetalleCarrito" />
+            <End EntitySet="tblCat_Producto" Role="tblCat_Producto" />
+            <End EntitySet="tbl_DetalleCarrito" Role="tbl_DetalleCarrito" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra" Association="Self.FK_tbl_DetalleCompra_iIdCompra_tblCat_Compra_iIdCompra">
-            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
-            <End Role="tbl_DetalleCompra" EntitySet="tbl_DetalleCompra" />
+            <End EntitySet="tblCat_Compra" Role="tblCat_Compra" />
+            <End EntitySet="tbl_DetalleCompra" Role="tbl_DetalleCompra" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente" Association="Self.FK_tblCat_Carrito_iIdCliente_tblCat_Cliente_iIdCliente">
-            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
-            <End Role="tblCat_Carrito" EntitySet="tblCat_Carrito" />
+            <End EntitySet="tblCat_Cliente" Role="tblCat_Cliente" />
+            <End EntitySet="tblCat_Carrito" Role="tblCat_Carrito" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente" Association="Self.FK_tblCat_Compra_iIdCliente_tblCat_Cliente_iIdCliente">
-            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
-            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
+            <End EntitySet="tblCat_Cliente" Role="tblCat_Cliente" />
+            <End EntitySet="tblCat_Compra" Role="tblCat_Compra" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion" Association="Self.FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion">
-            <End Role="tblCat_Direccion" EntitySet="tblCat_Direccion" />
-            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
+            <End EntitySet="tblCat_Direccion" Role="tblCat_Direccion" />
+            <End EntitySet="tblCat_Compra" Role="tblCat_Compra" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta" Association="Self.FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta">
-            <End Role="tblCat_Tarjeta" EntitySet="tblCat_Tarjeta" />
-            <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
+            <End EntitySet="tblCat_Tarjeta" Role="tblCat_Tarjeta" />
+            <End EntitySet="tblCat_Compra" Role="tblCat_Compra" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto" Association="Self.FK_tblCat_DetalleCompra_iIdProducto_tblCat_Producto_iIdProducto">
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
-            <End Role="tbl_DetalleCompra" EntitySet="tbl_DetalleCompra" />
+            <End EntitySet="tblCat_Producto" Role="tblCat_Producto" />
+            <End EntitySet="tbl_DetalleCompra" Role="tbl_DetalleCompra" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente" Association="Self.FK_tblCat_Direccion_iIdCliente_tblCat_Cliente_iIdCliente">
-            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
-            <End Role="tblCat_Direccion" EntitySet="tblCat_Direccion" />
+            <End EntitySet="tblCat_Cliente" Role="tblCat_Cliente" />
+            <End EntitySet="tblCat_Direccion" Role="tblCat_Direccion" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado" Association="Self.FK_tblCat_Direccion_iIdEstado_tblCat_Estado_iIdEstado">
-            <End Role="tbl_Estado" EntitySet="tbl_Estado" />
-            <End Role="tblCat_Direccion" EntitySet="tblCat_Direccion" />
+            <End EntitySet="tbl_Estado" Role="tbl_Estado" />
+            <End EntitySet="tblCat_Direccion" Role="tblCat_Direccion" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria" Association="Self.FK_tblCat_Producto_iIdCategoria_tblCat_Categoria_iIdCategoria">
-            <End Role="tblCat_Categoria" EntitySet="tblCat_Categoria" />
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
+            <End EntitySet="tblCat_Categoria" Role="tblCat_Categoria" />
+            <End EntitySet="tblCat_Producto" Role="tblCat_Producto" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente" Association="Self.FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente">
-            <End Role="tblCat_Cliente" EntitySet="tblCat_Cliente" />
-            <End Role="tblCat_Tarjeta" EntitySet="tblCat_Tarjeta" />
+            <End EntitySet="tblCat_Cliente" Role="tblCat_Cliente" />
+            <End EntitySet="tblCat_Tarjeta" Role="tblCat_Tarjeta" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -433,7 +433,7 @@
           <Property Name="iIdDetalleCarrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdCarrito" Type="Int32" Nullable="false" />
           <Property Name="iIdProducto" Type="Int32" Nullable="false" />
-          <Property Name="iCantidad" Type="Decimal" Nullable="false" Precision="7" Scale="0" />
+          <Property Name="iCantidad" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblCat_Carrito" Relationship="CHANGARROModel.FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito" FromRole="tbl_DetalleCarrito" ToRole="tblCat_Carrito" />
           <NavigationProperty Name="tblCat_Producto" Relationship="CHANGARROModel.FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto" FromRole="tbl_DetalleCarrito" ToRole="tblCat_Producto" />
         </EntityType>
