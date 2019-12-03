@@ -40,9 +40,9 @@
                 <div class="sorting mr-auto">
                 </div>
                 <div class="pagination">
-                    @if(ViewBag.cMensaje != "")
+                    @if (ViewBag.cMensaje != "")
                     {
-                    <div class="filler"></div>
+                        <div class="filler"></div>
                     }
 
                     @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.cBusqueda, iPagina = iPagina }))
@@ -111,6 +111,6 @@
 
 @section scripts{
     <script src="~/Scripts/Utileria.js"></script>
-    <script src="~/Scripts/Inicio/Inicio.js"></script>
+    <script src="~/Scripts/Producto/Producto.js"></script>
 }
 
