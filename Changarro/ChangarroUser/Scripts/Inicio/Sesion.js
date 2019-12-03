@@ -49,6 +49,24 @@ function BarraHerramientas() {
             ManejarSesionCliente("POST", "RegistrarCliente", { oCliente: JSON.stringify(oNuevoCliente) }, RegistarCliente);
         }
     })
+
+    $("#btnCerrarSesion").click(function (e) {
+
+        e.preventDefault();
+
+        AbrirModal("LogOut", Login)
+
+    })
+}
+
+function Login() {
+    $("#btnLogOut").click(function (e) {
+
+        e.preventDefault();
+
+        ManejarSesionCliente("POST", "LogOut", null, CerrarSesion);
+        
+    });
 }
 
 function ManejarSesionCliente(cTipo, cUrl, data, funcion) {
@@ -89,4 +107,8 @@ function IniciarSesion(oUsuario) {
         ValidarLogin(oUsuario.cCorreo, oUsuario.cContrasenia);
         $('#loginForm').valid();
     }
+}
+
+function CerrarSesion() {
+    alert("xd");
 }

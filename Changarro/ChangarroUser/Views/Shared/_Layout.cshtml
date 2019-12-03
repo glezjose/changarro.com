@@ -52,7 +52,6 @@
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="modal" role="button" aria-haspopup="true"
                                    data-target="#exampleModalCenter"
                                    aria-expanded="false">Perfil</a>
-                                    @Session["iIdCliente"]
 
                             <ul class="dropdown-menu">
                                 @if (Session["iIdCliente"] == null)
@@ -64,7 +63,7 @@
                                 {
                                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Registro", "Inicio")">Mi perfil</a></li>
                                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Inicio")">Historial de compras</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Inicio")">Cerrar Sesión</a></li>
+                                    <li class="nav-item"><a class="nav-link" id="btnCerrarSesion" href="@Url.Action("CerrarSesion", "Inicio")">Cerrar Sesión</a></li>
                                 }
 
 

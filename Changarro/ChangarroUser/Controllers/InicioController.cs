@@ -3,6 +3,7 @@ using Changarro.Model.DTO;
 using Newtonsoft.Json;
 using System;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ChangarroUser.Controllers
 { 
@@ -39,9 +40,15 @@ namespace ChangarroUser.Controllers
         {
             return View();
         }
+
+        public ActionResult LogOut()
+        {
+            return View();
+        }
         #endregion
 
         #region [Métodos]
+
         /// <summary>
         /// Método para registrar clientes
         /// </summary>
@@ -78,6 +85,10 @@ namespace ChangarroUser.Controllers
             return Json(new { _cMensajeError, _oUsuario });
         }
 
+        /// <summary>
+        /// Método para el inicio de sesión de los clientes
+        /// </summary>
+        /// <returns>Mensajes de error y validaciones</returns>
         [HttpPost]
         public JsonResult IniciarSesion()
         {
@@ -107,6 +118,18 @@ namespace ChangarroUser.Controllers
                 _cMensajeError = "Ha ocurrido un error al iniciar sesión por favor intente mas tarde";
             }
             return Json(new {_cMensajeError, _oUsuario });
+        }
+
+        /// <summary>
+        /// Método para cerrar sesión
+        /// </summary>
+        /// <returns>Vista de pagina de inicio</returns>
+        [HttpGet]
+        public ActionResult CerrarSesion()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon(); // Limpiara la sesión al final de la petición
+            return RedirectToAction("inicio", "Producto");
         }
         #endregion
     }
