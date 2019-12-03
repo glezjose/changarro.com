@@ -11,23 +11,55 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using Changarro.Model;
+using System.Linq;
 
 namespace Changarro.Business {
 	public class Carrito {
 
-		public Carrito(){
+        CHANGARROEntities db;
 
+		public Carrito(){
+            db = new CHANGARROEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
 		}
 
 		~Carrito(){
 
 		}
 
+        public void RegistrarCarrito(int iIdCliente)
+        {
+            tblCat_Carrito oCarrito = new tblCat_Carrito()
+            {
+                iIdCliente = iIdCliente
+            };
+
+            db.tblCat_Carrito.Add(oCarrito);
+            db.SaveChanges();
+
+        }
+
 		/// 
 		/// <param name="iIdProducto"></param>
-		public void AgregarAcarrito(int iIdProducto){
+		public void AgregarAcarrito(int iIdProducto, int iIdCarrito){
+            tbl_DetalleCarrito oDetalleCarrito = new tbl_DetalleCarrito()
+            {
+                iIdCarrito = iIdCarrito,
+                iIdProducto = iIdProducto,
+                iCantidad = 1
+            };
 
+            db.tbl_DetalleCarrito.Add(oDetalleCarrito);
+            db.SaveChanges();
 		}
+
+        public int ObtenerTotalProductos(int iIdCarrito)
+        {
+            int iTotalProductos = db.tbl_DetalleCarrito.AsNoTracking().Any(p => p.iIdCarrito == iIdCarrito) ? db.tbl_DetalleCarrito.AsNoTracking().Where(p => p.iIdCarrito == iIdCarrito).Sum(p => p.iCantidad) : 0;
+
+            return iTotalProductos;
+        }
 
 		/// 
 		/// <param name="iIdCarritoProducto"></param>

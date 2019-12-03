@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ChangarroBusiness
+namespace Changarro.Business
 {
     public class RegistroUsuario
     {
@@ -23,7 +23,7 @@ namespace ChangarroBusiness
         /// Método para registrar usuarios
         /// </summary>
         /// <param name="oCliente">Objeto con los datos del Cliente</param>
-        public void RegistrarCliente(RegistroDTO oCliente)
+        public int RegistrarCliente(RegistroDTO oCliente)
         {
 
             try
@@ -43,6 +43,10 @@ namespace ChangarroBusiness
                 ctx.tblCat_Cliente.Add(_oCliente);
 
                 ctx.SaveChanges();
+
+                int iIdCliente = _oCliente.iIdCliente;
+
+                return iIdCliente;
             }
             catch (DbEntityValidationException e)
             {

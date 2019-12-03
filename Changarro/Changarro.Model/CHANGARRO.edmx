@@ -22,7 +22,7 @@
           <Property Name="iIdDetalleCarrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="iIdCarrito" Type="int" Nullable="false" />
           <Property Name="iIdProducto" Type="int" Nullable="false" />
-          <Property Name="iCantidad" Type="decimal" Precision="7" Scale="0" Nullable="false" />
+          <Property Name="iCantidad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_DetalleCompra">
           <Key>
@@ -433,7 +433,7 @@
           <Property Name="iIdDetalleCarrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdCarrito" Type="Int32" Nullable="false" />
           <Property Name="iIdProducto" Type="Int32" Nullable="false" />
-          <Property Name="iCantidad" Type="Decimal" Nullable="false" Precision="7" Scale="0" />
+          <Property Name="iCantidad" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblCat_Carrito" Relationship="CHANGARROModel.FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito" FromRole="tbl_DetalleCarrito" ToRole="tblCat_Carrito" />
           <NavigationProperty Name="tblCat_Producto" Relationship="CHANGARROModel.FK_tbl_DetalleCarrito_iIdProducto_tblCat_Producto_iIdProducto" FromRole="tbl_DetalleCarrito" ToRole="tblCat_Producto" />
         </EntityType>
@@ -723,7 +723,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

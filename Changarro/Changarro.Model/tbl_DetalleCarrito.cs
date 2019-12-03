@@ -17,7 +17,7 @@ namespace Changarro.Model
         public int iIdDetalleCarrito { get; set; }
         public int iIdCarrito { get; set; }
         public int iIdProducto { get; set; }
-        public decimal iCantidad { get; set; }
+        public int iCantidad { get; set; }
     
         public virtual tblCat_Carrito tblCat_Carrito { get; set; }
         public virtual tblCat_Producto tblCat_Producto { get; set; }
