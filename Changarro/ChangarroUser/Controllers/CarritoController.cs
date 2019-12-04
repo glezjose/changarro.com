@@ -9,7 +9,8 @@ namespace ChangarroUser.Controllers
 {
     public class CarritoController : Controller
     {
-        readonly Carrito carrito = new Carrito();
+        private readonly Carrito carrito = new Carrito();
+        private readonly Productos producto = new Productos();
 
         public ActionResult Inicio()
         {
@@ -26,12 +27,20 @@ namespace ChangarroUser.Controllers
             string cIcono;
             try
             {
+                if (producto.ChecarExistencia(iIdProducto))
+                {
                 int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
 
                 carrito.AgregarAcarrito(iIdProducto, iIdCarrito);
 
                 cMensaje = "Se ha agregado un producto al carrito.";
                 cIcono = "success";
+                }
+                else
+                {
+                    cMensaje = "No hay existencia disponible para este producto.";
+                    cIcono = "error";
+                }
             }
             catch (Exception)
             {

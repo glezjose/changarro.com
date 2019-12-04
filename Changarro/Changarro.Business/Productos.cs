@@ -185,6 +185,14 @@ namespace Changarro.Business
 
             return _oProducto;
         }
+
+        public bool ChecarExistencia(int iIdProducto)
+        {
+
+            int iCantidad = db.tblCat_Producto.AsNoTracking().FirstOrDefault(p => p.iIdProducto == iIdProducto).iCantidad;
+            
+            return (iCantidad == 0) ? false : true;
+        }
     }//end Productos
 
 }//end namespace ChangarroBusiness

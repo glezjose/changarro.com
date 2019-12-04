@@ -43,7 +43,7 @@
                 <div class="sorting mr-auto">
                 </div>
                 <div class="pagination">
-                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.iIdCategoria, iPagina = iPagina }))
+                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorCategoria", new { iIdCategoria = ViewBag.iIdCategoria, iPagina = iPagina }))
                 </div>
 
             </div>
@@ -109,7 +109,7 @@
 
                 </div>
                 <div class="pagination">
-                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.iIdCategoria, iPagina = iPagina }))
+                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorCategoria", new { iIdCategoria = ViewBag.iIdCategoria, iPagina = iPagina }))
                 </div>
             </div>
             <!-- End Filter Bar -->
