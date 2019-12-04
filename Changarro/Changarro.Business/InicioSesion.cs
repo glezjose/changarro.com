@@ -7,7 +7,12 @@ using System.Linq;
 namespace Changarro.Business
 {
     public class InicioSesion
-    {     
+    {
+        /// <summary>
+        /// Método para validar el inicio de sesión del usuario
+        /// </summary>
+        /// <param name="oLogin">Objeto con las credenciales de inicio de sesión del usuario</param>
+        /// <returns>Objeto con las credenciales inválidas de inicio de sesión del usuario</returns>
         public LoginDTO ValidarLogin(LoginDTO oLogin)
         {
             RegistroUsuario Registro = new RegistroUsuario();
