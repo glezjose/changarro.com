@@ -12,21 +12,27 @@ using System.Text;
 using System.IO;
 using Changarro.Model;
 using System.Linq;
+using Changarro.Model.DTO;
+using System.Data.Entity;
 
-namespace Changarro.Business {
-	public class Carrito {
+namespace Changarro.Business
+{
+    public class Carrito
+    {
 
         CHANGARROEntities db;
 
-		public Carrito(){
+        public Carrito()
+        {
             db = new CHANGARROEntities();
             db.Configuration.LazyLoadingEnabled = false;
             db.Configuration.ProxyCreationEnabled = false;
-		}
+        }
 
-		~Carrito(){
+        ~Carrito()
+        {
 
-		}
+        }
 
         public void RegistrarCarrito(int iIdCliente)
         {
@@ -40,19 +46,35 @@ namespace Changarro.Business {
 
         }
 
-		/// 
-		/// <param name="iIdProducto"></param>
-		public void AgregarAcarrito(int iIdProducto, int iIdCarrito){
-            tbl_DetalleCarrito oDetalleCarrito = new tbl_DetalleCarrito()
+        /// <summary>
+        /// En este método se agrega un producto al carrito, validando si ya existe el producto en el carrito.
+        /// </summary>
+        /// <param name="iIdProducto">Es la ID del producto que se desea agregar.</param>
+        /// <param name="iIdCarrito">Es la ID del carrito donde se desea agregar el producto.</param>
+        public void AgregarAcarrito(int iIdProducto, int iIdCarrito)
+        {
+            if (db.tbl_DetalleCarrito.AsNoTracking().Any(c => c.iIdCarrito == iIdCarrito && c.iIdProducto == iIdProducto))
             {
-                iIdCarrito = iIdCarrito,
-                iIdProducto = iIdProducto,
-                iCantidad = 1
-            };
+                tbl_DetalleCarrito _oDetalleCarrito = db.tbl_DetalleCarrito.AsNoTracking().FirstOrDefault(c => c.iIdCarrito == iIdCarrito && c.iIdProducto == iIdProducto);
 
-            db.tbl_DetalleCarrito.Add(oDetalleCarrito);
-            db.SaveChanges();
-		}
+                _oDetalleCarrito.iCantidad++;
+
+                db.Entry(_oDetalleCarrito).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                tbl_DetalleCarrito oDetalleCarrito = new tbl_DetalleCarrito()
+                {
+                    iIdCarrito = iIdCarrito,
+                    iIdProducto = iIdProducto,
+                    iCantidad = 1
+                };
+
+                db.tbl_DetalleCarrito.Add(oDetalleCarrito);
+                db.SaveChanges();
+            }
+        }
 
         public int ObtenerTotalProductos(int iIdCarrito)
         {
@@ -61,25 +83,37 @@ namespace Changarro.Business {
             return iTotalProductos;
         }
 
-		/// 
-		/// <param name="iIdCarritoProducto"></param>
-		public void EliminarProducto(int iIdCarritoProducto){
+        /// 
+        /// <param name="iIdCarritoProducto"></param>
+        public void EliminarProducto(int iIdCarritoProducto)
+        {
 
-		}
+        }
 
-		/// 
-		/// <param name="iIdCliente"></param>
-		public List<tbl_DetalleCarrito> ObtenerCarrito(int iIdCliente){
+        /// <summary>
+        /// Método que sirve para obtener la iIdCarrito del cliente con la sesión iniciada.
+        /// </summary>
+        /// <param name="iIdCliente">La ID del cliente con la sesión iniciada.</param>
+        /// <returns>Regresa la ID del cliente.</returns>
+        public int ObtenerCarrito(int iIdCliente)
+        {
 
-			return null;
-		}
+            int iIdCarrito = db.tblCat_Carrito.AsNoTracking().FirstOrDefault(c => c.iIdCliente == iIdCliente).iIdCarrito;
 
-		/// 
-		/// <param name="iIdCliente"></param>
-		public void VaciarCarrito(int iIdCliente){
+            return iIdCarrito;
+        }
 
-		}
+        public List<DetallesProductoDTO> ObtenerProductosCarrito(int iIdCarrito)
+        {
+            return null;
+        }
+        /// 
+        /// <param name="iIdCliente"></param>
+        public void VaciarCarrito(int iIdCliente)
+        {
 
-	}//end Carrito
+        }
+
+    }//end Carrito
 
 }//end namespace ChangarroBusiness

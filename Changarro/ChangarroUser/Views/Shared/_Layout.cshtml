@@ -53,33 +53,43 @@
                                    data-target="#exampleModalCenter"
                                    aria-expanded="false">Perfil</a>
 
-                            <ul class="dropdown-menu">
-                                @if (Session["iIdCliente"] == null)
-                                {
-                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Registro", "Inicio")">Registrarte</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Inicio")">Iniciar Sesión</a></li>
-                                }
-                                else
-                                {
-                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Registro", "Inicio")">Mi perfil</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Inicio")">Historial de compras</a></li>
-                                    <li class="nav-item"><a class="nav-link" id="btnCerrarSesion" href="@Url.Action("CerrarSesion", "Inicio")">Cerrar Sesión</a></li>
-                                }
+                                <ul class="dropdown-menu">
+                                    @if (Session["iIdCliente"] == null)
+                                    {
+                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Registro", "Inicio")">Registrarte</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Inicio")">Iniciar Sesión</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Registro", "Inicio")">Mi perfil</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Inicio")">Historial de compras</a></li>
+                                        <li class="nav-item"><a class="nav-link" id="btnCerrarSesion" href="@Url.Action("CerrarSesion", "Inicio")">Cerrar Sesión</a></li>
+                                    }
 
 
-                            </ul>
+                                </ul>
                             </li>
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
 
                             <li class="nav-item">
-                                <a href="@Url.Action("Carrito", "Default")" class="cart">
-                                    <i class="ti-bag"></i>
-                                    @{
-                                        Html.RenderAction("ProductosCarrito", "Carrito");
-                                    }
-                                </a>
+                                @if (Session["iIdCliente"] == null)
+                                {
+                                    <a href="@Url.Action("Registro", "Inicio")" class="cart">
+                                        <i class="ti-bag"></i>
+                                        <span id="cart-products" class="badge badge-primary">0</span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Incio", "Carrito")" class="cart">
+                                        <i class="ti-bag"></i>
+                                        @{
+                                            Html.RenderAction("ProductosCarrito", "Carrito");
+                                        }
+                                    </a>
+                                }
                             </li>
                             <li class="nav-item">
                                 <button class="search"><i class="ti-search" id="search"></i></button>
@@ -126,7 +136,7 @@
                     <p class="footer-text m-0">
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;
-                        @DateTime.Now.Year All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        @DateTime.Now.Year All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>

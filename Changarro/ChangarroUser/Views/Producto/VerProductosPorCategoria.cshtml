@@ -67,14 +67,29 @@
                                     <div class="prd-bottom">
                                         @Html.Hidden("iIdProducto", item.iIdProducto)
 
-                                        <a class="social-info btnComprarAhora" href="#">
-                                            <span class="ti-money"></span>
-                                            <p class="hover-text">Comprar</p>
-                                        </a>
-                                        <a class="social-info btnAgregarCarrito" href="#">
-                                            <span class="ti-bag"></span>
-                                            <p class="hover-text">Agregar</p>
-                                        </a>
+                                        @if (Session["iIdCliente"] == null)
+                                        {
+                                            <a class="social-info" href="@Url.Action("Registro", "Inicio")">
+                                                <span class="ti-money"></span>
+                                                <p class="hover-text">Comprar</p>
+                                            </a>
+                                            <a class="social-info" href="@Url.Action("Registro", "Inicio")">
+                                                <span class="ti-bag"></span>
+                                                <p class="hover-text">Agregar</p>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="social-info btnComprarAhora" href="#">
+                                                <span class="ti-money"></span>
+                                                <p class="hover-text">Comprar</p>
+                                            </a>
+                                            <a class="social-info btnAgregarCarrito" href="#">
+                                                <span class="ti-bag"></span>
+                                                <p class="hover-text">Agregar</p>
+                                            </a>
+                                        }
+
                                         <a class="social-info btnVerDetalles" href="#">
                                             <span class="ti-eye"></span>
                                             <p class="hover-text">Ver más</p>
