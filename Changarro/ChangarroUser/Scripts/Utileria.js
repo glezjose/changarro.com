@@ -29,7 +29,6 @@ function PersisteDatos(cUrl, funcion) {
         url: ruta + cUrl,
         dataType: "json",
         success: function (response) {
-            $('#modalGeneral').modal('hide');
 
             Toast.fire({
                 icon: response.cIcono,
@@ -77,6 +76,9 @@ function CargarBotonesProducto() {
         const cUrl = '/Carrito/AgregarProductoCarrito?iIdProducto=' + iIdProducto;
 
         PersisteDatos(cUrl, AgregarAcarrito);
+
+        $('#modalGeneral').modal('hide');
+
     });
 }
 

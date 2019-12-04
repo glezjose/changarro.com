@@ -11,6 +11,14 @@ namespace ChangarroUser.Controllers
     {
         readonly Carrito carrito = new Carrito();
 
+        public ActionResult Inicio()
+        {
+            int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
+
+
+            return View();
+        }
+
         [HttpPost]
         public JsonResult AgregarProductoCarrito(int iIdProducto)
         {
@@ -18,7 +26,7 @@ namespace ChangarroUser.Controllers
             string cIcono;
             try
             {
-                int iIdCarrito = 1; //[Session"carrito"]
+                int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
 
                 carrito.AgregarAcarrito(iIdProducto, iIdCarrito);
 
@@ -36,7 +44,8 @@ namespace ChangarroUser.Controllers
         [ChildActionOnly]
         public ActionResult ProductosCarrito()
         {
-            int iIdCarrito = 1;//[Session"carrito"]
+            
+            int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
 
             ViewBag.iTotalProductos = carrito.ObtenerTotalProductos(iIdCarrito);
 
