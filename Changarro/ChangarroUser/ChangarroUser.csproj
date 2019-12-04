@@ -325,6 +325,8 @@
     <Content Include="Views\Inicio\Login.cshtml" />
     <Content Include="Views\Carrito\ProductosCarrito.cshtml" />
     <Content Include="Views\Inicio\LogOut.cshtml" />
+    <Content Include="Views\Inicio\LoginParcial.cshtml" />
+    <Content Include="Views\Inicio\RegistroParcial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
