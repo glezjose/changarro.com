@@ -14,7 +14,7 @@ using System.IO;
 
 
 namespace Changarro.Model.DTO {
-	public class ClienteDTO {
+    public class ClienteDTO {
       
 
         public string cApellido { get; set; }
@@ -29,12 +29,12 @@ namespace Changarro.Model.DTO {
 
         public ClienteDTO(){
 
-		}
+        }
 
-		~ClienteDTO(){
+        ~ClienteDTO(){
 
-		}
+        }
 
-	}//end ClienteDTO
+    }//end ClienteDTO
 
 }//end namespace ChangarroDTO
