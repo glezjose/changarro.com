@@ -15,51 +15,15 @@ using System.IO;
 
 namespace Changarro.Model.DTO {
 	public class CarritoDTO {
+        public int iIdProducto { get; set; }
+        public int iIdCategoria { get; set; }
+        public int iCantidad { get; set; }
+        public int iCantidadExistente { get; set; }
+        public decimal dPrecio { get; set; }
+        public string cNombre { get; set; }
+        public string cImagen { get; set; }
+        public string cDescripcion { get; set; }
 
-		public CarritoDTO(){
-
-		}
-
-		~CarritoDTO(){
-
-		}
-
-		public int cDescripcion{
-			get{
-				return cDescripcion;
-			}
-			set{
-				cDescripcion = value;
-			}
-		}
-
-		public int cNombre{
-			get{
-				return cNombre;
-			}
-			set{
-				cNombre = value;
-			}
-		}
-
-		public int iCantidad{
-			get{
-				return iCantidad;
-			}
-			set{
-				iCantidad = value;
-			}
-		}
-
-		public int iIdProducto{
-			get{
-				return iIdProducto;
-			}
-			set{
-				iIdProducto = value;
-			}
-		}
-
-	}//end CarritoDTO
+    }//end CarritoDTO
 
 }//end namespace ChangarroDTO
