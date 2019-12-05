@@ -6,25 +6,28 @@
 //  Original author: jose.gonzalez
 ///////////////////////////////////////////////////////////
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-
-
-
-namespace Changarro.Model.DTO {
+namespace Changarro.Model.DTO
+{
     public class ClienteDTO {
       
-
-        public string cApellido { get; set; }
-
+        /// <summary>
+        /// Propiedad que almacena el correo del Cliente
+        /// </summary>
         public string cCorreo { get; set; }
 
+        /// <summary>
+        /// Propiedad que almacena el nombre del Cliente
+        /// </summary>
         public string cNombre { get; set; }
 
-        public string cTelefono { get; set; }
+        /// <summary>
+        /// Propiedad que almacena la imagen del cliente
+        /// </summary>
+        public string cImagen { get; set; }
 
+        /// <summary>
+        /// Propiedad que almacena el ID del cliente
+        /// </summary>
         public int iIdCliente { get; set; }
 
         public ClienteDTO(){
@@ -35,6 +38,6 @@ namespace Changarro.Model.DTO {
 
         }
 
-    }//end ClienteDTO
+    }
 
-}//end namespace ChangarroDTO
+}
