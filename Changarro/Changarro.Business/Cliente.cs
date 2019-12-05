@@ -35,11 +35,11 @@ namespace Changarro.Business
         }
 
         /// <summary>
-        /// Método para habilitar o desabilitar a un Cliente
+        /// Método para habilitar o desabilitar a un Cliente y asignar una fecha.
         /// </summary>
         /// <param name="iIdCliente"> ID del Cliente seleccionado</param>
-        /// <param name="lEstatus"> Estado del Cliente seleccionado </param>
-        /// <returns></returns>
+        /// <param name="lEstatus"> Estatus del Cliente seleccionado </param>
+        /// <returns>Objeto con los valores</returns>
         public ClienteAdministradorDTO CambiarEstatusCliente(int iIdCliente, bool lEstatus)
         {
             DateTime? _dtFechaBaja;
@@ -110,10 +110,10 @@ namespace Changarro.Business
         }
 
     /// <summary>
-    /// Método para obtener el ID de un cliente
+    /// Método para obtener el ID de un cliente.
     /// </summary>
     /// <param name="iIdCliente"> ID del Cliente seleccionado </param>
-    /// <returns>Objeto oCliente</returns>
+    /// <returns>Objeto oCliente que contiene valores del cliente seleccionado por si ID</returns>
     public tblCat_Cliente ObtenerDatos(int iIdCliente)
     {
            tblCat_Cliente oCliente = db.tblCat_Cliente.AsNoTracking().FirstOrDefault(c => c.iIdCliente == iIdCliente);
