@@ -6,32 +6,69 @@
 //  Original author: jose.gonzalez
 ///////////////////////////////////////////////////////////
 
+using Changarro.Model;
 using Changarro.Model.DTO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ChangarroBusiness
 {
     public class Administrador {
 
-		public Administrador(){
+        CHANGARROEntities db = new CHANGARROEntities();
 
-		}
+        public Administrador(){
 
-		~Administrador(){
+        }
 
-		}
+        public List<AdministradorDTO> CargarDatosPerfil()
+        {
+            throw new NotImplementedException();
+        }
 
-		public AdministradorDTO EditarDatos(){
+        ~Administrador(){
 
-			return null;
-		}
+        }
 
-		/// 
-		/// <param name="iIdAdministrador"></param>
-		public AdministradorDTO ObtenerDatos(int iIdAdministrador){
+        public AdministradorDTO EditarDatos(){
 
-			return null;
-		}
+            return null;
+        }
 
-	}//end Administrador
+        /// 
+        /// <param name="iIdAdministrador"></param>
+        public List<AdministradorDTO> ObtenerDatos()
+        {
+            List<AdministradorDTO> listdatos = db.tblCat_Administrador.AsNoTracking().Select(p => new AdministradorDTO()
+            {
+                cApellido = p.cApellido,
+                cCorreo = p.cCorreo,
+                cImagen = p.cImagen,
+                cNombre = p.cNombre,
+                cTelefono = p.cTelefono,
+                iIdAdministrador = p.iIdAdministrador,
+
+
+            }).ToList();
+
+            return listdatos;
+        }
+
+        public AdministradorDTO CrearObjetoEmpleado(tblCat_Administrador oDatos)
+        {
+            AdministradorDTO oAdministradorDTO = new AdministradorDTO()
+            {
+                iIdAdministrador = oDatos.iIdAdministrador,
+                cApellido = oDatos.cApellido,
+                cCorreo = oDatos.cCorreo,
+                cImagen = oDatos.cImagen,
+                cNombre = oDatos.cNombre,
+                cTelefono = oDatos.cTelefono,             
+            };
+            return oAdministradorDTO;
+        }
+
+    }//end Administrador
 
 }//end namespace ChangarroBusiness

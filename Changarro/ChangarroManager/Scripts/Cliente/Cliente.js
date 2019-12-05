@@ -216,6 +216,10 @@ function MostrarClientesActivos() {
     }
 }
 
+/**
+ * 
+ * @param {any} lEstatus
+ */
 function MostrarEstados(lEstatus) {
     tablaCliente
         .columns(6)
