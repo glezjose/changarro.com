@@ -14,8 +14,8 @@
                 <h1>Productos</h1>
                 <nav class="d-flex align-items-center">
 
-                    <a href="#">Productos<span class="ti ti-arrow-right"></span></a>
-                    <a href="category.html">@ViewBag.cNombreCategoria</a>
+                    <a href="@Url.Action("Inicio","Producto")">Changarro<span class="ti-arrow-right"></span></a>
+                    <a href="">@ViewBag.cNombreCategoria</a>
                 </nav>
             </div>
         </div>
@@ -118,6 +118,5 @@
 </div>
 
 @section scripts{
-    <script src="~/Scripts/Utileria.js"></script>
     <script src="~/Scripts/Producto/Producto.js"></script>
 }

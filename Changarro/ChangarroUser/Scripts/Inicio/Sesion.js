@@ -136,7 +136,7 @@ function ManejarSesionCliente(cTipo, cUrl, data, funcion) {
  */
 function ValidarRegistroCliente(oUsuario) {
     if (oUsuario === null) {
-        window.location.href = '/changarro/Producto/Inicio';
+        window.location.href = '/changarro';
     } else {
         console.log(oUsuario);        
         ValidarRegistro(oUsuario.cNombre, oUsuario.cApellido, oUsuario.cCorreo);
@@ -150,7 +150,7 @@ function ValidarRegistroCliente(oUsuario) {
  */
 function ValidarInicioSesion(oUsuario) {
     if (oUsuario === null) {
-        window.location.href = '/changarro/Producto/Inicio';
+        window.location.href = '/changarro';
     } else {
         ValidarLogin(oUsuario.cCorreo, oUsuario.cContrasenia);
         $('#loginForm').valid();
