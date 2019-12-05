@@ -12,7 +12,7 @@ using System.Text;
 using System.IO;
 using Changarro.Model;
 
-namespace ChangarroBusiness {
+namespace Changarro.Business {
 	public class Compra {
 
 		public Compra(){

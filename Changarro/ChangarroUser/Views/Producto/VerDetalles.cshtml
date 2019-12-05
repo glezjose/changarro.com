@@ -1,0 +1,66 @@
+﻿@model Changarro.Model.DTO.DetallesProductoDTO
+@{
+    ViewBag.Title = "VerDetalles";
+    Layout = "~/Views/Shared/_ModalLg.cshtml";
+}
+
+@section header{
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="ti-close"></span>
+        </button>
+    </div>
+}
+
+<div class="product_image_area">
+    <div class="container">
+        <div class="row s_product_inner">
+            <div class="col-lg-6">
+                <div class="s_Product_carousel">
+                    <div class="single-prd-item">
+                        <img class="img-fluid" src="@Model.cImagen" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="s_product_text">
+                    <h3>@Model.cNombre</h3>
+                    <h2>$@Model.dPrecio</h2>
+                    <ul class="list">
+                        <li><a class="active" href="#"><span>Categoría</span> : @ViewBag.NombreCategoria</a></li>
+                        @if (@Model.iCantidad != 0)
+                        {
+                            <li><a href="#"><span>Disponibilidad</span> : En stock</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="#"><span>Disponibilidad</span> : Agotado</a></li>
+
+                        }
+
+                    </ul>
+                    <p>
+                        @Model.cDescripcion
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section footer{
+    <div class="modal-footer">
+        @Html.Hidden("iIdProducto", Model.iIdProducto)
+        @if (Session["iIdCliente"] == null)
+        {
+            <a class="gray_btn" href="@Url.Action("Registro", "Inicio")">Agregar al carrito</a>
+            <a class="primary-btn" href="@Url.Action("Registro", "Inicio")">Comprar ahora</a>
+        }
+        else
+        {
+            <a class="gray_btn btnAgregarCarritoModal" href="#">Agregar al carrito</a>
+            <a class="primary-btn btnComprarAhora" href="#">Comprar ahora</a>
+        }
+
+    </div>
+}

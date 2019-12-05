@@ -12,7 +12,7 @@ using Changarro.Model.DTO;
 using System.Linq;
 using System;
 
-namespace ChangarroBusiness
+namespace Changarro.Business
 {
     public class Cliente
     {

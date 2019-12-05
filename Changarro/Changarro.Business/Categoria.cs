@@ -6,50 +6,119 @@
 //  Original author: jose.gonzalez
 ///////////////////////////////////////////////////////////
 
+using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Data.Entity;
 using Changarro.Model;
 using Changarro.Model.DTO;
 
-namespace ChangarroBusiness
+namespace Changarro.Business
 {
-    public class Categoria {
+    public class Categoria
+    {
+        private readonly CHANGARROEntities db;
 
-		public Categoria(){
+        public Categoria()
+        {
+            db = new CHANGARROEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
+        }
 
-		}
+        ~Categoria()
+        {
 
-		~Categoria(){
+        }
 
-		}
+        public ListaCategoriaDTO AgregarCategoria()
+        {
 
-		public CategoriasDTO AgregarCategoria(){
+            return null;
+        }
 
-			return null;
-		}
+        /// 
+        /// <param name="iIdCategoria"></param>
+        public void DesactivarCategoria(int iIdCategoria)
+        {
 
-		/// 
-		/// <param name="iIdCategoria"></param>
-		public void DesactivarCategoria(int iIdCategoria){
+        }
 
-		}
+        /// 
+        /// <param name="iIdCategoria"></param>
+        public ListaCategoriaDTO EditarCategoria(int iIdCategoria)
+        {
 
-		/// 
-		/// <param name="iIdCategoria"></param>
-		public CategoriasDTO EditarCategoria(int iIdCategoria){
+            return null;
+        }
 
-			return null;
-		}
+        /// <summary>
+        /// Obtiene una lista de las categorías de la tabla y lo manda al controlador
+        /// </summary>
+        /// <returns></returns>
+        public List<ListaCategoriaDTO> ObtenerListaCategoria()
+        {
+            List<ListaCategoriaDTO> lstCategoria = (from c in db.tblCat_Categoria
+                                                   select new ListaCategoriaDTO
+                                                   {
+                                                       iIdCategoria = c.iIdCategoria,
+                                                       cNombre = c.cNombre,
+                                                   }).ToList();
+            return lstCategoria;
+        }
+        /// <summary>
+        /// Método para insertar una nueva categoría
+        /// </summary>
+        /// <param name="_objCategoria"> almacena los valores a insertar a la base de datos</param>
+        public void AgregarCategoria(tblCat_Categoria _objCategoria)
+        {
+            DbContextTransaction dbTran = db.Database.BeginTransaction();//investigar 
 
-		public List<tblCat_Categoria> ObtenerCategorias(){
+            try
+            {
+                db.tblCat_Categoria.Add(_objCategoria);
 
-			return null;
-		}
+                db.SaveChanges();
+                dbTran.Commit();
+            }
+            catch (Exception)
+            {
+                dbTran.Rollback();
+                throw;
+            }
+        }
 
-		public List<ProductosDTO> ObtenerProductos(){
+        /// <summary>
+        /// Este método obtiene una lista de las categorías en la BD.
+        /// </summary>
+        /// <returns>Regresa tal lista.</returns>
+        public List<tblCat_Categoria> ObtenerCategorias()
+        {
 
-			return null;
-		}
+            List<tblCat_Categoria> _lstCategorias = db.tblCat_Categoria.AsNoTracking().ToList();
 
-	}//end Categoria
+            return _lstCategorias;
+        }
+
+        public List<ProductosDTO> ObtenerProductos()
+        {
+
+            return null;
+        }
+
+        /// <summary>
+        /// Este método obtiene el nombre de la categoría por id.
+        /// </summary>
+        /// <param name="iIdCategoria">La id de la categoría.</param>
+        /// <returns>Regresa la cadena del nombre.</returns>
+        public string ObtenerNombreCategoria(int iIdCategoria)
+        {
+            string _cNombreCategoria = db.tblCat_Categoria.AsNoTracking().Where(c => c.iIdCategoria == iIdCategoria).FirstOrDefault().cNombre;
+
+            return _cNombreCategoria;
+        }
+
+
+    }//end Categoria
 
 }//end namespace ChangarroBusiness

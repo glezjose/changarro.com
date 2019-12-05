@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Changarro.Model.tblCat_Categoria>
+
+@foreach (var item in Model)
+{
+<li class="main-nav-list">
+    <a href="@Url.Action("VerProductosPorCategoria","Producto", new { iIdCategoria = item.iIdCategoria, iPagina = 1 })">@item.cNombre</a>
+</li>
+}

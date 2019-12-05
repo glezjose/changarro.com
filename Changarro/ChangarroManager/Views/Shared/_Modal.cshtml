@@ -2,9 +2,12 @@
     <div class="modal-content">
         @RenderSection("header", required: false)
         <div class="modal-body">
+            @RenderSection("Titulo", required: false)
             @RenderBody()
         </div>
-        @RenderSection("footer", required: false)
+        <div class="modal-footer">
+            @RenderSection("footer", required: false)
+        </div>
     </div>
 </div>
 

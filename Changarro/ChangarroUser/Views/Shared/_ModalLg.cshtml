@@ -1,0 +1,10 @@
+﻿<div id="modal-render" class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        @RenderSection("header", required: false)
+        <div class="modal-body">
+            @RenderBody()
+        </div>
+        @RenderSection("footer", required: false)
+    </div>
+</div>
+

@@ -1,0 +1,131 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Changarro.Model.DTO.CatalogoProductosDTO>
+
+@{
+    ViewBag.Title = "VerProductosPorBusqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="banner-area organic-breadcrumb">
+
+
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Productos</h1>
+                <div class="filler-banner"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<div class="container">
+    <div class="row-product">
+        <div class="col-xl-3 col-lg-4 col-md-5">
+            <div class="sidebar-categories">
+                <div class="head">Categorías</div>
+                <ul class="main-categories">
+
+                    @{
+                        Html.RenderAction("ColumnaCategorias", "Producto");
+                    }
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-7">
+            <!-- Start Filter Bar -->
+
+            <div class="filter-bar d-flex flex-wrap align-items-center">
+                <div class="sorting mr-auto">
+                </div>
+                <div class="pagination">
+                    @if (ViewBag.cMensaje != "")
+                    {
+                        <div class="filler"></div>
+                    }
+
+                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.cBusqueda, iPagina = iPagina }))
+                </div>
+
+            </div>
+            <!-- End Filter Bar -->
+            <!-- Productos -->
+            <section class="lattest-product-area pb-40 category-list">
+                <div class="row-product">
+                    @foreach (var item in Model)
+                    {
+                        <!-- single product -->
+                        <div class="col-lg-4 col-md-6 product-container">
+                            <div class="single-product">
+                                <img class="img-fluid" src="@item.cImagen" alt="" style="width:180px;height:180px;">
+                                <div class="product-details">
+                                    <h6>
+                                        @item.cNombre
+                                    </h6>
+                                    <div class="price">
+                                        <h6>@item.dPrecio</h6>
+                                    </div>
+                                    <div class="prd-bottom">
+                                        @Html.Hidden("iIdProducto", item.iIdProducto)
+
+                                        @if (Session["iIdCliente"] == null)
+                                        {
+                                            <a class="social-info" href="@Url.Action("Registro", "Inicio")">
+                                                <span class="ti-money"></span>
+                                                <p class="hover-text">Comprar</p>
+                                            </a>
+                                            <a class="social-info" href="@Url.Action("Registro", "Inicio")">
+                                                <span class="ti-bag"></span>
+                                                <p class="hover-text">Agregar</p>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="social-info btnComprarAhora" href="#">
+                                                <span class="ti-money"></span>
+                                                <p class="hover-text">Comprar</p>
+                                            </a>
+                                            <a class="social-info btnAgregarCarrito" href="#">
+                                                <span class="ti-bag"></span>
+                                                <p class="hover-text">Agregar</p>
+                                            </a>
+                                        }
+
+                                        <a class="social-info btnVerDetalles" href="#">
+                                            <span class="ti-eye"></span>
+                                            <p class="hover-text">Ver más</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-lg-12 product-container">
+                        <h5>@ViewBag.cMensaje</h5>
+                    </div>
+                </div>
+            </section>
+            <br />
+            <!-- Start Filter Bar -->
+            <div class="filter-bar d-flex flex-wrap align-items-center">
+                <div class="sorting mr-auto">
+                </div>
+                <div class="pagination">
+                    @if (ViewBag.cMensaje != "")
+                    {
+                        <div class="filler"></div>
+                    }
+                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.cBusqueda, iPagina = iPagina }))
+                </div>
+            </div>
+            <!-- End Filter Bar -->
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Utileria.js"></script>
+    <script src="~/Scripts/Producto/Producto.js"></script>
+}
+

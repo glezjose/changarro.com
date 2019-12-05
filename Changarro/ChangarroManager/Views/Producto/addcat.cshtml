@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "addcat";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<h4>Agregar categoría</h4>
+<form class="row contact_form" action="#" method="post" novalidate="novalidate" id="forcat">
+    <div class="col-md-6 form-group p_star">
+        <label for="cNombre">Nombre de la categoría</label>
+        <input type="text" class="form-control" id="cNombre" placeholder="Nombre" name="cNombre" value="Alvin">
+    </div>
+</form>
+
+
+@section footer{
+    <div class="form-group">
+        <div class="container">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-success" id="btnGuardar">Guardar</button>
+        </div>
+    </div>
+}
+

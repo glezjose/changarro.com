@@ -1,0 +1,14 @@
+﻿<div class="modal-lg fa-align-center" role="document">
+    <div class="modal-content">
+        @RenderSection("header", required: false)
+        <div class="modal-body">
+            @RenderSection("Titulo", required: false)
+            @RenderBody()
+        </div>
+        <div class="modal-footer">
+            @RenderSection("footer", required: false)
+        </div>
+    </div>
+</div>
+
+
