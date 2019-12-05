@@ -12,3 +12,8 @@
 .order_box {
     box-shadow: 0 10px 10px rgba(153, 153, 153, 0.1);
 }
+
+.row {
+    margin-right: -30px;
+    margin-left: -30px;
+}

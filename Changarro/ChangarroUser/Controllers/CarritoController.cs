@@ -17,11 +17,7 @@ namespace ChangarroUser.Controllers
 
             ViewBag.iTotalProductos = carrito.ObtenerTotalProductos(iIdCarrito);
 
-            ViewBag.iSubTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito);
-
-            ViewBag.iTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito) + 50;
-
-            List<CarritoDTO> _lstProductos = carrito.ObtenerProductosCarrito(iIdCarrito);
+            List<DetallesProductoDTO> _lstProductos = carrito.ObtenerProductosCarrito(iIdCarrito);
             return View(_lstProductos);
         }
 

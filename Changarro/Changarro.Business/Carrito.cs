@@ -92,12 +92,6 @@ namespace Changarro.Business
             return iTotalProductos;
         }
 
-        public decimal ObtenerTotalPrecio(int iIdCarrito)
-        {
-            decimal iTotalPrecio = db.tbl_DetalleCarrito.AsNoTracking().Any(p => p.iIdCarrito == iIdCarrito) ? db.tbl_DetalleCarrito.AsNoTracking().Where(p => p.iIdCarrito == iIdCarrito).Sum(p => p.tblCat_Producto.dPrecio * p.iCantidad) : 0;
-
-            return iTotalPrecio;
-        }
         /// 
         /// <param name="iIdCarritoProducto"></param>
         public void EliminarProducto(int iIdCarritoProducto)
@@ -118,14 +112,13 @@ namespace Changarro.Business
             return iIdCarrito;
         }
 
-        public List<CarritoDTO> ObtenerProductosCarrito(int iIdCarrito)
+        public List<DetallesProductoDTO> ObtenerProductosCarrito(int iIdCarrito)
         {
-            List<CarritoDTO> _lstProductos = db.tbl_DetalleCarrito.AsNoTracking().Where(c => c.iIdCarrito == iIdCarrito).Select(c => new CarritoDTO()
+            List<DetallesProductoDTO> _lstProductos = db.tbl_DetalleCarrito.AsNoTracking().Where(c => c.iIdCarrito == iIdCarrito).Select(c => new DetallesProductoDTO()
             {
                 iIdProducto = c.iIdProducto,
                 iIdCategoria = c.tblCat_Producto.iIdCategoria,
                 iCantidad = c.iCantidad,
-                iCantidadExistente = c.tblCat_Producto.iCantidad,
                 dPrecio = c.tblCat_Producto.dPrecio,
                 cNombre = c.tblCat_Producto.cNombre,
                 cImagen = c.tblCat_Producto.cImagen,
