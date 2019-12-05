@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://rawgit.com/lykmapipo/themify-icons/master/css/themify-icons.css">
     <link rel="stylesheet" href="~/Assets/css/nice-select.css">
     <link rel="stylesheet" href="~/Assets/css/main.css">
-    <link href="~/Assets/css/sweetalert2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Assets/css/sweetalert2.min.css">
     @RenderSection("styles", required: false)
 
 </head>
@@ -83,7 +83,7 @@
                                 }
                                 else
                                 {
-                                    <a href="@Url.Action("Incio", "Carrito")" class="cart">
+                                    <a href="@Url.Action("Inicio", "Carrito")" class="cart">
                                         <i class="ti-bag"></i>
                                         @{
                                             Html.RenderAction("ProductosCarrito", "Carrito");
@@ -159,6 +159,7 @@
     <script src="~/Assets/js/main.js"></script>
     <script src="~/Assets/js/sweetalert2.all.min.js"></script>
     <script src="~/Assets/js/jquery.validate.min.js"></script>
+    <script src="~/Scripts/Utileria.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

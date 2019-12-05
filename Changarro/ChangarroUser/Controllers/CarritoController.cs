@@ -1,8 +1,7 @@
 ﻿using Changarro.Business;
+using Changarro.Model.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ChangarroUser.Controllers
@@ -16,8 +15,10 @@ namespace ChangarroUser.Controllers
         {
             int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
 
+            ViewBag.iTotalProductos = carrito.ObtenerTotalProductos(iIdCarrito);
 
-            return View();
+            List<DetallesProductoDTO> _lstProductos = carrito.ObtenerProductosCarrito(iIdCarrito);
+            return View(_lstProductos);
         }
 
         [HttpPost]

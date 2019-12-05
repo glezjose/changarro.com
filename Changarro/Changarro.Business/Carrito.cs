@@ -34,6 +34,10 @@ namespace Changarro.Business
 
         }
 
+        /// <summary>
+        /// Este método es para registrar un carrito nuevo al registrar un cliente nuevo.
+        /// </summary>
+        /// <param name="iIdCliente">La id del cliente que se registro.</param>
         public void RegistrarCarrito(int iIdCliente)
         {
             tblCat_Carrito oCarrito = new tblCat_Carrito()
@@ -76,6 +80,11 @@ namespace Changarro.Business
             }
         }
 
+        /// <summary>
+        /// Este metodo es para obtener el total de productos que existen el el carrito especificado.
+        /// </summary>
+        /// <param name="iIdCarrito">Este ID es del carrito que se desea obtener el total de productos.</param>
+        /// <returns>Regresa el total de productos del carrito.</returns>
         public int ObtenerTotalProductos(int iIdCarrito)
         {
             int iTotalProductos = db.tbl_DetalleCarrito.AsNoTracking().Any(p => p.iIdCarrito == iIdCarrito) ? db.tbl_DetalleCarrito.AsNoTracking().Where(p => p.iIdCarrito == iIdCarrito).Sum(p => p.iCantidad) : 0;
@@ -105,8 +114,25 @@ namespace Changarro.Business
 
         public List<DetallesProductoDTO> ObtenerProductosCarrito(int iIdCarrito)
         {
-            return null;
+            List<DetallesProductoDTO> _lstProductos = db.tbl_DetalleCarrito.AsNoTracking().Where(c => c.iIdCarrito == iIdCarrito).Select(c => new DetallesProductoDTO()
+            {
+                iIdProducto = c.iIdProducto,
+                iIdCategoria = c.tblCat_Producto.iIdCategoria,
+                iCantidad = c.iCantidad,
+                dPrecio = c.tblCat_Producto.dPrecio,
+                cNombre = c.tblCat_Producto.cNombre,
+                cImagen = c.tblCat_Producto.cImagen,
+                cDescripcion = c.tblCat_Producto.cDescripcion
+            }).ToList();
+
+            return _lstProductos;
         }
+
+        public bool AgregarCantidad()
+        {
+            return false;
+        }
+
         /// 
         /// <param name="iIdCliente"></param>
         public void VaciarCarrito(int iIdCliente)

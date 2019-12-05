@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Changarro.Model.DTO.DetallesProductoDTO>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Assets/css/carrito.css" rel="stylesheet" />
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Mi Carrito</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="@Url.Action("Inicio","Producto")">Changarro<span class="ti-arrow-right"></span></a>
+                    <a href="">Carrito</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<!--================Cart Area =================-->
+<section class="cart_area">
+    <div class="container">
+        <div class="row cart_inner">
+            <div class="col-12 col-md-8">
+                @foreach (var item in Model)
+                {
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h5>@item.cNombre</h5>
+                            <a href="#" class="a-icon"><i class="ti-close"></i></a>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-sm-12 col-md-3 text-center">
+                                    <img class="img-responsive" src="@item.cImagen" />
+                                </div>
+                                <div class="col-12 col-sm-12 text-md-left col-md-5">
+                                    <div class="media-body">
+                                        <p>@item.cDescripcion</p>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-2">
+                                    <div class="product_count div_cart">
+                                        <input type="text" name="qty" id="sst" maxlength:"" value="@item.iCantidad" title="Quantity:" class="input-text qty">
+                                        <button onclick="if (!window.__cfRLUnblockHandlers) return false; var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="ti-angle-up"></i></button>
+                                        <button onclick="if (!window.__cfRLUnblockHandlers) return false; var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="ti-angle-down"></i></button>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-2">
+                                    <h5>$@item.dPrecio</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                }
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="order_box sticky-top-xd">
+                    <ul class="list list_2">
+                        <li><a href="#">Subtotal (@ViewBag.iTotalProductos artículos)<span>MXN $720.00</span></a></li>
+                        <li><a href="#">Envio <span>MXN $50.00</span></a></li>
+                        <li><a href="#">Total <span>MXN $790.00</span></a></li>
+                    </ul>
+                    <a class="primary-btn" href="@Url.Action("Compra", "Default")">Proceder al pago</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Cart Area =================-->
