@@ -46,7 +46,7 @@ namespace ChangarroManager.Controllers
         /// Método para cambiar el estatus del cliente seleccionado
         /// </summary>
         /// <param name="iIdCliente"> ID del cliente seleccionado</param>
-        /// <param name="lEstatus"> Estado del cliente seleccionado</param>
+        /// <param name="lEstatus"> Estatus del cliente seleccionado</param>
         /// <returns>Json con el cambio del Estatus actualizado</returns>
         [HttpPost]
         public JsonResult CambiarEstatusCliente(int iIdCliente, bool lEstatus)
