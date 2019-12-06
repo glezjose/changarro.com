@@ -1,13 +1,16 @@
 ﻿using Changarro.Model;
 using Changarro.Model.DTO;
-using ChangarroBusiness;
-using System.Data.Entity;
 using System.Linq;
 
 namespace Changarro.Business
 {
     public class InicioSesion
-    {     
+    {
+        /// <summary>
+        /// Método para validar el inicio de sesión del usuario
+        /// </summary>
+        /// <param name="oLogin">Objeto con las credenciales de inicio de sesión del usuario</param>
+        /// <returns>Objeto con las credenciales inválidas de inicio de sesión del usuario</returns>
         public LoginDTO ValidarLogin(LoginDTO oLogin)
         {
             RegistroUsuario Registro = new RegistroUsuario();
@@ -16,15 +19,15 @@ namespace Changarro.Business
 
             using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
-                LoginDTO _oUsuario = (from c in ctx.tblCat_Cliente.AsNoTracking()
-                                     where c.cCorreo == oLogin.cCorreo
-                                     select (new LoginDTO
-                                     {
-                                         iIdUsuario = c.iIdCliente,
-                                         cCorreo = c.cCorreo,
-                                         cContrasenia = c.cContrasenia
+                LoginDTO _oUsuario =  ctx.tblCat_Cliente.AsNoTracking()
+                                                 .Where(c => c.cCorreo == oLogin.cCorreo)
+                                                 .Select(l => new LoginDTO
+                                                 {
+                                                     iIdUsuario = l.iIdCliente,
+                                                     cCorreo = l.cCorreo,
+                                                     cContrasenia = l.cContrasenia
 
-                                     })).FirstOrDefault();
+                                                 }).FirstOrDefault();
 
                 if (_oUsuario != null)
                 {

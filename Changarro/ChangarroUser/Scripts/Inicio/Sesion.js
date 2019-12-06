@@ -1,23 +1,48 @@
-﻿$(document).ready(function () {
-    ValidarRegistro();
-    ValidarLogin();
+﻿$(document).ready(function () {    
     BarraHerramientas();
-
+    Login();
+    Registro();
 });
 
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-})
-
+/**
+ * Inicializa los botones para mostrar un modal con un formulario
+ * */
 function BarraHerramientas() {
+    $("#btnIniciarSesion").click(function (e) {
+
+        e.preventDefault();
+
+        AbrirModal("Inicio/LoginParcial", Login)
+    })
+
+    $("#btnRegistrar").click(function (e) {
+
+        e.preventDefault();
+
+        AbrirModal("Inicio/RegistroParcial", Registro)
+    })
+
+    $("#btnCerrarSesion").click(function (e) {
+
+        e.preventDefault();
+
+        AbrirModal("Inicio/LogOut", CerrarSesion);
+    })
+}
+
+/**
+ * Método para iniciar sesión
+ * */
+function Login() {
+    $("#registro-tab").click(function (e) {
+
+        e.preventDefault();
+
+        AbrirModal("Inicio/RegistroParcial", Registro)
+    });
+
+    ValidarLogin();
+
     $("#btnLogin").click(function (e) {
 
         e.preventDefault();
@@ -29,9 +54,22 @@ function BarraHerramientas() {
                 cContrasenia: $("#cContrasenia").val()
             }
 
-            ManejarSesionCliente("POST", "IniciarSesion", { oCliente: JSON.stringify(oLogin) }, IniciarSesion);
-        }
-    })
+            ManejarSesionCliente("POST", "Inicio/IniciarSesion", { oCliente: JSON.stringify(oLogin) }, ValidarInicioSesion);
+        }        
+    });
+}
+
+/**Método para registrar nuevo usuario
+ */
+function Registro() {
+    $("#login-tab").click(function (e) {
+
+        e.preventDefault();
+
+        AbrirModal("Inicio/LoginParcial", Login)
+    });
+
+    ValidarRegistro();
 
     $("#btnRegistro").click(function (e) {
 
@@ -46,33 +84,35 @@ function BarraHerramientas() {
                 cContrasenia: $("#cContrasenia").val()
             }
 
-            ManejarSesionCliente("POST", "RegistrarCliente", { oCliente: JSON.stringify(oNuevoCliente) }, RegistarCliente);
+            ManejarSesionCliente("POST", "Inicio/RegistrarCliente", { oCliente: JSON.stringify(oNuevoCliente) }, ValidarRegistroCliente);
         }
-    })
-
-    $("#btnCerrarSesion").click(function (e) {
-
-        e.preventDefault();
-
-        AbrirModal("LogOut", Login)
-
-    })
+    });
 }
 
-function Login() {
+/**
+ * Método para serrar cesión
+ */
+function CerrarSesion() {
     $("#btnLogOut").click(function (e) {
 
         e.preventDefault();
 
-        ManejarSesionCliente("POST", "LogOut", null, CerrarSesion);
-        
+        $.post(ruta + "Inicio/CerrarSesion");
+        location.reload(true);
     });
 }
 
+/**
+ * Método para llamar funciones de sesión desde el controlador por medio de ajax
+ * @param {any} cTipo Tipo de acceso del controlador
+ * @param {any} cUrl Url del método del controlador
+ * @param {any} data Datos a mandar al método del controlador
+ * @param {any} funcion Función a llamar luego de la respuesta del servidor
+ */
 function ManejarSesionCliente(cTipo, cUrl, data, funcion) {
     $.ajax({
         type: cTipo,
-        url: cUrl,
+        url: ruta + cUrl,
         async: false,
         data: data,
         dataType: "json",
@@ -90,9 +130,13 @@ function ManejarSesionCliente(cTipo, cUrl, data, funcion) {
     });
 }
 
-function RegistarCliente(oUsuario) {
+/**
+ * Valida el correcto registro del cliente
+ * @param {any} oUsuario Objeto del usuario con los campos inválidos
+ */
+function ValidarRegistroCliente(oUsuario) {
     if (oUsuario === null) {
-        window.location.href = '/changarro/Producto/Inicio';
+        window.location.href = '/changarro';
     } else {
         console.log(oUsuario);        
         ValidarRegistro(oUsuario.cNombre, oUsuario.cApellido, oUsuario.cCorreo);
@@ -100,15 +144,15 @@ function RegistarCliente(oUsuario) {
     }
 }
 
-function IniciarSesion(oUsuario) {
+/**
+ * Valida el correcto inicio de sesión del cliente
+ * @param {any} oUsuario Objeto del usuario con los campos inválidos
+ */
+function ValidarInicioSesion(oUsuario) {
     if (oUsuario === null) {
-        window.location.href = '/changarro/Producto/Inicio';
+        window.location.href = '/changarro';
     } else {
         ValidarLogin(oUsuario.cCorreo, oUsuario.cContrasenia);
         $('#loginForm').valid();
     }
-}
-
-function CerrarSesion() {
-    alert("xd");
 }

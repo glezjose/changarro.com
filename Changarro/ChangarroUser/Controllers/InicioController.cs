@@ -14,7 +14,7 @@ namespace ChangarroUser.Controllers
         /// <summary>
         /// Método que carga la vista de la página principal
         /// </summary>
-        /// <returns>Vista HTML</returns>
+        /// <returns>Vista HTML de la página principal</returns>
         [HttpGet]
         public ActionResult Inicio()
         {
@@ -24,7 +24,7 @@ namespace ChangarroUser.Controllers
         /// <summary>
         /// Método que carga la página de registro
         /// </summary>
-        /// <returns>Vista HTML</returns>
+        /// <returns>Vista HTML de la página de registro</returns>
         [HttpGet]
         public ActionResult Registro()
         {
@@ -34,14 +34,39 @@ namespace ChangarroUser.Controllers
         /// <summary>
         /// Método que carga la vista de la página de inicio de sesión
         /// </summary>
-        /// <returns>Vista HTML</returns>
+        /// <returns>Vista HTML de la página de inicio de sesión</returns>
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
 
+        /// <summary>
+        /// Método que carga la vista parcial de la página de cierre de sesión
+        /// </summary>
+        /// <returns>Vista HTML parcial de cierre de sesión</returns>
+        [HttpPost]
         public ActionResult LogOut()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Método que carga la vista parcial de la página de inicio de sesión
+        /// </summary>
+        /// <returns>Vista HTML parcial inicio de sesión</returns>
+        [HttpPost]
+        public ActionResult LoginParcial()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Método que carga la vista parcial de la página de registro
+        /// </summary>
+        /// <returns>Vista HTML parcial del registro</returns>
+        [HttpPost]
+        public ActionResult RegistroParcial()
         {
             return View();
         }
@@ -127,7 +152,7 @@ namespace ChangarroUser.Controllers
         /// Método para cerrar sesión
         /// </summary>
         /// <returns>Vista de pagina de inicio</returns>
-        [HttpGet]
+        [HttpPost]
         public ActionResult CerrarSesion()
         {
             FormsAuthentication.SignOut();

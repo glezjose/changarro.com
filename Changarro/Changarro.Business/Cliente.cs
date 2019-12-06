@@ -28,18 +28,61 @@ namespace Changarro.Business
 
         }
 
-        public ClienteDTO AgregarCliente()
+        /// <summary>
+        /// Método para obtener cliente
+        /// </summary>
+        /// <param name="iIdCliente">ID del cliente</param>
+        /// <returns>Objeto con datos del cliente</returns>
+        public ClienteDTO ObtenerCliente(int iIdCliente)
         {
+            ClienteDTO _oCliente = new ClienteDTO();
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                _oCliente = ctx.tblCat_Cliente.AsNoTracking()
+                    .Where(c => c.iIdCliente == iIdCliente)
+                    .Select(o => new ClienteDTO 
+                    { 
+                        cNombre = o.cNombre, 
+                        cCorreo = o.cCorreo, 
+                        cImagen = o.cImagen 
 
-            return null;
+                    }).FirstOrDefault();
+            }          
+
+            return _oCliente;
         }
 
         /// <summary>
-        /// Método para habilitar o desabilitar a un Cliente
+        /// Método para obtener los datos del cliente
+        /// </summary>
+        /// <param name="iIdCliente">ID del cliente</param>
+        /// <returns>Objeto con los datos del cliente</returns>
+        public DatosClienteDTO ObtenerDatosCliente(int iIdCliente)
+        {
+            DatosClienteDTO _oCliente = new DatosClienteDTO();
+
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                _oCliente = ctx.tblCat_Cliente.AsNoTracking()
+                    .Where(c => c.iIdCliente == iIdCliente)
+                    .Select(o => new DatosClienteDTO
+                    {
+                        cNombre = o.cNombre,
+                        cApellido = o.cApellido,
+                        cTelefono = o.cTelefono,
+                        cCorreo = o.cCorreo             
+
+                    }).FirstOrDefault();
+            }
+            return _oCliente;
+        }
+
+        /// <summary>
+        /// Método para habilitar o desabilitar a un Cliente y asignar una fecha.
         /// </summary>
         /// <param name="iIdCliente"> ID del Cliente seleccionado</param>
-        /// <param name="lEstatus"> Estado del Cliente seleccionado </param>
-        /// <returns></returns>
+        /// <param name="lEstatus"> Estatus del Cliente seleccionado </param>
+        /// <returns>Objeto con los valores</returns>
         public ClienteAdministradorDTO CambiarEstatusCliente(int iIdCliente, bool lEstatus)
         {
             DateTime? _dtFechaBaja;
@@ -110,10 +153,10 @@ namespace Changarro.Business
         }
 
     /// <summary>
-    /// Método para obtener el ID de un cliente
+    /// Método para obtener el ID de un cliente.
     /// </summary>
     /// <param name="iIdCliente"> ID del Cliente seleccionado </param>
-    /// <returns>Objeto oCliente</returns>
+    /// <returns>Objeto oCliente que contiene valores del cliente seleccionado por si ID</returns>
     public tblCat_Cliente ObtenerDatos(int iIdCliente)
     {
            tblCat_Cliente oCliente = db.tblCat_Cliente.AsNoTracking().FirstOrDefault(c => c.iIdCliente == iIdCliente);

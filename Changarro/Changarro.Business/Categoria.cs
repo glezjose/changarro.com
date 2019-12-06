@@ -59,11 +59,12 @@ namespace Changarro.Business
         public List<ListaCategoriaDTO> ObtenerListaCategoria()
         {
             List<ListaCategoriaDTO> lstCategoria = (from c in db.tblCat_Categoria
-                                                   select new ListaCategoriaDTO
-                                                   {
-                                                       iIdCategoria = c.iIdCategoria,
-                                                       cNombre = c.cNombre,
-                                                   }).ToList();
+                                                    select new ListaCategoriaDTO
+                                                    {
+                                                        iIdCategoria = c.iIdCategoria,
+                                                        cNombre = c.cNombre,
+                                                        lEstatus = c.lEstatus
+                                                    }).ToList();
             return lstCategoria;
         }
         /// <summary>
@@ -72,19 +73,21 @@ namespace Changarro.Business
         /// <param name="_objCategoria"> almacena los valores a insertar a la base de datos</param>
         public void AgregarCategoria(tblCat_Categoria _objCategoria)
         {
-            DbContextTransaction dbTran = db.Database.BeginTransaction();//investigar 
-
-            try
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
-                db.tblCat_Categoria.Add(_objCategoria);
+                ctx.Configuration.LazyLoadingEnabled = false;
+                ctx.Configuration.ProxyCreationEnabled = false;
 
-                db.SaveChanges();
-                dbTran.Commit();
-            }
-            catch (Exception)
-            {
-                dbTran.Rollback();
-                throw;
+                tblCat_Categoria otblCategoria = new tblCat_Categoria
+                {
+                    cNombre = _objCategoria.cNombre,
+                    lEstatus = _objCategoria.lEstatus
+                };
+                               
+                ctx.tblCat_Categoria.Add(_objCategoria);
+
+                ctx.SaveChanges();
+
             }
         }
 
