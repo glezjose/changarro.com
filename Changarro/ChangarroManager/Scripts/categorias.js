@@ -1,49 +1,31 @@
-﻿am4core.ready(function () {
-
+﻿/**
+ * Carga la gráfica en el inicio de la página.
+ * @param {any} oCategorias Recibe el objeto de datos desde el ajax.
+ */
+function CargarGraficaCategorias(oCategorias) {
     // Themes begin
-    am4core.useTheme(am4themes_animated);
-    // Themes end
+     am4core.useTheme(am4themes_animated);
 
-    var chart = am4core.create("categoriasProductos", am4charts.PieChart3D);
+
+    var chart = am4core.create("CategoriasProductos", am4charts.PieChart);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-    chart.data = [
-        {
-            country: "Lithuania",
-            litres: 501.9
-        },
-        {
-            country: "Czech Republic",
-            litres: 301.9
-        },
-        {
-            country: "Ireland",
-            litres: 201.1
-        },
-        {
-            country: "Germany",
-            litres: 165.8
-        },
-        {
-            country: "Australia",
-            litres: 139.9
-        },
-        {
-            country: "Austria",
-            litres: 128.3
-        }
-    ];
-
-    chart.innerRadius = am4core.percent(40);
-    chart.depth = 120;
+    chart.data = oCategorias;
 
     chart.legend = new am4charts.Legend();
 
-    var series = chart.series.push(new am4charts.PieSeries3D());
-    series.dataFields.value = "litres";
-    series.dataFields.depthValue = "litres";
-    series.dataFields.category = "country";
-    series.slices.template.cornerRadius = 5;
-    series.colors.step = 3;
+    var series = chart.series.push(new am4charts.PieSeries());
+    series.dataFields.value = "iCantidad";
+    series.dataFields.category = "cNombre";
 
-}); // end am4core.ready()
+    series.colors.list = [
+        am4core.color("#845EC2"),
+        am4core.color("#D65DB1"),
+        am4core.color("#FF6F91"),
+        am4core.color("#FF9671"),
+        am4core.color("#FFC75F"),
+        am4core.color("#F9F871"),
+    ];
+}
+
+

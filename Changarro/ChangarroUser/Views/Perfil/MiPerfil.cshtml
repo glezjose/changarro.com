@@ -1,0 +1,519 @@
+﻿@model Changarro.Model.DTO.ClienteDTO
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Mis Perfil</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- End Banner Area -->
+<!--================Blog Area =================-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="blog_right_sidebar">
+                <div class="single_sidebar_widget author_widget">
+                    <img id="imgperfil" class="author_img rounded-circle" src="~/Assets/img/author.png" />
+                    <h4>@Html.DisplayFor(model => model.cNombre)</h4>
+                    <p>@Html.DisplayFor(model => model.cCorreo)</p>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" id="xd" data-target="#imagenperfil">
+                        cambiar
+                    </button>
+                    <br>
+                    <div class="sidebar-categories">
+                        <ul class="main-categories nav flex-column">
+                            <li class="main-nav-list">
+                                <a class="nav-link active" id="v-pills-datos-tab" data-toggle="pill" href="#v-pills-datos" role="tab" aria-controls="v-pills-datos" aria-selected="true">Mis Datos</a>
+                            </li>
+                            <li class="main-nav-list">
+                                <a class="nav-link" id="v-pills-direcciones-tab" data-toggle="pill" href="#v-pills-direcciones" role="tab" aria-controls="v-pills-direcciones" aria-selected="false">Mis Direcciones</a>
+                            </li>
+                            <li class="main-nav-list">
+                                <a class="nav-link" id="v-pills-tarjetas-tab" data-toggle="pill" href="#v-pills-tarjetas" role="tab" aria-controls="v-pills-targetas" aria-selected="false">Mis Tarjetas</a>
+                            </li>
+                            <li class="main-nav-list">
+                                <a class="nav-link" id="v-pills-historial-tab" data-toggle="pill" href="#v-pills-historial" role="tab" aria-controls="v-pills-historial" aria-selected="false">Historial de compras</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="br"></div>
+                    <a href="#" data-toggle="modal" data-target="#exampleModal" style="color: #5b6d71;">Cancelar Suscripción</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 ">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-datos" role="tabpanel" aria-labelledby="v-pills-datos-tab">
+                    
+                </div>
+                <div class="tab-pane fade" id="v-pills-direcciones" role="tabpanel" aria-labelledby="v-pills-direcciones-tab">
+                    <div class="d-flex justify-content-between blog_title">
+                        <h4>Mis Direcciones</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="ti-plus"></span>
+                        </button>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row d-flex justify-content-between">
+                                        <div class="col-8">
+                                            <h4 class="card-title">Casa</h4>
+                                        </div>
+                                        <div class="col-2">
+                                            <a class="close" data-toggle="modal" data-target="#modalito">
+                                                <span class="ti-pencil-alt" style="color:#000000;"></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-2">
+                                            <a class="close" data-dismiss="modal" onclick="laerta()" aria-label="Close">
+                                                <span class="ti-trash" style="color:#000000;"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <ul class="list">
+                                        <li>
+                                            <strong>Numero Exterior</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Numero Interior</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Colonia</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Código Postal</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Delegación o Municipio</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Estado</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Descripción</strong>
+                                            : xxxxx
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row d-flex justify-content-between">
+                                        <div class="col-8">
+                                            <h4 class="card-title">Trabajo</h4>
+                                        </div>
+                                        <div class="col-2">
+                                            <a class="close" data-toggle="modal" data-target="#modalito">
+                                                <span class="ti-pencil-alt" style="color:#000000;"></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-2">
+                                            <a class="close" data-dismiss="modal" onclick="laerta()" aria-label="Close">
+                                                <span class="ti-trash" style="color:#000000;"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <ul class="list">
+                                        <li>
+                                            <strong>Numero Exterior</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Numero Interior</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Colonia</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Código Postal</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Delegación o Municipio</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Estado</strong>
+                                            : xxxxx
+                                        </li>
+                                        <li>
+                                            <strong>Descripción</strong>
+                                            : xxxxx
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-tarjetas" role="tabpanel" aria-labelledby="v-pills-tarjetas-tab">
+                    <div class="container">
+                        <div class="d-flex justify-content-between blog_title">
+                            <h4>Mis Tarjetas</h4>
+                            <button type="button" class="close" data-toggle="modal" data-target="#modalitoxd">
+                                <span class="ti-plus"></span>
+                            </button>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row d-flex justify-content-between">
+                                            <div class="col-10">
+                                                <h4 class="card-title">Principal</h4>
+                                            </div>
+                                            <div class="col-2">
+                                                <a class="close" data-dismiss="modal" onclick="laerta()" aria-label="Close">
+                                                    <span class="ti-trash" style="color:#000000;"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <ul class="list">
+                                            <li>
+                                                <strong>Titular</strong>
+                                                : MIGUEL ANGEL HOBAK KOH
+                                            </li>
+                                            <li>
+                                                <strong>Numero de tarjeta</strong>
+                                                : ************7458
+                                            </li>
+                                            <li>
+                                                <strong>Mes de Expiración</strong>
+                                                : 05
+                                            </li>
+                                            <li>
+                                                <strong>Año de Expiración</strong>
+                                                : 22
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row d-flex justify-content-between">
+                                            <div class="col-10">
+                                                <h4 class="card-title">Master</h4>
+                                            </div>
+                                            <div class="col-2">
+                                                <a class="close" data-dismiss="modal" onclick="laerta()" aria-label="Close">
+                                                    <span class="ti-trash" style="color:#000000;"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <ul class="list">
+                                            <li>
+                                                <strong>Titular</strong>
+                                                : MIGUEL ANGEL HOBAK KOH
+                                            </li>
+                                            <li>
+                                                <strong>Numero de tarjeta</strong>
+                                                : ************4196
+                                            </li>
+                                            <li>
+                                                <strong>Mes de Expiración</strong>
+                                                : 07
+                                            </li>
+                                            <li>
+                                                <strong>Año de Expiración</strong>
+                                                : 23
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-historial" role="tabpanel" aria-labelledby="v-pills-historial-tab">
+                    <div class="container">
+                        <div class="d-flex justify-content-between blog_title">
+                            <h4>Mis Compras</h4>
+                        </div>
+                        <br />
+                        <div class="cart_inner">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="row align-items-center">
+                                                    <div class="col-12 col-sm-12 col-md-4">
+                                                        <img class="img-responsive" src="/Assets/img/cart.jpg" width="100" height="66">
+                                                    </div>
+                                                    <div class="col-12 col-sm-12 col-md-8">
+                                                        <div class="media-body">
+                                                            <p>Nombre del producto</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <td>28/10/2019</td>
+                                            <td>$720</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="row align-items-center">
+                                                    <div class="col-12 col-sm-12 col-md-4">
+                                                        <img class="img-responsive" src="/Assets/img/cart.jpg" width="100" height="66">
+                                                    </div>
+                                                    <div class="col-12 col-sm-12 col-md-8">
+                                                        <div class="media-body">
+                                                            <p>Nombre del producto</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <td>28/10/2019</td>
+                                            <td>$720</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="row align-items-center">
+                                                    <div class="col-12 col-sm-12 col-md-4">
+                                                        <img class="img-responsive" src="/Assets/img/cart.jpg" width="100" height="66">
+                                                    </div>
+                                                    <div class="col-12 col-sm-12 col-md-8">
+                                                        <div class="media-body">
+                                                            <p>Nombre del producto</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <td>28/10/2019</td>
+                                            <td>$720</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+
+<!--================Blog Area =================-->
+<!-- Modal -->
+<div class="modal fade" id="modalito" tabindex="-1" role="dialog" aria-labelledby="modalitoTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLongTitle">Editar Dirección: Casa</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body billing_details">
+                <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                    <div class="col-md-5 form-group p_star">
+                        <label for="cNumeroExterior">Nombre descriptivo</label>
+                        <input type="text" class="form-control" id="cNumeroExterior" value="Casita :v" name="cNumeroExterior">
+                    </div>
+                    <div class="col-md-7 form-group p_star">
+                        <label for="cCalle">Calle</label>
+                        <input type="text" class="form-control" id="cCalle" value="Calle Sanjuan" name="cCalle">
+                    </div>
+                    <div class="col-6 col-md-6 form-group p_star">
+                        <label for="cNumeroExterior">Número Exterior</label>
+                        <input type="text" class="form-control" id="cNumeroExterior" value="245B" name="cNumeroExterior">
+                    </div>
+                    <div class="col-6 col-md-6 form-group p_star">
+                        <label for="cNumeroExterior">Número Interior</label>
+                        <input type="text" class="form-control" id="cNumeroInterior" value="98c" name="cNumeroInterior">
+                    </div>
+                    <div class="col-6 col-md-6 form-group p_star">
+                        <label for="cColonia">Colonia</label>
+                        <input type="text" class="form-control" id="cColonia" value="Felipe Carrillo" name="cColonia">
+                    </div>
+                    <div class="col-6 col-md-6 form-group p_star">
+                        <label for="nCP">Código Postal</label>
+                        <input type="text" class="form-control" id="nCP" value="97430" name="nCP">
+                    </div>
+                    <div class="col-6 col-md-6 form-group p_star">
+                        <label for="cMunicipio">Municipio</label>
+                        <input type="text" class="form-control" id="cMunicipio" value="Motul" name="cMunicipio">
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Estado</label>
+                        <select class="country_select form-control">
+                            <option value="1">District</option>
+                            <option value="2">District</option>
+                            <option value="4">District</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label for="cDescripcion">Descripción</label>
+                        <textarea class="form-control" name="cDescripcion" value="Casa con reja negra" id="cDescripcion" rows="1"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a class="genric-btn default radius" href="#" data-dismiss="modal">Cancelar</a>
+                <a href="#" class="genric-btn primary radius">Guardar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalitoxd" tabindex="-1" role="dialog" aria-labelledby="modalitoxdTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLongTitle">Nueva Tarjeta</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body billing_details">
+                <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                    <div class="col-md-5 form-group p_star">
+                        <label for="cNumeroExterior">Nombre descriptivo</label>
+                        <input type="text" class="form-control" id="cNumeroExterior" value="Tarjeta principal" name="cNumeroExterior">
+                    </div>
+                    <div class="col-md-7 form-group p_star">
+                        <label for="cNumeroExterior">Nombre del Titular</label>
+                        <input type="text" class="form-control" id="cNumeroExterior" value="MIGUEL ANGEL HOBAK KOH" name="cNumeroExterior">
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                        <label for="cCalle">Numero de targeta</label>
+                        <input type="text" class="form-control" id="cCalle" value="************4785" name="cCalle">
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Mes de Expiración</label>
+                        <br>
+                        <select class="country_select form-control" id="inputState">
+                            <option disabled selected>--  Mes  --</option>
+                            <option value="1">01</option>
+                            <option value="2">02</option>
+                            <option value="3">03</option>
+                            <option value="4">04</option>
+                            <option value="5">05</option>
+                            <option value="6">06</option>
+                            <option value="7">07</option>
+                            <option value="8">08</option>
+                            <option value="9">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Año de Expiración</label>
+                        <br>
+                        <select class="form-control country_select" id="inputState">
+                            <option disabled selected>-- Año --</option>
+                            <option value="19">2019</option>
+                            <option value="20">2020</option>
+                            <option value="21">2021</option>
+                            <option value="22">2022</option>
+                            <option value="23">2023</option>
+                            <option value="24">2024</option>
+                            <option value="25">2025</option>
+                            <option value="26">2026</option>
+                            <option value="27">2027</option>
+                            <option value="18">2028</option>
+                            <option value="29">2029</option>
+                            <option value="30">2030</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a class="genric-btn default radius" href="#" data-dismiss="modal">Cancelar</a>
+                <a href="#" class="genric-btn primary radius">Guardar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Cancelar suscripción</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+                <form class="form-inline">
+                    <div class="form-group mb-2">
+                        <label for="staticEmail2" class="sr-only">Email</label>
+                        <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="usuario@gmail.com">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="inputPassword2" class="sr-only">Contraseña</label>
+                        <input type="password" class="form-control" id="inputPassword2" placeholder="Contraseña">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a class="genric-btn default radius" href="#" data-dismiss="modal">Cancelar</a>
+                <a href="#" class="genric-btn primary radius">Confirmar identidad</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imagenperfil" tabindex="-1" role="dialog" aria-labelledby="imagenperfilLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imagenperfilLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="dropzone"
+                     id="imagenPerfilDropzone">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

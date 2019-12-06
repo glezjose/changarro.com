@@ -1,7 +1,14 @@
-﻿var iIdProducto = 0;
+﻿let iIdProducto;
+let TablaProducto;
 
 $(document).ready(function () {
-    var Datatables = $('#tblProducto').DataTable({
+    Botones();
+    ObtenerListaProductos();
+
+});
+
+function ObtenerListaProductos() {
+    TablaProducto = $('#tblProducto').DataTable({
         "ajax": {
             "url": "../Producto/Listar",
             "type": "GET",
@@ -36,40 +43,73 @@ $(document).ready(function () {
             },
             { "data": "lEstatus" }
         ],
-        "select": true
+        "select": true,
+        "oLanguage": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            }
+        }
     });
 
-    Datatables.on('select', function () {
-        iIdProducto = (Datatables.rows({ selected: true }).data()[0]['iIdProducto']);
+    TablaProducto.on('select', function () {
+        iIdProducto = (TablaProducto.rows({ selected: true }).data()[0]['iIdProducto']);
         console.log(iIdProducto)
-
     });
-
-    $("#addproducto").click(function () {
-
-        MostrarModal('../Producto/AddProducto', 'GET', true);
-
+    TablaProducto.on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+            iIdProducto = 0;
+            console.log(iIdProducto);
+        }
     });
+}
 
-    $("#verproducto").click(function () {
+function Botones() {
+    $("#btnAgregarProducto").click(function (e) {
+        e.preventDefault();
+        MostrarModal('GET', '../Producto/AddProducto', null, 'IniciarCategoria');
+    });
+    $("#btnVerProducto").click(function (e) {
+        e.preventDefault();
+
         if (iIdProducto > 0) {
             var cUrl = '../Producto/VisualizarProducto?id=' + iIdProducto;
-            MostrarModal(cUrl, 'GET', true);
+            MostrarModal('POST', cUrl, { iIdProducto: iIdProducto });
         } else {
-            alert(iIdProducto)
+            MsjseleccioneRegistro();
         }
-
     });
-
-    $("#editarproducto").click(function () {
+    $("#editarproducto").click(function (e) {
+        e.preventDefault();
         if (iIdProducto > 0) {
             var cUrl = '../Producto/EditarProducto?id=' + iIdProducto;
-            MostrarModal(cUrl, 'GET', true);
+            MostrarModal('POST', cUrl, true);
         } else {
-            alert("Seleccione un registro");
+            MsjseleccioneRegistro();
         }
     });
-});
+    $("#btncategoria").click(function (e) {
+        e.preventDefault();
+        MostrarModal('POST', '../Categoria/Categoria',null, 'IniciarCategoria');
+    });
+
+}
+
 function GuardarProducto() {
     console.log(":D")
     var data = $("#form4").serialize();
@@ -85,7 +125,7 @@ function GuardarProducto() {
                 alert('Se ha insertado un nuevo producto')
             }
             else {
-                alert("Ocurrió un error... T.T")
+                MsjseleccioneRegistro();
             }
         }
 

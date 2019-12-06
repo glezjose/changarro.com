@@ -28,10 +28,53 @@ namespace Changarro.Business
 
         }
 
-        public ClienteDTO AgregarCliente()
+        /// <summary>
+        /// Método para obtener cliente
+        /// </summary>
+        /// <param name="iIdCliente">ID del cliente</param>
+        /// <returns>Objeto con datos del cliente</returns>
+        public ClienteDTO ObtenerCliente(int iIdCliente)
         {
+            ClienteDTO _oCliente = new ClienteDTO();
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                _oCliente = ctx.tblCat_Cliente.AsNoTracking()
+                    .Where(c => c.iIdCliente == iIdCliente)
+                    .Select(o => new ClienteDTO 
+                    { 
+                        cNombre = o.cNombre, 
+                        cCorreo = o.cCorreo, 
+                        cImagen = o.cImagen 
 
-            return null;
+                    }).FirstOrDefault();
+            }          
+
+            return _oCliente;
+        }
+
+        /// <summary>
+        /// Método para obtener los datos del cliente
+        /// </summary>
+        /// <param name="iIdCliente">ID del cliente</param>
+        /// <returns>Objeto con los datos del cliente</returns>
+        public DatosClienteDTO ObtenerDatosCliente(int iIdCliente)
+        {
+            DatosClienteDTO _oCliente = new DatosClienteDTO();
+
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                _oCliente = ctx.tblCat_Cliente.AsNoTracking()
+                    .Where(c => c.iIdCliente == iIdCliente)
+                    .Select(o => new DatosClienteDTO
+                    {
+                        cNombre = o.cNombre,
+                        cApellido = o.cApellido,
+                        cTelefono = o.cTelefono,
+                        cCorreo = o.cCorreo             
+
+                    }).FirstOrDefault();
+            }
+            return _oCliente;
         }
 
         /// <summary>
