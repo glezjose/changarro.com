@@ -6,60 +6,28 @@
 //  Original author: Mike
 ///////////////////////////////////////////////////////////
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
+namespace Changarro.Model.DTO
+{
+    public class DatosClienteDTO : ClienteDTO {
 
+        public DatosClienteDTO(){
 
+        }
 
-namespace Changarro.Model.DTO {
-	public class DatosClienteDTO {
+        ~DatosClienteDTO(){
 
-		public DatosClienteDTO(){
+        }
 
-		}
+        /// <summary>
+        /// Propiedad que almacena el Apellido del Cliente
+        /// </summary>
+        public string cApellido { get; set; }
 
-		~DatosClienteDTO(){
+        /// <summary>
+        /// Propiedad que almacena el teléfono del cliente
+        /// </summary>
+        public string cTelefono { get; set; }
 
-		}
+    }
 
-		public string cApellido{
-			get{
-				return cApellido;
-			}
-			set{
-				cApellido = value;
-			}
-		}
-
-		public string cCorreo{
-			get{
-				return cCorreo;
-			}
-			set{
-				cCorreo = value;
-			}
-		}
-
-		public string cNombre{
-			get{
-				return cNombre;
-			}
-			set{
-				cNombre = value;
-			}
-		}
-
-		public string cTelefono{
-			get{
-				return cTelefono;
-			}
-			set{
-				cTelefono = value;
-			}
-		}
-
-	}//end DatosClienteDTO
-
-}//end namespace ChangarroDTO
+}

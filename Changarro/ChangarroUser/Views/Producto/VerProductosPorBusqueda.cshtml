@@ -13,7 +13,7 @@
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
                 <h1>Productos</h1>
-                <div class="filler-banner"></div>
+                <a class="filler-banner text-white">Búsqueda: "@ViewBag.cBusqueda"</a>
             </div>
         </div>
     </div>
@@ -40,9 +40,9 @@
                 <div class="sorting mr-auto">
                 </div>
                 <div class="pagination">
-                    @if(ViewBag.cMensaje != "")
+                    @if (ViewBag.cMensaje != "")
                     {
-                    <div class="filler"></div>
+                        <div class="filler"></div>
                     }
 
                     @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.cBusqueda, iPagina = iPagina }))
@@ -69,14 +69,29 @@
                                     <div class="prd-bottom">
                                         @Html.Hidden("iIdProducto", item.iIdProducto)
 
-                                        <a class="social-info btnComprarAhora" href="#">
-                                            <span class="ti-money"></span>
-                                            <p class="hover-text">Comprar</p>
-                                        </a>
-                                        <a class="social-info btnAgregarCarrito" href="#">
-                                            <span class="ti-bag"></span>
-                                            <p class="hover-text">Agregar</p>
-                                        </a>
+                                        @if (Session["iIdCliente"] == null)
+                                        {
+                                            <a class="social-info" href="@Url.Action("Registro", "Inicio")">
+                                                <span class="ti-money"></span>
+                                                <p class="hover-text">Comprar</p>
+                                            </a>
+                                            <a class="social-info" href="@Url.Action("Registro", "Inicio")">
+                                                <span class="ti-bag"></span>
+                                                <p class="hover-text">Agregar</p>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="social-info btnComprarAhora" href="#">
+                                                <span class="ti-money"></span>
+                                                <p class="hover-text">Comprar</p>
+                                            </a>
+                                            <a class="social-info btnAgregarCarrito" href="#">
+                                                <span class="ti-bag"></span>
+                                                <p class="hover-text">Agregar</p>
+                                            </a>
+                                        }
+
                                         <a class="social-info btnVerDetalles" href="#">
                                             <span class="ti-eye"></span>
                                             <p class="hover-text">Ver más</p>
@@ -110,7 +125,6 @@
 </div>
 
 @section scripts{
-    <script src="~/Scripts/Utileria.js"></script>
-    <script src="~/Scripts/Inicio/Inicio.js"></script>
+    <script src="~/Scripts/Producto/Producto.js"></script>
 }
 

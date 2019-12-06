@@ -51,8 +51,16 @@
 @section footer{
     <div class="modal-footer">
         @Html.Hidden("iIdProducto", Model.iIdProducto)
-        <a class="gray_btn btnAgregarCarrito" href="#">Agregar al carrito</a>
-        <a class="primary-btn btnComprarAhora" href="#">Comprar ahora</a>
+        @if (Session["iIdCliente"] == null)
+        {
+            <a class="gray_btn" href="@Url.Action("Registro", "Inicio")">Agregar al carrito</a>
+            <a class="primary-btn" href="@Url.Action("Registro", "Inicio")">Comprar ahora</a>
+        }
+        else
+        {
+            <a class="gray_btn btnAgregarCarritoModal" href="#">Agregar al carrito</a>
+            <a class="primary-btn btnComprarAhora" href="#">Comprar ahora</a>
+        }
 
     </div>
 }

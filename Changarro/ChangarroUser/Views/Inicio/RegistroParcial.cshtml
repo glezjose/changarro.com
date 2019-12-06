@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "RegistroParcial";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="d-flex justify-content-end">
+    <div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="ti-close"></span>
+        </button>
+    </div>
+</div>
+<div class="col-lg-12">
+    <h3>Crea una cuenta</h3>
+    <form class="row login_form needs-validation" id="registroForm" novalidate>
+        <div class="col-md-6 form-group">
+            <input type="text" class="form-control" id="cNombre" name="cNombre" placeholder="Nombre" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nombre'">
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" class="form-control" id="cApellido" name="cApellido" placeholder="Apellido" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Apellido'">
+        </div>
+        <div class="col-md-12 form-group">
+            <input type="text" class="form-control" id="cCorreo" name="cCorreo" placeholder="Correo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Correo'">
+        </div>
+        <div class="col-md-12 form-group">
+            <input type="password" class="form-control" id="cContrasenia" name="cContrasenia" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contraseña'">
+        </div>
+        <div class="col-md-12 form-group">
+            <input type="password" class="form-control" id="cConfirmContrasenia" name="cConfirmContrasenia" placeholder="Confirmar Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirmar Contraseña'">
+        </div>
+        <div class="col-md-12 form-group">
+            <button id="btnRegistro" class="primary-btn">Registrate!</button>
+            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a id="login-tab" href="#">¿Ya tienes Cuenta?</a>
+                </li>
+            </ul>
+        </div>
+    </form>        
+</div>

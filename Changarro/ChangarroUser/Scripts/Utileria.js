@@ -23,20 +23,22 @@ function AbrirModal(cUrl, funcion) {
     });
 }
 
-function PersisteDatos(cUrl, funcion) {
+function PersisteCarrito(cUrl, funcion) {
     $.ajax({
         type: "POST",
         url: ruta + cUrl,
         dataType: "json",
         success: function (response) {
-            $('#modalGeneral').modal('hide');
 
             Toast.fire({
                 icon: response.cIcono,
                 title: response.cMensaje
             });
 
-            funcion();
+            if (response.cIcono == "success") {
+
+                funcion();
+            }
         },
         error: function (response) {
             alert('error');
@@ -65,18 +67,34 @@ function CargarBotonesProducto() {
         const iIdProducto = $(this).siblings('#iIdProducto').val();
         const cUrl = '/Producto/VerDetalles?iIdProducto=' + iIdProducto;
 
-        AbrirModal(cUrl, CargarBotonesProducto);
+        AbrirModal(cUrl, CargarBotonesModal);
     });
 
     $('.btnAgregarCarrito').click(function (e) {
         e.preventDefault();
-        e.stopPropagation();
         e.stopImmediatePropagation();
+        e.stopPropagation();
 
         const iIdProducto = $(this).siblings('#iIdProducto').val();
         const cUrl = '/Carrito/AgregarProductoCarrito?iIdProducto=' + iIdProducto;
 
-        PersisteDatos(cUrl, AgregarAcarrito);
+        PersisteCarrito(cUrl, AgregarAcarrito);
+
+    });
+}
+
+function CargarBotonesModal() {
+    $('.btnAgregarCarritoModal').click(function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.stopPropagation();
+
+        const iIdProducto = $(this).siblings('#iIdProducto').val();
+        const cUrl = '/Carrito/AgregarProductoCarrito?iIdProducto=' + iIdProducto;
+
+        PersisteCarrito(cUrl, AgregarAcarrito);
+
+        $('#modalGeneral').modal('hide');
     });
 }
 

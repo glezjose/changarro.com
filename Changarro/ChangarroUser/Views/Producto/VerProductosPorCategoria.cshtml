@@ -14,8 +14,8 @@
                 <h1>Productos</h1>
                 <nav class="d-flex align-items-center">
 
-                    <a href="#">Productos<span class="ti ti-arrow-right"></span></a>
-                    <a href="category.html">@ViewBag.cNombreCategoria</a>
+                    <a href="@Url.Action("Inicio","Producto")">Changarro<span class="ti-arrow-right"></span></a>
+                    <a href="">@ViewBag.cNombreCategoria</a>
                 </nav>
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <div class="sorting mr-auto">
                 </div>
                 <div class="pagination">
-                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.iIdCategoria, iPagina = iPagina }))
+                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorCategoria", new { iIdCategoria = ViewBag.iIdCategoria, iPagina = iPagina }))
                 </div>
 
             </div>
@@ -67,14 +67,29 @@
                                     <div class="prd-bottom">
                                         @Html.Hidden("iIdProducto", item.iIdProducto)
 
-                                        <a class="social-info btnComprarAhora" href="#">
-                                            <span class="ti-money"></span>
-                                            <p class="hover-text">Comprar</p>
-                                        </a>
-                                        <a class="social-info btnAgregarCarrito" href="#">
-                                            <span class="ti-bag"></span>
-                                            <p class="hover-text">Agregar</p>
-                                        </a>
+                                        @if (Session["iIdCliente"] == null)
+                                        {
+                                            <a class="social-info" href="@Url.Action("Registro", "Inicio")">
+                                                <span class="ti-money"></span>
+                                                <p class="hover-text">Comprar</p>
+                                            </a>
+                                            <a class="social-info" href="@Url.Action("Registro", "Inicio")">
+                                                <span class="ti-bag"></span>
+                                                <p class="hover-text">Agregar</p>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="social-info btnComprarAhora" href="#">
+                                                <span class="ti-money"></span>
+                                                <p class="hover-text">Comprar</p>
+                                            </a>
+                                            <a class="social-info btnAgregarCarrito" href="#">
+                                                <span class="ti-bag"></span>
+                                                <p class="hover-text">Agregar</p>
+                                            </a>
+                                        }
+
                                         <a class="social-info btnVerDetalles" href="#">
                                             <span class="ti-eye"></span>
                                             <p class="hover-text">Ver más</p>
@@ -94,7 +109,7 @@
 
                 </div>
                 <div class="pagination">
-                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorBusqueda", new { cBusqueda = ViewBag.iIdCategoria, iPagina = iPagina }))
+                    @Html.PagedListPager(Model, iPagina => Url.Action("VerProductosPorCategoria", new { iIdCategoria = ViewBag.iIdCategoria, iPagina = iPagina }))
                 </div>
             </div>
             <!-- End Filter Bar -->
@@ -103,6 +118,5 @@
 </div>
 
 @section scripts{
-    <script src="~/Scripts/Utileria.js"></script>
-    <script src="~/Scripts/Inicio/Inicio.js"></script>
+    <script src="~/Scripts/Producto/Producto.js"></script>
 }

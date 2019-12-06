@@ -1,15 +1,29 @@
 ﻿using Changarro.Business;
+using Changarro.Model.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ChangarroUser.Controllers
 {
     public class CarritoController : Controller
     {
-        readonly Carrito carrito = new Carrito();
+        private readonly Carrito carrito = new Carrito();
+        private readonly Productos producto = new Productos();
+
+        public ActionResult Inicio()
+        {
+            int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
+
+            ViewBag.iTotalProductos = carrito.ObtenerTotalProductos(iIdCarrito);
+
+            ViewBag.iSubTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito);
+
+            ViewBag.iTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito) + 50;
+
+            List<CarritoDTO> _lstProductos = carrito.ObtenerProductosCarrito(iIdCarrito);
+            return View(_lstProductos);
+        }
 
         [HttpPost]
         public JsonResult AgregarProductoCarrito(int iIdProducto)
@@ -18,12 +32,20 @@ namespace ChangarroUser.Controllers
             string cIcono;
             try
             {
-                int iIdCarrito = 1; //[Session"carrito"]
+                if (producto.ChecarExistencia(iIdProducto))
+                {
+                int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
 
                 carrito.AgregarAcarrito(iIdProducto, iIdCarrito);
 
                 cMensaje = "Se ha agregado un producto al carrito.";
                 cIcono = "success";
+                }
+                else
+                {
+                    cMensaje = "No hay existencia disponible para este producto.";
+                    cIcono = "error";
+                }
             }
             catch (Exception)
             {
@@ -36,7 +58,8 @@ namespace ChangarroUser.Controllers
         [ChildActionOnly]
         public ActionResult ProductosCarrito()
         {
-            int iIdCarrito = 1;//[Session"carrito"]
+            
+            int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
 
             ViewBag.iTotalProductos = carrito.ObtenerTotalProductos(iIdCarrito);
 
