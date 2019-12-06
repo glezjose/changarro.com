@@ -9,8 +9,11 @@ namespace ChangarroManager.Controllers
 {
     public class CategoriaController : Controller
     {
-        CHANGARROEntities db = new CHANGARROEntities();
-        // GET: Categoria
+        Categoria categoriaSer = new Categoria();
+
+        private string cMensaje = string.Empty;
+        private string cEstatus = string.Empty;
+
         public ActionResult Index()
         {
             return View();
@@ -27,7 +30,6 @@ namespace ChangarroManager.Controllers
         {
             List<ListaCategoriaDTO> lstCategoria = new List<ListaCategoriaDTO>();
 
-            Categoria categoriaSer = new Categoria();
             lstCategoria = categoriaSer.ObtenerListaCategoria();
 
             return Json(new { data = lstCategoria }, JsonRequestBehavior.AllowGet);
@@ -39,28 +41,25 @@ namespace ChangarroManager.Controllers
         /// <returns></returns>
         public JsonResult AgregarCategoria(tblCat_Categoria _objCategoria)
         {
-            bool r = false;
-
             try
             {
-                Categoria CategoriaService = new Categoria();
+                categoriaSer.AgregarCategoria(_objCategoria);
 
-                tblCat_Categoria obp = new tblCat_Categoria
-                {
-                    cNombre = _objCategoria.cNombre
-                };
-
-                CategoriaService.AgregarCategoria(obp);
-
-                r = true;
+                cMensaje = "Se agregó un calzado correctamente.";
+                cEstatus = "¡Guardado!";
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                r = false;
+                cMensaje = e.Message;
+                cEstatus = "Error";
             }
 
-            return Json(new { result = r }, JsonRequestBehavior.AllowGet);
+            return Json(new { Mensaje = cMensaje, Estatus = cEstatus }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult EditarCategoria(tblCat_Categoria _objCategoria)
+        {
+            return null;
         }
     }
 }

@@ -218,6 +218,15 @@
     <Content Include="Assets\js\material-dashboard.js" />
     <Content Include="Assets\js\moment.min.js" />
     <Content Include="Assets\js\perfect-scrollbar.jquery.min.js" />
+    <Content Include="Assets\Library\Datatables\datatables.min.css" />
+    <Content Include="Assets\Library\Datatables\datatables.min.js" />
+    <Content Include="Assets\Library\jQuery\jquery-3.4.1.min.js" />
+    <Content Include="Assets\Library\jQuery\jquery.validate.min.js" />
+    <Content Include="Assets\Library\jQuery\JQvalidate.css" />
+    <Content Include="Assets\Library\SweetAlert\sweetalert2.min.css" />
+    <Content Include="Assets\Library\SweetAlert\sweetalert2.min.js" />
+    <Content Include="Assets\Library\Validate\jquery.validate.min.js" />
+    <Content Include="Assets\Library\Validate\messages_es.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\categorias.js" />
     <Content Include="Scripts\CategoriasJS.js" />
