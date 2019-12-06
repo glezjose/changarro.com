@@ -12,6 +12,10 @@ using Changarro.Model.DTO;
 using System.Linq;
 using System.Data.Entity;
 using System;
+using System.IO;
+using NPOI.SS.UserModel;
+using NPOI.HSSF.UserModel;
+using NPOI.XSSF.UserModel;
 
 namespace Changarro.Business
 {
@@ -32,7 +36,6 @@ namespace Changarro.Business
         {
 
         }
-
         public ProductosDTO AgregarProducto(tblCat_Producto _objProducto)
         {
             DbContextTransaction dbTran = db.Database.BeginTransaction();//investigar 
@@ -80,9 +83,9 @@ namespace Changarro.Business
             return null;
         }
         /// <summary>
-        /// Trae los datos de la tabla de productos
+        /// Método que trae los datos de la tabla de productos de la base de datos
         /// </summary>
-        /// <returns></returns>
+        /// <returns>regresa una lista con todos los registros de la tabla</returns>
         public List<ListaProductosDTO> ObtenerListaProductos()
         {
             List<ListaProductosDTO> lstProducto = (from producto in db.tblCat_Producto
@@ -102,10 +105,10 @@ namespace Changarro.Business
             return lstProducto;
         }
         /// <summary>
-        /// Obtiene los datos de un producto de acuerdo a si ID
+        /// Método que Obtiene los datos de un producto de acuerdo a su identificador para mostrar los detalles
         /// </summary>
-        /// <param name="_iIdProducto"></param>
-        /// <returns></returns>
+        /// <param name="_iIdProducto">la id del producto a localizar </param>
+        /// <returns>regresa un objeto con los datos del producto</returns>
         public tblCat_Producto ObtenerProducto(int _iIdProducto)
         {
             tblCat_Producto oProducto = db.tblCat_Producto.Where(p => p.iIdProducto == _iIdProducto).FirstOrDefault();
@@ -186,11 +189,44 @@ namespace Changarro.Business
             return _oProducto;
         }
 
+        /// <summary>
+        /// Método que crea la plantilla vacía que el administrador podrá descargar para llenar y registrar varios productos
+        /// </summary>
+        public string GenerarPlantillaVacia()
+        {
+            string cHome = AppDomain.CurrentDomain.BaseDirectory;
+            string cRutaPlantilla = cHome + "Plantillas\\PlantillaVacia\\Plantilla.xlsx";
+            cRutaPlantilla = cRutaPlantilla.Normalize();
+            List<string> lstEncabezados = new List<string>{
+                "Nombre",
+                "Descripción",
+                "Precio",
+                "Categoría",
+                "Estatus",
+                "Existencia"
+            };
+
+            using (FileStream _oFileStream = new FileStream(cRutaPlantilla, FileMode.Create, FileAccess.Write))
+            {
+                IWorkbook oLibro = new XSSFWorkbook();
+                ISheet oHoja = oLibro.CreateSheet("Plantilla");
+                ICreationHelper oAyudanteCreacion = oLibro.GetCreationHelper();
+                IRow oFilaEncabezados = oHoja.CreateRow(0);
+                for (int i = 0; i < lstEncabezados.Count; i++)
+                {
+                    ICell oCelda = oFilaEncabezados.CreateCell(i);
+                    oCelda.SetCellValue(lstEncabezados[i]);
+                }
+                oLibro.Write(_oFileStream);
+            }
+            return cRutaPlantilla;
+        }//end Generar Plantilla Vacia
+
         public bool ChecarExistencia(int iIdProducto)
         {
 
             int iCantidad = db.tblCat_Producto.AsNoTracking().FirstOrDefault(p => p.iIdProducto == iIdProducto).iCantidad;
-            
+
             return (iCantidad == 0) ? false : true;
         }
     }//end Productos

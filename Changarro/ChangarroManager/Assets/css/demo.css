@@ -107,3 +107,17 @@ nav a {
 .modal-footer {
     border-radius: 0;
 }
+
+.amchartdiv {
+    width: 100%;
+    height: 500px;
+}
+.cambiarTamaño {
+    width: 100%;
+    height: 100px;
+}
+
+.amchartdiv2 {
+    width: 100%;
+    height: 600px;
+}
