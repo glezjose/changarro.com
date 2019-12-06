@@ -225,11 +225,13 @@
     <Content Include="Scripts\clientesCompras.js" />
     <Content Include="Scripts\Cliente\Cliente.js" />
     <Content Include="Scripts\date.format.js" />
+    <Content Include="Scripts\Reportes\Grafica.js" />
     <Content Include="Scripts\Modal.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\ProductoJS.js" />
     <Content Include="Scripts\productos.js" />
     <Content Include="Scripts\productosVendidos.js" />
+    <Content Include="Scripts\Reportes\Utileria.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
