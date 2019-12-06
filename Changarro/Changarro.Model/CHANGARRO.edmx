@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CHANGARROModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="tbl_DetalleCarrito">
           <Key>
             <PropertyRef Name="iIdDetalleCarrito" />
@@ -49,7 +39,7 @@
           <Property Name="cApellido" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cTelefono" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cCorreo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cContrasenia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cContrasenia" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="cImagen" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblCat_Carrito">
@@ -137,8 +127,8 @@
           <Property Name="cTitular" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cNumeroTarjeta" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="lEstatus" Type="bit" Nullable="false" />
-          <Property Name="dtMesExpiracion" Type="datetime" Nullable="false" />
-          <Property Name="dtAnioExpiracion" Type="datetime" Nullable="false" />
+          <Property Name="itMesExpiracion" Type="tinyint" Nullable="false" />
+          <Property Name="iAnioExpiracion" Type="tinyint" Nullable="false" />
         </EntityType>
         <Association Name="FK_tbl_DetalleCarrito_iIdCarrito_tblCat_Carrito_iIdCarrito">
           <End Role="tblCat_Carrito" Type="Self.tblCat_Carrito" Multiplicity="1">
@@ -289,7 +279,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CHANGARROModelStoreContainer">
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DetalleCarrito" EntityType="Self.tbl_DetalleCarrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DetalleCompra" EntityType="Self.tbl_DetalleCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Estado" EntityType="Self.tbl_Estado" Schema="dbo" store:Type="Tables" />
@@ -355,7 +344,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="CHANGARROModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CHANGARROEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="sysdiagrams" EntityType="CHANGARROModel.sysdiagrams" />
           <EntitySet Name="tbl_DetalleCarrito" EntityType="CHANGARROModel.tbl_DetalleCarrito" />
           <EntitySet Name="tbl_DetalleCompra" EntityType="CHANGARROModel.tbl_DetalleCompra" />
           <EntitySet Name="tbl_Estado" EntityType="CHANGARROModel.tbl_Estado" />
@@ -416,16 +404,6 @@
             <End Role="tblCat_Compra" EntitySet="tblCat_Compra" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="tbl_DetalleCarrito">
           <Key>
             <PropertyRef Name="iIdDetalleCarrito" />
@@ -465,7 +443,7 @@
           <Property Name="cApellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cTelefono" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cCorreo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cContrasenia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cContrasenia" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="cImagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblCat_Carrito">
@@ -570,8 +548,8 @@
           <Property Name="cTitular" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cNumeroTarjeta" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
-          <Property Name="dtMesExpiracion" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="dtAnioExpiracion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="itMesExpiracion" Type="Byte" Nullable="false" />
+          <Property Name="iAnioExpiracion" Type="Byte" Nullable="false" />
           <NavigationProperty Name="tblCat_Cliente" Relationship="CHANGARROModel.FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente" FromRole="tblCat_Tarjeta" ToRole="tblCat_Cliente" />
           <NavigationProperty Name="tblCat_Compra" Relationship="CHANGARROModel.FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta" FromRole="tblCat_Tarjeta" ToRole="tblCat_Compra" />
         </EntityType>
@@ -729,17 +707,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CHANGARROModelStoreContainer" CdmEntityContainer="CHANGARROEntities">
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="CHANGARROModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_DetalleCarrito">
             <EntityTypeMapping TypeName="CHANGARROModel.tbl_DetalleCarrito">
               <MappingFragment StoreEntitySet="tbl_DetalleCarrito">
@@ -865,8 +832,8 @@
           <EntitySetMapping Name="tblCat_Tarjeta">
             <EntityTypeMapping TypeName="CHANGARROModel.tblCat_Tarjeta">
               <MappingFragment StoreEntitySet="tblCat_Tarjeta">
-                <ScalarProperty Name="dtAnioExpiracion" ColumnName="dtAnioExpiracion" />
-                <ScalarProperty Name="dtMesExpiracion" ColumnName="dtMesExpiracion" />
+                <ScalarProperty Name="iAnioExpiracion" ColumnName="iAnioExpiracion" />
+                <ScalarProperty Name="itMesExpiracion" ColumnName="itMesExpiracion" />
                 <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
                 <ScalarProperty Name="cNumeroTarjeta" ColumnName="cNumeroTarjeta" />
                 <ScalarProperty Name="cTitular" ColumnName="cTitular" />

@@ -1,23 +1,50 @@
-﻿function MostrarModal(cUrl, funcion) {
-    console.log("ejecutando");
-    $.ajax(
-        {
-            url: cUrl,
-            type: 'POST',
-            async: false,
-            datatype: "HTML",
-            success: function (res) {
-                //console.log(res);
-                $('#modalGeneral').html(res); //se inserta la vista del controlador que haya obtenido de la peticion
-
-                $('#modalGeneral').modal({
-                    show: true
-                }); // se activa el modal
-                funcion();
-            },
-            error: function (res) {
-                alert('error');
+﻿function MostrarModal(cTipo, cUrl, Data, Funcion) {
+    $.ajax({
+        type: cTipo,
+        url: cUrl,
+        async: false,
+        data: Data,
+        dataType: "HTML",
+        success: function (response) {
+            //alert(response);
+            $("#modalGeneral").html(response);
+            $("#modalGeneral").modal({
+                show: true,
+                backdrop: "static",
+            });
+            if (Funcion) {
+                window[Funcion]();
             }
         }
-    )
+    });
+}
+function LlamarMetodo(cTipo, cUrl, Data, Funcion) {
+    $.ajax({
+        type: cTipo,
+        url: cUrl,
+        data: Data,
+        async: false,
+        dataType: "json",
+        success: function (response) {
+            Swal.fire({
+                icon: "success",
+                title: response.Estatus,
+                text: response.Mensaje,
+                showConfirmButton: false,
+                timer: 1500
+            });
+            $("#ModalPrincipal").modal('hide');
+
+            if (Funcion) {
+                window[Funcion]();
+            }
+        }
+    });
+}
+function MsjseleccioneRegistro() {
+    Swal.fire({
+        icon: 'warning',
+        title: '¡Advertencia!',
+        text: 'Debe seleccionar un registro antes.'
+    });
 }

@@ -30,6 +30,12 @@ namespace ChangarroManager.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult ImportarProducto()
+        {
+            return View();
+        }
         public JsonResult AgregarProducto(tblCat_Producto _objProducto)
         {
             bool r = false;
@@ -74,6 +80,15 @@ namespace ChangarroManager.Controllers
             lstProducto = ProductoSer.ObtenerListaProductos();
 
             return Json(new { data = lstProducto }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult DescargarPlantilla()
+        {
+            Productos oLogicaProducto = new Productos();
+            string cRutaPlantilla = oLogicaProducto.GenerarPlantillaVacia();
+            byte[] datosBinariosPlantilla = System.IO.File.ReadAllBytes(cRutaPlantilla);
+            return File(datosBinariosPlantilla, System.Net.Mime.MediaTypeNames.Application.Octet, "Plantilla.xlsx");
         }
     }
 }

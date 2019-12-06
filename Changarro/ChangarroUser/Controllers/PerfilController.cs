@@ -43,7 +43,7 @@ namespace ChangarroUser.Controllers
 
             DatosClienteDTO _oCliente = oCliente.ObtenerDatosCliente(iIdCliente);
 
-            return View(_oCliente);
+            return PartialView(_oCliente);
         }
         #endregion
     }
