@@ -171,6 +171,7 @@
     <Content Include="Assets\css\material-dashboard.css" />
     <Content Include="Assets\css\material-dashboard.min.css" />
     <Content Include="Assets\css\productos.css" />
+    <Content Include="Assets\css\sweetalert2.min.css" />
     <Content Include="Assets\fontawesome\css\all.min.css" />
     <Content Include="Assets\fontawesome\webfonts\fa-brands-400.svg" />
     <Content Include="Assets\fontawesome\webfonts\fa-regular-400.svg" />
@@ -218,6 +219,7 @@
     <Content Include="Assets\js\material-dashboard.js" />
     <Content Include="Assets\js\moment.min.js" />
     <Content Include="Assets\js\perfect-scrollbar.jquery.min.js" />
+    <Content Include="Assets\js\sweetalert2.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\categorias.js" />
     <Content Include="Scripts\CategoriasJS.js" />
@@ -343,6 +345,8 @@
     <Content Include="Views\Producto\addcat.cshtml" />
     <Content Include="Views\Producto\EditarProducto.cshtml" />
     <Content Include="Views\Categoria\Categoria.cshtml" />
+    <Content Include="Views\Producto\ImportarProducto.cshtml" />
+    <Content Include="Plantillas\PlantillaVacia\test.xls" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

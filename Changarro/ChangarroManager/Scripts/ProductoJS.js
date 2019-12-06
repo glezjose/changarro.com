@@ -69,6 +69,8 @@ $(document).ready(function () {
             alert("Seleccione un registro");
         }
     });
+
+    MenuDesplegable();
 });
 function GuardarProducto() {
     console.log(":D")
@@ -90,4 +92,23 @@ function GuardarProducto() {
         }
 
     });
+}
+
+function MenuDesplegable() {
+    //Para modal -- id="modalGeneral"
+
+    $("#descargarPlantilla").click(function () {
+        let lExisteSesion = true;
+        if (lExisteSesion) {
+            window.location.replace("../Producto/DescargarPlantilla");
+        }
+    });
+
+    $("#importarProductos").click(function () {
+        MostrarModal("../Producto/ImportarProducto", InicializarModalImportar);
+    });
+}
+
+function InicializarModalImportar() {
+    console.log("Implementar funcion Inicializar Modal Importar");
 }

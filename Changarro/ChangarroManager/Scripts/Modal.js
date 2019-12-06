@@ -13,7 +13,10 @@
                 $('#modalGeneral').modal({
                     show: true
                 }); // se activa el modal
-                funcion();
+                if (funcion) {
+                    funcion();
+                }
+                
             },
             error: function (res) {
                 alert('error');
