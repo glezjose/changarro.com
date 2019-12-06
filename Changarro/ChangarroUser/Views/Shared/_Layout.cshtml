@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://rawgit.com/lykmapipo/themify-icons/master/css/themify-icons.css">
     <link rel="stylesheet" href="~/Assets/css/nice-select.css">
     <link rel="stylesheet" href="~/Assets/css/main.css">
-    <link href="~/Assets/css/sweetalert2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Assets/css/sweetalert2.min.css">
     @RenderSection("styles", required: false)
 
 </head>
@@ -53,18 +53,18 @@
                                    data-target="#exampleModalCenter"
                                    aria-expanded="false">Perfil</a>
 
-                            <ul class="dropdown-menu">
-                                @if (Session["iIdCliente"] == null)
-                                {
-                                    <li class="nav-item"><a class="nav-link" href="#" id="btnRegistrar">Registrarte</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#" id="btnIniciarSesion">Iniciar Sesión</a></li>
-                                }
-                                else
-                                {
-                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Registro", "Inicio")">Mi perfil</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Inicio")">Historial de compras</a></li>
-                                    <li class="nav-item"><a class="nav-link" id="btnCerrarSesion" href="@Url.Action("CerrarSesion", "Inicio")">Cerrar Sesión</a></li>
-                                }
+                                <ul class="dropdown-menu">
+                                    @if (Session["iIdCliente"] == null)
+                                    {
+                                        <li class="nav-item"><a class="nav-link" href="#" id="btnRegistrar">Registrarte</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#" id="btnIniciarSesion">Iniciar Sesión</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("MiPerfil", "Perfil")">Mi perfil</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Inicio")">Historial de compras</a></li>
+                                        <li class="nav-item"><a class="nav-link" id="btnCerrarSesion" href="@Url.Action("CerrarSesion", "Inicio")">Cerrar Sesión</a></li>
+                                    }
 
 
                                 </ul>
@@ -83,7 +83,7 @@
                                 }
                                 else
                                 {
-                                    <a href="@Url.Action("Incio", "Carrito")" class="cart">
+                                    <a href="@Url.Action("Inicio", "Carrito")" class="cart">
                                         <i class="ti-bag"></i>
                                         @{
                                             Html.RenderAction("ProductosCarrito", "Carrito");
@@ -159,6 +159,9 @@
     <script src="~/Assets/js/main.js"></script>
     <script src="~/Assets/js/sweetalert2.all.min.js"></script>
     <script src="~/Assets/js/jquery.validate.min.js"></script>
+    <script src="~/Scripts/Utileria.js"></script>
+    <script src="~/Scripts/Inicio/Sesion.js"></script>
+    <script src="~/Scripts/Inicio/ValidarFormularios.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

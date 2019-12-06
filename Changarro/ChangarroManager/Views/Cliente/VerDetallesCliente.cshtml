@@ -5,103 +5,39 @@
     Layout = "~/Views/Shared/_Modal.cshtml";
 }
 
-<h2>VerDetallesCliente</h2>
 
-<div>
-    <h4>tblCat_Cliente</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.iIdCliente)
-        </dt>
+<h2 align="center">Detalles del Cliente</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.iIdCliente)
-        </dd>
+<fieldset disabled>
+    <div class="form-row mb-3">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.cNombre)
-        </dt>
+        <div class="col-6">
+            <label>Nombre</label>
+            <input type="text" id="cNombre" value="@Html.DisplayFor(model => model.cNombre)" name="cNombre" class="form-control" />
+        </div>
+        <div class="col-6">
+            <label>Apellido</label>
+            <input type="text" id="cApellido" value="@Html.DisplayFor(model => model.cApellido)" name="cApellido" class="form-control" />
+        </div>
+        <div class="col-6">
+            <label>Número Teléfonico</label>
+            <input type="text" id="cTelefono" value="@Html.DisplayFor(model => model.cTelefono)" name="cTelefono" class="form-control" />
+        </div>
+        <div class="col-6">
+            <label>Imagen</label>
+            <input type="text" id="cImagen" value="@Html.DisplayFor(model => model.cImagen)" name="cImagen" class="form-control" />
+        </div>
+        <div class="col-6">
+            <label>Fecha de Alta</label>
+            <input type="text" id="dtFechaAlta" value="@Html.DisplayFor(model => model.dtFechaAlta)" name="dtFechaAlta" class="form-control" />
+        </div>
+        <div class="col-6">
+            <label>Fecha de Baja</label>
+            <input type="text" id="dtFechaBaja" value="@Html.DisplayFor(model => model.dtFechaBaja)" name="dtFechaBaja" class="form-control" placeholder="Este cliente esta activo" />
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.cNombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cApellido)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cApellido)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cTelefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cTelefono)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cCorreo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cCorreo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cContrasenia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cContrasenia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cImagen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cImagen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.lEstatus)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.lEstatus)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dtFechaAlta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dtFechaAlta)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dtFechaBaja)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dtFechaBaja)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dtFechaModificacion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dtFechaModificacion)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        @section Footer{
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        }
+    </div>
+</fieldset>

@@ -22,7 +22,10 @@
             <div class="card-body">
                 <h4 class="card-title">Lista de usuarios con más Compras</h4>
                 <p class="card-category">Este mes</p>
-                <div class="amchartdiv" id="clientesCompras"></div>
+                <div class="alert alert-danger text-center" id="MensajeError" hidden>
+                    <strong>Warning!</strong> 
+                </div>
+                <div class="amchartdiv2" id="ClientesCompras"></div>
             </div>
         </div>
     </div>
@@ -31,7 +34,10 @@
             <div class="card-body">
                 <h4 class="card-title">Categoria de productos</h4>
                 <p class="card-category">Cantidad total de productos en existencia</p>
-                <div class="amchartdiv" id="categoriasProductos"></div>
+                <div class="alert alert-danger text-center" id="MensajeError" hidden>
+                    <strong>Warning!</strong> Indicates a warning that might need attention.
+                </div>
+                <div class="amchartdiv" id="CategoriasProductos"></div>
             </div>
         </div>
     </div>
@@ -45,6 +51,8 @@
     <script src="~/Scripts/productosVendidos.js"></script>
     <script src="~/Scripts/clientesCompras.js"></script>
     <script src="~/Scripts/categorias.js"></script>
+    <script src="~/Scripts/Reportes/Utileria.js"></script>
+    <script src="~/Scripts/Reportes/Grafica.js"></script>
 
 
 }

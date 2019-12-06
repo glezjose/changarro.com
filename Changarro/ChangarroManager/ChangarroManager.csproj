@@ -171,6 +171,7 @@
     <Content Include="Assets\css\material-dashboard.css" />
     <Content Include="Assets\css\material-dashboard.min.css" />
     <Content Include="Assets\css\productos.css" />
+    <Content Include="Assets\css\sweetalert2.min.css" />
     <Content Include="Assets\fontawesome\css\all.min.css" />
     <Content Include="Assets\fontawesome\webfonts\fa-brands-400.svg" />
     <Content Include="Assets\fontawesome\webfonts\fa-regular-400.svg" />
@@ -234,11 +235,13 @@
     <Content Include="Scripts\clientesCompras.js" />
     <Content Include="Scripts\Cliente\Cliente.js" />
     <Content Include="Scripts\date.format.js" />
+    <Content Include="Scripts\Reportes\Grafica.js" />
     <Content Include="Scripts\Modal.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\ProductoJS.js" />
     <Content Include="Scripts\productos.js" />
     <Content Include="Scripts\productosVendidos.js" />
+    <Content Include="Scripts\Reportes\Utileria.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
