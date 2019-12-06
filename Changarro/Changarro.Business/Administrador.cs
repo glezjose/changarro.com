@@ -36,23 +36,21 @@ namespace ChangarroBusiness
             return null;
         }
 
-        /// 
-        /// <param name="iIdAdministrador"></param>
-        public List<AdministradorDTO> ObtenerDatos()
+        public AdministradorDTO ObtenerDatosAdministrador(int iIdAdministrador)
         {
-            List<AdministradorDTO> listdatos = db.tblCat_Administrador.AsNoTracking().Select(p => new AdministradorDTO()
+            AdministradorDTO oAdministrador = db.tblCat_Administrador.AsNoTracking().Select(a => new AdministradorDTO()
             {
-                cApellido = p.cApellido,
-                cCorreo = p.cCorreo,
-                cImagen = p.cImagen,
-                cNombre = p.cNombre,
-                cTelefono = p.cTelefono,
-                iIdAdministrador = p.iIdAdministrador,
+                iIdAdministrador = a.iIdAdministrador,
+                cApellido = a.cApellido,
+                cCorreo = a.cCorreo,
+                cImagen = a.cImagen,
+                cNombre = a.cNombre,
+                cTelefono = a.cTelefono
 
 
-            }).ToList();
+            }).FirstOrDefault(a => a.iIdAdministrador == iIdAdministrador);
 
-            return listdatos;
+            return oAdministrador;
         }
 
         public AdministradorDTO CrearObjetoEmpleado(tblCat_Administrador oDatos)

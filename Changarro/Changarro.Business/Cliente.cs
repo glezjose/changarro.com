@@ -106,6 +106,7 @@ namespace Changarro.Business
                 dtFechaModificacion = c.dtFechaModificacion,
                 
             }).ToList();
+
             return listClientes;
         }
 
