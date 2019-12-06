@@ -13,16 +13,23 @@ namespace ChangarroUser.Controllers
 
         public ActionResult Inicio()
         {
-            int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
+            if (Session["iIdCliente"] != null)
+            {
+                int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
 
-            ViewBag.iTotalProductos = carrito.ObtenerTotalProductos(iIdCarrito);
+                ViewBag.iTotalProductos = carrito.ObtenerTotalProductos(iIdCarrito);
 
-            ViewBag.iSubTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito);
+                ViewBag.iSubTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito);
 
-            ViewBag.iTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito) + 50;
+                ViewBag.iTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito) + 50;
 
-            List<CarritoDTO> _lstProductos = carrito.ObtenerProductosCarrito(iIdCarrito);
-            return View(_lstProductos);
+                List<CarritoDTO> _lstProductos = carrito.ObtenerProductosCarrito(iIdCarrito);
+                return View(_lstProductos);
+            }
+            else
+            {
+                return RedirectToAction("Inicio", "Producto");
+            }
         }
 
         [HttpPost]
@@ -34,12 +41,17 @@ namespace ChangarroUser.Controllers
             {
                 if (producto.ChecarExistencia(iIdProducto))
                 {
-                int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
-
-                carrito.AgregarAcarrito(iIdProducto, iIdCarrito);
-
-                cMensaje = "Se ha agregado un producto al carrito.";
-                cIcono = "success";
+                    int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
+                    if (carrito.AgregarAcarrito(iIdProducto, iIdCarrito))
+                    {
+                        cMensaje = "Se ha agregado un producto al carrito.";
+                        cIcono = "success";
+                    }
+                    else
+                    {
+                        cMensaje = "La existencia disponible se ha agregado al carrito.";
+                        cIcono = "error";
+                    }
                 }
                 else
                 {
@@ -52,13 +64,13 @@ namespace ChangarroUser.Controllers
                 cMensaje = "Ha ocurrido un error";
                 cIcono = "error";
             }
-                return Json(new { cMensaje, cIcono });
+            return Json(new { cMensaje, cIcono });
         }
 
         [ChildActionOnly]
         public ActionResult ProductosCarrito()
         {
-            
+
             int iIdCarrito = carrito.ObtenerCarrito(Convert.ToInt32(Session["iIdCliente"]));
 
             ViewBag.iTotalProductos = carrito.ObtenerTotalProductos(iIdCarrito);
