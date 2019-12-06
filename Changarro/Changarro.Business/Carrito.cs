@@ -55,16 +55,23 @@ namespace Changarro.Business
         /// </summary>
         /// <param name="iIdProducto">Es la ID del producto que se desea agregar.</param>
         /// <param name="iIdCarrito">Es la ID del carrito donde se desea agregar el producto.</param>
-        public void AgregarAcarrito(int iIdProducto, int iIdCarrito)
+        public bool AgregarAcarrito(int iIdProducto, int iIdCarrito)
         {
+            bool lAgregar;
             if (db.tbl_DetalleCarrito.AsNoTracking().Any(c => c.iIdCarrito == iIdCarrito && c.iIdProducto == iIdProducto))
             {
                 tbl_DetalleCarrito _oDetalleCarrito = db.tbl_DetalleCarrito.AsNoTracking().FirstOrDefault(c => c.iIdCarrito == iIdCarrito && c.iIdProducto == iIdProducto);
 
-                _oDetalleCarrito.iCantidad++;
+                if (_oDetalleCarrito.iCantidad < db.tblCat_Producto.AsNoTracking().FirstOrDefault(p => p.iIdProducto == iIdProducto).iCantidad)
+                {
+                    _oDetalleCarrito.iCantidad++;
 
-                db.Entry(_oDetalleCarrito).State = EntityState.Modified;
-                db.SaveChanges();
+                    db.Entry(_oDetalleCarrito).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    lAgregar = true;
+                }
+                else lAgregar = false;
             }
             else
             {
@@ -77,7 +84,11 @@ namespace Changarro.Business
 
                 db.tbl_DetalleCarrito.Add(oDetalleCarrito);
                 db.SaveChanges();
+
+                lAgregar = true;
             }
+
+            return lAgregar;
         }
 
         /// <summary>
@@ -92,6 +103,11 @@ namespace Changarro.Business
             return iTotalProductos;
         }
 
+        /// <summary>
+        /// En este metodo se obtiene el total
+        /// </summary>
+        /// <param name="iIdCarrito"></param>
+        /// <returns></returns>
         public decimal ObtenerTotalPrecio(int iIdCarrito)
         {
             decimal iTotalPrecio = db.tbl_DetalleCarrito.AsNoTracking().Any(p => p.iIdCarrito == iIdCarrito) ? db.tbl_DetalleCarrito.AsNoTracking().Where(p => p.iIdCarrito == iIdCarrito).Sum(p => p.tblCat_Producto.dPrecio * p.iCantidad) : 0;
