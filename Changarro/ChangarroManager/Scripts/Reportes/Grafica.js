@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     productosPorCategoria();
     clientesConMasCompras();
+    porductosMasVendidos();
 });
 
 /** Función que obtiene el número de productos que
@@ -8,7 +9,12 @@
  * */
 function productosPorCategoria() {
 
-    ObtenerCategorias("POST", "Inicio/ListaProductosPorCategoria", CargarGraficaCategorias)
+    const oElemento = {
+        cId: "CategoriasProductos",
+        cClase: "amchartdiv"
+    }
+
+    ObtenerDatosGraficas("POST", "Inicio/ListaProductosPorCategoria", oElemento, CargarGraficaCategorias)
     
 }
 
@@ -16,5 +22,20 @@ function productosPorCategoria() {
  */
 function clientesConMasCompras() {
 
-    ObtenerUsuarios("POST", "Inicio/ListaClientesConMasCompras", CargarGraficaUsuarios)
+    const oElemento = {
+        cId: "ClientesCompras",
+        cClase: "amchartdiv2"
+    }
+
+    ObtenerDatosGraficas("POST", "Inicio/ListaClientesConMasCompras", oElemento, CargarGraficaUsuarios)
+}
+
+function porductosMasVendidos() {
+
+    const oElemento = {
+        cId: "productosVendidos",
+        cClase: "amchartdiv"
+    }
+
+    ObtenerDatosGraficas("POST", "Inicio/ListaPorductosMasVendidos", oElemento, CargarGraficaProductos)
 }

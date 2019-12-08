@@ -35,15 +35,6 @@
     series.tooltip.dy = - 30;
     series.columnsContainer.zIndex = 100;
 
-    series.colors.list = [
-
-        am4core.color("#845EC2"),
-        am4core.color("#D65DB1"),
-        am4core.color("#FF6F91"),
-        am4core.color("#FF9671"),
-        am4core.color("#FFC75F"),
-        am4core.color("#F9F871"),
-    ];
 
     var columnTemplate = series.columns.template;
     columnTemplate.height = am4core.percent(50);
@@ -61,7 +52,7 @@
     cursor.behavior = "none";
 
     var bullet = columnTemplate.createChild(am4charts.CircleBullet);
-    bullet.circle.radius = 30;
+    bullet.circle.radius = 20;
     bullet.valign = "middle";
     bullet.align = "left";
     bullet.isMeasured = true;

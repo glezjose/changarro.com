@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 namespace Changarro.Model.DTO
 {
     /// <summary>
-    /// Esta clase es la responsable de obtener nombre de la categoría y la cantidad de productos.
+    /// Esta clase contiene las propiedades necesarias para obtener los productos por categoría.
     /// </summary>
     public class ReporteCategoriasDTO
     {
-
-        public int iIdCategoria { get; set; }
-
-        public int iIdProducto { get; set; }
 
         /// <summary>
         /// Cantidad de productos.

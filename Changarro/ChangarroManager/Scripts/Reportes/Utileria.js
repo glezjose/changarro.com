@@ -4,11 +4,11 @@
  * @param {any} cUrl Dirección del método a ejecutar.
  * @param {any} funcion Nombre de la función a ejecutar.
  */
-function ObtenerCategorias(cTipo, cUrl, funcion) {
+function ObtenerDatosGraficas(cTipo, cUrl, oElemento, funcion) {
 
     $.ajax({
         type: cTipo,
-        url: cUrl,
+        url: ruta + cUrl,
         dataType: "json",
         success: function (data) {
 
@@ -18,9 +18,9 @@ function ObtenerCategorias(cTipo, cUrl, funcion) {
             }
             else {
 
-                $("#CategoriasProductos").removeClass("amchartdiv");
+                $("#" + oElemento.cId).removeClass(oElemento.cClase);
              
-                $("#CategoriasProductos").addClass("cambiarTamaño");
+                $("#" + oElemento.cId).addClass("cambiarTamaño");
             
                 $("#MensajeError").html(data._cMensaje);
             }
@@ -28,8 +28,8 @@ function ObtenerCategorias(cTipo, cUrl, funcion) {
         },
         error: function () {
 
-            $("#CategoriasProductos").removeClass("amchartdiv");
-            $("#CategoriasProductos").addClass("cambiarTamaño");
+            $("#" + oElemento.cId).removeClass(oElemento.cClase);
+            $("#" + oElemento.cId).addClass("cambiarTamaño");
             
 
             $("#MensajeError").removeAttr("hidden");
@@ -38,43 +38,4 @@ function ObtenerCategorias(cTipo, cUrl, funcion) {
     });
 }
 
-/**
- * Esta función obtiene datos de los clientes con más compras.
- * @param {any} cTipo GET/POST
- * @param {any} cUrl Dirección del método a ejecutar.
- * @param {any} funcion Nombre de la función a ejecutar.
- */
-function ObtenerUsuarios(cTipo, cUrl, funcion) {
-
-    $.ajax({
-        type: cTipo,
-        url: cUrl,
-        dataType: "json",
-        success: function (data) {
-
-            if (data._cMensaje == null) {
-
-                funcion(data._lstClientes)
-            }
-            else {
-
-                $("#ClientesCompras").removeClass("amchartdiv2");
-
-                $("#ClientesCompras").addClass("cambiarTamaño");
-
-                $("#MensajeError").html(data._cMensaje);
-            }
-
-        },
-        error: function () {
-
-            $("#ClientesCompras").removeClass("amchartdiv2");
-            $("#ClientesCompras").addClass("cambiarTamaño");
-
-
-            $("#MensajeError").removeAttr("hidden");
-            $("#MensajeError").html("Ha ocurrido un error al tratar de cargar los datos del reporte.");
-        }
-    });
-}
 

@@ -127,7 +127,7 @@ namespace ChangarroUser.Controllers
             InicioSesion Login = new InicioSesion();
             try
             {
-                LoginDTO _oLogin = Login.ValidarLogin(_oUsuario);
+                LoginDTO _oLogin = Login.ValidarLogin(_oUsuario, true);
 
                 if (_oLogin.iIdUsuario > 0)
                 {
