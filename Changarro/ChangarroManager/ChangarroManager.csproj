@@ -242,6 +242,7 @@
     <Content Include="Scripts\Reportes\clientesCompras.js" />
     <Content Include="Scripts\Cliente\Cliente.js" />
     <Content Include="Scripts\date.format.js" />
+    <Content Include="Scripts\Perfil\PerfilAdministrador.js" />
     <Content Include="Scripts\Reportes\Grafica.js" />
     <Content Include="Scripts\Modal.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -257,7 +258,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
-    <Compile Include="Controllers\PerfilController.cs" />
+    <Compile Include="Controllers\PerfilAdministradorController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -363,6 +364,10 @@
     <Content Include="Views\Producto\addcat.cshtml" />
     <Content Include="Views\Producto\EditarProducto.cshtml" />
     <Content Include="Views\Categoria\Categoria.cshtml" />
+    <Content Include="Views\Producto\ImportarProducto.cshtml" />
+    <Content Include="Plantillas\PlantillaVacia\test.xls" />
+    <Content Include="Plantillas\PlantillaVacia\Plantilla.xlsx" />
+    <Content Include="Views\PerfilAdministrador\Index.cshtml" />
     <Content Include="Views\Inicio\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

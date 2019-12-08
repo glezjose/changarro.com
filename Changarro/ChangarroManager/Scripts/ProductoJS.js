@@ -103,13 +103,9 @@ function Botones() {
             MsjseleccioneRegistro();
         }
     });
-    $("#btncategoria").click(function (e) {
-        e.preventDefault();
-        MostrarModal('POST', '../Categoria/Categoria',null, 'IniciarCategoria');
-    });
 
-}
-
+    MenuDesplegable();
+});
 function GuardarProducto() {
     console.log(":D")
     var data = $("#form4").serialize();
@@ -130,4 +126,23 @@ function GuardarProducto() {
         }
 
     });
+}
+
+function MenuDesplegable() {
+    //Para modal -- id="modalGeneral"
+
+    $("#descargarPlantilla").click(function () {
+        let lExisteSesion = true;
+        if (lExisteSesion) {
+            window.location.replace("../Producto/DescargarPlantilla");
+        }
+    });
+
+    $("#importarProductos").click(function () {
+        MostrarModal("../Producto/ImportarProducto", InicializarModalImportar);
+    });
+}
+
+function InicializarModalImportar() {
+    console.log("Implementar funcion Inicializar Modal Importar");
 }
