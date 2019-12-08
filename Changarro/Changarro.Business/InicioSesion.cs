@@ -11,45 +11,94 @@ namespace Changarro.Business
         /// </summary>
         /// <param name="oLogin">Objeto con las credenciales de inicio de sesión del usuario</param>
         /// <returns>Objeto con las credenciales inválidas de inicio de sesión del usuario</returns>
-        public LoginDTO ValidarLogin(LoginDTO oLogin)
+        public LoginDTO ValidarLogin(LoginDTO oLogin, bool lOpcionMetodo)
         {
+
             RegistroUsuario Registro = new RegistroUsuario();
 
             string _cHashContrasenia = Registro.GenerarHash(oLogin.cContrasenia);
 
-            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            LoginDTO _oUsuario = new LoginDTO();
+
+            if (lOpcionMetodo == true)
             {
-                LoginDTO _oUsuario =  ctx.tblCat_Cliente.AsNoTracking()
-                                                 .Where(c => c.cCorreo == oLogin.cCorreo)
-                                                 .Select(l => new LoginDTO
-                                                 {
-                                                     iIdUsuario = l.iIdCliente,
-                                                     cCorreo = l.cCorreo,
-                                                     cContrasenia = l.cContrasenia
+                _oUsuario = ObtenerCliente(oLogin.cCorreo);
+            }
+            else
+            {
+                _oUsuario = ObtenerAdministrador(oLogin.cCorreo); 
+            }
 
-                                                 }).FirstOrDefault();
+            if (_oUsuario != null)
+            {
+                oLogin.cCorreo = null;
 
-                if (_oUsuario != null)
+                if (_oUsuario.cContrasenia == _cHashContrasenia)
                 {
-                    oLogin.cCorreo = null;
-
-                    if (_oUsuario.cContrasenia == _cHashContrasenia)
-                    {
-                        oLogin.cContrasenia = null;
-                        oLogin.iIdUsuario = _oUsuario.iIdUsuario;
-                    }
-                    else
-                    {
-                        oLogin.cCorreo = null;
-                    }                    
+                    oLogin.cContrasenia = null;
+                    oLogin.iIdUsuario = _oUsuario.iIdUsuario;
                 }
                 else
                 {
-                    oLogin.cContrasenia = null;
+                    oLogin.cCorreo = null;
                 }
+            }
+            else
+            {
+                oLogin.cContrasenia = null;
             }
 
             return oLogin;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cCorreo"></param>
+        /// <returns></returns>
+        public LoginDTO ObtenerAdministrador(string cCorreo) 
+        {
+            LoginDTO _oUsuario = new LoginDTO();
+
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                _oUsuario = ctx.tblCat_Administrador.AsNoTracking()
+                                    .Where(c => c.cCorreo == cCorreo)
+                                    .Select(l => new LoginDTO
+                                    {
+                                        iIdUsuario = l.iIdAdministrador,
+                                        cCorreo = l.cCorreo,
+                                        cContrasenia = l.cContrasenia
+
+                                    }).FirstOrDefault();
+            }
+
+            return _oUsuario;        
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cCorreo"></param>
+        /// <returns></returns>
+        public LoginDTO ObtenerCliente(string cCorreo)
+        {
+            LoginDTO _oUsuario = new LoginDTO();
+
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                _oUsuario = ctx.tblCat_Cliente.AsNoTracking()
+                                    .Where(c => c.cCorreo == cCorreo && c.lEstatus == true)
+                                    .Select(l => new LoginDTO
+                                    {
+                                        iIdUsuario = l.iIdCliente,
+                                        cCorreo = l.cCorreo,
+                                        cContrasenia = l.cContrasenia
+
+                                    }).FirstOrDefault();
+            }
+             
+            return _oUsuario;
         }
     }
 }

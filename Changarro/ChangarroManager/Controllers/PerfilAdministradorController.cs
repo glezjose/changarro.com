@@ -21,9 +21,9 @@ namespace ChangarroManager.Controllers
         [HttpPost]
         public JsonResult CargarDatos()
         {
-            List<AdministradorDTO> ListaDatos = d.CargarDatos();
+            // List<AdministradorDTO> ListaDatos = d.CargarDatos();
 
-            return Json(ListaDatos);
+            return null; // Json(ListaDatos);
         }
     }
 }

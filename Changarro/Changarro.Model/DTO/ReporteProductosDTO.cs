@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Changarro.Model.DTO
 {
     /// <summary>
-    /// Esta clase contiene 
+    /// Esta clase contiene las propiedades necesarias para obtener los productos más vendidos.
     /// </summary>
-   public class ReporteProductosDTO
+    public class ReporteProductosDTO
     {
         /// <summary>
         /// 

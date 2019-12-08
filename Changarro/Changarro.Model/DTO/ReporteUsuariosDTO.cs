@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Changarro.Model.DTO
 {
     /// <summary>
-    /// Esta clase es la responsable de contener las propiedades para crear la gráfica de los usuarios con más compras.
+    /// Esta clase contiene las propiedades para obtener a los usuarios con más compras.
     /// </summary>
     public class ReporteUsuariosDTO
     {

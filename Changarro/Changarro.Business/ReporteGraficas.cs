@@ -20,11 +20,17 @@ namespace Changarro.Business
             ctx.Configuration.LazyLoadingEnabled = false;
             ctx.Configuration.ProxyCreationEnabled = false;
         }
-        //public List<ReporteProductosDTO> ObtenerProductosMasVendidos()
-        //{
-         
-            
-        //}
+
+        public List<ReporteProductosDTO> ObtenerProductosMasVendidos()
+        {
+            List<ReporteProductosDTO> _lstTopProductos = ctx.tbl_DetalleCompra
+                .GroupBy(p => new { p.iIdProducto, p.tblCat_Producto.cNombre })
+                .Select(p => new ReporteProductosDTO { iIdProducto = p.Key.iIdProducto, cNombre = p.Key.cNombre, iCantidad = p.Sum(c => c.iCantidad) })
+                .OrderByDescending(p => p.iCantidad).ToList();
+
+            return _lstTopProductos;
+
+        }
 
         /// <summary>
         /// Obtiene los clientes con más compras realizadas.
