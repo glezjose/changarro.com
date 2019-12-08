@@ -92,6 +92,36 @@ namespace Changarro.Business
         }
 
         /// <summary>
+        /// Aumenta la cantidad del producto seleccionado.
+        /// </summary>
+        /// <param name="iIdProducto"></param>
+        /// <param name="iIdCarrito"></param>
+        public void AumentarCantidad(int iIdProducto, int iIdCarrito)
+        {
+            tbl_DetalleCarrito _oDetalleCarrito = db.tbl_DetalleCarrito.AsNoTracking().FirstOrDefault(c => c.iIdCarrito == iIdCarrito && c.iIdProducto == iIdProducto);
+
+            _oDetalleCarrito.iCantidad++;
+
+            db.Entry(_oDetalleCarrito).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        /// <summary>
+        /// Disminuye la cantidad del producto seleccionado.
+        /// </summary>
+        /// <param name="iIdProducto"></param>
+        /// <param name="iIdCarrito"></param>
+        public void DisminuirCantidad(int iIdProducto, int iIdCarrito)
+        {
+            tbl_DetalleCarrito _oDetalleCarrito = db.tbl_DetalleCarrito.AsNoTracking().FirstOrDefault(c => c.iIdCarrito == iIdCarrito && c.iIdProducto == iIdProducto);
+
+            _oDetalleCarrito.iCantidad--;
+
+            db.Entry(_oDetalleCarrito).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        /// <summary>
         /// Este metodo es para obtener el total de productos que existen el el carrito especificado.
         /// </summary>
         /// <param name="iIdCarrito">Este ID es del carrito que se desea obtener el total de productos.</param>
@@ -110,15 +140,18 @@ namespace Changarro.Business
         /// <returns></returns>
         public decimal ObtenerTotalPrecio(int iIdCarrito)
         {
-            decimal iTotalPrecio = db.tbl_DetalleCarrito.AsNoTracking().Any(p => p.iIdCarrito == iIdCarrito) ? db.tbl_DetalleCarrito.AsNoTracking().Where(p => p.iIdCarrito == iIdCarrito).Sum(p => p.tblCat_Producto.dPrecio * p.iCantidad) : 0;
+            decimal dTotalPrecio = db.tbl_DetalleCarrito.AsNoTracking().Any(p => p.iIdCarrito == iIdCarrito) ? db.tbl_DetalleCarrito.AsNoTracking().Where(p => p.iIdCarrito == iIdCarrito).Sum(p => p.tblCat_Producto.dPrecio * p.iCantidad) : 0;
 
-            return iTotalPrecio;
+            return dTotalPrecio;
         }
         /// 
         /// <param name="iIdCarritoProducto"></param>
-        public void EliminarProducto(int iIdCarritoProducto)
+        public void EliminarProducto(int iIdProducto, int iIdCarrito)
         {
+            tbl_DetalleCarrito _oDetalleCarrito = db.tbl_DetalleCarrito.AsNoTracking().FirstOrDefault(c => c.iIdCarrito == iIdCarrito && c.iIdProducto == iIdProducto);
 
+            db.Entry(_oDetalleCarrito).State = EntityState.Deleted;
+            db.SaveChanges();
         }
 
         /// <summary>
@@ -149,11 +182,6 @@ namespace Changarro.Business
             }).ToList();
 
             return _lstProductos;
-        }
-
-        public bool AgregarCantidad()
-        {
-            return false;
         }
 
         /// 
