@@ -2,6 +2,7 @@ using Changarro.Model;
 using Changarro.Model.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Changarro.Business
@@ -16,53 +17,71 @@ namespace Changarro.Business
 
         }
 
-        public List<AdministradorDTO> CargarDatosPerfil()
+        public AdministradorDTO ObtenerAdministrador(int iIdAdministrador)
         {
-            throw new NotImplementedException();
-        }
+            AdministradorDTO _oAdministrador = new AdministradorDTO();
 
-        ~Administrador()
-        {
-
-        }
-
-        public AdministradorDTO EditarDatos()
-        {
-
-            return null;
-        }
-
-        /// 
-        /// <param name="iIdAdministrador"></param>
-        public List<AdministradorDTO> ObtenerDatos()
-        {
-            List<AdministradorDTO> listdatos = db.tblCat_Administrador.AsNoTracking().Select(p => new AdministradorDTO()
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
-                cApellido = p.cApellido,
-                cCorreo = p.cCorreo,
-                cImagen = p.cImagen,
-                cNombre = p.cNombre,
-                cTelefono = p.cTelefono,
-                iIdAdministrador = p.iIdAdministrador,
+                _oAdministrador = ctx.tblCat_Administrador.AsNoTracking()
+                    .Where(c => c.iIdAdministrador == iIdAdministrador)
+                    .Select(o => new AdministradorDTO
+                    {
+                        cNombre = o.cNombre,
+                        cApellido = o.cApellido,
+                        cTelefono = o.cTelefono,
+                        cCorreo = o.cCorreo
 
-
-            }).ToList();
-
-            return listdatos;
+                    }).FirstOrDefault();
+            }
+            return _oAdministrador;
         }
 
-        public AdministradorDTO CrearObjetoEmpleado(tblCat_Administrador oDatos)
+        public AdministradorDTO ObtenerDatosAdministrador(int iIdAdministrador)
         {
-            AdministradorDTO oAdministradorDTO = new AdministradorDTO()
+            AdministradorDTO _oAdministrador = new AdministradorDTO();
+
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
-                iIdAdministrador = oDatos.iIdAdministrador,
-                cApellido = oDatos.cApellido,
-                cCorreo = oDatos.cCorreo,
-                cImagen = oDatos.cImagen,
-                cNombre = oDatos.cNombre,
-                cTelefono = oDatos.cTelefono,
-            };
-            return oAdministradorDTO;
+                _oAdministrador = ctx.tblCat_Administrador.AsNoTracking()
+                    .Where(c => c.iIdAdministrador == iIdAdministrador)
+                    .Select(o => new AdministradorDTO
+                    {
+                        cNombre = o.cNombre,
+                        cApellido = o.cApellido,
+                        cTelefono = o.cTelefono,
+                        cCorreo = o.cCorreo
+
+                    }).FirstOrDefault();
+            }
+            return _oAdministrador;
+        }
+
+        public AdministradorDTO EditarDatos(AdministradorDTO oAdministrador)
+        {
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                ctx.Configuration.ProxyCreationEnabled = false;
+
+                tblCat_Administrador _oAdministrador = ctx.tblCat_Administrador.FirstOrDefault(c => c.iIdAdministrador == oAdministrador.iIdAdministrador); //consulta para obtener al cliente
+
+                _oAdministrador.cNombre = oAdministrador.cNombre;
+                _oAdministrador.cApellido = oAdministrador.cApellido;
+                _oAdministrador.cTelefono = oAdministrador.cTelefono;
+                _oAdministrador.cCorreo = oAdministrador.cCorreo;
+
+                ctx.Entry(oAdministrador).State = EntityState.Modified;
+                ctx.SaveChanges();
+            }
+
+            return oAdministrador;
+        }
+
+        public tblCat_Administrador ObtenerDatos(int iIdCliente)
+        {
+            tblCat_Administrador oAdministrador = db.tblCat_Administrador.AsNoTracking().FirstOrDefault(c => c.iIdAdministrador == iIdAdministrador);
+            return oAdministrador;
         }
 
         /// <summary>

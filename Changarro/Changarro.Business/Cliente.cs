@@ -11,6 +11,7 @@ using Changarro.Model;
 using Changarro.Model.DTO;
 using System.Linq;
 using System;
+using System.Data.Entity;
 
 namespace Changarro.Business
 {
@@ -122,12 +123,31 @@ namespace Changarro.Business
             return _oClienteActualizado;
         }
 
-        /// 
-        /// <param name="iIdCliente"></param>
-        public ClienteDTO EditarDatos(int iIdCliente)
+        /// <summary>
+        /// Método para editar los datos del cliente
+        /// </summary>
+        /// <param name="oCliente">Objeto con los datos del cliente</param>
+        /// <returns>Objeto con los nuevos datos del cliente</returns>
+        public DatosClienteDTO EditarDatos(DatosClienteDTO oCliente)
         {
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                ctx.Configuration.ProxyCreationEnabled = false;
 
-            return null;
+                tblCat_Cliente _oCliente = ctx.tblCat_Cliente.FirstOrDefault(c => c.iIdCliente == oCliente.iIdCliente); //consulta para obtener al cliente
+
+                _oCliente.cNombre = oCliente.cNombre;
+                _oCliente.cApellido = oCliente.cApellido;
+                _oCliente.cTelefono = oCliente.cTelefono;
+                _oCliente.cCorreo = oCliente.cCorreo;
+                _oCliente.dtFechaModificacion = DateTime.Today;
+
+                ctx.Entry(_oCliente).State = EntityState.Modified;
+                ctx.SaveChanges();
+            }
+            
+            return oCliente;
         }
 
         /// <summary>
@@ -149,32 +169,95 @@ namespace Changarro.Business
                 dtFechaModificacion = c.dtFechaModificacion,
                 
             }).ToList();
+
             return listClientes;
         }
 
-    /// <summary>
-    /// Método para obtener el ID de un cliente.
-    /// </summary>
-    /// <param name="iIdCliente"> ID del Cliente seleccionado </param>
-    /// <returns>Objeto oCliente que contiene valores del cliente seleccionado por si ID</returns>
-    public tblCat_Cliente ObtenerDatos(int iIdCliente)
-    {
-           tblCat_Cliente oCliente = db.tblCat_Cliente.AsNoTracking().FirstOrDefault(c => c.iIdCliente == iIdCliente);
-           return oCliente;
-    }
+        /// <summary>
+        /// Método para obtener el ID de un cliente.
+        /// </summary>
+        /// <param name="iIdCliente"> ID del Cliente seleccionado </param>
+        /// <returns>Objeto oCliente que contiene valores del cliente seleccionado por si ID</returns>
+        public tblCat_Cliente ObtenerDatos(int iIdCliente)
+        {
+            tblCat_Cliente oCliente = db.tblCat_Cliente.AsNoTracking().FirstOrDefault(c => c.iIdCliente == iIdCliente);
+            return oCliente;
+        }
 
-    public List<ClienteAdministradorDTO> ObtenerTopClientes()
-    {
+        public List<ClienteAdministradorDTO> ObtenerTopClientes()
+        {
 
-        return null;
-    }
+            return null;
+        }
 
-    public ClienteDTO ValidarCliente()
-    {
+        /// <summary>
+        /// Método para validar que no se repitan los datos del cliente con otro usuario
+        /// </summary>
+        /// <param name="oCliente"></param>
+        /// <returns></returns>
+        public DatosClienteDTO ValidarCliente(DatosClienteDTO oCliente)
+        {
+            DatosClienteDTO _oUsuario = new DatosClienteDTO();
 
-        return null;
-    }
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
 
-}//end Cliente
+                if (ctx.tblCat_Cliente.Any(c => c.cCorreo == oCliente.cCorreo && c.iIdCliente != oCliente.iIdCliente))
+                {
+                    _oUsuario.cCorreo = oCliente.cCorreo;
+                }
+                if (ctx.tblCat_Cliente.Any(c => c.cTelefono == oCliente.cTelefono && c.iIdCliente != oCliente.iIdCliente))
+                {
+                    _oUsuario.cTelefono = oCliente.cTelefono;
+                }
+                if (ctx.tblCat_Cliente.Any(c => (c.cNombre + c.cApellido).Trim().ToLower() == (oCliente.cNombre + c.cApellido).Trim().ToLower() && c.iIdCliente != oCliente.iIdCliente))
+                {
+                    _oUsuario.cNombre = oCliente.cNombre.ToLower();
+                    _oUsuario.cApellido = oCliente.cApellido.ToLower();
+                }
+                else
+                {
+                    _oUsuario = null;
+                }
+            }
+
+            return _oUsuario;
+        }
+
+        /// <summary>
+        /// Método para desactivar la cuenta del cliente
+        /// </summary>
+        /// <param name="iIdCliente">ID del  cliente</param>
+        /// <param name="cContrasenia">Contraseña del cliente</param>
+        /// <returns>Mensaje de error por contraseña incorrecta</returns>
+        public string CancelarSuscripcion(int iIdCliente, string cContrasenia)
+        {
+            RegistroUsuario Registro = new RegistroUsuario();
+            string _cMensaje = null;
+
+            string _cContrasenia = Registro.GenerarHash(cContrasenia);          
+
+            
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                tblCat_Cliente _oCliente = ctx.tblCat_Cliente.FirstOrDefault(c => c.iIdCliente == iIdCliente && c.cContrasenia == _cContrasenia);
+
+                if (_oCliente != null)
+                {
+                    _oCliente.lEstatus = false;
+                    _oCliente.dtFechaBaja = DateTime.Today;
+                    ctx.Entry(_oCliente).State = EntityState.Modified;
+                    ctx.SaveChanges();
+                }
+                else
+                {
+                    _cMensaje = "Contraseña Incorrecta";
+                }
+            }
+
+            return _cMensaje;
+        }
+
+    }//end Cliente
 
 }//end namespace ChangarroBusiness

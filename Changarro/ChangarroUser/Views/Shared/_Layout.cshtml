@@ -57,7 +57,7 @@
                                     @if (Session["iIdCliente"] == null)
                                     {
                                         <li class="nav-item"><a class="nav-link" href="#" id="btnRegistrar">Registrarte</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#" id="btnIniciarSesion">Iniciar Sesión</a></li>
+                                        <li class="nav-item btnIniciarSesion"><a class="nav-link">Iniciar Sesión</a></li>
                                     }
                                     else
                                     {
@@ -76,7 +76,7 @@
                             <li class="nav-item">
                                 @if (Session["iIdCliente"] == null)
                                 {
-                                    <a href="@Url.Action("Registro", "Inicio")" class="cart">
+                                    <a href="#" class="cart btnIniciarSesion">
                                         <i class="ti-bag"></i>
                                         <span id="cart-products" class="badge badge-primary">0</span>
                                     </a>

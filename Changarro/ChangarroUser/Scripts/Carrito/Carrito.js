@@ -69,7 +69,7 @@ function ActualizarCarrito(cUrl, funcion) {
         dataType: "json",
         success: function (data) {
             if (funcion != null) {
-                funcion()
+                funcion(data)
             }
             ActualizarPrecio(data.dSubTotalPrecio, data.dTotalPrecio)
         }
@@ -93,11 +93,11 @@ function ActualizarPrecio(dSubTotal, dTotal) {
     $('#total-price').text(dTotal + '.00');
 }
 
-function ValidarCarritoVacio() {
-    let longi = $('.card').length;
-    if ($('.card').length == 0) {
+function ValidarCarritoVacio(oCarrito) {
+    CambiarTotalProductos(oCarrito.iTotalProductos);
+    if ($('.product-card').length == 0) {
         $.ajax({
-            type: "GET",
+            type: "POST",
             async: false,
             url: ruta + "/Carrito/CarritoVacio",
             dataType: "HTML",
@@ -105,8 +105,11 @@ function ValidarCarritoVacio() {
                 $('.cart_inner').html(data);
             }
         });
-        alert("hola");
     }
+}
+
+function CambiarTotalProductos(iTotalProductos) {
+    $('#cart-products').text(iTotalProductos);
 }
 
 function CargarBotonesEliminar() {
@@ -117,7 +120,7 @@ function CargarBotonesEliminar() {
         let iIdProducto = $(this).siblings('#iIdProducto').val();
         let cUrl = "/Carrito/EliminarProducto?iIdProducto=" + iIdProducto;
 
-        $(this).closest('.card').slideUp(500, function () {
+        $(this).closest('.product-card').slideUp(500, function () {
             $(this).remove();
             ActualizarCarrito(cUrl, ValidarCarritoVacio);
         });

@@ -1,29 +1,33 @@
 ﻿@model Changarro.Model.DTO.DatosClienteDTO
 
-<div class="container">
-    <div class="d-flex justify-content-between blog_title">
-        <h4>Mis datos</h4>
+    <div class="container">
+        <div class="d-flex justify-content-between blog_title">
+            <h4>Mis datos</h4>
+        </div>
+        <br />
+        <fieldset id="campoDatosForm" disabled>
+            <form class="row contact_form" novalidate="novalidate" id="misDatosForm">
+                <div class="col-md-12 form-group p_star">
+                    <label for="cNombre">Nombre(s)</label>
+                    <input type="text" class="form-control" id="cNombre" placeholder="Nombre" name="cNombre" value="@Html.DisplayFor(model => model.cNombre)">
+                </div>
+                <div class="col-md-12 form-group p_star">
+                    <label for="cNombre">Apellido(s)</label>
+                    <input type="text" class="form-control" id="cApellido" placeholder="Apellido" name="cApellido" value="@Html.DisplayFor(model => model.cApellido)">
+                </div>
+                <div class="col-md-6 form-group p_star">
+                    <label for="nTelefono">Telefono</label>
+                    <input type="text" class="form-control" id="cTelefono" placeholder="Teléfono" name="cTelefono" value="@Html.DisplayFor(model => model.cTelefono)">
+                </div>
+                <div class="col-md-6 form-group p_star">
+                    <label for="cNombre">Correo</label>
+                    <input type="text" class="form-control" placeholder="Correo" id="cCorreo" name="cCorreo" value="@Html.DisplayFor(model => model.cCorreo)">
+                </div>
+                <br />
+                <div class="br col-md-12 text-right">                   
+                    <a href="#" id="btnEditarDatos" class="genric-btn primary editar">Editar</a>
+                </div>
+            </form>
+        </fieldset>
     </div>
-    <br />
-    <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-        <div class="col-md-12 form-group p_star">
-            <label for="cNombre">Nombre(s)</label>
-            <input type="text" class="form-control" id="cNombre" placeholder="Nombre" name="cNombre" disabled value="@Html.DisplayFor(model => model.cNombre)">
-        </div>
-        <div class="col-md-12 form-group p_star">
-            <label for="cNombre">Apellido(s)</label>
-            <input type="text" class="form-control" id="cApellido" placeholder="Apellido" name="cApellido" disabled value="@Html.DisplayFor(model => model.cApellido)">
-        </div>
-        <div class="col-md-6 form-group p_star">
-            <label for="nTelefono">Telefono</label>
-            <input type="text" class="form-control" id="nTelefono" placeholder="Teléfono" name="nTelefono" disabled value="@Html.DisplayFor(model => model.cTelefono)">
-        </div>
-        <div class="col-md-6 form-group p_star">
-            <label for="cNombre">Correo</label>
-            <input type="text" class="form-control" placeholder="Correo" id="cCorreo" name="cCorreo" disabled @Html.DisplayFor(model => model.cCorreo)>
-        </div>
-        <div class="br col-md-12 text-right">
-            <a href="#" id="btnEditarDatos" class="genric-btn primary radius">Editar</a>
-        </div>
-    </form>
-</div>
+
