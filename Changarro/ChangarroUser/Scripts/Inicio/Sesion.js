@@ -8,11 +8,11 @@
  * Inicializa los botones para mostrar un modal con un formulario
  * */
 function BarraHerramientas() {
-    $("#btnIniciarSesion").click(function (e) {
+    $(".btnIniciarSesion").click(function (e) {
 
         e.preventDefault();
 
-        AbrirModal("Inicio/LoginParcial", Login)
+        AbrirModal("Inicio/LoginParcial", Login);
     })
 
     $("#btnRegistrar").click(function (e) {

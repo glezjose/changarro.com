@@ -170,7 +170,8 @@
     <Content Include="Assets\css\clientes.css" />
     <Content Include="Assets\css\datatables.min.css" />
     <Content Include="Assets\css\demo.css" />
-    <Content Include="Assets\css\graficas.css" />
+    <Content Include="Assets\css\login.css" />
+    <Content Include="Assets\css\main.css" />
     <Content Include="Assets\css\material-dashboard.css" />
     <Content Include="Assets\css\material-dashboard.min.css" />
     <Content Include="Assets\css\productos.css" />
@@ -222,6 +223,8 @@
     <Content Include="Assets\js\material-dashboard.js" />
     <Content Include="Assets\js\moment.min.js" />
     <Content Include="Assets\js\perfect-scrollbar.jquery.min.js" />
+    <Content Include="Assets\js\sweetalert2.all.min.js" />
+    <Content Include="Assets\js\sweetalert2.min.js" />
     <Content Include="Assets\Library\Datatables\datatables.min.css" />
     <Content Include="Assets\Library\Datatables\datatables.min.js" />
     <Content Include="Assets\Library\jQuery\jquery-3.4.1.min.js" />
@@ -232,20 +235,25 @@
     <Content Include="Assets\Library\Validate\jquery.validate.min.js" />
     <Content Include="Assets\Library\Validate\messages_es.js" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Inicio\InicioSesion.js" />
+    <Content Include="Scripts\Inicio\ValidarSesion.js" />
+    <Content Include="Scripts\Reportes\GraficaCategoria.js" />
     <Content Include="Scripts\PerfilAdministrador\PerfilAdministrador.js" />
     <Content Include="Scripts\categorias.js" />
     <Content Include="Scripts\CategoriasJS.js" />
     <Content Include="Scripts\clientes.js" />
-    <Content Include="Scripts\clientesCompras.js" />
+    <Content Include="Scripts\Reportes\GraficaClientesCompras.js" />
     <Content Include="Scripts\Cliente\Cliente.js" />
     <Content Include="Scripts\date.format.js" />
+    <Content Include="Scripts\Perfil\PerfilAdministrador.js" />
     <Content Include="Scripts\Reportes\Grafica.js" />
     <Content Include="Scripts\Modal.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\ProductoJS.js" />
     <Content Include="Scripts\productos.js" />
-    <Content Include="Scripts\productosVendidos.js" />
+    <Content Include="Scripts\Reportes\GraficaProductosVendidos.js" />
     <Content Include="Scripts\Reportes\Utileria.js" />
+    <Content Include="Scripts\Utileria.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -343,6 +351,7 @@
     <Content Include="Assets\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Assets\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Assets\spanish.json" />
+    <Content Include="Assets\json\Spanish.json" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -358,6 +367,11 @@
     <Content Include="Views\Producto\addcat.cshtml" />
     <Content Include="Views\Producto\EditarProducto.cshtml" />
     <Content Include="Views\Categoria\Categoria.cshtml" />
+    <Content Include="Views\Producto\ImportarProducto.cshtml" />
+    <Content Include="Plantillas\PlantillaVacia\test.xls" />
+    <Content Include="Plantillas\PlantillaVacia\Plantilla.xlsx" />
+    <Content Include="Views\PerfilAdministrador\Index.cshtml" />
+    <Content Include="Views\Inicio\Login.cshtml" />
     <Content Include="Views\Perfil\Index.cshtml" />
     <Content Include="Views\PerfilDatosAdministrador\DatosPerfilAdministrador.cshtml" />
     <Content Include="Views\PerfilDatosAdministrador\PerfilAdministrador.cshtml" />

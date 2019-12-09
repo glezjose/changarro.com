@@ -28,6 +28,8 @@ namespace ChangarroUser.Controllers
             }
             else
             {
+                TempData["lConexion"] = true;
+
                 return RedirectToAction("Inicio","Producto");
             }           
         }
@@ -43,7 +45,7 @@ namespace ChangarroUser.Controllers
 
             DatosClienteDTO _oCliente = oCliente.ObtenerDatosCliente(iIdCliente);
 
-            return View(_oCliente);
+            return PartialView(_oCliente);
         }
         #endregion
     }

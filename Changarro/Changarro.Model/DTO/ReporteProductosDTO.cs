@@ -1,30 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Changarro.Model.DTO
+﻿namespace Changarro.Model.DTO
 {
     /// <summary>
-    /// Esta clase contiene 
+    /// Esta clase contiene las propiedades necesarias para obtener los productos más vendidos.
     /// </summary>
-   public class ReporteProductosDTO
+    public class ReporteProductosDTO
     {
         /// <summary>
-        /// 
+        /// Identificador del producto.
         /// </summary>
         public int iIdProducto { get; set; }
+
         /// <summary>
-        /// 
-        /// </summary>
-        public int iIdDetalleCompra { get; set; }
-        /// <summary>
-        /// 
+        /// Cantidad de compra.
         /// </summary>
         public int iCantidad{ get; set; }
         /// <summary>
-        /// 
+        /// Nombre del producto.
         /// </summary>
         public string cNombre{ get; set; }
 

@@ -23,28 +23,6 @@ function AbrirModal(cUrl, funcion) {
     });
 }
 
-function PersisteCarrito(cUrl, funcion) {
-    $.ajax({
-        type: "POST",
-        url: ruta + cUrl,
-        dataType: "json",
-        success: function (response) {
-
-            Toast.fire({
-                icon: response.cIcono,
-                title: response.cMensaje
-            });
-
-            if (response.cIcono == "success") {
-
-                funcion();
-            }
-        },
-        error: function (response) {
-            alert('error');
-        }
-    });
-}
 
 const Toast = Swal.mixin({
     toast: true,
@@ -56,6 +34,8 @@ const Toast = Swal.mixin({
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 });
+
+/////////////////Botones generales de las vistas que involucran productos/////////////////////////
 
 /**
  * Carga la funcionalidad de los botones que se presentan con cada producto.
@@ -101,4 +81,27 @@ function CargarBotonesModal() {
 function AgregarAcarrito() {
     let iTotalProductos = +$('#cart-products').text() + 1;
     $('#cart-products').text(iTotalProductos);
+}
+
+function PersisteCarrito(cUrl, funcion) {
+    $.ajax({
+        type: "POST",
+        url: ruta + cUrl,
+        dataType: "json",
+        success: function (response) {
+
+            Toast.fire({
+                icon: response.cIcono,
+                title: response.cMensaje
+            });
+
+            if (response.cIcono == "success") {
+
+                funcion();
+            }
+        },
+        error: function (response) {
+            alert('error');
+        }
+    });
 }

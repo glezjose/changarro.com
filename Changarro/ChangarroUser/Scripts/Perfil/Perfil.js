@@ -8,11 +8,13 @@ function ObtenerVistas(cUrl) {
         url: ruta + cUrl,
         dataType: "html",
         success: function (response) {
-            MostrarVistas(cElementoID,response)
+            MostrarVistas("v-pills-datos",response)
         }
     });
 }
 
 function MostrarVistas(cElementoID, cVista) {
-    $("#v-pills-datos").html(cVista);    
+    $("#"+cElementoID).html(cVista);    
 }
+
+//btnEditarDatos
