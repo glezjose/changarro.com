@@ -12,17 +12,20 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Productos más vendidos</h4>
-                <p class="card-category">Lista de Productos más cotizados esta temporada</p>
-                <div class="amchartdiv" id="productosVendidos" rows="10"></div>
+                <p class="card-category">Lista de productos más cotizados de esta temporada.</p>
+                <div class="alert alert-danger text-center" id="MensajeError" hidden>
+                    <strong>Warning!</strong>
+                </div>
+                <div class="amchartdiv" id="ProductosVendidos"></div>
             </div>
         </div>
     </div>
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Lista de usuarios con más Compras</h4>
-                <p class="card-category">Este mes</p>
-                <div class="alert alert-danger text-center" id="MensajeError" hidden>
+                <h4 class="card-title">Clientes Destacados</h4>
+                <p class="card-category">Lista de clientes con más compras realizadas.</p>
+                <div class="alert alert-danger text-center" id="MensajeError2" hidden>
                     <strong>Warning!</strong>
                 </div>
                 <div class="amchartdiv2" id="ClientesCompras"></div>
@@ -32,10 +35,10 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Categoria de productos</h4>
-                <p class="card-category">Cantidad total de productos en existencia</p>
-                <div class="alert alert-danger text-center" id="MensajeError" hidden>
-                    <strong>Warning!</strong> Indicates a warning that might need attention.
+                <h4 class="card-title">Categoría de productos</h4>
+                <p class="card-category">Cantidad total de productos en existencia.</p>
+                <div class="alert alert-danger text-center" id="MensajeError3" hidden>
+                    <strong>Warning!</strong>
                 </div>
                 <div class="amchartdiv" id="CategoriasProductos"></div>
             </div>
@@ -47,10 +50,12 @@
     <script src="~/assets/amcharts4/core.js"></script>
     <script src="~/assets/amcharts4/charts.js"></script>
     <script src="~/assets/amcharts4/themes/animated.js"></script>
+    <script src="~/Assets/amcharts4/themes/frozen.js"></script>
+    <script src="~/Assets/amcharts4/themes/material.js"></script>
     <script src="~/assets/amcharts4/lang/es_ES.js"></script>
-    <script src="~/Scripts/Reportes/clientesCompras.js"></script>
-    <script src="~/Scripts/Reportes/categorias.js"></script>
-    <script src="~/Scripts/Reportes/productosVendidos.js"></script>
+    <script src="~/Scripts/Reportes/GraficaProductosVendidos.js"></script>
+    <script src="~/Scripts/Reportes/GraficaClientesCompras.js"></script>
+    <script src="~/Scripts/Reportes/GraficaCategoria.js"></script>
     <script src="~/Scripts/Reportes/Utileria.js"></script>
     <script src="~/Scripts/Reportes/Grafica.js"></script>
 

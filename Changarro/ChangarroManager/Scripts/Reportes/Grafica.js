@@ -1,41 +1,49 @@
 ﻿$(document).ready(function () {
     productosPorCategoria();
     clientesConMasCompras();
-    porductosMasVendidos();
+    productosMasVendidos();
 });
 
-/** Función que obtiene el número de productos que
- * hay en cada categoría.
- * */
-function productosPorCategoria() {
+/** Función que obtiene los datos de los productos más vendidos.
+ */
+function productosMasVendidos() {
 
-    const oElemento = {
-        cId: "CategoriasProductos",
+    const oElemento =
+    {
+        cId: "productosVendidos",
+        cMensaje: "MensajeError",
         cClase: "amchartdiv"
     }
 
-    ObtenerDatosGraficas("POST", "Inicio/ListaProductosPorCategoria", oElemento, CargarGraficaCategorias)
-    
+    obtenerDatosGraficas("POST", "Inicio/ListaProductosMasVendidos", oElemento, cargarGraficaProductos)
 }
 
-/** Función que obtiene los clientes con más compras realizadas.
+/** Función que obtiene datos de los clientes con más compras realizadas.
  */
 function clientesConMasCompras() {
 
-    const oElemento = {
+    const oElemento =
+    {
         cId: "ClientesCompras",
+        cMensaje: "MensajeError2",
         cClase: "amchartdiv2"
     }
 
-    ObtenerDatosGraficas("POST", "Inicio/ListaClientesConMasCompras", oElemento, CargarGraficaUsuarios)
+    obtenerDatosGraficas("POST", "Inicio/ListaClientesConMasCompras", oElemento, cargarGraficaUsuarios)
 }
 
-function porductosMasVendidos() {
+/** Función que obtiene el número de productos que hay en cada categoría.
+ */
+function productosPorCategoria() {
 
-    const oElemento = {
-        cId: "productosVendidos",
+    const oElemento =
+    {
+        cId: "CategoriasProductos",
+        cMensaje: "MensajeError3",
         cClase: "amchartdiv"
     }
 
-    ObtenerDatosGraficas("POST", "Inicio/ListaPorductosMasVendidos", oElemento, CargarGraficaProductos)
+    obtenerDatosGraficas("POST", "Inicio/ListaProductosPorCategoria", oElemento, cargarGraficaCategorias)
+
 }
+

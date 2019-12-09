@@ -52,17 +52,17 @@ namespace Changarro.Business
         }
 
         /// <summary>
-        /// 
+        /// Método para obtener datos del administrador.
         /// </summary>
-        /// <param name="cCorreo"></param>
-        /// <returns></returns>
+        /// <param name="cCorreo">Correo del administrador.</param>
+        /// <returns>Devuelve datos completos del administrador.</returns>
         public LoginDTO ObtenerAdministrador(string cCorreo) 
         {
-            LoginDTO _oUsuario = new LoginDTO();
+            LoginDTO _oAdministrador = new LoginDTO();
 
             using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
-                _oUsuario = ctx.tblCat_Administrador.AsNoTracking()
+                _oAdministrador = ctx.tblCat_Administrador.AsNoTracking()
                                     .Where(c => c.cCorreo == cCorreo)
                                     .Select(l => new LoginDTO
                                     {
@@ -73,7 +73,7 @@ namespace Changarro.Business
                                     }).FirstOrDefault();
             }
 
-            return _oUsuario;        
+            return _oAdministrador;        
         }
 
         /// <summary>

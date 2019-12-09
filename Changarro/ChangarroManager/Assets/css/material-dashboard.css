@@ -8791,6 +8791,23 @@ a.text-dark:focus {
     background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
     border-color: #ffba00;
 }
+
+.btn.btn-iniciar:hover {
+    color: #fff;
+    background-color: #ff6c00;
+    border-color: #ffba00;
+}
+
+.btn.btn-iniciar:focus,
+.btn.btn-iniciar.focus,
+.btn.btn-iniciar:hover {
+    color: #fff;
+    background-color: #ff6c00;
+    border-color: #ffba00;
+}
+
+
+
 .btn.btn-primary {
   color: #fff;
   background-color: #9c27b0;
@@ -11185,7 +11202,7 @@ form {
   background: no-repeat center bottom, center calc(100% - 1px);
   background-size: 0 100%, 100% 100%;
   border: 0;
-  height: 66px;
+  height: 36px;
   transition: background 0s ease-out;
   padding-left: 0;
   padding-right: 0;

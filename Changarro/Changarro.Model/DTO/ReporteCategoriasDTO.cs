@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Changarro.Model.DTO
+﻿namespace Changarro.Model.DTO
 {
     /// <summary>
     /// Esta clase contiene las propiedades necesarias para obtener los productos por categoría.
@@ -13,7 +7,7 @@ namespace Changarro.Model.DTO
     {
 
         /// <summary>
-        /// Cantidad de productos.
+        /// Cantidad de productos existentes.
         /// </summary>
         public int iCantidad { get; set; }
 

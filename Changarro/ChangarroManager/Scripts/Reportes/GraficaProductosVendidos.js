@@ -1,18 +1,19 @@
-function CargarGraficaProductos(oProductos) {
+/**
+ * Función para cargar la gráfica de los usuarios con más compras.
+ * @param {any} oProductos Objeto que contiene los datos para pintar la gráfica.
+ */
+function cargarGraficaProductos(oProductos) {
 
-    // Themes begin
-    am4core.useTheme(am4themes_animated);
-    // Themes end
-
-    // Create chart instance
-    var chart = am4core.create("productosVendidos", am4charts.XYChart);
-    chart.scrollbarX = new am4core.Scrollbar();
-
-    // Add data
-    chart.data = oProductos;
-
-    // Create axes
-    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+ 
+    am4core.useTheme(am4themes_material); //Tema
+    am4core.unuseTheme(am4themes_animated);
+   
+    var chart = am4core.create("ProductosVendidos", am4charts.XYChart);  // Crear instancia del gráfico.
+  
+    chart.data = oProductos;   // Agregar Datos.
+   
+  
+    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());  //Crear eje X
     categoryAxis.dataFields.category = "cNombre";
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.minGridDistance = 30;
@@ -22,11 +23,11 @@ function CargarGraficaProductos(oProductos) {
     categoryAxis.tooltip.disabled = true;
     categoryAxis.renderer.minHeight = 110;
 
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());  //Crear eje Y
     valueAxis.renderer.minWidth = 50;
 
-    // Create series
-    var series = chart.series.push(new am4charts.ColumnSeries());
+  
+    var series = chart.series.push(new am4charts.ColumnSeries()); // Crear series
     series.sequencedInterpolation = true;
     series.dataFields.valueY = "iCantidad";
     series.dataFields.categoryX = "cNombre";
@@ -39,17 +40,11 @@ function CargarGraficaProductos(oProductos) {
     series.columns.template.column.cornerRadiusTopRight = 10;
     series.columns.template.column.fillOpacity = 0.8;
 
-    // on hover, make corner radiuses bigger
-    var hoverState = series.columns.template.column.states.create("hover");
-    hoverState.properties.cornerRadiusTopLeft = 0;
-    hoverState.properties.cornerRadiusTopRight = 0;
-    hoverState.properties.fillOpacity = 1;
-
     series.columns.template.adapter.add("fill", function (fill, target) {
         return chart.colors.getIndex(target.dataItem.index);
     });
 
-    // Cursor
-    chart.cursor = new am4charts.XYCursor();
+    
+    chart.cursor = new am4charts.XYCursor(); // Cursor
 }
 
