@@ -12,3 +12,7 @@
 .order_box {
     box-shadow: 0 10px 10px rgba(153, 153, 153, 0.1);
 }
+
+.product_count button:disabled:hover {
+    color: #cccccc;
+}
