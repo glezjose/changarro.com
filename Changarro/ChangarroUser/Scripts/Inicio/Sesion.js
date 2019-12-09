@@ -8,11 +8,11 @@
  * Inicializa los botones para mostrar un modal con un formulario
  * */
 function BarraHerramientas() {
-    $("#btnIniciarSesion").click(function (e) {
+    $(".btnIniciarSesion").click(function (e) {
 
         e.preventDefault();
 
-        AbrirModal("Inicio/LoginParcial", Login)
+        AbrirModal("Inicio/LoginParcial", Login);
     })
 
     $("#btnRegistrar").click(function (e) {
@@ -78,9 +78,9 @@ function Registro() {
         if ($('#registroForm').valid() === true) {
 
             const oNuevoCliente = {
-                cNombre: $("#cNombre").val(),
-                cApellido: $("#cApellido").val(),
-                cCorreo: $("#cCorreo").val().toLowerCase(),
+                cNombre: $.trim($("#cNombre").val()),
+                cApellido: $.trim($("#cApellido").val()),
+                cCorreo: $.trim($("#cCorreo").val().toLowerCase()),
                 cContrasenia: $("#cContrasenia").val()
             }
 
