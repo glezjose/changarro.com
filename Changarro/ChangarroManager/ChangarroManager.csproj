@@ -163,10 +163,12 @@
     <Content Include="Assets\amcharts4\themes\moonrisekingdom.js" />
     <Content Include="Assets\amcharts4\themes\patterns.js" />
     <Content Include="Assets\amcharts4\themes\spiritedaway.js" />
+    <Content Include="Assets\css\basic.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\clientes.css" />
     <Content Include="Assets\css\datatables.min.css" />
     <Content Include="Assets\css\demo.css" />
+    <Content Include="Assets\css\dropzone.css" />
     <Content Include="Assets\css\graficas.css" />
     <Content Include="Assets\css\material-dashboard.css" />
     <Content Include="Assets\css\material-dashboard.min.css" />
@@ -367,6 +369,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Plantillas\PlantillaLlena\" />
+    <Folder Include="Plantillas\PlantillaSubida\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Changarro.Business\Changarro.Business.csproj">

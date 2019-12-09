@@ -192,10 +192,19 @@ namespace Changarro.Business
         /// <summary>
         /// Método que crea la plantilla vacía que el administrador podrá descargar para llenar y registrar varios productos
         /// </summary>
-        public string GenerarPlantillaVacia()
+        public string GenerarPlantillaVacia(bool _lParaDescargar = true, string _cRutaAlternativa = "")
         {
             string cHome = AppDomain.CurrentDomain.BaseDirectory;
-            string cRutaPlantilla = cHome + "Plantillas\\PlantillaVacia\\Plantilla.xlsx";
+            string cRutaPlantilla = "";
+            if (_lParaDescargar)
+            {
+                cRutaPlantilla = cHome + "Plantillas\\PlantillaVacia\\Plantilla.xlsx";
+            }
+            else
+            {
+                cRutaPlantilla = cHome + _cRutaAlternativa;
+            }
+
             cRutaPlantilla = cRutaPlantilla.Normalize();
             List<string> lstEncabezados = new List<string>{
                 "Nombre",
@@ -216,9 +225,15 @@ namespace Changarro.Business
                 {
                     ICell oCelda = oFilaEncabezados.CreateCell(i);
                     oCelda.SetCellValue(lstEncabezados[i]);
+                    oHoja.AutoSizeColumn(i);
+                    GC.Collect();
                 }
                 oLibro.Write(_oFileStream);
+
+                oLibro.Close();
+                _oFileStream.Close();
             }
+
             return cRutaPlantilla;
         }//end Generar Plantilla Vacia
 
@@ -228,6 +243,159 @@ namespace Changarro.Business
             int iCantidad = db.tblCat_Producto.AsNoTracking().FirstOrDefault(p => p.iIdProducto == iIdProducto).iCantidad;
 
             return (iCantidad == 0) ? false : true;
+        }
+
+        /// <summary>
+        /// Método que lee los datos registrados en una plantilla de Excel y los registra en la BDD
+        /// </summary>
+        /// <param name="_cNombreArchivo">Nombre del archivo subido</param>
+        /// <returns>una cadena de texto con un mensaje con el resultado de la operación</returns>
+        public string ImportarProductosEnPlantilla(string _cNombreArchivo)
+        {
+            string cEstatus = "pendiente";
+            string cHome = AppDomain.CurrentDomain.BaseDirectory;
+            string cRutaPlantilla = cHome + "Plantillas\\PlantillaSubida\\" + _cNombreArchivo;
+            using (FileStream _oFileStream = new FileStream(cRutaPlantilla, FileMode.Open, FileAccess.Read))
+            {
+                IWorkbook oLibro = new XSSFWorkbook(_oFileStream);
+                ISheet oHoja = oLibro.GetSheetAt(0);
+
+                for (int i = 1; i <= oHoja.LastRowNum; i++)
+                {
+                    tblCat_Producto oProducto = new tblCat_Producto();
+                    IRow oFilaDatos = oHoja.GetRow(i);
+                    for (int j = 0; j < oFilaDatos.LastCellNum; j++)
+                    {
+                        ICell oCeldaDatos = oFilaDatos.GetCell(j);
+                        switch (j)
+                        {
+                            case 0:
+                                oProducto.cNombre = oCeldaDatos.StringCellValue.Trim();
+                                break;
+                            case 1:
+                                oProducto.cDescripcion = oCeldaDatos.StringCellValue.Trim();
+                                break;
+                            case 2:
+                                oProducto.dPrecio = (decimal)oCeldaDatos.NumericCellValue;
+                                break;
+                            case 3:
+                                oProducto.iIdCategoria = ObtenerIdCategoria(oCeldaDatos.StringCellValue);
+                                break;
+                            case 4:
+                                
+                                try
+                                {
+                                    oProducto.lEstatus = Convert.ToBoolean(oCeldaDatos.NumericCellValue);
+                                }
+                                catch (Exception)
+                                {
+                                    oProducto.lEstatus = Convert.ToBoolean(oCeldaDatos.BooleanCellValue);
+                                }
+                                
+                                break;
+                            case 5:
+                                oProducto.iCantidad = Convert.ToInt32(oCeldaDatos.NumericCellValue);
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+                    oProducto.cImagen = "N/A";
+                    oProducto.dtFechaAlta = DateTime.Now;
+                    oProducto.dtFechaModificacion = DateTime.Now;
+                    try
+                    {
+                        db.tblCat_Producto.Add(oProducto);
+                        db.SaveChanges();
+                        cEstatus = "Registro exitoso";
+                    }
+                    catch (Exception e)
+                    {
+                        cEstatus = "Error: " + e.Message;
+                    }
+
+
+                }
+
+            }
+
+            return cEstatus;
+
+        }
+
+        /// <summary>
+        /// Método que Retorna el ID de una categoría registrada en base al nombre de esta
+        /// </summary>
+        /// <param name="cNombreCategoria">Nombre de la categoría</param>
+        /// <returns>ID de la categoría</returns>
+        private int ObtenerIdCategoria(string cNombreCategoria)
+        {
+            int iIdCategoria = 0;
+            tblCat_Categoria oTblCatCategoria = db.tblCat_Categoria.FirstOrDefault(cat => cat.cNombre == cNombreCategoria);
+            if (oTblCatCategoria != null)
+            {
+                iIdCategoria = oTblCatCategoria.iIdCategoria;
+            }
+            return iIdCategoria;
+        }
+
+        /// <summary>
+        /// Método que genera un archivo de Excel que contiene todos los registros de la BDD
+        /// </summary>
+        /// <returns>Retorna la ruta absoluta del archivo en el servidor</returns>
+        public string ExportarRegistrosExcel()
+        {
+            List<tblCat_Producto> lstProductos = db.tblCat_Producto.ToList();
+            string cHome = AppDomain.CurrentDomain.BaseDirectory;
+            string cRutaLocalPlantilla = "Plantillas\\PlantillaLlena\\DatosChangarro.xlsx";
+            string cRutaAbsolutaPlantilla = cHome + cRutaLocalPlantilla;
+            cRutaAbsolutaPlantilla = cRutaAbsolutaPlantilla.Normalize();
+            List<string> lstEncabezados = new List<string>{
+                "Nombre",
+                "Descripción",
+                "Precio",
+                "Categoría",
+                "Estatus",
+                "Existencia"
+            };
+
+            using (FileStream _oFileStream = new FileStream(cRutaAbsolutaPlantilla, FileMode.Create, FileAccess.Write))
+            {
+                IWorkbook oLibro = new XSSFWorkbook();
+                ISheet oHoja = oLibro.CreateSheet("Registros");
+                ICreationHelper oAyudanteCreacion = oLibro.GetCreationHelper();
+                IRow oFilaEncabezados = oHoja.CreateRow(0);
+                for (int i = 0; i < lstEncabezados.Count; i++)
+                {
+                    ICell oCelda = oFilaEncabezados.CreateCell(i);
+                    oCelda.SetCellValue(lstEncabezados[i]);
+                    oHoja.AutoSizeColumn(i);
+                    GC.Collect();
+                }
+
+                for (int i = 0; i < lstProductos.Count; i++)
+                {
+                    IRow oFilaProducto = oHoja.CreateRow(i+1);
+                    ICell oCeldaNombre = oFilaProducto.CreateCell(0); oCeldaNombre.SetCellValue(lstProductos[i].cNombre);
+                    ICell oCeldaDescripcion = oFilaProducto.CreateCell(1); oCeldaDescripcion.SetCellValue(lstProductos[i].cDescripcion);
+                    ICell oCeldaPrecio = oFilaProducto.CreateCell(2); oCeldaPrecio.SetCellValue(double.Parse(lstProductos[i].dPrecio.ToString()));
+                    string _cCategoriaAux = db.tblCat_Categoria.Find(lstProductos[i].iIdCategoria).cNombre;
+                    ICell oCeldaCategoria = oFilaProducto.CreateCell(3); oCeldaCategoria.SetCellValue(_cCategoriaAux);
+                    ICell oCeldaEstatus = oFilaProducto.CreateCell(4); oCeldaEstatus.SetCellValue(lstProductos[i].lEstatus);
+                    ICell oCeldaExistencia = oFilaProducto.CreateCell(5); oCeldaExistencia.SetCellValue(lstProductos[i].iCantidad);
+                    oHoja.AutoSizeColumn(i);
+                    GC.Collect();
+                }
+
+
+                oLibro.Write(_oFileStream);
+
+                oLibro.Close();
+                _oFileStream.Close();
+            }
+
+            return cRutaAbsolutaPlantilla;
         }
     }//end Productos
 
