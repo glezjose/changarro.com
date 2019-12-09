@@ -371,6 +371,7 @@
     <Content Include="Plantillas\PlantillaVacia\Plantilla.xlsx" />
     <Content Include="Views\PerfilAdministrador\Index.cshtml" />
     <Content Include="Views\Inicio\Login.cshtml" />
+    <Content Include="Views\Inicio\ObtenerNombreAdministrador.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

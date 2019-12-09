@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using System.Web.Security;
+using System.Linq;
 
 namespace ChangarroManager.Controllers
 {
@@ -12,6 +13,7 @@ namespace ChangarroManager.Controllers
     public class InicioController : Controller
     {
         readonly ReporteGraficas oReportes = new ReporteGraficas(); //Instancia del business
+        readonly Administrador administrador = new Administrador();
 
         string _cMensaje = null;
 
@@ -48,12 +50,11 @@ namespace ChangarroManager.Controllers
         /// <summary>
         /// Método para el inicio de sesión del administrador.
         /// </summary>
-        /// <returns>Objeto Json con el mensaje de error.</returns>
+        /// <returns>Objeto Json con el mensaje de error y validación.</returns>
         [HttpPost]
         public JsonResult IniciarSesion()
         {
             LoginDTO _oAdministrador = JsonConvert.DeserializeObject<LoginDTO>(Request["oAdmin"]);
-
             InicioSesion _Login = new InicioSesion();
             try
             {
@@ -75,7 +76,19 @@ namespace ChangarroManager.Controllers
             {
                 _cMensaje = "Ha ocurrido un error al iniciar sesión por favor intente más tarde";
             }
-            return Json(new { _cMensaje, _oAdministrador });
+            return Json(new {_oAdministrador, _cMensaje });
+        }
+
+        /// <summary>
+        /// Método para obtener nombre del administrador.
+        /// </summary>
+        /// <returns>Devuelve una vista parcial.</returns>
+        [ChildActionOnly]
+        public ActionResult ObtenerNombreAdministrador()
+        {
+            ViewBag.cNombre = administrador.ObtenerAdministrador(Convert.ToInt32(Session["iIdAdministrador"]));
+
+            return PartialView();
         }
 
         /// <summary>
@@ -87,7 +100,7 @@ namespace ChangarroManager.Controllers
         {
             FormsAuthentication.SignOut(); //Elimina información de autenticación.
             Session.Abandon(); // Limpiará la sesión al final de la petición.
-            return RedirectToAction("Login", "Inicio");
+            return RedirectToAction("Inicio", "Login");
         }
         #endregion
 
@@ -95,7 +108,7 @@ namespace ChangarroManager.Controllers
         /// <summary>
         /// Método que obtiene los productos más vendidos.
         /// </summary>
-        /// <returns>Devuelve la lista en objeto Json y el mensaje de excepción.</returns>
+        /// <returns>Devuelve la lista en objeto Json con el mensaje de excepción y validación.</returns>
         [HttpPost]
         public JsonResult ListaProductosMasVendidos()
         {
@@ -103,11 +116,16 @@ namespace ChangarroManager.Controllers
             try
             {
                 _lstLista = oReportes.ObtenerProductosMasVendidos();
+                if (!_lstLista.Any())
+                {
+                    _cMensaje = "No hay productos vendidos.";
+                }
             }
             catch (Exception e)
             {
 
                 _cMensaje = e.Message;
+
             }
 
             return Json(new { _lstLista, _cMensaje });
@@ -116,7 +134,7 @@ namespace ChangarroManager.Controllers
         /// <summary>
         /// Método que obtiene los 10 clientes con más compras.
         /// </summary>
-        /// <returns>Devuelve la lista en objeto Json y el mensaje de excepción.</returns>
+        /// <returns>Devuelve la lista en objeto Json con el mensaje de excepción y validación.</returns>
         [HttpPost]
         public JsonResult ListaClientesConMasCompras()
         {
@@ -124,6 +142,10 @@ namespace ChangarroManager.Controllers
             try
             {
                 _lstLista = oReportes.ObtenerUsuariosConMasCompras();
+                if (!_lstLista.Any())
+                {
+                    _cMensaje = "Ningún cliente ha realizado compras.";
+                }
             }
             catch (Exception e)
             {
@@ -138,7 +160,7 @@ namespace ChangarroManager.Controllers
         /// <summary>
         /// Método que obtiene productos por cada categoría.
         /// </summary>
-        /// <returns>Devuelve la lista en objeto Json y el mensaje de excepción.</returns>
+        /// <returns>Devuelve la lista en objeto Json con el mensaje de excepción y validación.</returns>
         [HttpPost]
         public JsonResult ListaProductosPorCategoria()
         {
@@ -146,7 +168,10 @@ namespace ChangarroManager.Controllers
             try
             {
                 _lstLista = oReportes.ObtenerProductosporCategoria();
-
+                if (!_lstLista.Any())
+                {
+                    _cMensaje = "No hay ningún producto registrado en cada categoría.";
+                }
             }
             catch (Exception e)
             {

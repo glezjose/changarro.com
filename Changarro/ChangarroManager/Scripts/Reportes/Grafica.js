@@ -10,9 +10,10 @@ function productosMasVendidos() {
 
     const oElemento =
     {
-        cId: "productosVendidos",
-        cMensaje: "MensajeError",
-        cClase: "amchartdiv"
+        cId: "ProductosVendidos",
+        cMensajeE: "MensajeError",
+        cMensajeA: "MensajeAdvertencia",
+        cClase: "chartdiv"
     }
 
     obtenerDatosGraficas("POST", "Inicio/ListaProductosMasVendidos", oElemento, cargarGraficaProductos)
@@ -25,7 +26,8 @@ function clientesConMasCompras() {
     const oElemento =
     {
         cId: "ClientesCompras",
-        cMensaje: "MensajeError2",
+        cMensajeE: "MensajeError2",
+        cMensajeA: "MensajeAdvertencia2",
         cClase: "amchartdiv2"
     }
 
@@ -39,7 +41,8 @@ function productosPorCategoria() {
     const oElemento =
     {
         cId: "CategoriasProductos",
-        cMensaje: "MensajeError3",
+        cMensajeE: "MensajeError3",
+        cMensajeA: "MensajeAdvertencia3",
         cClase: "amchartdiv"
     }
 

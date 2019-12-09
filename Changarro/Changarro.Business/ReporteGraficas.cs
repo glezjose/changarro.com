@@ -32,7 +32,7 @@ namespace Changarro.Business
                     iIdProducto = p.Key.iIdProducto,
                     cNombre = p.Key.cNombre,
                     iCantidad = p.Sum(c => c.iCantidad)
-                }).OrderByDescending(p => p.iCantidad).ToList();
+                }).OrderByDescending(p => p.iCantidad).Take(10).ToList();
 
             return _lstTopProductos;
 
