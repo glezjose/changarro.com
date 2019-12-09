@@ -86,7 +86,7 @@ namespace ChangarroManager.Controllers
         [ChildActionOnly]
         public ActionResult ObtenerNombreAdministrador()
         {
-            ViewBag.cNombre = administrador.ObtenerAdministrador(Convert.ToInt32(Session["iIdAdministrador"]));
+            ViewBag.cNombre = administrador.ObtenerNombreAdministrador(Convert.ToInt32(Session["iIdAdministrador"]));
 
             return PartialView();
         }

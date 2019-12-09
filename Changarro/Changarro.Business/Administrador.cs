@@ -10,11 +10,13 @@ namespace Changarro.Business
     public class Administrador
     {
 
-         CHANGARROEntities db = new CHANGARROEntities();
+        CHANGARROEntities db;
 
         public Administrador()
         {
-
+            db = new CHANGARROEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
         }
 
         public AdministradorDTO ObtenerAdministrador(int iIdAdministrador)
@@ -78,18 +80,13 @@ namespace Changarro.Business
             return oAdministrador;
         }
 
-        public tblCat_Administrador ObtenerDatos(int iIdCliente)
-        {
-            tblCat_Administrador oAdministrador = db.tblCat_Administrador.AsNoTracking().FirstOrDefault(c => c.iIdAdministrador == iIdAdministrador);
-            return oAdministrador;
-        }
 
         /// <summary>
         /// Este método obtiene el nombre del administrador.
         /// </summary>
         /// <param name="iIdAdministrador">Identificador del administrador.</param>
         /// <returns>Regresa el nombre obtenido.</returns>
-        public string ObtenerAdministrador(int iIdAdministrador)
+        public string ObtenerNombreAdministrador(int iIdAdministrador)
         {
             string _cNombre = db.tblCat_Administrador.AsNoTracking().Where(p => p.iIdAdministrador == iIdAdministrador).Select(p => p.cNombre).FirstOrDefault();
 

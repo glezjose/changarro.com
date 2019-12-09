@@ -1,5 +1,5 @@
 ﻿using Changarro.Model.DTO;
-using ChangarroBusiness;
+using Changarro.Business;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -25,6 +25,7 @@ namespace ChangarroManager.Controllers
 
                 return View(_oAdministrador);
             }
+            return null;
         }
 
         [HttpPost]
