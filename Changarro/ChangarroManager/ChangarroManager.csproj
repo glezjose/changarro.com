@@ -54,6 +54,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -229,7 +232,7 @@
     <Content Include="Assets\Library\Validate\jquery.validate.min.js" />
     <Content Include="Assets\Library\Validate\messages_es.js" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\Administrador\Administrador.js" />
+    <Content Include="Scripts\PerfilAdministrador\PerfilAdministrador.js" />
     <Content Include="Scripts\categorias.js" />
     <Content Include="Scripts\CategoriasJS.js" />
     <Content Include="Scripts\clientes.js" />
@@ -250,7 +253,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
-    <Compile Include="Controllers\PerfilController.cs" />
+    <Compile Include="Controllers\PerfilDatosAdministradorController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -356,6 +359,8 @@
     <Content Include="Views\Producto\EditarProducto.cshtml" />
     <Content Include="Views\Categoria\Categoria.cshtml" />
     <Content Include="Views\Perfil\Index.cshtml" />
+    <Content Include="Views\PerfilDatosAdministrador\DatosPerfilAdministrador.cshtml" />
+    <Content Include="Views\PerfilDatosAdministrador\PerfilAdministrador.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
