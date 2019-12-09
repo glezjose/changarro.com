@@ -8,7 +8,6 @@ namespace Changarro.Model.DTO
 {
     public class ListaCategoriaDTO
     {
-        public bool lEstatus;
         public int iIdCategoria { get; set; }
         public string cNombre { get; set; }
         public bool lEstatus { get; set; }

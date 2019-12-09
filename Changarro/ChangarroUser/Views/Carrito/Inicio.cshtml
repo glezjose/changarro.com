@@ -26,57 +26,59 @@
 <section class="cart_area">
     <div class="container">
         <div class="row-product cart_inner">
-            @if(Model.Any() != false)
+            @if (Model.Any() != false)
             {
 
-            <div class="col-12 col-md-8">
-                @foreach (var item in Model)
-                {
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between">
-                            <h5 class="text-uppercase">@item.cNombre</h5>
-                            @Html.Hidden("iIdProducto", item.iIdProducto)
-                            <a href="#" class="a-icon close-btn"><i class="ti-close"></i></a>
+                <div class="col-12 col-md-8">
+                    @foreach (var item in Model)
+                    {
+                        <div class="product-card">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <h5 class="text-uppercase">@item.cNombre</h5>
+                                    @Html.Hidden("iIdProducto", item.iIdProducto)
+                                    <a href="#" class="a-icon close-btn"><i class="ti-close"></i></a>
 
-                        </div>
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-12 col-sm-12 col-md-3 text-center">
-                                    <img class="img-responsive" src="@item.cImagen" />
                                 </div>
-                                <div class="col-12 col-sm-12 text-md-left col-md-5">
-                                    <div class="media-body">
-                                        <p>@item.cDescripcion</p>
-                                        <p><b>Piezas existentes: </b>@item.iCantidadExistente</p>
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-12 col-sm-12 col-md-3 text-center">
+                                            <img class="img-responsive" src="@item.cImagen" />
+                                        </div>
+                                        <div class="col-12 col-sm-12 text-md-left col-md-5">
+                                            <div class="media-body">
+                                                <p>@item.cDescripcion</p>
+                                                <p><b>Piezas existentes: </b>@item.iCantidadExistente</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-sm-6 col-md-2">
+                                            <div class="product_count div_cart">
+                                                @Html.Hidden("iIdProducto", item.iIdProducto)
+                                                <input type="number" name="qty" max="@item.iCantidadExistente" min="1" value="@item.iCantidad" class="input-text qty" readonly>
+                                                <button class="increase items-count" type="button"><i class="ti-angle-up"></i></button>
+                                                <button class="reduced items-count" type="button"><i class="ti-angle-down"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-sm-6 col-md-2">
+                                            <h5>$@item.dPrecio</h5>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6 col-sm-6 col-md-2">
-                                    <div class="product_count div_cart">
-                                        @Html.Hidden("iIdProducto", item.iIdProducto)
-                                        <input type="number" name="qty" max="@item.iCantidadExistente" min="1" value="@item.iCantidad" class="input-text qty" readonly>
-                                        <button class="increase items-count" type="button"><i class="ti-angle-up"></i></button>
-                                        <button class="reduced items-count" type="button"><i class="ti-angle-down"></i></button>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-sm-6 col-md-2">
-                                    <h5>$@item.dPrecio</h5>
                                 </div>
                             </div>
+                            <br>
                         </div>
-                    </div>
-                    <br>
-                }
-            </div>
-            <div class="col-12 col-md-4">
-                <div class="order_box sticky-top-xd">
-                    <ul class="list list_2">
-                        <li><a>Subtotal (<p style="display:inline;" id="total-products">@ViewBag.iTotalProductos</p> artículos)<span>MXN $<span style="display:inline;" id="subtotal-price">@ViewBag.iSubTotalPrecio</span></span></a></li>
-                        <li><a>Envio <span>MXN $50.00</span></a></li>
-                        <li><a>Total <span>MXN $<span style="display:inline;" id="total-price">@ViewBag.iTotalPrecio</span></span></a></li>
-                    </ul>
-                    <a class="primary-btn" href="@Url.Action("Compra", "Default")">Proceder al pago</a>
+                    }
                 </div>
-            </div>
+                <div class="col-12 col-md-4">
+                    <div class="order_box sticky-top-xd">
+                        <ul class="list list_2">
+                            <li><a>Subtotal (<p style="display:inline;" id="total-products">@ViewBag.iTotalProductos</p> artículos)<span>MXN $<span style="display:inline;" id="subtotal-price">@ViewBag.dSubTotalPrecio</span></span></a></li>
+                            <li><a>Envio <span>MXN $50.00</span></a></li>
+                            <li><a>Total <span>MXN $<span style="display:inline;" id="total-price">@ViewBag.dTotalPrecio</span></span></a></li>
+                        </ul>
+                        <a class="primary-btn" href="@Url.Action("Inicio", "Compra")">Proceder al pago</a>
+                    </div>
+                </div>
             }
             else
             {
@@ -88,6 +90,5 @@
 <!--================End Cart Area =================-->
 
 @section scripts{
-
-    <script src="~/Scripts/Carrito/Carrito.js"></script>
+        <script src="~/Scripts/Carrito/Carrito.js"></script>
 }

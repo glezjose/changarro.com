@@ -28,6 +28,8 @@ namespace ChangarroUser.Controllers
             }
             else
             {
+                TempData["lConexion"] = true;
+
                 return RedirectToAction("Inicio","Producto");
             }           
         }

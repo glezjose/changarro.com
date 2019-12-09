@@ -1,5 +1,6 @@
 ﻿using Changarro.Business;
 using Changarro.Model.DTO;
+using ChangarroUser.Filters;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -23,15 +24,17 @@ namespace ChangarroUser.Controllers
 
                 ViewBag.iTotalProductos = carrito.ObtenerTotalProductos(iIdCarrito);
 
-                ViewBag.iSubTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito);
+                ViewBag.dSubTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito);
 
-                ViewBag.iTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito) + 50;
+                ViewBag.dTotalPrecio = carrito.ObtenerTotalPrecio(iIdCarrito) + 50;
 
                 List<CarritoDTO> _lstProductos = carrito.ObtenerProductosCarrito(iIdCarrito);
                 return View(_lstProductos);
             }
             else
             {
+                TempData["lConexion"] = true;
+
                 return RedirectToAction("Inicio", "Producto");
             }
         }
@@ -115,7 +118,9 @@ namespace ChangarroUser.Controllers
 
             decimal dTotalPrecio = dSubTotalPrecio + 50;
 
-            return Json(new { dSubTotalPrecio, dTotalPrecio });
+            int iTotalProductos = carrito.ObtenerTotalProductos(iIdCarrito);
+
+            return Json(new { dSubTotalPrecio, dTotalPrecio, iTotalProductos });
         }
 
         [ChildActionOnly]
@@ -129,6 +134,7 @@ namespace ChangarroUser.Controllers
             return PartialView();
         }
 
+        [AjaxChildActionOnly]
         public ActionResult CarritoVacio()
         {
             return PartialView();

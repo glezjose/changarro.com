@@ -99,11 +99,11 @@
 
                             @if (Session["iIdCliente"] == null)
                             {
-                                <a class="social-info" href="@Url.Action("Registro", "Inicio")">
+                                <a class="social-info btnIniciarSesion">
                                     <span class="ti-money"></span>
                                     <p class="hover-text">Comprar</p>
                                 </a>
-                                <a class="social-info" href="@Url.Action("Registro", "Inicio")">
+                                <a class="social-info btnIniciarSesion">
                                     <span class="ti-bag"></span>
                                     <p class="hover-text">Agregar</p>
                                 </a>
@@ -135,4 +135,12 @@
 
 @section scripts{
     <script src="~/Scripts/Producto/Producto.js"></script>
+    @if (ViewBag.lConexion != null && ViewBag.lConexion == true)
+    {
+        <script>
+            $(document).ready(function () {
+                AbrirModal("Inicio/LoginParcial", Login);
+            });
+        </script>
+    }
 }

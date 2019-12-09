@@ -279,6 +279,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
+    <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
@@ -334,6 +335,7 @@
     <Content Include="Views\Perfil\MiPerfil.cshtml" />
     <Content Include="Views\Perfil\MisDatos.cshtml" />
     <Content Include="Views\Carrito\CarritoVacio.cshtml" />
+    <Content Include="Views\Compra\Inicio.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

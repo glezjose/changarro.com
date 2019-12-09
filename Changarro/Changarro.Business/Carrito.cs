@@ -19,9 +19,14 @@ namespace Changarro.Business
 {
     public class Carrito
     {
-
+        /// <summary>
+        /// El contexto de la BD.
+        /// </summary>
         CHANGARROEntities db;
 
+        /// <summary>
+        /// Constructor donde se instancia el contexto del modelo.
+        /// </summary>
         public Carrito()
         {
             db = new CHANGARROEntities();
@@ -94,8 +99,8 @@ namespace Changarro.Business
         /// <summary>
         /// Aumenta la cantidad del producto seleccionado.
         /// </summary>
-        /// <param name="iIdProducto"></param>
-        /// <param name="iIdCarrito"></param>
+        /// <param name="iIdProducto">Es la ID del producto que se agrega cantidad.</param>
+        /// <param name="iIdCarrito">Es la ID del carrito de sessión.</param>
         public void AumentarCantidad(int iIdProducto, int iIdCarrito)
         {
             tbl_DetalleCarrito _oDetalleCarrito = db.tbl_DetalleCarrito.AsNoTracking().FirstOrDefault(c => c.iIdCarrito == iIdCarrito && c.iIdProducto == iIdProducto);
@@ -144,8 +149,12 @@ namespace Changarro.Business
 
             return dTotalPrecio;
         }
-        /// 
-        /// <param name="iIdCarritoProducto"></param>
+      
+        /// <summary>
+        /// Método que elimina el producto seleccionado en el carrito.
+        /// </summary>
+        /// <param name="iIdProducto">La ID el producto que se eliminara del carrito.</param>
+        /// <param name="iIdCarrito">La ID del carrito de la sesión.</param>
         public void EliminarProducto(int iIdProducto, int iIdCarrito)
         {
             tbl_DetalleCarrito _oDetalleCarrito = db.tbl_DetalleCarrito.AsNoTracking().FirstOrDefault(c => c.iIdCarrito == iIdCarrito && c.iIdProducto == iIdProducto);
@@ -167,6 +176,11 @@ namespace Changarro.Business
             return iIdCarrito;
         }
 
+        /// <summary>
+        /// En este método se obtiene los productos que existen en el carrito.
+        /// </summary>
+        /// <param name="iIdCarrito">Es la ID del carrito de la sesión.</param>
+        /// <returns>Regresa la lista de productos encontrados en el carrito.</returns>
         public List<CarritoDTO> ObtenerProductosCarrito(int iIdCarrito)
         {
             List<CarritoDTO> _lstProductos = db.tbl_DetalleCarrito.AsNoTracking().Where(c => c.iIdCarrito == iIdCarrito).Select(c => new CarritoDTO()
@@ -182,13 +196,6 @@ namespace Changarro.Business
             }).ToList();
 
             return _lstProductos;
-        }
-
-        /// 
-        /// <param name="iIdCliente"></param>
-        public void VaciarCarrito(int iIdCliente)
-        {
-
         }
 
     }//end Carrito

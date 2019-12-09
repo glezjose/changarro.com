@@ -85,6 +85,7 @@
     <Compile Include="DTO\ListaCategoriaDTO.cs" />
     <Compile Include="DTO\ListaProductosDTO.cs" />
     <Compile Include="DTO\LoginDTO.cs" />
+    <Compile Include="DTO\ProductosCompraDTO.cs" />
     <Compile Include="DTO\ProductosDTO.cs" />
     <Compile Include="DTO\RegistroDTO.cs" />
     <Compile Include="DTO\ReporteCategoriasDTO.cs" />
