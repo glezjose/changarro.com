@@ -23,6 +23,11 @@ namespace ChangarroUser.Controllers
 
             List<CatalogoProductosDTO> _lstProductos = productos.ObtenerProductosRecientes();
 
+            if (TempData["lConexion"] != null)
+            {
+                ViewBag.lConexion = TempData["lConexion"];
+            }
+
             return View(_lstProductos);
         }
 
