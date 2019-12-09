@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Changarro.Model.DTO
 {
@@ -17,17 +13,17 @@ namespace Changarro.Model.DTO
         public int iIdCliente { get; set; }
 
         /// <summary>
-        /// Total de Compras realizadas.
+        /// Total de compras realizadas.
         /// </summary>
         public int iTotalCompras { get; set; }
 
         /// <summary>
-        /// Variable que regresa el valor.
+        /// Variable que regresa el valor del nombre.
         /// </summary>
         private string _cNombre;
 
         /// <summary>
-        /// Nombre del usuario.
+        /// Nombre del cliente.
         /// </summary>
         public string cNombre
         {
@@ -45,17 +41,17 @@ namespace Changarro.Model.DTO
         }
 
         /// <summary>
-        /// Apellido del usuario.
+        /// Apellido del cliente.
         /// </summary>
         public string cApellido { get; set; }
 
         /// <summary>
-        /// Variable que regresa el valor.
+        /// Variable que regresa el valor de la imagen.
         /// </summary>
         private string _cImagen;
 
         /// <summary>
-        /// Ruta de la imagen del perfil del cliente.
+        /// Ruta de la imagen de perfil del cliente.
         /// </summary>
         public string cImagen {
             get { return _cImagen; }

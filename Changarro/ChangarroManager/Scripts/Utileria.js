@@ -1,10 +1,10 @@
 ﻿$(document).ready(function () {
-    BarraHerramientas();
+    cerrarSesion();
 });
 
-function BarraHerramientas() {
+/**Método para cerrar sesión del administrador. */
+function cerrarSesion() {
     $("#btnCerrarSesion").click(function (e) {
-
         e.preventDefault();
 
         $.post(ruta + "Inicio/CerrarSesion");
