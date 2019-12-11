@@ -68,7 +68,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                                     <a class="dropdown-item" href="#">Perfil</a>
-                                    <a class="dropdown-item" href="#" id="btnCerrarSesion">Cerrar Sesión</a>
+                                    <a class="dropdown-item" href="@Url.Action("CerrarSesion" , "Inicio")" id="btnCerrarSesion">Cerrar Sesión</a>
                                 </div>
                             </li>
                         </ul>
@@ -96,7 +96,6 @@
     <script src="~/Assets/js/material-dashboard.js"></script>
     <script src="~/Assets/js/demo.js"></script>
     <script src="~/Assets/js/sweetalert2.min.js"></script>
-    <script src="~/Scripts/Utileria.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

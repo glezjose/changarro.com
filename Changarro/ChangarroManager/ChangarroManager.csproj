@@ -242,7 +242,6 @@
     <Content Include="Scripts\Inicio\ValidarSesion.js" />
     <Content Include="Scripts\Reportes\GraficaCategoria.js" />
     <Content Include="Scripts\PerfilAdministrador\PerfilAdministrador.js" />
-    <Content Include="Scripts\categorias.js" />
     <Content Include="Scripts\CategoriasJS.js" />
     <Content Include="Scripts\clientes.js" />
     <Content Include="Scripts\Reportes\GraficaClientesCompras.js" />
@@ -256,7 +255,6 @@
     <Content Include="Scripts\productos.js" />
     <Content Include="Scripts\Reportes\GraficaProductosVendidos.js" />
     <Content Include="Scripts\Reportes\Utileria.js" />
-    <Content Include="Scripts\Utileria.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
