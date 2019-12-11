@@ -76,7 +76,7 @@ namespace ChangarroManager.Controllers
             }
             catch (Exception)
             {
-                _cMensaje = "Ha ocurrido un error al iniciar sesión por favor intente más tarde";
+                _cMensaje = "Ha ocurrido un error poder establecer una conexión para iniciar tu sesión, por favor intente más tarde.";
             }
             return Json(new { _oAdministrador, _cMensaje });
         }

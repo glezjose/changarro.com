@@ -56,9 +56,9 @@ function iniciarSesion(cTipo, cUrl, data, funcion) {
                 funcion(respuesta._oAdministrador);
             }
             else {
-                Toast.fire({
-                    icon: 'error',
-                    title: respuesta._cMensaje
+                Swal.fire({
+                    icon: 'warning',
+                    text: respuesta._cMensaje
                 })
             }
         }
