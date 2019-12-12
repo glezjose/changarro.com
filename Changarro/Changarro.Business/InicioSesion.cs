@@ -26,7 +26,7 @@ namespace Changarro.Business
             }
             else
             {
-                _oUsuario = ObtenerAdministrador(oLogin.cCorreo); 
+                _oUsuario = ObtenerAdministrador(oLogin.cCorreo);
             }
 
             if (_oUsuario != null)
@@ -56,7 +56,7 @@ namespace Changarro.Business
         /// </summary>
         /// <param name="cCorreo">Correo del administrador.</param>
         /// <returns>Devuelve datos completos del administrador.</returns>
-        public LoginDTO ObtenerAdministrador(string cCorreo) 
+        public LoginDTO ObtenerAdministrador(string cCorreo)
         {
             LoginDTO _oAdministrador = new LoginDTO();
 
@@ -73,7 +73,7 @@ namespace Changarro.Business
                                     }).FirstOrDefault();
             }
 
-            return _oAdministrador;        
+            return _oAdministrador;
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Changarro.Business
 
                                     }).FirstOrDefault();
             }
-             
+
             return _oUsuario;
         }
     }

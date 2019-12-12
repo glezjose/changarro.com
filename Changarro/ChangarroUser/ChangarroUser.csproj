@@ -111,6 +111,8 @@
     <Content Include="Assets\css\bootstrap.css" />
     <Content Include="Assets\css\carrito.css" />
     <Content Include="Assets\css\compra.css" />
+    <Content Include="Assets\css\cropper.min.css" />
+    <Content Include="Assets\css\dropzone.css" />
     <Content Include="Assets\css\font-awesome.min.css" />
     <Content Include="Assets\css\ion.rangeSlider.css" />
     <Content Include="Assets\css\ion.rangeSlider.skinFlat.css" />
@@ -252,6 +254,8 @@
     <Content Include="Assets\img\sd\c5.jpg" />
     <Content Include="Scripts\Compra\compra.js" />
     <Content Include="Assets\js\countdown.js" />
+    <Content Include="Assets\js\cropper.min.js" />
+    <Content Include="Assets\js\dropzone.js" />
     <Content Include="Assets\js\gmaps.min.js" />
     <Content Include="Assets\js\ion.rangeSlider.js" />
     <Content Include="Assets\js\jquery.ajaxchimp.min.js" />
@@ -274,7 +278,10 @@
     <Content Include="Scripts\Inicio\Inicio.js" />
     <Content Include="Scripts\Inicio\ValidarFormularios.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Perfil\CancelarSuscripcion.js" />
+    <Content Include="Scripts\Perfil\ImagenPerfil.js" />
     <Content Include="Scripts\Perfil\Perfil.js" />
+    <Content Include="Scripts\Perfil\Tarjetas.js" />
     <Content Include="Scripts\Producto\Producto.js" />
     <Content Include="Scripts\Utileria.js" />
     <Content Include="Scripts\Inicio\Sesion.js" />
@@ -340,6 +347,8 @@
     <Content Include="Views\Perfil\MisDatos.cshtml" />
     <Content Include="Views\Carrito\CarritoVacio.cshtml" />
     <Content Include="Views\Compra\Inicio.cshtml" />
+    <Content Include="Views\Perfil\ImagenPerfil.cshtml" />
+    <Content Include="Views\Perfil\CancelarSuscripcion.cshtml" />
     <Content Include="Views\Compra\SeleccionDomicilio.cshtml" />
     <Content Include="Views\Compra\SeleccionTarjeta.cshtml" />
     <Content Include="Views\Compra\TerminosYcondiciones.cshtml" />

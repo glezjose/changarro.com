@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section styles{
+    <link href="~/Assets/css/cropper.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/dropzone.css" rel="stylesheet" />
+}
+
 <section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
@@ -26,9 +31,11 @@
                     <img id="imgperfil" class="author_img rounded-circle" src="~/Assets/img/author.png" />
                     <h4>@Html.DisplayFor(model => model.cNombre)</h4>
                     <p>@Html.DisplayFor(model => model.cCorreo)</p>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" id="xd" data-target="#imagenperfil">
+                    <!--
+                    <button type="button" class="btn btn-primary" data-toggle="modal" id="btnCambiarImagen" data-target="#imagenperfil">
                         cambiar
                     </button>
+                        -->
                     <br>
                     <div class="sidebar-categories">
                         <ul class="main-categories nav flex-column">
@@ -47,7 +54,7 @@
                         </ul>
                     </div>
                     <div class="br"></div>
-                    <a href="#" data-toggle="modal" data-target="#exampleModal" style="color: #5b6d71;">Cancelar Suscripción</a>
+                    <a href="#" data-toggle="modal" data-target="#exampleModal" id="btnCancelarCuenta" style="color: #5b6d71;">Cancelar Suscripción</a>
                 </div>
             </div>
         </div>
@@ -57,6 +64,7 @@
 
                 </div>
                 <div class="tab-pane fade" id="v-pills-direcciones" role="tabpanel" aria-labelledby="v-pills-direcciones-tab">
+                    <!--
                     <div class="d-flex justify-content-between blog_title">
                         <h4>Mis Direcciones</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -170,8 +178,10 @@
                             </div>
                         </div>
                     </div>
+                    -->
                 </div>
                 <div class="tab-pane fade" id="v-pills-tarjetas" role="tabpanel" aria-labelledby="v-pills-tarjetas-tab">
+                    <!--
                     <div class="container">
                         <div class="d-flex justify-content-between blog_title">
                             <h4>Mis Tarjetas</h4>
@@ -253,8 +263,10 @@
                             </div>
                         </div>
                     </div>
+                    -->
                 </div>
                 <div class="tab-pane fade" id="v-pills-historial" role="tabpanel" aria-labelledby="v-pills-historial-tab">
+                    <!--
                     <div class="container">
                         <div class="d-flex justify-content-between blog_title">
                             <h4>Mis Compras</h4>
@@ -324,6 +336,7 @@
                             </div>
                         </div>
                     </div>
+                    -->
                 </div>
             </div>
             <br>
@@ -332,7 +345,7 @@
 </div>
 
 <!--================Blog Area =================-->
-<!-- Modal -->
+<!-- Modal
 <div class="modal fade" id="modalito" tabindex="-1" role="dialog" aria-labelledby="modalitoTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -393,8 +406,8 @@
         </div>
     </div>
 </div>
-
-<!-- Modal -->
+    -->
+<!-- Modal
 <div class="modal fade" id="modalitoxd" tabindex="-1" role="dialog" aria-labelledby="modalitoxdTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -465,8 +478,8 @@
         </div>
     </div>
 </div>
-
-<!-- Modal -->
+    -->
+<!-- Modal
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -517,7 +530,11 @@
         </div>
     </div>
 </div>
-
+    -->
 @section scripts{
+    <script src="~/Assets/js/cropper.min.js"></script>
+    <script src="~/Assets/js/dropzone.js"></script>
     <script src="~/Scripts/Perfil/Perfil.js"></script>
+    <script src="~/Scripts/Perfil/ImagenPerfil.js"></script>
+    <script src="~/Scripts/Perfil/CancelarSuscripcion.js"></script>
 }

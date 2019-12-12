@@ -78,9 +78,9 @@ function Registro() {
         if ($('#registroForm').valid() === true) {
 
             const oNuevoCliente = {
-                cNombre: $("#cNombre").val(),
-                cApellido: $("#cApellido").val(),
-                cCorreo: $("#cCorreo").val().toLowerCase(),
+                cNombre: $.trim($("#cNombre").val()),
+                cApellido: $.trim($("#cApellido").val()),
+                cCorreo: $.trim($("#cCorreo").val().toLowerCase()),
                 cContrasenia: $("#cContrasenia").val()
             }
 

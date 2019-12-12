@@ -62,8 +62,8 @@ namespace Changarro.Business
                                                     select new ListaCategoriaDTO
                                                     {
                                                         iIdCategoria = c.iIdCategoria,
-                                                        cNombre = c.cNombre,
-                                                        lEstatus = c.lEstatus
+                                                        cNombre = c.cNombre
+                                                        //lEstatus = c.lEstatus
                                                     }).ToList();
             return lstCategoria;
         }

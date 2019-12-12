@@ -1,0 +1,55 @@
+﻿@model Changarro.Model.DTO.AdministradorDTO
+
+@section Titulo{
+    Perfil Administrador
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="container">
+                <br />
+                <fieldset id="DatosAdministrador" disabled>
+                    <form class="row contact_form" novalidate="novalidate" id="Datos">
+                        <div class="col-md-6 form-group p_star">
+                            <label for="cNombre">Nombre(s)</label>
+                            <input type="text" class="form-control" id="cNombre" name="cNombre" value="@Html.DisplayFor(model => model.cNombre)">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label for="cApellido">Apellido(s)</label>
+                            <input type="text" class="form-control" id="cApellido" name="cApellido" value="@Html.DisplayFor(model => model.cApellido)">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label for="nCorreo">Correo electrónico:</label>
+                            <input type="email" class="form-control" id="cCorreo" name="cCorreo" value="@Html.DisplayFor(model => model.cCorreo)">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label for="nTelefono">Teléfono:</label>
+                            <input type="text" class="form-control" id="cTelefono" name="cTelefono" value="@Html.DisplayFor(model => model.cTelefono)">
+                        </div>
+                    </form>
+                </fieldset>
+                <div class="br col-md-12 text-right">
+                    <div class="br col-md-12 text-right">
+                        <button class="btn btn-success btn-round editar" id="btnEditarDatos">
+                            <i class="ti-pencil icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-profile">
+            <div class="card-avatar">
+                <a>
+                    <img class="img" src="../assets/img/faces/icono.jpg" />
+                </a>
+            </div>
+            <div class="card-body">
+                <h4>@Html.DisplayFor(model => model.cNombre)</h4>
+                <p>@Html.DisplayFor(model => model.cCorreo)</p>
+            </div>
+        </div>
+    </div>
+</div>
