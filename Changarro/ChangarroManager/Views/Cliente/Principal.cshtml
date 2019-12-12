@@ -12,7 +12,7 @@
 @section styles{
 
     <link href="~/Assets/css/sweetalert2.min.css" rel="stylesheet" />
-
+    <link href="~/Assets/css/clientes.css" rel="stylesheet" />
 }
 
 <div class="container">
@@ -21,16 +21,20 @@
             <div class="card">
                 <div class="card-header card-header left">
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-info btn-round" id="btnVerDetalles">
-                            <i class="ti-eye icon"></i>
-                        </button>
-                        <button class="btn btn-success btn-round" id="btnCambiarEstatus">
-                            <i class="ti-check icon"></i>
-                        </button>
-                    </div>
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="swichClientes">
-                        <label class="custom-control-label" for="swichClientes"><span class="badge badge-danger">Mostrar Inactivos</span></label>
+                        <div class="d-flex justify-content-start col-2">
+                            <label class="switch" for="swichClientes">
+                                <input type="checkbox" class="custom-control-input" id="swichClientes">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="d-flex justify-content-end col-10">
+                            <button class="btn btn-info btn-round" id="btnVerDetalles">
+                                <i class="ti-eye icon"></i>
+                            </button>
+                            <button class="btn btn-success btn-round" id="btnCambiarEstatus">
+                                <i class="ti-check icon"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered nowrap" id="tblCliente" style="width:100%">
@@ -49,20 +53,6 @@
                                 </tr>
                             </thead>
                             <tbody></tbody>
-                            <tfoot class="thead-dark">
-                                <tr>
-                                    <th hidden scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Apellido</th>
-                                    <th scope="col">Teléfono</th>
-                                    <th scope="col">Correo</th>
-                                    <th scope="col">Estatus</th>
-                                    <th hidden scope="col">Status</th>
-                                    <th hidden scope="col">Fecha Alta</th>
-                                    <th hidden scope="col">Fecha Baja</th>
-                                    <th hidden scope="col">Fecha Modificación</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>

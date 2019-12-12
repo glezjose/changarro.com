@@ -1,76 +1,55 @@
 ﻿@model Changarro.Model.DTO.AdministradorDTO
 
-@{
-    ViewBag.Title = "DatosPerfilAdministrador";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
 @section Titulo{
-    Pefil
+    Perfil Administrador
 }
 
 <div class="row">
     <div class="col-md-8">
         <div class="card">
             <div class="container">
-                <div class="form-group">
-                    <label class="bmd-label-floating">Dueño de CHANGARRO.COM</label>
-                </div>
                 <br />
-                <form class="row contact_form" method="post" novalidate="novalidate">
-                    <div class="col-md-6 form-group p_star">
-                        <label for="cNombre">Nombre(s)</label>
-                        <input type="text" class="form-control" id="cNombre" name="cNombre" value="@Html.DisplayFor(model => model.cNombre)">
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                        <label for="cApellido">Apellido(s)</label>
-                        <input type="text" class="form-control" id="cApellido" name="cApellido" value="@Html.DisplayFor(model => model.cApellido)">
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                        <label for="nCorreo">Correo electrónico:</label>
-                        <input type="email" class="form-control" id="cCorreo" value="@Html.DisplayFor(model => model.cCorreo)">
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                        <label for="nDireccion">Teléfono:</label>
-                        <input type="text" class="form-control" id="cTelefono" value="@Html.DisplayFor(model => model.cTelefono)">
-                    </div>
-                    <div class="col-md-4 form-group p_star">
-                        <label for="nCodigopostal">Imagen:</label>
-                        <input type="text" class="form-control" id="cImagen" value="@Html.DisplayFor(model => model.cImagen)">
-                    </div>
-                    <div class="col-md-4 form-group p_star">
-                        <label for="nCiudad">Ciudad:</label>
-                        <input type="text" class="form-control" value="Mérida">
-                    </div>
-                    <div class="col-md-4 form-group p_star">
-                        <label for="nEstado">Estado:</label>
-                        <input type="text" class="form-control" value="Yucatán">
-                    </div>
+                <fieldset id="DatosAdministrador" disabled>
+                    <form class="row contact_form" novalidate="novalidate" id="Datos">
+                        <div class="col-md-6 form-group p_star">
+                            <label for="cNombre">Nombre(s)</label>
+                            <input type="text" class="form-control" id="cNombre" name="cNombre" value="@Html.DisplayFor(model => model.cNombre)">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label for="cApellido">Apellido(s)</label>
+                            <input type="text" class="form-control" id="cApellido" name="cApellido" value="@Html.DisplayFor(model => model.cApellido)">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label for="nCorreo">Correo electrónico:</label>
+                            <input type="email" class="form-control" id="cCorreo" name="cCorreo" value="@Html.DisplayFor(model => model.cCorreo)">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label for="nTelefono">Teléfono:</label>
+                            <input type="text" class="form-control" id="cTelefono" name="cTelefono" value="@Html.DisplayFor(model => model.cTelefono)">
+                        </div>
+                    </form>
+                </fieldset>
+                <div class="br col-md-12 text-right">
                     <div class="br col-md-12 text-right">
-                        <button type="button" class="btn btn-success">
-                            Editar perfil.
+                        <button class="btn btn-success btn-round editar" id="btnEditarDatos">
+                            <i class="ti-pencil icon"></i>
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card card-profile">
             <div class="card-avatar">
-                <a href="#pablo">
-                    <img class="img" src="../assets/img/faces/marc.jpg" />
+                <a>
+                    <img class="img" src="../assets/img/faces/icono.jpg" />
                 </a>
             </div>
             <div class="card-body">
-                <h6 class="card-category text-gray">Alvin</h6>
-                <h4 class="card-title">Yaki Tori</h4>
+                <h4>@Html.DisplayFor(model => model.cNombre)</h4>
+                <p>@Html.DisplayFor(model => model.cCorreo)</p>
             </div>
         </div>
     </div>
 </div>
-
-
-@section scripts{
-    
-}

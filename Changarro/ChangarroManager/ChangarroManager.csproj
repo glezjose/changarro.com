@@ -189,6 +189,7 @@
     <Content Include="Assets\img\faces\avatar.jpg" />
     <Content Include="Assets\img\faces\card-profile1-square.jpg" />
     <Content Include="Assets\img\faces\card-profile2-square.jpg" />
+    <Content Include="Assets\img\faces\icono.jpg" />
     <Content Include="Assets\img\faces\marc.jpg" />
     <Content Include="Assets\img\faces\perfil.jpg" />
     <Content Include="Assets\img\favicon.png" />
@@ -237,6 +238,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Inicio\InicioSesion.js" />
     <Content Include="Scripts\Inicio\ValidarSesion.js" />
+    <Content Include="Scripts\PerfilAdministrador\Validaciones.js" />
     <Content Include="Scripts\Reportes\GraficaCategoria.js" />
     <Content Include="Scripts\PerfilAdministrador\PerfilAdministrador.js" />
     <Content Include="Scripts\categorias.js" />
@@ -357,7 +359,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
     <Content Include="Views\Inicio\Inicio.cshtml" />
-    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Cliente\Principal.cshtml" />
     <Content Include="Views\Cliente\VerDetallesCliente.cshtml" />
     <Content Include="Views\Producto\VerProductos.cshtml" />
     <Content Include="Views\Producto\AddProducto.cshtml" />
@@ -370,11 +372,10 @@
     <Content Include="Views\Producto\ImportarProducto.cshtml" />
     <Content Include="Plantillas\PlantillaVacia\test.xls" />
     <Content Include="Plantillas\PlantillaVacia\Plantilla.xlsx" />
-    <Content Include="Views\PerfilAdministrador\Index.cshtml" />
     <Content Include="Views\Inicio\Login.cshtml" />
     <Content Include="Views\Perfil\Index.cshtml" />
-    <Content Include="Views\PerfilDatosAdministrador\DatosPerfilAdministrador.cshtml" />
     <Content Include="Views\PerfilDatosAdministrador\PerfilAdministrador.cshtml" />
+    <Content Include="Views\PerfilDatosAdministrador\DatosPerfilAdministrador.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
