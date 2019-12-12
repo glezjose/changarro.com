@@ -53,12 +53,12 @@
         @Html.Hidden("iIdProducto", Model.iIdProducto)
         @if (Session["iIdCliente"] == null)
         {
-            <a class="gray_btn" href="@Url.Action("Registro", "Inicio")">Agregar al carrito</a>
+            <a class="icon_btn" href="@Url.Action("Registro", "Inicio")"><i class="ti-bag"></i></a>
             <a class="primary-btn" href="@Url.Action("Registro", "Inicio")">Comprar ahora</a>
         }
         else
         {
-            <a class="gray_btn btnAgregarCarritoModal" href="#">Agregar al carrito</a>
+            <a class="icon_btn btnAgregarCarritoModal" href="#"><i class="ti-bag"></i></a>
             <a class="primary-btn btnComprarAhora" href="#">Comprar ahora</a>
         }
 

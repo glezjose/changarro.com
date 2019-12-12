@@ -14,8 +14,9 @@ function AbrirModal(cUrl, funcion) {
                 show: true,
                 backdrop: "static"
             });
-
-            funcion();
+            if (funcion != null) {
+                funcion();
+            }
         },
         error: function () {
             alert('falle');

@@ -1,0 +1,81 @@
+﻿@model Changarro.Model.DTO.CarritoDTO
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link href="~/Assets/css/carrito.css" rel="stylesheet" />
+}
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Comprar Ahora</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="@Url.Action("Inicio", "Producto")">Changarro<span class="ti-arrow-right"></span></a>
+                    <a href="">Seleccionar Cantidad</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<!--================Cart Area =================-->
+<section class="cart_area">
+    <div class="container">
+        <div class="row-product cart_inner">
+            <div class="col-12 col-md-8">
+                <div class="product-card">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h5 class="text-uppercase">@Model.cNombre</h5>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-sm-12 col-md-3 text-center">
+                                    <img class="img-responsive" src="@Model.cImagen" />
+                                </div>
+                                <div class="col-12 col-sm-12 text-md-left col-md-5">
+                                    <div class="media-body">
+                                        <p>@Model.cDescripcion</p>
+                                        <p><b>Piezas existentes: </b>@Model.iCantidadExistente</p>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-2">
+                                    <div class="product_count div_cart">
+                                        @Html.Hidden("iIdProducto", Model.iIdProducto)
+                                        <input type="number" name="qty" max="@Model.iCantidadExistente" min="1" value="1" class="input-text qty" readonly>
+                                        <button class="increase items-count" type="button"><i class="ti-angle-up"></i></button>
+                                        <button class="reduced items-count" type="button"><i class="ti-angle-down"></i></button>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-2">
+                                    <h5>$<span id="price">@Model.dPrecio</span></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="order_box sticky-top-xd">
+                    <ul class="list list_2">
+                        <li><a>Subtotal (<p style="display:inline;" id="total-products">@Model.iCantidad</p> artículos)<span>MXN $<span style="display:inline;" id="subtotal-price">@Model.dPrecio</span></span></a></li>
+                        <li><a>Envio <span>MXN $50.00</span></a></li>
+                        <li><a>Total <span>MXN $<span style="display:inline;" id="total-price">@ViewBag.dTotalPrecio</span></span></a></li>
+                    </ul>
+                    <a class="primary-btn" id="btnProceder" href="#">Proceder al pago</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Cart Area =================-->
+
+@section scripts{
+    <script src="~/Scripts/Compra/SeleccionarCantidad.js"></script>
+}

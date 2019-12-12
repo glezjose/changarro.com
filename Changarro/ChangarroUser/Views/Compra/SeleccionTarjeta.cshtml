@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Changarro.Model.DTO.TarjetaCompraDTO>
+
+@if (Model.Any())
+{
+    bool lPrimero = true;
+    foreach (var item in Model)
+    {
+        <tr class="row-padding">
+            @if (lPrimero)
+            {
+                <td>
+                    <input type="radio" name="tarjeta" class="checkbox-round radio-card" checked>
+                    @Html.Hidden("iIdTarjeta", item.iIdTarjeta)
+                </td>
+            }
+            else
+            {
+                <td>
+                    <input type="radio" name="tarjeta" class="checkbox-round radio-card">
+                    @Html.Hidden("iIdTarjeta", item.iIdTarjeta)
+                </td>
+            }
+            <td>
+                <div class="media">
+                    <h5>@item.cNombre</h5>
+                </div>
+            </td>
+            <td>
+                <h5>Termina en @item.cTarjeta</h5>
+            </td>
+            @if (lPrimero)
+            {
+                <td class="cvv-input">
+                    <form class="formCVV">
+                        <input type="text" name="cCVV" placeholder="CVV" maxlength="3" onfocus="this.placeholder = ''" onblur="this.placeholder = 'CVV'" class="single-input-primary col-lg-4 float-right cvv">
+                    </form>
+                </td>
+            }
+            else
+            {
+                <td class="cvv-input">
+                    <form class="formCVV">
+                        <input type="text" name="cCVV" placeholder="CVV" maxlength="3" onfocus="this.placeholder = ''" onblur="this.placeholder = 'CVV'" class="single-input-primary col-lg-4 float-right cvv" hidden>
+                    </form>
+                </td>
+            }
+        </tr>
+
+        lPrimero = false;
+    }
+}
+else
+{
+    <tr>
+        No tiene tarjetas registradas, por favor agregue una tarjeta.
+    </tr>
+}
+

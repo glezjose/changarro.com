@@ -45,12 +45,12 @@ namespace Changarro.Business
         /// <param name="iIdCliente">La id del cliente que se registro.</param>
         public void RegistrarCarrito(int iIdCliente)
         {
-            tblCat_Carrito oCarrito = new tblCat_Carrito()
+            tblCat_Carrito _oCarrito = new tblCat_Carrito()
             {
                 iIdCliente = iIdCliente
             };
 
-            db.tblCat_Carrito.Add(oCarrito);
+            db.tblCat_Carrito.Add(_oCarrito);
             db.SaveChanges();
 
         }
@@ -196,6 +196,17 @@ namespace Changarro.Business
             }).ToList();
 
             return _lstProductos;
+        }
+
+        public void VaciarCarrito(int iIdCarrito)
+        {
+            List<tbl_DetalleCarrito> _lstProductos = db.tbl_DetalleCarrito.AsNoTracking().Where(c => c.iIdCarrito == iIdCarrito).ToList();
+
+            foreach (var _producto in _lstProductos)
+            {
+                db.Entry(_producto).State = EntityState.Deleted;
+            }
+            db.SaveChanges();
         }
 
     }//end Carrito

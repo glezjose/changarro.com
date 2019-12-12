@@ -50,6 +50,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -249,7 +252,7 @@
     <Content Include="Assets\img\sd\c3.jpg" />
     <Content Include="Assets\img\sd\c4.jpg" />
     <Content Include="Assets\img\sd\c5.jpg" />
-    <Content Include="Assets\js\compra.js" />
+    <Content Include="Scripts\Compra\compra.js" />
     <Content Include="Assets\js\countdown.js" />
     <Content Include="Assets\js\cropper.min.js" />
     <Content Include="Assets\js\dropzone.js" />
@@ -271,6 +274,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Carrito\Carrito.js" />
+    <Content Include="Scripts\Compra\SeleccionarCantidad.js" />
     <Content Include="Scripts\Inicio\Inicio.js" />
     <Content Include="Scripts\Inicio\ValidarFormularios.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -345,6 +349,11 @@
     <Content Include="Views\Compra\Inicio.cshtml" />
     <Content Include="Views\Perfil\ImagenPerfil.cshtml" />
     <Content Include="Views\Perfil\CancelarSuscripcion.cshtml" />
+    <Content Include="Views\Compra\SeleccionDomicilio.cshtml" />
+    <Content Include="Views\Compra\SeleccionTarjeta.cshtml" />
+    <Content Include="Views\Compra\TerminosYcondiciones.cshtml" />
+    <Content Include="Views\Compra\SeleccionarCantidad.cshtml" />
+    <Content Include="Views\Compra\CargarProductoUnico.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
