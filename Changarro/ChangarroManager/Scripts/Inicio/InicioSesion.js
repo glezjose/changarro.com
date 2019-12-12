@@ -8,7 +8,7 @@
  * */
 function iniciarBoton() {
 
-    $("#btnAdminLogin").click(function (e) {
+    $("#btnloginAdministrador").click(function (e) {
         e.preventDefault();
 
         inicioSesion();
@@ -16,22 +16,22 @@ function iniciarBoton() {
 }
 
 /**
- * Método para enviar los datos y comprobar la validación de los datos ingresados.
+ * Método que envía los datos obtenidos y comprobar la validación de los campos.
  * */
 function inicioSesion() {
 
-    const validar = $("#Formulario").valid()
+    const _validar = $("#Formulario").valid()
 
-    if (validar === true) {
+    if (_validar === true) {
 
-        const oDatos =
+        const _oDatos =
         {
 
             cCorreo: $("#cCorreo").val().toLowerCase(),
             cContrasenia: $("#cContrasenia").val()
         }
 
-        iniciarSesion("POST", "IniciarSesion", { oAdmin: JSON.stringify(oDatos) }, validarInicioSesion);
+        iniciarSesion("POST", "IniciarSesion", { oAdmin: JSON.stringify(_oDatos) }, validarInicioSesion);
     }
 }
 
@@ -56,9 +56,9 @@ function iniciarSesion(cTipo, cUrl, data, funcion) {
                 funcion(respuesta._oAdministrador);
             }
             else {
-                Toast.fire({
-                    icon: 'error',
-                    title: respuesta._cMensaje
+                Swal.fire({
+                    icon: 'warning',
+                    text: respuesta._cMensaje
                 })
             }
         }

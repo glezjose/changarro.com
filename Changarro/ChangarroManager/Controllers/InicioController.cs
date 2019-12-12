@@ -5,15 +5,17 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using System.Web.Security;
+using System.Linq;
 
 namespace ChangarroManager.Controllers
 {
 
     public class InicioController : Controller
     {
-        readonly ReporteGraficas oReportes = new ReporteGraficas(); //Instancia del business
+        readonly ReporteGraficas oReportes = new ReporteGraficas(); //Instancia del business gráficas.
+        readonly Administrador oAdministrador = new Administrador(); // Instancia del business administrador.
 
-        string _cMensaje = null;
+        string _cMensaje = null; // Variable que almacena un mensaje de error y validación.
 
         #region [Vistas]
         /// <summary>
@@ -48,16 +50,17 @@ namespace ChangarroManager.Controllers
         /// <summary>
         /// Método para el inicio de sesión del administrador.
         /// </summary>
-        /// <returns>Objeto Json con el mensaje de error.</returns>
+        /// <returns>Objeto Json con el mensaje de error y validación.</returns>
         [HttpPost]
         public JsonResult IniciarSesion()
         {
             LoginDTO _oAdministrador = JsonConvert.DeserializeObject<LoginDTO>(Request["oAdmin"]);
 
-            InicioSesion _Login = new InicioSesion();
+            InicioSesion _oLogin = new InicioSesion(); //Instancia de la clase business.
+
             try
             {
-                LoginDTO _oSesion = _Login.ValidarLogin(_oAdministrador, false);
+                LoginDTO _oSesion = _oLogin.ValidarLogin(_oAdministrador, false);
 
                 if (_oSesion.iIdUsuario > 0)
                 {
@@ -73,21 +76,32 @@ namespace ChangarroManager.Controllers
             }
             catch (Exception)
             {
-                _cMensaje = "Ha ocurrido un error al iniciar sesión por favor intente más tarde";
+                _cMensaje = "Ha ocurrido un error poder establecer una conexión para iniciar tu sesión, por favor intente más tarde.";
             }
-            return Json(new { _cMensaje, _oAdministrador });
+            return Json(new { _oAdministrador, _cMensaje });
+        }
+
+        /// <summary>
+        /// Método para obtener nombre del administrador.
+        /// </summary>
+        /// <returns>Devuelve una vista parcial.</returns>
+        [ChildActionOnly]
+        public ActionResult ObtenerNombreAdministrador()
+        {
+            ViewBag.cNombre = oAdministrador.ObtenerNombreAdministrador(Convert.ToInt32(Session["iIdAdministrador"]));
+
+            return PartialView();
         }
 
         /// <summary>
         /// Método para cerrar sesión del administrador.
         /// </summary>
         /// <returns>Acción que redirige al administrador a la página de inicio de sesión.</returns>
-        [HttpPost]
         public ActionResult CerrarSesion()
         {
             FormsAuthentication.SignOut(); //Elimina información de autenticación.
-            Session.Abandon(); // Limpiará la sesión al final de la petición.
-            return RedirectToAction("Login", "Inicio");
+            Session.RemoveAll(); // Elimina los elementos agregados en el contenido del objeto session.
+            return RedirectToAction("Login");
         }
         #endregion
 
@@ -95,7 +109,7 @@ namespace ChangarroManager.Controllers
         /// <summary>
         /// Método que obtiene los productos más vendidos.
         /// </summary>
-        /// <returns>Devuelve la lista en objeto Json y el mensaje de excepción.</returns>
+        /// <returns>Devuelve la lista en objeto Json con el mensaje de excepción y validación.</returns>
         [HttpPost]
         public JsonResult ListaProductosMasVendidos()
         {
@@ -103,11 +117,16 @@ namespace ChangarroManager.Controllers
             try
             {
                 _lstLista = oReportes.ObtenerProductosMasVendidos();
+                if (!_lstLista.Any())
+                {
+                    _cMensaje = "No hay productos vendidos.";
+                }
             }
             catch (Exception e)
             {
 
                 _cMensaje = e.Message;
+
             }
 
             return Json(new { _lstLista, _cMensaje });
@@ -116,7 +135,7 @@ namespace ChangarroManager.Controllers
         /// <summary>
         /// Método que obtiene los 10 clientes con más compras.
         /// </summary>
-        /// <returns>Devuelve la lista en objeto Json y el mensaje de excepción.</returns>
+        /// <returns>Devuelve la lista en objeto Json con el mensaje de excepción y validación.</returns>
         [HttpPost]
         public JsonResult ListaClientesConMasCompras()
         {
@@ -124,6 +143,10 @@ namespace ChangarroManager.Controllers
             try
             {
                 _lstLista = oReportes.ObtenerUsuariosConMasCompras();
+                if (!_lstLista.Any())
+                {
+                    _cMensaje = "Ningún cliente ha realizado compras.";
+                }
             }
             catch (Exception e)
             {
@@ -136,9 +159,9 @@ namespace ChangarroManager.Controllers
 
 
         /// <summary>
-        /// Método que obtiene productos por cada categoría.
+        /// Método que obtiene los productos por cada categoría.
         /// </summary>
-        /// <returns>Devuelve la lista en objeto Json y el mensaje de excepción.</returns>
+        /// <returns>Devuelve la lista en objeto Json con el mensaje de excepción y validación.</returns>
         [HttpPost]
         public JsonResult ListaProductosPorCategoria()
         {
@@ -146,7 +169,10 @@ namespace ChangarroManager.Controllers
             try
             {
                 _lstLista = oReportes.ObtenerProductosporCategoria();
-
+                if (!_lstLista.Any())
+                {
+                    _cMensaje = "No hay ningún producto registrado en cada categoría.";
+                }
             }
             catch (Exception e)
             {

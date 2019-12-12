@@ -16,9 +16,12 @@
     <h5 class="modal-title" id="tituloModalImportar">ImportarProducto</h5>
 }
 <div class="modal-body">
-    <p>Lorem Ipsum Modal Importar</p>
+    <form class="text-center dropzone" id="dropZoneImportar">
+        <div class="dz-message">Arrastre archivos o haga clic para importarlos<br><small class="text-info"><input type="file" name="file" /></small></div>
+
+    </form>
 </div>
 @section footer{
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-    <button type="button" class="btn btn-primary">Importar</button>
+    <button type="button" class="btn btn-primary" id="btnImportarPorductos">Importar</button>
 }

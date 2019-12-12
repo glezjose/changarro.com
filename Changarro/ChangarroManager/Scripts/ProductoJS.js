@@ -105,7 +105,7 @@ function Botones() {
     });
 
     MenuDesplegable();
-});
+}
 function GuardarProducto() {
     console.log(":D")
     var data = $("#form4").serialize();
@@ -127,9 +127,12 @@ function GuardarProducto() {
 
     });
 }
-
+/**
+ * Función que asigna los eventos de clic a los elementos del menú desplegable "Herramientas"
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
 function MenuDesplegable() {
-    //Para modal -- id="modalGeneral"
 
     $("#descargarPlantilla").click(function () {
         let lExisteSesion = true;
@@ -139,10 +142,46 @@ function MenuDesplegable() {
     });
 
     $("#importarProductos").click(function () {
-        MostrarModal("../Producto/ImportarProducto", InicializarModalImportar);
+        MostrarModal("POST", "../Producto/ImportarProducto", null, InicializarModalImportar);
+    });
+
+    $("#exportarProductos").click(function () {
+        window.location = "../Producto/ExportarRegistros";
     });
 }
 
+/**
+ * Función que asigna manejadores de evento al elemento con id = "dropZoneImportar" y al botón "Importar"
+ * No recibe ningun parametro
+ * No retorna ningun valor
+ * */
 function InicializarModalImportar() {
-    console.log("Implementar funcion Inicializar Modal Importar");
+    console.log("Implementar función Inicializar Modal Importar");
+
+    var myDrop = new Dropzone("#dropZoneImportar", {
+        url: "../Producto/SubirArchivo",
+        maxfiles: 1,
+        maxFilesize: 5,
+        acceptedFiles: ".xls, .xlsx"
+    });
+    $("#btnImportarPorductos").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "../Producto/ImportarRegistros",
+            data: {
+                _cNombreArchivo: myDrop.files[0].name.trim()
+            },
+            dataType: "json",
+            success: function(data){
+                console.log(data.message);
+                TablaProducto.ajax.reload();
+
+            },
+            error: function(){
+                console.log("error importar");
+            }
+        });
+        $("#modalGeneral").modal("hide");
+        
+    });
 }

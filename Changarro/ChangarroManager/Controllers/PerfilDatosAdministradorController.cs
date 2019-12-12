@@ -1,5 +1,5 @@
 ﻿using Changarro.Model.DTO;
-using ChangarroBusiness;
+using Changarro.Business;
 using Newtonsoft.Json;
 using System;
 using System.Web.Mvc;
@@ -17,7 +17,15 @@ namespace ChangarroManager.Controllers
         [HttpGet]
         public ActionResult PerfilAdministrador()
         {
-            return View();
+            if (Session["iIdAdministrador"] != null)
+            {
+                int iIdAdministrador = Convert.ToInt32(Session["iIdAdministrador"]);
+
+                AdministradorDTO _oAdministrador = oAdministrador.ObtenerAdministrador(iIdAdministrador);
+
+                return View(_oAdministrador);
+            }
+            return null;
         }
 
         /// <summary>

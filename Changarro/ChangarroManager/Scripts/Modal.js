@@ -13,7 +13,7 @@
                 backdrop: "static",
             });
             if (Funcion) {
-                window[Funcion]();
+                Funcion();
             }
         }
     });
