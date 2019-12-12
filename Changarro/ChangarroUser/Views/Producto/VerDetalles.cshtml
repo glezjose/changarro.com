@@ -59,7 +59,14 @@
         else
         {
             <a class="icon_btn btnAgregarCarritoModal" href="#"><i class="ti-bag"></i></a>
-            <a class="primary-btn btnComprarAhora" href="#">Comprar ahora</a>
+            if (@Model.iCantidad == 0)
+            {
+                <a class="primary-btn" href="#" onclick="SinExistencia(event)">Comprar ahora</a>
+            }
+            else
+            {
+                <a class="primary-btn" href="@Url.Action("DirigirAcompraAhora", "Producto", new { iIdProducto = Model.iIdProducto })">Comprar ahora</a>
+            }
         }
 
     </div>

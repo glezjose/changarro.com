@@ -44,6 +44,7 @@ namespace Changarro.Business
         public int AgregarCompra(int iIdCliente, tblCat_Compra oCompra)
         {
             oCompra.iIdCliente = iIdCliente;
+            oCompra.dtFechaCompra = DateTime.Now;
 
             db.tblCat_Compra.Add(oCompra);
             db.SaveChanges();
@@ -59,10 +60,11 @@ namespace Changarro.Business
 
         /// 
         /// <param name="iIdCliente"></param>
-        public List<tblCat_Compra> ObtenerCompras(int iIdCliente)
+        public List<tbl_DetalleCompra> ObtenerCompra(int iIdCompra)
         {
+            List<tbl_DetalleCompra> _lstCompras = db.tbl_DetalleCompra.AsNoTracking().Where(c => c.iIdCompra == iIdCompra).ToList();
 
-            return null;
+            return _lstCompras;
         }
 
         /// 
