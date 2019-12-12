@@ -98,9 +98,6 @@
     <Compile Include="DTO\TarjetaDTO.cs" />
     <Compile Include="DTO\VerDetallesProducto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>CHANGARRO.tt</DependentUpon>
-    </Compile>
     <Compile Include="tblCat_Administrador.cs">
       <DependentUpon>CHANGARRO.tt</DependentUpon>
     </Compile>

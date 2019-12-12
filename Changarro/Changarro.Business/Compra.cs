@@ -62,9 +62,16 @@ namespace Changarro.Business
         /// <param name="iIdCliente"></param>
         public List<tbl_DetalleCompra> ObtenerCompra(int iIdCompra)
         {
-            List<tbl_DetalleCompra> _lstCompras = db.tbl_DetalleCompra.AsNoTracking().Where(c => c.iIdCompra == iIdCompra).ToList();
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                ctx.Configuration.LazyLoadingEnabled = true;
+                ctx.Configuration.ProxyCreationEnabled = true;
 
-            return _lstCompras;
+                List<tbl_DetalleCompra> _lstCompras = ctx.tbl_DetalleCompra.Where(c => c.iIdCompra == iIdCompra).ToList();
+
+                return _lstCompras;
+            }
+
         }
 
         /// 
@@ -74,7 +81,7 @@ namespace Changarro.Business
         {
             tbl_DetalleCompra _oDetalleCompra = new tbl_DetalleCompra()
             {
-                iIdCompra =  iIdCompra,
+                iIdCompra = iIdCompra,
                 iIdProducto = oProducto.iIdProducto,
                 iCantidad = oProducto.iCantidadSeleccion
             };

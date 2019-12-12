@@ -14,7 +14,8 @@ using Changarro.Model.DTO;
 
 namespace Changarro.Business
 {
-    public class Domicilio {
+    public class Domicilio
+    {
 
         CHANGARROEntities db;
         public Domicilio()
@@ -31,43 +32,35 @@ namespace Changarro.Business
 
         public void AgregarDomicilio(DomicilioDTO oDomicilio)
         {
-            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            tblCat_Direccion _oDireccion = new tblCat_Direccion()
             {
-                tblCat_Direccion _oDireccion = new tblCat_Direccion()
-                {
-                    lEstatus = true,
-                    iIdCliente = oDomicilio.iIdCliente,
-                    iIdEstado = oDomicilio.iIdEstado,
-                    iCodigoPostal = oDomicilio.iCodigoPostal,
-                    cNombre = oDomicilio.cNombre,
-                    cCalle = oDomicilio.cCalle,
-                    cColonia = oDomicilio.cColonia,
-                    cDescripcion = oDomicilio.cDescripcion,
-                    cMunicipio = oDomicilio.cMunicipio,
-                    cNumeroExterior = oDomicilio.cNumeroExterior,
-                    cNumeroInterior = oDomicilio.cNumeroInterior,
-                };
+                lEstatus = true,
+                iIdCliente = oDomicilio.iIdCliente,
+                iIdEstado = oDomicilio.iIdEstado,
+                iCodigoPostal = oDomicilio.iCodigoPostal,
+                cNombre = oDomicilio.cNombre,
+                cCalle = oDomicilio.cCalle,
+                cColonia = oDomicilio.cColonia,
+                cDescripcion = oDomicilio.cDescripcion,
+                cMunicipio = oDomicilio.cMunicipio,
+                cNumeroExterior = oDomicilio.cNumeroExterior,
+                cNumeroInterior = oDomicilio.cNumeroInterior,
+            };
 
-                ctx.tblCat_Direccion.Add(_oDireccion);
-                ctx.SaveChanges();
-            }
+            db.tblCat_Direccion.Add(_oDireccion);
+            db.SaveChanges();
         }
 
 
         public void DesactivarDomicilio(int iIdDireccion)
         {
-            using (CHANGARROEntities ctx = new CHANGARROEntities())
-            {
-                ctx.Configuration.LazyLoadingEnabled = false;
-                ctx.Configuration.ProxyCreationEnabled = false;
 
-                tblCat_Direccion _oDireccion = ctx.tblCat_Direccion.FirstOrDefault(d => d.iIdDireccion == iIdDireccion);
+            tblCat_Direccion _oDireccion = db.tblCat_Direccion.FirstOrDefault(d => d.iIdDireccion == iIdDireccion);
 
-                _oDireccion.lEstatus = false;
+            _oDireccion.lEstatus = false;
 
-                ctx.Entry(_oDireccion).State = EntityState.Modified;
-                ctx.SaveChanges();
-            }
+            db.Entry(_oDireccion).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         /// <summary>
@@ -76,26 +69,24 @@ namespace Changarro.Business
         /// <param name="oDomicilio">Objeto con los nuevos datos del domicilio</param>
         public void EditarDomicilio(DomicilioDTO oDomicilio)
         {
-            using (CHANGARROEntities ctx = new CHANGARROEntities())
-            {
-                ctx.Configuration.LazyLoadingEnabled = false;
-                ctx.Configuration.ProxyCreationEnabled = false;
 
-                tblCat_Direccion _oDireccion = ctx.tblCat_Direccion.FirstOrDefault(d => d.iIdDireccion == oDomicilio.iIdDireccion);
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
 
-                _oDireccion.iIdEstado = oDomicilio.iIdEstado;
-                _oDireccion.iCodigoPostal = oDomicilio.iCodigoPostal;
-                _oDireccion.cNombre = oDomicilio.cNombre;
-                _oDireccion.cCalle = oDomicilio.cCalle;
-                _oDireccion.cColonia = oDomicilio.cColonia;
-                _oDireccion.cDescripcion = oDomicilio.cDescripcion;
-                _oDireccion.cMunicipio = oDomicilio.cMunicipio;
-                _oDireccion.cNumeroExterior = oDomicilio.cNumeroExterior;
-                _oDireccion.cNumeroInterior = oDomicilio.cNumeroInterior;
+            tblCat_Direccion _oDireccion = db.tblCat_Direccion.FirstOrDefault(d => d.iIdDireccion == oDomicilio.iIdDireccion);
 
-                ctx.Entry(_oDireccion).State = EntityState.Modified;
-                ctx.SaveChanges();
-            }
+            _oDireccion.iIdEstado = oDomicilio.iIdEstado;
+            _oDireccion.iCodigoPostal = oDomicilio.iCodigoPostal;
+            _oDireccion.cNombre = oDomicilio.cNombre;
+            _oDireccion.cCalle = oDomicilio.cCalle;
+            _oDireccion.cColonia = oDomicilio.cColonia;
+            _oDireccion.cDescripcion = oDomicilio.cDescripcion;
+            _oDireccion.cMunicipio = oDomicilio.cMunicipio;
+            _oDireccion.cNumeroExterior = oDomicilio.cNumeroExterior;
+            _oDireccion.cNumeroInterior = oDomicilio.cNumeroInterior;
+
+            db.Entry(_oDireccion).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         /// <summary>
@@ -103,30 +94,28 @@ namespace Changarro.Business
         /// </summary>
         /// <param name="iIdCliente">ID del cliente</param>
         /// <returns>Lista con los registros de los domicilios</returns>
-        public List<DomicilioDTO> ObtenerDomicilios(int iIdCliente){
+        public List<DomicilioDTO> ObtenerDomicilios(int iIdCliente)
+        {
 
             List<DomicilioDTO> _lstDomicilios = new List<DomicilioDTO>();
 
-            using (CHANGARROEntities ctx = new CHANGARROEntities())
-            {
-                _lstDomicilios = ctx.tblCat_Direccion.AsNoTracking()
-                    .Where(d => d.iIdCliente == iIdCliente && d.lEstatus == true)
-                    .Select(d => new DomicilioDTO 
-                        { 
-                            iIdDireccion = d.iIdDireccion,
-                            cNombre = d.cNombre,
-                            cNumeroExterior = d.cNumeroExterior,
-                            cNumeroInterior = d.cNumeroInterior,
-                            cCalle = d.cCalle,
-                            cColonia = d.cColonia,
-                            iCodigoPostal = d.iCodigoPostal,
-                            cMunicipio = d.cMunicipio,
-                            cEstado = d.tbl_Estado.cNombre,
-                            cDescripcion = d.cDescripcion
-                    
-                
-                        }).ToList();
-            }
+            _lstDomicilios = db.tblCat_Direccion.AsNoTracking()
+                .Where(d => d.iIdCliente == iIdCliente && d.lEstatus == true)
+                .Select(d => new DomicilioDTO
+                {
+                    iIdDireccion = d.iIdDireccion,
+                    cNombre = d.cNombre,
+                    cNumeroExterior = d.cNumeroExterior,
+                    cNumeroInterior = d.cNumeroInterior,
+                    cCalle = d.cCalle,
+                    cColonia = d.cColonia,
+                    iCodigoPostal = d.iCodigoPostal,
+                    cMunicipio = d.cMunicipio,
+                    cEstado = d.tbl_Estado.cNombre,
+                    cDescripcion = d.cDescripcion
+
+
+                }).ToList();
 
             return _lstDomicilios;
         }
@@ -140,26 +129,23 @@ namespace Changarro.Business
         {
             DomicilioDTO _oDomicilio = new DomicilioDTO();
 
-            using (CHANGARROEntities ctx = new CHANGARROEntities())
-            {
-                _oDomicilio = ctx.tblCat_Direccion.AsNoTracking()
-                    .Select(d => new DomicilioDTO
-                        {
-                            iIdDireccion = d.iIdDireccion,
-                            iIdEstado = d.iIdEstado,
-                            iCodigoPostal = d.iCodigoPostal,
-                            cNombre = d.cNombre,
-                            cNumeroExterior = d.cNumeroExterior,
-                            cNumeroInterior = d.cNumeroInterior,
-                            cCalle = d.cCalle,
-                            cColonia = d.cColonia,                            
-                            cMunicipio = d.cMunicipio,
-                            cEstado = d.tbl_Estado.cNombre,
-                            cDescripcion = d.cDescripcion
+            _oDomicilio = db.tblCat_Direccion.AsNoTracking()
+                .Select(d => new DomicilioDTO
+                {
+                    iIdDireccion = d.iIdDireccion,
+                    iIdEstado = d.iIdEstado,
+                    iCodigoPostal = d.iCodigoPostal,
+                    cNombre = d.cNombre,
+                    cNumeroExterior = d.cNumeroExterior,
+                    cNumeroInterior = d.cNumeroInterior,
+                    cCalle = d.cCalle,
+                    cColonia = d.cColonia,
+                    cMunicipio = d.cMunicipio,
+                    cEstado = d.tbl_Estado.cNombre,
+                    cDescripcion = d.cDescripcion
 
 
-                        }).FirstOrDefault(d => d.iIdDireccion == iIdDireccion);
-            }
+                }).FirstOrDefault(d => d.iIdDireccion == iIdDireccion);
 
             return _oDomicilio;
         }
@@ -171,10 +157,8 @@ namespace Changarro.Business
         public List<ListaEstadosDTO> ObtenerEstados()
         {
             List<ListaEstadosDTO> _lstEstados = new List<ListaEstadosDTO>();
-            using (CHANGARROEntities ctx = new CHANGARROEntities())
-            {
-                _lstEstados = ctx.tbl_Estado.AsNoTracking().Select(e => new ListaEstadosDTO { iIdEstado = e.iIdEstado, cNombre = e.cNombre }).ToList();
-            }
+
+            _lstEstados = db.tbl_Estado.AsNoTracking().Select(e => new ListaEstadosDTO { iIdEstado = e.iIdEstado, cNombre = e.cNombre }).ToList();
 
             return _lstEstados;
         }
@@ -189,11 +173,6 @@ namespace Changarro.Business
             }).ToList();
 
             return _lstDomicilios;
-        }
-
-		public bool ValidarDomicilio(){
-
-            return false;
         }
 
     }//end Domicilio

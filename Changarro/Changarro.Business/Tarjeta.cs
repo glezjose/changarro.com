@@ -14,16 +14,19 @@ using Changarro.Model.DTO;
 
 namespace Changarro.Business
 {
-    public class Tarjeta {
+    public class Tarjeta
+    {
         CHANGARROEntities db;
 
-		public Tarjeta(){
+        public Tarjeta()
+        {
             db = new CHANGARROEntities();
             db.Configuration.LazyLoadingEnabled = false;
             db.Configuration.ProxyCreationEnabled = false;
-		}
+        }
 
-        ~Tarjeta(){
+        ~Tarjeta()
+        {
 
         }
 
@@ -34,33 +37,31 @@ namespace Changarro.Business
         public string AgregarTarjeta(TarjetaDTO oTarjeta)
         {
             string _cNumeroTarjeta;
-            using (CHANGARROEntities _ctx = new CHANGARROEntities())
+
+            tblCat_Tarjeta _oTarjeta = new tblCat_Tarjeta
             {
-                tblCat_Tarjeta _oTarjeta = new tblCat_Tarjeta
-                {
-                    iIdCliente = oTarjeta.iIdCliente,
-                    itMesExpiracion = oTarjeta.iMesExpiracion,
-                    iAnioExpiracion = oTarjeta.iAnioExpiracion,
-                    lEstatus = true,
-                    cNombre = oTarjeta.cNombre,
-                    cTitular = oTarjeta.cTitular,
-                    cNumeroTarjeta = oTarjeta.cNumeroTarjeta,                   
-                };
+                iIdCliente = oTarjeta.iIdCliente,
+                itMesExpiracion = oTarjeta.iMesExpiracion,
+                iAnioExpiracion = oTarjeta.iAnioExpiracion,
+                lEstatus = true,
+                cNombre = oTarjeta.cNombre,
+                cTitular = oTarjeta.cTitular,
+                cNumeroTarjeta = oTarjeta.cNumeroTarjeta,
+            };
 
-                if (ValidarTarjeta(oTarjeta.cNumeroTarjeta))
-                {
-                    _ctx.tblCat_Tarjeta.Add(_oTarjeta);
+            if (ValidarTarjeta(oTarjeta.cNumeroTarjeta))
+            {
+                db.tblCat_Tarjeta.Add(_oTarjeta);
 
-                    _ctx.SaveChanges();
+                db.SaveChanges();
 
-                    _cNumeroTarjeta = null;
-                }
-                else
-                {                    
-                    _cNumeroTarjeta = _oTarjeta.cNumeroTarjeta;
-                }
-
+                _cNumeroTarjeta = null;
             }
+            else
+            {
+                _cNumeroTarjeta = _oTarjeta.cNumeroTarjeta;
+            }
+
 
             return _cNumeroTarjeta;
         }
@@ -69,7 +70,8 @@ namespace Changarro.Business
         /// Método para desactivar tarjetas
         /// </summary>
         /// <param name="iIdTarjeta">ID de la tarjeta</param>
-        public void DesactivarTarjeta(int iIdTarjeta){
+        public void DesactivarTarjeta(int iIdTarjeta)
+        {
 
             using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
@@ -88,30 +90,25 @@ namespace Changarro.Business
         /// </summary>
         /// <param name="iIdCliente">ID del cliente</param>
         /// <returns>Lista con los datos de las tarjetas</returns>
-        public List<TarjetaDTO> ObtenerTarjetas(int iIdCliente){
+        public List<TarjetaDTO> ObtenerTarjetas(int iIdCliente)
+        {
 
             string _cDigitosTarjeta = "************";
 
             List<TarjetaDTO> _lstTarjeta = new List<TarjetaDTO>();
 
-            using (CHANGARROEntities _ctx = new CHANGARROEntities())
-            {
-                _ctx.Configuration.LazyLoadingEnabled = false;
-                _ctx.Configuration.ProxyCreationEnabled = false;
+            _lstTarjeta = db.tblCat_Tarjeta.AsNoTracking()
+                .Where(t => t.iIdCliente == iIdCliente && t.lEstatus == true)
+                .Select(t => new TarjetaDTO
+                {
+                    iIdTarjeta = t.iIdTarjeta,
+                    cNombre = t.cNombre,
+                    cTitular = t.cTitular,
+                    cNumeroTarjeta = _cDigitosTarjeta + t.cNumeroTarjeta.Substring(12),
+                    iAnioExpiracion = t.iAnioExpiracion,
+                    iMesExpiracion = t.itMesExpiracion
 
-                _lstTarjeta = _ctx.tblCat_Tarjeta.AsNoTracking()
-                    .Where(t => t.iIdCliente == iIdCliente && t.lEstatus == true)
-                    .Select(t => new TarjetaDTO 
-                    {
-                        iIdTarjeta = t.iIdTarjeta,
-                        cNombre = t.cNombre,
-                        cTitular = t.cTitular,
-                        cNumeroTarjeta = _cDigitosTarjeta + t.cNumeroTarjeta.Substring(12),
-                        iAnioExpiracion = t.iAnioExpiracion,
-                        iMesExpiracion = t.itMesExpiracion
-
-                    }).ToList();
-            }
+                }).ToList();
             return _lstTarjeta;
         }
 
@@ -125,23 +122,17 @@ namespace Changarro.Business
 
             TarjetaDTO _oTarjeta = new TarjetaDTO();
 
-            using (CHANGARROEntities _ctx = new CHANGARROEntities())
-            {
-                _ctx.Configuration.LazyLoadingEnabled = false;
-                _ctx.Configuration.ProxyCreationEnabled = false;
+            _oTarjeta = db.tblCat_Tarjeta.AsNoTracking()
+                .Select(t => new TarjetaDTO
+                {
+                    iIdTarjeta = t.iIdTarjeta,
+                    cNombre = t.cNombre,
+                    cTitular = t.cTitular,
+                    cNumeroTarjeta = t.cNumeroTarjeta,
+                    iAnioExpiracion = t.iAnioExpiracion,
+                    iMesExpiracion = t.itMesExpiracion
 
-                _oTarjeta = _ctx.tblCat_Tarjeta.AsNoTracking()
-                    .Select(t => new TarjetaDTO
-                    {
-                        iIdTarjeta = t.iIdTarjeta,
-                        cNombre = t.cNombre,
-                        cTitular = t.cTitular,
-                        cNumeroTarjeta = t.cNumeroTarjeta,
-                        iAnioExpiracion = t.iAnioExpiracion,
-                        iMesExpiracion = t.itMesExpiracion
-
-                    }).FirstOrDefault(p => p.iIdTarjeta == iIdTarjeta);
-            }
+                }).FirstOrDefault(p => p.iIdTarjeta == iIdTarjeta);
             return _oTarjeta;
         }
 
@@ -150,17 +141,12 @@ namespace Changarro.Business
         /// </summary>
         /// <param name="cNumeroTarjeta">Cadena que contiene el numero de tarjeta a verificar</param>
         /// <returns>Bandera de tipo bool</returns>
-        public bool ValidarTarjeta(string cNumeroTarjeta){
+        public bool ValidarTarjeta(string cNumeroTarjeta)
+        {
 
             bool lStatus;
 
-            using (CHANGARROEntities _ctx = new CHANGARROEntities())
-            {
-                _ctx.Configuration.LazyLoadingEnabled = false;
-                _ctx.Configuration.ProxyCreationEnabled = false;
-
-                lStatus = _ctx.tblCat_Tarjeta.AsNoTracking().Any(t => t.cNumeroTarjeta == cNumeroTarjeta) ? false : true;
-            }
+            lStatus = db.tblCat_Tarjeta.AsNoTracking().Any(t => t.cNumeroTarjeta == cNumeroTarjeta) ? false : true;
 
             return lStatus;
         }

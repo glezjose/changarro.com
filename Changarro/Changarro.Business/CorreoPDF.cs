@@ -34,10 +34,10 @@ namespace Changarro.Business
 
             doc.Add(new Paragraph(_oCliente.cNombre + ", gracias por comprar en Changarro! Te mandamos tu recibo de compra."));
 
-            foreach (var _producto in _lstCompra)
-            {
-            doc.Add(new Paragraph(_producto.tblCat_Producto.cNombre + ": " + _producto.iCantidad + " " + (_producto.iCantidad * _producto.tblCat_Producto.dPrecio)));
-            }
+            //foreach (var _producto in _lstCompra)
+            //{
+            //doc.Add(new Paragraph(_producto.tblCat_Producto.cNombre + ": " + _producto.iCantidad + " " + (_producto.iCantidad * _producto.tblCat_Producto.dPrecio)));
+            //}
 
             writer.CloseStream = false;
             doc.Close();
@@ -45,7 +45,7 @@ namespace Changarro.Business
 
             MailMessage _mmMensaje = new MailMessage("changarro.recibos@gmail.com", _oCliente.cCorreo)
             {
-                Subject = "Recibo de compra CHANGARRO_" + iIdCompra,
+                Subject = "Recibo de compra CHANGARRO_00" + iIdCompra,
                 IsBodyHtml = true,
                 Body = "Hola, " + _oCliente.cNombre + "! Gracias por comprar en Changarro, te apreciamos!"
             };
