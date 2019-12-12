@@ -36,6 +36,5 @@ namespace Changarro.Model
         public virtual DbSet<tblCat_Direccion> tblCat_Direccion { get; set; }
         public virtual DbSet<tblCat_Producto> tblCat_Producto { get; set; }
         public virtual DbSet<tblCat_Tarjeta> tblCat_Tarjeta { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

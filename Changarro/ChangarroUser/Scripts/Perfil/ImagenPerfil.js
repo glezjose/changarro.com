@@ -107,18 +107,19 @@ function MensajeErrorImagen(oDatos) {
 
     $('#modalGeneral').modal('hide');
 
-    if (oDatos._lStatus) {
+    if (oDatos._lStatus === true) {
         Toast.fire({
             icon: 'success',
             title: '¡Imagen actualizada con éxito!'
         });
 
         $("#btnCambiarImagen").attr("src", oDatos._cNuevaImagen);
+    } else {
+        swalWithBootstrapButtons.fire({
+            title: ':(',
+            text: oDatos._cNuevaImagen,
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+        });
     }
-    swalWithBootstrapButtons.fire({
-        title: ':(',
-        text: oDatos._cNuevaImagen,
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-    });
 }

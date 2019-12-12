@@ -24,7 +24,9 @@
         <div class="col-lg-4">
             <div class="blog_right_sidebar">
                 <div class="single_sidebar_widget author_widget">
-                    <img id="btnCambiarImagen" class="author_img rounded-circle" src="@Html.DisplayFor(model => model.cImagen)" />
+                    <a href="#">
+                        <img id="btnCambiarImagen" alt="" class="author_img rounded-circle" src="@Html.DisplayFor(model => model.cImagen)" />
+                    </a>                    
                     <h4>@Html.DisplayFor(model => model.cNombre)</h4>
                     <p id="cCorreoPerfil">@Html.DisplayFor(model => model.cCorreo)</p>     
                     <br>
