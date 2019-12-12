@@ -17,16 +17,13 @@ namespace Changarro.Business
 {
     public class Cliente
     {
-        CHANGARROEntities db = new CHANGARROEntities();  //Instancia de las entidades de la base de datos Changarro.
-  
+        CHANGARROEntities db;
+
         public Cliente()
         {
-
-        }
-
-        ~Cliente()
-        {
-
+            db = new CHANGARROEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
         }
 
         /// <summary>
@@ -48,11 +45,12 @@ namespace Changarro.Business
 
                 _oCliente = ctx.tblCat_Cliente.AsNoTracking()
                     .Where(c => c.iIdCliente == iIdCliente)
-                    .Select(o => new ClienteDTO 
-                    { 
-                        cNombre = o.cNombre, 
+                    .Select(o => new ClienteDTO
+                    {
+                        cNombre = o.cNombre,
                         cCorreo = o.cCorreo,
                         cImagen = o.cImagen
+
                     }).FirstOrDefault();
             }
 
@@ -86,7 +84,7 @@ namespace Changarro.Business
                         cNombre = o.cNombre,
                         cApellido = o.cApellido,
                         cTelefono = o.cTelefono,
-                        cCorreo = o.cCorreo             
+                        cCorreo = o.cCorreo
 
                     }).FirstOrDefault();
             }
@@ -110,9 +108,6 @@ namespace Changarro.Business
             {
                 _dtFechaBaja = DateTime.Now;
             }
-
-            db.Configuration.LazyLoadingEnabled = false;
-            db.Configuration.ProxyCreationEnabled = false;
 
             tblCat_Cliente _oCliente = db.tblCat_Cliente.Where(c => c.iIdCliente == iIdCliente).FirstOrDefault();
 
@@ -213,7 +208,7 @@ namespace Changarro.Business
                 dtFechaAlta = c.dtFechaAlta,
                 dtFechaBaja = c.dtFechaBaja,
                 dtFechaModificacion = c.dtFechaModificacion,
-                
+
             }).ToList();
 
             return listClientes;

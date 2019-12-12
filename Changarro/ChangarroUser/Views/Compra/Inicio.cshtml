@@ -1,4 +1,8 @@
-﻿@model IEnumerable<Changarro.Model.DTO.ProductosCompraDTO>
+﻿@if (ViewBag.lValidarCompraDirecta != true)
+{
+    @model IEnumerable<Changarro.Model.DTO.ProductosCompraDTO>
+}
+
 @{
     ViewBag.Title = "Inicio";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -24,10 +28,10 @@
 </section>
 <!-- End Banner Area -->
 
-<section class="checkout_area section_gap">
+<section class="checkout_area">
     <div class="container">
         <div class="billing_details">
-            <div class="row">
+            <div class="row-product">
 
                 <!--------Seccion domicilio-->
                 <div class="col-lg-8">
@@ -45,53 +49,23 @@
                                     <div style="float:right;">
                                         <a href="#" data-toggle="modal" data-target="#modalito">Agregar Domicilio</a>
                                     </div>
+                                    <div id="salto-1"></div>
                                     <table class="table">
                                         <tbody>
-                                            @Html.RenderAction("SeleccionDomicilio", "Compra");
-                                            <tr>
-                                                <td>
-                                                    <div class="radion_btn">
-                                                        <input type="radio" id="f-option6" name="selector">
-                                                        <div class="check"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="media">
-                                                        <h5>Casa</h5>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <h5>15G x8a y 8b 196L Vergel 65</h5>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="radion_btn">
-                                                        <input type="radio" id="f-option6" name="selector">
-                                                        <div class="check"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="media">
-                                                        <h5>Trabajo</h5>
-                                                    </div>
-                                                </td>
-                                                <td id="jump1">
-                                                    <h5>Calle 18 2511 Mexico</h5>
-                                                </td>
-                                            </tr>
+                                            @{
+                                                Html.RenderAction("SeleccionDomicilio", "Compra");
+                                            }
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
-                        <br id="card2" />
+                        <br />
                         <div class="card">
                             <div class="card-header" id="headingTwo">
                                 <h4 class="mb-0">
                                     Seleccione tarjeta de pago
-                                    <a id="flecha2" class="ti-credit-card" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" style="float:right;">
+                                    <a class="ti-credit-card" aria-expanded="true" aria-controls="collapseTwo" style="float:right;">
                                     </a>
                                 </h4>
                             </div>
@@ -100,52 +74,23 @@
                                     <div style="float:right;">
                                         <a href="#" data-toggle="modal" data-target="#modalitoxd">Agregar Tarjeta</a>
                                     </div>
+                                    <div id="salto-2"></div>
                                     <table class="table">
                                         <tbody>
-                                            @Html.RenderAction("SeleccionTarjeta", "Compra");
-                                            <tr>
-                                                <td>
-                                                    <div class="radion_btn">
-                                                        <input type="radio" id="f-option6" name="selector">
-                                                        <div class="check"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="media">
-                                                        <h5>Principal</h5>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <h5>Termina en 5069</h5>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="radion_btn">
-                                                        <input type="radio" id="f-option6" name="selector">
-                                                        <div class="check"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="media">
-                                                        <h5>Trabajo</h5>
-                                                    </div>
-                                                </td>
-                                                <td id="jump2">
-                                                    <h5>Termina en 6078</h5>
-                                                </td>
-                                            </tr>
+                                            @{
+                                                Html.RenderAction("SeleccionTarjeta", "Compra");
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <br id="card3" />
+                        <br />
                         <div class="card">
                             <div class="card-header" id="headingThree">
                                 <h4 class="mb-0">
                                     Revisar compra
-                                    <a id="flecha3" class="ti-bag" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree" style="float:right;">
+                                    <a id="flecha3" class="ti-bag" aria-expanded="true" aria-controls="collapseThree" style="float:right;">
                                     </a>
                                 </h4>
                             </div>
@@ -162,26 +107,33 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach (var item in Model)
+                                                    @if (ViewBag.lValidarCompraDirecta != true)
                                                     {
-                                                        <tr>
-                                                            <td>
-                                                                <div class="media">
-                                                                    <div class="d-flex">
-                                                                        <img src="@item.cImagen" alt="">
+                                                        foreach (var item in Model)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="media">
+                                                                        <div class="d-flex">
+                                                                            <img src="@item.cImagen" alt="">
+                                                                        </div>
+                                                                        <div class="media-body">
+                                                                            <p>@item.cNombre</p>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="media-body">
-                                                                        <p>@item.cNombre</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <h5>@item.iCantidadSeleccion</h5>
-                                                            </td>
-                                                            <td>
-                                                                <h5>$@item.dPrecioTotal</h5>
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                                <td>
+                                                                    <h5>@item.iCantidadSeleccion</h5>
+                                                                </td>
+                                                                <td>
+                                                                    <h5>$@item.dPrecioTotal</h5>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        Html.RenderAction("CargarProductoUnico", "Compra");
                                                     }
                                                 </tbody>
                                             </table>
@@ -204,9 +156,9 @@
                         <div class="creat_account">
                             <input type="checkbox" id="f-option4" name="selector">
                             <label for="f-option4">He leído y acepto los</label>
-                            <a href="#" data-toggle="modal" data-target="#modalito1">términos y condiciones*</a>
+                            <a href="#" id="terms">términos y condiciones*</a>
                         </div>
-                        <a id="btnPago" class="primary-btn" href="#jump1">Método de Pago</a>
+                        <a id="btnPago" class="primary-btn">Método de Pago</a>
                     </div>
                 </div>
             </div>
@@ -215,5 +167,5 @@
 </section>
 
 @section scripts{
-    <script src="~/Assets/js/compra.js"></script>
+    <script src="~/Scripts/Compra/compra.js"></script>
 }

@@ -108,6 +108,7 @@ namespace ChangarroUser.Controllers
         /// </summary>
         /// <param name="cBusqueda">Es la cadena de la búsqueda ingresada.</param>
         /// <returns>Regresa tal vista con el modelo que es un listado de productos relacionados a la cadena de búsqueda.</returns>
+        [HttpGet]
         public ActionResult VerProductosPorBusqueda(string cBusqueda, int? iPagina)
         {
             ViewBag.cBusqueda = cBusqueda;
@@ -131,6 +132,17 @@ namespace ChangarroUser.Controllers
 
             return View(_pagedlstProductos);
         }
+
+        [HttpGet]
+        public ActionResult DirigirAcompraAhora(int iIdProducto)
+        {
+            TempData["lValidarCompra"] = true;
+
+            TempData["iIdProductoCompra"] = iIdProducto;
+
+            return RedirectToAction("SeleccionarCantidad", "Compra");
+        }
+
         #endregion
     }
 }

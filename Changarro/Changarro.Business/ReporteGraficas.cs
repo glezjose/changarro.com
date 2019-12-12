@@ -15,7 +15,7 @@ namespace Changarro.Business
         /// </summary>
         public ReporteGraficas()
         {
-            ctx = new CHANGARROEntities();
+            ctx = new CHANGARROEntities(); 
             ctx.Configuration.LazyLoadingEnabled = false;
             ctx.Configuration.ProxyCreationEnabled = false;
         }
@@ -32,7 +32,7 @@ namespace Changarro.Business
                     iIdProducto = p.Key.iIdProducto,
                     cNombre = p.Key.cNombre,
                     iCantidad = p.Sum(c => c.iCantidad)
-                }).OrderByDescending(p => p.iCantidad).ToList();
+                }).OrderByDescending(p => p.iCantidad).Take(10).ToList();
 
             return _lstTopProductos;
 

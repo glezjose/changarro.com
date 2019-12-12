@@ -16,6 +16,19 @@ namespace Changarro.Business
 {
     public class Domicilio {
 
+        CHANGARROEntities db;
+        public Domicilio()
+        {
+            db = new CHANGARROEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
+        }
+
+        ~Domicilio()
+        {
+
+        }
+
         public void AgregarDomicilio(DomicilioDTO oDomicilio)
         {
             using (CHANGARROEntities ctx = new CHANGARROEntities())
@@ -166,8 +179,19 @@ namespace Changarro.Business
             return _lstEstados;
         }
 
+        public List<DomicilioCompraDTO> ObtenerDomiciliosCompra(int iIdCliente)
+        {
+            List<DomicilioCompraDTO> _lstDomicilios = db.tblCat_Direccion.AsNoTracking().Where(d => d.iIdCliente == iIdCliente && d.lEstatus == true).Select(d => new DomicilioCompraDTO
+            {
+                iIdDomicilio = d.iIdDireccion,
+                cNombre = d.cNombre,
+                cDomicilio = d.cCalle + " " + d.cNumeroExterior + " " + d.cColonia + ", " + d.cMunicipio + ", " + d.tbl_Estado.cNombre
+            }).ToList();
 
-        public bool ValidarDomicilio(){
+            return _lstDomicilios;
+        }
+
+		public bool ValidarDomicilio(){
 
             return false;
         }

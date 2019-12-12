@@ -18,7 +18,7 @@ namespace Changarro.Model.DTO
         public int iTotalCompras { get; set; }
 
         /// <summary>
-        /// Variable que regresa el valor del nombre.
+        /// Variable representado como almacén de respaldo.
         /// </summary>
         private string _cNombre;
 
@@ -46,7 +46,7 @@ namespace Changarro.Model.DTO
         public string cApellido { get; set; }
 
         /// <summary>
-        /// Variable que regresa el valor de la imagen.
+        /// Variable representado como almacén de respaldo.
         /// </summary>
         private string _cImagen;
 

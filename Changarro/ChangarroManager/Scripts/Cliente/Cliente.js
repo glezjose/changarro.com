@@ -1,4 +1,11 @@
-﻿//*Se crea para poder realizar una consulta y pasar datos*/
+﻿//*El documento carga las funciones*/
+$(document).ready(function () {
+    ObtenerClientes();
+    MostrarEstados("false");
+    MostrarClientesActivos()
+});
+
+//*Se crea para poder realizar una consulta y pasar datos*/
 let tablaCliente = $('#tblCliente').DataTable({
     language: {
         url: '../Assets/spanish.json'
@@ -47,12 +54,6 @@ let tablaCliente = $('#tblCliente').DataTable({
 });
 let iIdCliente;
 let iIdFilaCliente;
-
-//*El documento carga las funciones*/
-$(document).ready(function () {
-    ObtenerClientes();
-    MostrarEstados("false");
-});
 
 //*Permite seleccionar una fila y obtener su ID*/
 tablaCliente.on('select', function () {
@@ -211,7 +212,10 @@ function CambiarEstatus(cUrl, iIdCliente, lEstatus) {
         async: false,
         success: function (response) {
             FormatoTabla(response, false);
-            alert("Estatus Cambiado"),
+            Toast.fire({
+                    icon: 'success',
+                    title: 'Status Actualizado Correctamente'
+                }),
             iIdCliente = 0;
             tablaCliente.rows({ selected: true }).deselect();
         },
@@ -252,3 +256,16 @@ function MostrarEstados(lEstatus) {
         .search('^(?:(?!' + lEstatus + ').)*$\r?\n?', true, false)
         .draw();
 }
+
+/*Mensaje Sweetalert2 */
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})

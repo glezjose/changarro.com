@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Changarro.Model.DTO.DomicilioCompraDTO>
+
+@if (Model.Any())
+{
+    bool lPrimero = true;
+    foreach (var item in Model)
+    {
+        <tr class="row-padding">
+            @if (lPrimero)
+            {
+                <td>
+                    <input type="radio" name="domicilo" class="checkbox-round radio-address" checked>
+                    @Html.Hidden("iIdDomicilio", item.iIdDomicilio)
+                </td>
+            }
+            else
+            {
+                <td>
+                    <input type="radio" name="domicilo" class="checkbox-round radio-address">
+                    @Html.Hidden("iIdDomicilio", item.iIdDomicilio)
+                </td>
+            }
+            <td>
+                <div class="media">
+                    <h5>@item.cNombre</h5>
+                </div>
+            </td>
+            <td>
+                <h5>@item.cDomicilio</h5>
+            </td>
+        </tr>
+
+        lPrimero = false;
+    }
+}
+else
+{
+    <tr>
+        No tiene domicilios registrados, por favor agregue un domicilio.
+    </tr>
+}
+

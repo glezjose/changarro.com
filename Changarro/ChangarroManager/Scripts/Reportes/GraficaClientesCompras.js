@@ -4,15 +4,14 @@
  */
 function cargarGraficaUsuarios(oUsuariosCompras) {
 
-    am4core.useTheme(am4themes_frozen);
-    am4core.useTheme(am4themes_animated);
+    am4core.useTheme(am4themes_frozen); // Temas
+    am4core.unuseTheme(am4themes_animated);
   
     var chart = am4core.create("ClientesCompras", am4charts.XYChart); //Crear instancia del gráfico.
     chart.hiddenState.properties.opacity = 0; 
 
-    chart.data = oUsuariosCompras; //Agregar datos.
+    chart.data = oUsuariosCompras; //Agregar datos a partir del objeto.
     
-
     var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis()); //Crear eje X
     categoryAxis.dataFields.category = "cNombre";
     categoryAxis.renderer.grid.template.disabled = true;

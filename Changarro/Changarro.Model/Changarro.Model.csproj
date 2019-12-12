@@ -80,6 +80,7 @@
     <Compile Include="DTO\ClienteDTO.cs" />
     <Compile Include="DTO\DatosClienteDTO.cs" />
     <Compile Include="DTO\DetallesProductoDTO.cs" />
+    <Compile Include="DTO\DomicilioCompraDTO.cs" />
     <Compile Include="DTO\DomicilioDTO.cs" />
     <Compile Include="DTO\GestionProductoDTO.cs" />
     <Compile Include="DTO\HistorialCompraDTO.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="DTO\ReporteCategoriasDTO.cs" />
     <Compile Include="DTO\ReporteProductosDTO.cs" />
     <Compile Include="DTO\ReporteUsuariosDTO.cs" />
+    <Compile Include="DTO\TarjetaCompraDTO.cs" />
     <Compile Include="DTO\TarjetaDTO.cs" />
     <Compile Include="DTO\VerDetallesProducto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
