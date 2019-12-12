@@ -4,7 +4,7 @@ using Changarro.Model.DTO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Web;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace ChangarroUser.Controllers
@@ -15,6 +15,7 @@ namespace ChangarroUser.Controllers
         private readonly Compra compra = new Compra();
         private readonly Domicilio domicilio = new Domicilio();
         private readonly Tarjeta tarjeta = new Tarjeta();
+        private readonly CorreoPDF generar = new CorreoPDF();
 
         #region Vistas
 
@@ -189,6 +190,12 @@ namespace ChangarroUser.Controllers
 
                     compra.RealizarCompraCarrito(iIdCarrito, iIdCompra);
 
+                    carrito.VaciarCarrito(iIdCarrito);
+
+                    MailMessage _mmMensaje = generar.GenerarPDF(iIdCliente, iIdCompra);
+
+                    generar.EnviarCorreo(_mmMensaje);
+
                     cMensaje = "Se ha realizado la compra!";
                     cIcono = "success";
                 }
@@ -205,6 +212,10 @@ namespace ChangarroUser.Controllers
 
                     compra.RealizarCompraDirecta(_oProducto, iIdCompra);
 
+                    MailMessage _mmMensaje = generar.GenerarPDF(iIdCliente, iIdCompra);
+
+                    generar.EnviarCorreo(_mmMensaje);
+
                     cMensaje = "Se ha realizado la compra!";
                     cIcono = "success";
                 }
@@ -214,9 +225,9 @@ namespace ChangarroUser.Controllers
                     cIcono = "error";
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                cMensaje = "Ha ocurrido un error";
+                cMensaje = e.Message;
                 cIcono = "error";
 
             }

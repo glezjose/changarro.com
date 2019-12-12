@@ -116,3 +116,15 @@ function PersisteCarrito(cUrl, funcion) {
 function RangoCodigosTeclas(iTecla, iMinimo, iMaximo) {
     return iTecla >= iMinimo && iTecla <= iMaximo;
 }
+
+function SinExistencia(event) {
+    event.preventDefault();
+
+    Toast.fire({
+        icon: "error",
+        title: "No hay existencia disponible para este producto."
+    });
+
+    $('#modalGeneral').modal('hide');
+
+}
