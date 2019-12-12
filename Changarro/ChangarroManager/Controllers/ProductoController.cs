@@ -49,7 +49,7 @@ namespace ChangarroManager.Controllers
                 tblCat_Producto obp = new tblCat_Producto
                 {
                     cNombre = _objProducto.cNombre
-                     
+
                 };
 
                 ProductoBus.AgregarProducto(obp);
@@ -109,8 +109,8 @@ namespace ChangarroManager.Controllers
             string cMensaje = "pendiente";
 
             var _oArchivoSubido = Request.Files[0];
-            
-            if(_oArchivoSubido != null && _oArchivoSubido.ContentLength > 0)
+
+            if (_oArchivoSubido != null && _oArchivoSubido.ContentLength > 0)
             {
                 try
                 {
@@ -119,14 +119,15 @@ namespace ChangarroManager.Controllers
                     _oArchivoSubido.SaveAs(cRuta);
                     lArchivoSubido = true;
                     cMensaje = "exito";
-                }catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     lArchivoSubido = false;
                     cMensaje = e.Message;
                 }
             }
-            
-            return Json(new { estatus = lArchivoSubido, mensaje = cMensaje});
+
+            return Json(new { estatus = lArchivoSubido, mensaje = cMensaje });
         }
 
         /// <summary>
@@ -139,7 +140,7 @@ namespace ChangarroManager.Controllers
         {
             Productos oProductosBusiness = new Productos();
             string Mensaje = oProductosBusiness.ImportarProductosEnPlantilla(_cNombreArchivo);
-            return Json(new { message = Mensaje});
+            return Json(new { message = Mensaje });
         }
         /// <summary>
         /// Método que retorna el archivo con los registros de la BDD (Trabajo en proceso)
@@ -152,6 +153,13 @@ namespace ChangarroManager.Controllers
             string cRutaPlantilla = oLogicaProducto.ExportarRegistrosExcel();
             byte[] datosBinariosPlantilla = System.IO.File.ReadAllBytes(cRutaPlantilla);
             return File(datosBinariosPlantilla, System.Net.Mime.MediaTypeNames.Application.Octet, "DatosChangarro.xlsx");
+        }
+
+
+        [HttpGet]
+        public ActionResult ExportarRegistrosPdf()
+        {
+            return null;
         }
     }
 }

@@ -25,6 +25,7 @@ namespace ChangarroManager.Controllers
 
                 return View(_oAdministrador);
             }
+            return null; //undo
         }
 
         [HttpPost]

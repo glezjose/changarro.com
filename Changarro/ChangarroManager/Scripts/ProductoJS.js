@@ -145,7 +145,7 @@ function MenuDesplegable() {
         MostrarModal("POST", "../Producto/ImportarProducto", null, InicializarModalImportar);
     });
 
-    $("#exportarProductos").click(function () {
+    $("#exportarProductosXlsx").click(function () {
         window.location = "../Producto/ExportarRegistros";
     });
 }
@@ -157,14 +157,18 @@ function MenuDesplegable() {
  * */
 function InicializarModalImportar() {
     console.log("Implementar función Inicializar Modal Importar");
-
+    
     var myDrop = new Dropzone("#dropZoneImportar", {
         url: "../Producto/SubirArchivo",
         maxfiles: 1,
         maxFilesize: 5,
-        acceptedFiles: ".xls, .xlsx"
+        acceptedFiles: ".xls, .xlsx",
+        clickable: true
     });
+    //console.log(myDrop);
     $("#btnImportarPorductos").click(function () {
+        console.log(myDrop);
+        
         $.ajax({
             type: "POST",
             url: "../Producto/ImportarRegistros",
