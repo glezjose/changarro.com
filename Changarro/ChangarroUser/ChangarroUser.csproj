@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CloudinaryDotNet, Version=1.9.1.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.9.1\lib\net45\CloudinaryDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -57,14 +60,22 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.9.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.9.1\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.9.1\lib\net45\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -279,7 +290,9 @@
     <Content Include="Scripts\Inicio\ValidarFormularios.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Perfil\CancelarSuscripcion.js" />
+    <Content Include="Scripts\Perfil\Domicilios.js" />
     <Content Include="Scripts\Perfil\ImagenPerfil.js" />
+    <Content Include="Scripts\Perfil\MisDatos.js" />
     <Content Include="Scripts\Perfil\Perfil.js" />
     <Content Include="Scripts\Perfil\Tarjetas.js" />
     <Content Include="Scripts\Producto\Producto.js" />
@@ -349,6 +362,15 @@
     <Content Include="Views\Compra\Inicio.cshtml" />
     <Content Include="Views\Perfil\ImagenPerfil.cshtml" />
     <Content Include="Views\Perfil\CancelarSuscripcion.cshtml" />
+    <Content Include="Views\Perfil\MisDirecciones.cshtml" />
+    <Content Include="Views\Perfil\FormularioDireccion.cshtml" />
+    <Content Include="Views\Perfil\MenuEstados.cshtml" />
+    <Content Include="Views\Perfil\RegistroDireccion.cshtml" />
+    <Content Include="Views\Perfil\DesactivarDomicilio.cshtml" />
+    <Content Include="Views\Perfil\MisTarjetas.cshtml" />
+    <Content Include="Views\Perfil\RegistroTarjeta.cshtml" />
+    <Content Include="Views\Perfil\DesactivacionTarjeta.cshtml" />
+    <Content Include="Views\Perfil\HistorialCompras.cshtml" />
     <Content Include="Views\Compra\SeleccionDomicilio.cshtml" />
     <Content Include="Views\Compra\SeleccionTarjeta.cshtml" />
     <Content Include="Views\Compra\TerminosYcondiciones.cshtml" />

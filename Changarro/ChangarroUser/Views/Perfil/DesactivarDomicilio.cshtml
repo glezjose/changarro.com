@@ -1,0 +1,38 @@
+﻿@model Changarro.Model.DTO.DomicilioDTO
+
+@{
+    ViewBag.Title = "DesactivarDomicilio";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+@section header{
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="ti-close"></span>
+        </button>
+    </div>
+}
+
+@Html.Hidden("iIdDireccionEliminar", @Html.DisplayFor(model => model.iIdDireccion))
+
+<h4><strong>Estas a punto de eliminar:</strong></h4>
+<hr />
+<p><strong>Dirección:</strong>&nbsp&nbsp&nbsp  @Html.DisplayFor(model => model.cNombre)</p>
+<hr />
+<p><strong>Calle:</strong>&nbsp&nbsp&nbsp  @Html.DisplayFor(model => model.cCalle)</p>
+<hr />
+<p><strong>Colonia:</strong>&nbsp&nbsp&nbsp  @Html.DisplayFor(model => model.cColonia)</p>
+<hr />
+<p><strong>Municipio:</strong>&nbsp&nbsp&nbsp  @Html.DisplayFor(model => model.cMunicipio)</p>
+<hr />
+<br />
+<p>¡Esta acción no se puede deshacer!</p>
+
+
+@section footer{
+    <div class="modal-footer">
+        <a class="genric-btn default radius" href="#" data-dismiss="modal">Cancelar</a>
+        <a href="#" class="genric-btn primary radius" id="btnEliminarDomicilio">Aceptar</a>
+    </div>
+}

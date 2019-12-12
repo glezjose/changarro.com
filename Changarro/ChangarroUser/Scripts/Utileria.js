@@ -106,3 +106,13 @@ function PersisteCarrito(cUrl, funcion) {
         }
     });
 }
+
+/**
+ * Método que comprueba que una tecla este dentro de un rango de caracteres
+ * @param {any} iTecla Código de tecla
+ * @param {any} iMinimo Valor de tecla mínimo
+ * @param {any} iMaximo Valor de tecla Máximo
+ */
+function RangoCodigosTeclas(iTecla, iMinimo, iMaximo) {
+    return iTecla >= iMinimo && iTecla <= iMaximo;
+}

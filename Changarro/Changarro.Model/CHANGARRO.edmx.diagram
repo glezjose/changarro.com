@@ -28,6 +28,7 @@
         <AssociationConnector Association="CHANGARROModel.FK_tblCat_Tarjeta_iIdCliente_tblCat_Cliente_iIdCliente" />
         <AssociationConnector Association="CHANGARROModel.FK_tblCat_Compra_iIdDireccion_tblCat_Direccion_iIdDireccion" />
         <AssociationConnector Association="CHANGARROModel.FK_tblCat_Compra_iIdTarjeta_tblCat_Tarjeta_iIdTarjeta" />
+        <EntityTypeShape EntityType="CHANGARROModel.sysdiagrams" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
