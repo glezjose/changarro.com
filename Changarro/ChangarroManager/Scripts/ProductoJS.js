@@ -4,16 +4,22 @@ let TablaProducto;
 $(document).ready(function () {
     Botones();
     ObtenerListaProductos();
+    ObtenerId();
+    ObtenerEstatusProducto();
 
 });
 
+
+
+/**Función que muestra los datos que obtiene en la tabla 
+ *No recibe ningún parámetro
+ * No retorna ningún valor*/
 function ObtenerListaProductos() {
     TablaProducto = $('#tblProducto').DataTable({
         "ajax": {
             "url": "../Producto/Listar",
-            "type": "GET",
-            "datatype": "json",
-            "dataSrc": 'data'
+            "type": "POST",
+            "datatype": "json"
         },
         "columnDefs": [
             {
@@ -41,7 +47,19 @@ function ObtenerListaProductos() {
                     return newDate.format("dd/mm/yyyy");
                 }
             },
-            { "data": "lEstatus" }
+            {
+                "data": "lEstatus",
+                'render': function (data) {
+                    if (data == true) {
+                        const activo = '<span id= "activo" class="badge badge-success">Activo</span>';
+                        return activo;
+                    }
+                    else {
+                        const inactivo = '<span id="activo" class="badge badge-danger">Inactivo</span>';
+                        return inactivo;
+                    }
+                }
+            }
         ],
         "select": true,
         "oLanguage": {
@@ -65,25 +83,14 @@ function ObtenerListaProductos() {
             }
         }
     });
-
-    TablaProducto.on('select', function () {
-        iIdProducto = (TablaProducto.rows({ selected: true }).data()[0]['iIdProducto']);
-        console.log(iIdProducto)
-    });
-    TablaProducto.on('click', 'tr', function () {
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-            iIdProducto = 0;
-            console.log(iIdProducto);
-        }
-    });
 }
 
 function Botones() {
     $("#btnAgregarProducto").click(function (e) {
         e.preventDefault();
-        MostrarModal('GET', '../Producto/AddProducto', null, 'IniciarCategoria');
+        MostrarModal('GET', '../Producto/AddProducto', null, funcion);
     });
+
     $("#btnVerProducto").click(function (e) {
         e.preventDefault();
 
@@ -94,11 +101,20 @@ function Botones() {
             MsjseleccioneRegistro();
         }
     });
-    $("#editarproducto").click(function (e) {
+
+    $("#btnEditarProducto").click(function (e) {
         e.preventDefault();
         if (iIdProducto > 0) {
-            var cUrl = '../Producto/EditarProducto?id=' + iIdProducto;
-            MostrarModal('POST', cUrl, true);
+            MostrarModal('POST', '../Producto/EditarProducto', { iIdProducto: iIdProducto }, funcion);
+        } else {
+            MsjseleccioneRegistro();
+        }
+    });
+
+    $("#btnEstatusProducto").click(function (e) {
+        e.preventDefault();
+        if (iIdProducto > 0) {
+            DesactivarProducto();
         } else {
             MsjseleccioneRegistro();
         }
@@ -106,27 +122,7 @@ function Botones() {
 
     MenuDesplegable();
 }
-function GuardarProducto() {
-    console.log(":D")
-    var data = $("#form4").serialize();
-    var cUrl = "../Producto/AgregarCategoria";
-    console.log("l");
-    $.ajax({
-        type: "POST",
-        url: cUrl,
-        data: data,
-        datatype: 'JSON',
-        success: function (Response) {
-            if (Response.result) {
-                alert('Se ha insertado un nuevo producto')
-            }
-            else {
-                MsjseleccioneRegistro();
-            }
-        }
 
-    });
-}
 /**
  * Función que asigna los eventos de clic a los elementos del menú desplegable "Herramientas"
  * No recibe ningún parámetro
@@ -147,6 +143,11 @@ function MenuDesplegable() {
 
     $("#exportarProductos").click(function () {
         window.location = "../Producto/ExportarRegistros";
+    });
+
+    $("#btncategoria").click(function (e) {
+        e.preventDefault();
+        MostrarModal("POST", "../Categoria/Categoria", null, IniciarCategoria);
     });
 }
 
@@ -172,16 +173,124 @@ function InicializarModalImportar() {
                 _cNombreArchivo: myDrop.files[0].name.trim()
             },
             dataType: "json",
-            success: function(data){
+            success: function (data) {
                 console.log(data.message);
                 TablaProducto.ajax.reload();
 
             },
-            error: function(){
+            error: function () {
                 console.log("error importar");
             }
         });
         $("#modalGeneral").modal("hide");
-        
+
+    });
+}
+
+
+/**Función para obtener el Id de la fila seleccionada  
+ *  No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
+function ObtenerId() {
+    TablaProducto.on('select', function () {
+        iIdProducto = (TablaProducto.rows({ selected: true }).data()[0]['iIdProducto']);
+        console.log(iIdProducto)
+    });
+    TablaProducto.on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+            iIdProducto = 0;
+            console.log(iIdProducto);
+        }
+    });
+}
+
+/**Función para agregar un producto */
+function AgregaProducto() {
+
+    var data = CKEDITOR.instances.editor.getData();
+
+    var Data = {};
+    var Producto = {
+        cNombre: $("#cNombre").val(),
+        iIdCategoria: $("#iIdCategoria").val(),
+        dPrecio: $("#dPrecio").val(),
+        iCantidad: $("#iCantidad").val(),
+        cDescripcion: data
+    };
+    Data['Producto'] = JSON.stringify(Producto);
+
+    LlamarMetodo("POST", "../Producto/AgregarProducto", Data, false);
+    TablaProducto.ajax.reload();
+}
+
+
+/**función para editar un producto 
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
+function EditarProducto() {
+    var Data = {};
+    var Producto = {
+        iIdProducto: iIdProducto,
+        cNombre: $("#cNombre").val(),
+        iIdCategoria: $("#iIdCategoria").val(),
+        dPrecio: $("#dPrecio").val(),
+        iCantidad: $("#iCantidad").val(),
+        cDescripcion: $("#cDescripcion").val()
+    };
+    Data['Producto'] = JSON.stringify(Producto);
+
+    LlamarMetodo("POST", "../Producto/ActualizaProducto", Data, false);
+    iIdProducto = 0;
+    TablaProducto.ajax.reload();
+}
+
+/**Obtiene el estatus de la fila seleccionada y cambia el boton segun sea el estatus 
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
+function ObtenerEstatusProducto() {
+    TablaProducto.on('select', function () {
+        lEstatus = (TablaProducto.rows({ selected: true }).data()[0]['lEstatus']);
+
+        if (lEstatus == true) {
+            $("#btnEstatusProducto").removeClass("btn-success");
+            $("#btnEstatusProducto").addClass("btn-danger");
+            $("#btnEstatusProducto").html('<i class="ti-close icon"></i>');
+
+        }
+        else {
+            $("#btnEstatusProducto").removeClass("btn-danger");
+            $("#btnEstatusProducto").addClass("btn-success");
+            $("#btnEstatusProducto").html('<i class="ti-check icon"></i>');
+        }
+        console.log(lEstatus)
+    });
+}
+
+/**función que cambia el estatus de un producto
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
+function DesactivarProducto() {
+    var Data = {};
+    var EstatusProducto = { iIdProducto: iIdProducto };
+
+    Data['EstatusProducto'] = JSON.stringify(EstatusProducto);
+    swal.fire({
+        title: "¿Desea cambiar el estatus del producto?",
+        text: "No se podrá revertir el cambio",
+        icon: "warning",
+        buttons: true,
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true
+    }).then((respuesta) => {
+
+        if (respuesta) {
+            LlamarMetodo("POST", "../Producto/CambiarEstatusProducto", Data, false);
+            TablaProducto.ajax.reload();
+        }
     });
 }
