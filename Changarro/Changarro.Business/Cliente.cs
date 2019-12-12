@@ -36,19 +36,31 @@ namespace Changarro.Business
         /// <returns>Objeto con datos del cliente</returns>
         public ClienteDTO ObtenerCliente(int iIdCliente)
         {
+
             ClienteDTO _oCliente = new ClienteDTO();
+
+            ReporteUsuariosDTO _oUsuarios = new ReporteUsuariosDTO();
+
             using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                ctx.Configuration.ProxyCreationEnabled = false;
+
                 _oCliente = ctx.tblCat_Cliente.AsNoTracking()
                     .Where(c => c.iIdCliente == iIdCliente)
                     .Select(o => new ClienteDTO 
                     { 
                         cNombre = o.cNombre, 
-                        cCorreo = o.cCorreo, 
-                        cImagen = o.cImagen 
-
+                        cCorreo = o.cCorreo,
+                        cImagen = o.cImagen
                     }).FirstOrDefault();
-            }          
+            }
+
+            _oUsuarios.cImagen = _oCliente.cImagen;
+            _oUsuarios.cNombre = _oCliente.cNombre;
+
+            _oCliente.cImagen = _oUsuarios.cImagen;
+            _oCliente.cNombre = _oUsuarios.cNombre;
 
             return _oCliente;
         }
@@ -64,6 +76,9 @@ namespace Changarro.Business
 
             using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                ctx.Configuration.ProxyCreationEnabled = false;
+
                 _oCliente = ctx.tblCat_Cliente.AsNoTracking()
                     .Where(c => c.iIdCliente == iIdCliente)
                     .Select(o => new DatosClienteDTO
@@ -79,7 +94,7 @@ namespace Changarro.Business
         }
 
         /// <summary>
-        /// Método para habilitar o desabilitar a un Cliente y asignar una fecha.
+        /// Método para habilitar o deshabilitar a un Cliente y asignar una fecha.
         /// </summary>
         /// <param name="iIdCliente"> ID del Cliente seleccionado</param>
         /// <param name="lEstatus"> Estatus del Cliente seleccionado </param>
@@ -135,7 +150,7 @@ namespace Changarro.Business
                 ctx.Configuration.LazyLoadingEnabled = false;
                 ctx.Configuration.ProxyCreationEnabled = false;
 
-                tblCat_Cliente _oCliente = ctx.tblCat_Cliente.FirstOrDefault(c => c.iIdCliente == oCliente.iIdCliente); //consulta para obtener al cliente
+                tblCat_Cliente _oCliente = ctx.tblCat_Cliente.FirstOrDefault(c => c.iIdCliente == oCliente.iIdCliente); 
 
                 _oCliente.cNombre = oCliente.cNombre;
                 _oCliente.cApellido = oCliente.cApellido;
@@ -144,10 +159,41 @@ namespace Changarro.Business
                 _oCliente.dtFechaModificacion = DateTime.Today;
 
                 ctx.Entry(_oCliente).State = EntityState.Modified;
+
                 ctx.SaveChanges();
             }
             
             return oCliente;
+        }
+
+        /// <summary>
+        /// Método para cambiar la imagen de perfil
+        /// </summary>
+        /// <param name="iIdCliente">ID del cliente</param>
+        /// <param name="cImagen">Cadena con el nombre de la nueva imagen</param>
+        public string CambiarImagen(int iIdCliente, string cImagen)
+        {
+            ReporteUsuariosDTO _oUsuarios = new ReporteUsuariosDTO();
+
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                ctx.Configuration.ProxyCreationEnabled = false;
+
+                tblCat_Cliente _oCliente = ctx.tblCat_Cliente.FirstOrDefault(c => c.iIdCliente == iIdCliente);
+
+                _oCliente.cImagen = cImagen;
+
+                _oCliente.dtFechaModificacion = DateTime.Today;
+
+                ctx.Entry(_oCliente).State = EntityState.Modified;
+
+                ctx.SaveChanges();
+
+                _oUsuarios.cImagen = _oCliente.cImagen;
+
+                return _oUsuarios.cImagen;
+            }
         }
 
         /// <summary>
@@ -184,6 +230,10 @@ namespace Changarro.Business
             return oCliente;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<ClienteAdministradorDTO> ObtenerTopClientes()
         {
 
@@ -197,25 +247,30 @@ namespace Changarro.Business
         /// <returns></returns>
         public DatosClienteDTO ValidarCliente(DatosClienteDTO oCliente)
         {
+            bool _lStatus = false;
+
             DatosClienteDTO _oUsuario = new DatosClienteDTO();
 
             using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
-
+               
                 if (ctx.tblCat_Cliente.Any(c => c.cCorreo == oCliente.cCorreo && c.iIdCliente != oCliente.iIdCliente))
                 {
+                    _lStatus = true;
                     _oUsuario.cCorreo = oCliente.cCorreo;
                 }
                 if (ctx.tblCat_Cliente.Any(c => c.cTelefono == oCliente.cTelefono && c.iIdCliente != oCliente.iIdCliente))
                 {
+                    _lStatus = true;
                     _oUsuario.cTelefono = oCliente.cTelefono;
                 }
                 if (ctx.tblCat_Cliente.Any(c => (c.cNombre + c.cApellido).Trim().ToLower() == (oCliente.cNombre + c.cApellido).Trim().ToLower() && c.iIdCliente != oCliente.iIdCliente))
                 {
+                    _lStatus = true;
                     _oUsuario.cNombre = oCliente.cNombre.ToLower();
                     _oUsuario.cApellido = oCliente.cApellido.ToLower();
                 }
-                else
+                if (_lStatus != true)
                 {
                     _oUsuario = null;
                 }
@@ -258,6 +313,32 @@ namespace Changarro.Business
             return _cMensaje;
         }
 
-    }//end Cliente
+        /// <summary>
+        /// Método para obtener las compras del usuario
+        /// </summary>
+        /// <param name="iIdCliente">ID del cliente</param>
+        /// <returns>Lista con todas las compras del cliente</returns>
+        public List<HistorialCompraDTO> HistorialCompras(int iIdCliente)
+        {
+            List<HistorialCompraDTO> _lstHistorialCompras = new List<HistorialCompraDTO>();
 
-}//end namespace ChangarroBusiness
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                _lstHistorialCompras = ctx.tbl_DetalleCompra.AsNoTracking()
+                    .Where(c => c.tblCat_Compra.iIdCliente == iIdCliente)
+                    .Select(c => new HistorialCompraDTO
+                    {
+                        cNombre = c.tblCat_Producto.cNombre,
+                        cImagen = c.tblCat_Producto.cImagen,
+                        iCantidad = c.iCantidad,
+                        dPrecio = c.tblCat_Producto.dPrecio * c.iCantidad,
+                        dtFechaCompra = c.tblCat_Compra.dtFechaCompra,
+
+                    }).ToList();
+            }
+
+            return _lstHistorialCompras;
+        }
+
+    }
+}

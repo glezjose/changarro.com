@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "RegistroDireccion";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+@section header{
+    <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLongTitle">Nueva Dirección</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="billing_details">
+    <fieldset id="campoDomicilioForm">
+        <form class="row contact_form" id="formDomicilio" novalidate="novalidate">
+            @Html.Hidden("iIdDireccionInput", 0)
+            <div class="col-md-6 form-group p_star">
+                <label for="cNumeroExterior">Nombre descriptivo</label>
+                <input type="text" class="form-control" id="cNombreDireccion" value="" name="cNombreDireccion">
+            </div>
+            <div class="col-md-6 form-group p_star">
+                <label for="cCalle">Calle</label>
+                <input type="text" class="form-control" id="cCalle" value="" name="cCalle">
+            </div>
+            <div class="col-6 col-md-6 form-group p_star">
+                <label for="cNumeroExterior">Número Exterior</label>
+                <input type="text" class="form-control" id="cNumeroExterior" value="" name="cNumeroExterior">
+            </div>
+            <div class="col-6 col-md-6 form-group p_star">
+                <label for="cNumeroExterior">Número Interior</label>
+                <input type="text" class="form-control" id="cNumeroInterior" value="" name="cNumeroInterior">
+            </div>
+            <div class="col-6 col-md-6 form-group p_star">
+                <label for="cColonia">Colonia</label>
+                <input type="text" class="form-control" id="cColonia" value="" name="cColonia">
+            </div>
+            <div class="col-6 col-md-6 form-group p_star">
+                <label for="nCP">Código Postal</label>
+                <input type="text" class="form-control" id="iCodigoPostal" value="" name="iCodigoPostal">
+            </div>
+            <div class="col-6 col-md-6 form-group p_star">
+                <label for="cMunicipio">Municipio</label>
+                <input type="text" class="form-control" id="cMunicipio" value="" name="cMunicipio">
+            </div>
+            <div class="col-md-6 form-group p_star">
+                <label>Estado</label>
+                <select class="country_select form-control" id="iIdEstado">
+                    @{
+                        Html.RenderAction("MenuEstados", "Perfil");
+                    }
+                </select>
+            </div>
+            <div class="col-md-12 form-group">
+                <label for="cDescripcion">Descripción</label>
+                <textarea class="form-control" name="cDescripcion" value="Casa con reja negra" id="cDescripcion" rows="1"></textarea>
+            </div>
+        </form>
+    </fieldset>
+</div>
+
+@section footer{
+    <div class="modal-footer">
+        <a class="genric-btn default radius" href="#" data-dismiss="modal">Cancelar</a>
+        <a href="#" class="genric-btn primary radius" id="btnGuardarCambiosDireccion">Registrar</a>
+    </div>
+}

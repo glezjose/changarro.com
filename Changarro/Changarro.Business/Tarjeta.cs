@@ -7,43 +7,159 @@
 ///////////////////////////////////////////////////////////
 
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using Changarro.Model;
 using Changarro.Model.DTO;
 
 namespace Changarro.Business
 {
     public class Tarjeta {
 
-		public Tarjeta(){
+        public Tarjeta(){
 
-		}
+        }
 
-		~Tarjeta(){
+        ~Tarjeta(){
 
-		}
+        }
 
-		public TarjetaDTO AgregarTarjeta(){
+        /// <summary>
+        /// Método para insertar tarjetas a la base de datos
+        /// </summary>
+        /// <param name="oTarjeta">Objeto con los datos de la tarjeta</param>
+        public string AgregarTarjeta(TarjetaDTO oTarjeta)
+        {
+            string _cNumeroTarjeta;
+            using (CHANGARROEntities _ctx = new CHANGARROEntities())
+            {
+                tblCat_Tarjeta _oTarjeta = new tblCat_Tarjeta
+                {
+                    iIdCliente = oTarjeta.iIdCliente,
+                    itMesExpiracion = oTarjeta.iMesExpiracion,
+                    iAnioExpiracion = oTarjeta.iAnioExpiracion,
+                    lEstatus = true,
+                    cNombre = oTarjeta.cNombre,
+                    cTitular = oTarjeta.cTitular,
+                    cNumeroTarjeta = oTarjeta.cNumeroTarjeta,                   
+                };
 
-			return null;
-		}
+                if (ValidarTarjeta(oTarjeta.cNumeroTarjeta))
+                {
+                    _ctx.tblCat_Tarjeta.Add(_oTarjeta);
 
-		/// 
-		/// <param name="iIdTarjeta"></param>
-		public void DesactivarTarjeta(int iIdTarjeta){
+                    _ctx.SaveChanges();
 
-		}
+                    _cNumeroTarjeta = null;
+                }
+                else
+                {                    
+                    _cNumeroTarjeta = _oTarjeta.cNumeroTarjeta;
+                }
 
-		/// 
-		/// <param name="iIdCliente"></param>
-		public List<TarjetaDTO> ObtenerTarjetas(int iIdCliente){
+            }
 
-			return null;
-		}
+            return _cNumeroTarjeta;
+        }
 
-		public bool ValidarTarjeta(){
+        /// <summary>
+        /// Método para desactivar tarjetas
+        /// </summary>
+        /// <param name="iIdTarjeta">ID de la tarjeta</param>
+        public void DesactivarTarjeta(int iIdTarjeta){
 
-			return false;
-		}
+            using (CHANGARROEntities ctx = new CHANGARROEntities())
+            {
+                tblCat_Tarjeta _oTarjeta = ctx.tblCat_Tarjeta.FirstOrDefault(t => t.iIdTarjeta == iIdTarjeta);
 
-	}//end Tarjeta
+                _oTarjeta.lEstatus = false;
 
-}//end namespace ChangarroBusiness
+                ctx.Entry(_oTarjeta).State = EntityState.Modified;
+
+                ctx.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Método para obtener la lista de las tarjetas del cliente
+        /// </summary>
+        /// <param name="iIdCliente">ID del cliente</param>
+        /// <returns>Lista con los datos de las tarjetas</returns>
+        public List<TarjetaDTO> ObtenerTarjetas(int iIdCliente){
+
+            string _cDigitosTarjeta = "************";
+
+            List<TarjetaDTO> _lstTarjeta = new List<TarjetaDTO>();
+
+            using (CHANGARROEntities _ctx = new CHANGARROEntities())
+            {
+                _ctx.Configuration.LazyLoadingEnabled = false;
+                _ctx.Configuration.ProxyCreationEnabled = false;
+
+                _lstTarjeta = _ctx.tblCat_Tarjeta.AsNoTracking()
+                    .Where(t => t.iIdCliente == iIdCliente && t.lEstatus == true)
+                    .Select(t => new TarjetaDTO 
+                    {
+                        iIdTarjeta = t.iIdTarjeta,
+                        cNombre = t.cNombre,
+                        cTitular = t.cTitular,
+                        cNumeroTarjeta = _cDigitosTarjeta + t.cNumeroTarjeta.Substring(12),
+                        iAnioExpiracion = t.iAnioExpiracion,
+                        iMesExpiracion = t.itMesExpiracion
+
+                    }).ToList();
+            }
+            return _lstTarjeta;
+        }
+
+        /// <summary>
+        /// Método para obtener la tarjeta del cliente
+        /// </summary>
+        /// <param name="iIdCliente">ID del cliente</param>
+        /// <returns>Objeto con los datos de la tarjeta</returns>
+        public TarjetaDTO ObtenerTarjeta(int iIdTarjeta)
+        {
+
+            TarjetaDTO _oTarjeta = new TarjetaDTO();
+
+            using (CHANGARROEntities _ctx = new CHANGARROEntities())
+            {
+                _ctx.Configuration.LazyLoadingEnabled = false;
+                _ctx.Configuration.ProxyCreationEnabled = false;
+
+                _oTarjeta = _ctx.tblCat_Tarjeta.AsNoTracking()
+                    .Select(t => new TarjetaDTO
+                    {
+                        iIdTarjeta = t.iIdTarjeta,
+                        cNombre = t.cNombre,
+                        cTitular = t.cTitular,
+                        cNumeroTarjeta = t.cNumeroTarjeta,
+                        iAnioExpiracion = t.iAnioExpiracion,
+                        iMesExpiracion = t.itMesExpiracion
+
+                    }).FirstOrDefault(p => p.iIdTarjeta == iIdTarjeta);
+            }
+            return _oTarjeta;
+        }
+
+        /// <summary>
+        /// Método para comprobar si existe un numero de tarjeta ya registrado
+        /// </summary>
+        /// <param name="cNumeroTarjeta">Cadena que contiene el numero de tarjeta a verificar</param>
+        /// <returns>Bandera de tipo bool</returns>
+        public bool ValidarTarjeta(string cNumeroTarjeta){
+
+            bool lStatus;
+
+            using (CHANGARROEntities _ctx = new CHANGARROEntities())
+            {
+                _ctx.Configuration.LazyLoadingEnabled = false;
+                _ctx.Configuration.ProxyCreationEnabled = false;
+
+                lStatus = _ctx.tblCat_Tarjeta.AsNoTracking().Any(t => t.cNumeroTarjeta == cNumeroTarjeta) ? false : true;
+            }
+
+            return lStatus;
+        }
+    }
+}

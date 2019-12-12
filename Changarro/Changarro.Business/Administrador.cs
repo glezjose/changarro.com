@@ -84,7 +84,7 @@ namespace ChangarroBusiness
             return oAdministrador;
         }
 
-        public tblCat_Administrador ObtenerDatos(int iIdCliente)
+        public tblCat_Administrador ObtenerDatos(int iIdAdministrador)
         {
             tblCat_Administrador oAdministrador = db.tblCat_Administrador.AsNoTracking().FirstOrDefault(c => c.iIdAdministrador == iIdAdministrador);
             return oAdministrador;

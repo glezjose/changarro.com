@@ -1,0 +1,71 @@
+﻿@model Changarro.Model.DTO.DomicilioDTO
+
+@{
+    ViewBag.Title = "FormularioDireccion";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+@section header{
+    <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLongTitle">Editar Dirección: @Html.DisplayFor(model => model.cNombre)</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="billing_details">
+    <fieldset id="campoDomicilioForm" disabled>
+        <form class="row contact_form" id="formDomicilio" novalidate="novalidate">
+            <input hidden id="iIdDireccionInput" value="@Html.DisplayFor(model => model.iIdDireccion)" name="iIdDireccionInput">
+            <div class="col-md-6 form-group p_star">
+                <label for="cNumeroExterior">Nombre descriptivo</label>
+                <input type="text" class="form-control" id="cNombreDireccion" value="@Html.DisplayFor(model => model.cNombre)" name="cNombreDireccion">
+            </div>
+            <div class="col-md-6 form-group p_star">
+                <label for="cCalle">Calle</label>
+                <input type="text" class="form-control" id="cCalle" value="@Html.DisplayFor(model => model.cCalle)" name="cCalle">
+            </div>
+            <div class="col-6 col-md-6 form-group p_star">
+                <label for="cNumeroExterior">Número Exterior</label>
+                <input type="text" class="form-control" id="cNumeroExterior" value="@Html.DisplayFor(model => model.cNumeroExterior)" name="cNumeroExterior">
+            </div>
+            <div class="col-6 col-md-6 form-group p_star">
+                <label for="cNumeroExterior">Número Interior</label>
+                <input type="text" class="form-control" id="cNumeroInterior" value="@Html.DisplayFor(model => model.cNumeroInterior)" name="cNumeroInterior">
+            </div>
+            <div class="col-6 col-md-6 form-group p_star">
+                <label for="cColonia">Colonia</label>
+                <input type="text" class="form-control" id="cColonia" value="@Html.DisplayFor(model => model.cColonia)" name="cColonia">
+            </div>
+            <div class="col-6 col-md-6 form-group p_star">
+                <label for="nCP">Código Postal</label>
+                <input type="text" class="form-control" id="iCodigoPostal" value="@Html.DisplayFor(model => model.iCodigoPostal)" name="iCodigoPostal">
+            </div>
+            <div class="col-6 col-md-6 form-group p_star">
+                <label for="cMunicipio">Municipio</label>
+                <input type="text" class="form-control" id="cMunicipio" value="@Html.DisplayFor(model => model.cMunicipio)" name="cMunicipio">
+            </div>
+            <div class="col-md-6 form-group p_star">
+                <label>Estado</label>
+                <select class="country_select form-control" id="iIdEstado">
+                    <option value="@Html.DisplayFor(model => model.iIdEstado)" selected hidden>@Html.DisplayFor(model => model.cEstado)</option>
+                    @{
+                        Html.RenderAction("MenuEstados", "Perfil");
+                    }
+                </select>
+            </div>
+            <div class="col-md-12 form-group">
+                <label for="cDescripcion">Descripción</label>
+                <textarea class="form-control" name="cDescripcion" value="Casa con reja negra" id="cDescripcion" rows="1">@Html.DisplayFor(model => model.cDescripcion)</textarea>
+            </div>
+        </form>
+    </fieldset>
+</div>
+
+@section footer{
+    <div class="modal-footer">
+        <a class="genric-btn default radius" href="#" data-dismiss="modal">Cancelar</a>
+        <a href="#" class="genric-btn primary radius editar" id="btnGuardarCambiosDireccion">Editar</a>
+    </div>
+}

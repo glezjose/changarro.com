@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Changarro.Model.DTO.DomicilioDTO>
+
+    <div class="d-flex justify-content-between blog_title">
+        <h4>Mis Direcciones</h4>
+        @if (Model.Count() < 4)
+        {
+            <button type="button" class="close" id="btnAgregarDireccion">
+                <span class="ti-plus"></span>
+            </button>
+        }
+    </div>
+<br />
+
+<div class="row">
+
+    @if (Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-between opcionDireccion">
+
+                            @Html.Hidden("iIdDireccion", item.iIdDireccion)
+
+                            <div class="col-8">
+                                <h4 class="card-title"> @Html.DisplayFor(modelItem => item.cNombre)</h4>
+                            </div>
+                            <div class="col-2">
+                                <a class="close btnEditarDireccion">
+                                    <span class="ti-pencil-alt" style="color:#000000;"></span>
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <a class="close btnEliminarDireccion">
+                                    <span class="ti-trash" style="color:#000000;"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                        <ul class="list">
+                            <li>
+                                <strong>Calle</strong>
+                                : @Html.DisplayFor(modelItem => item.cCalle)
+                            </li>
+                            <li>
+                                <strong>Numero Exterior</strong>
+                                : @Html.DisplayFor(modelItem => item.cNumeroExterior)
+                            </li>
+                            <li>
+                                <strong>Numero Interior</strong>
+                                : @Html.DisplayFor(modelItem => item.cNumeroInterior)
+                            </li>
+                            <li>
+                                <strong>Colonia</strong>
+                                : @Html.DisplayFor(modelItem => item.cColonia)
+                            </li>
+                            <li>
+                                <strong>Código Postal</strong>
+                                : @Html.DisplayFor(modelItem => item.iCodigoPostal)
+                            </li>
+                            <li>
+                                <strong>Delegación o Municipio</strong>
+                                : @Html.DisplayFor(modelItem => item.cMunicipio)
+                            </li>
+                            <li>
+                                <strong>Estado</strong>
+                                : @Html.DisplayFor(modelItem => item.cEstado)
+                            </li>
+                            <li>
+                                <strong>Descripción</strong>
+                                : @Html.DisplayFor(modelItem => item.cDescripcion)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <br />
+            </div>
+        }
+    }
+    else
+    {
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <p class="lead">Parece que aún no ha registrado ninguna dirección de envió, cuando usted agregue una o mas direcciones, usted podrá consultarlas aquí</p>
+            </div>
+        </div>
+    }
+</div>
