@@ -7,14 +7,19 @@
 ///////////////////////////////////////////////////////////
 
 using System.Collections.Generic;
+using System.Linq;
+using Changarro.Model;
 using Changarro.Model.DTO;
 
 namespace Changarro.Business
 {
     public class Tarjeta {
+        CHANGARROEntities db;
 
 		public Tarjeta(){
-
+            db = new CHANGARROEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
 		}
 
 		~Tarjeta(){
@@ -44,6 +49,18 @@ namespace Changarro.Business
 			return false;
 		}
 
+
+        public List<TarjetaCompraDTO> ObtenerTarjetasCompra(int iIdCliente)
+        {
+            List<TarjetaCompraDTO> _lstTarjetas = db.tblCat_Tarjeta.AsNoTracking().Where(t => t.iIdCliente == iIdCliente && t.lEstatus == true).Select(t => new TarjetaCompraDTO
+            {
+                iIdTarjeta = t.iIdTarjeta,
+                cNombre = t.cNombre,
+                cTarjeta = t.cNumeroTarjeta.Substring(t.cNumeroTarjeta.Length - 4)
+            }).ToList();
+
+            return _lstTarjetas;
+        }
 	}//end Tarjeta
 
 }//end namespace ChangarroBusiness
