@@ -12,6 +12,7 @@
                 show: true,
                 backdrop: "static",
             });
+
             if (Funcion) {
                 Funcion();
             }
@@ -48,3 +49,4 @@ function MsjseleccioneRegistro() {
         text: 'Debe seleccionar un registro antes.'
     });
 }
+

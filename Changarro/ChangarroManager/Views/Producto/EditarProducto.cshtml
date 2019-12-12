@@ -1,33 +1,81 @@
 ﻿@model Changarro.Model.tblCat_Producto
+
+
 @{
-    ViewBag.Title = "VisualizarProducto";
+
     Layout = "~/Views/Shared/_Modal.cshtml";
 }
+@section header{
+    <div class="modal-header" id="modalProductosHeader">
 
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#detallesPanel" role="tab">Detalles</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#descripcionPanel" role="tab">Descripción</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#imagenPanel" role="tab">Imagen</a>
+            </li>
+        </ul>
 
-<div class="row">
-    <div class="col-md-4">
-        <img src="~/Assets/img/react.png" />
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <i class="ti-close"></i>
+
+        </button>
     </div>
-    <div class="col-md-8">
-        <h3>@Html.DisplayFor(p => p.cNombre)</h3>
-        <h4>@Html.DisplayFor(p => p.cDescripcion)</h4>
+}
 
-        <div class="row">
-            <div class="col-md-8">
-                Precio:<h5> $@Html.DisplayFor(p => p.dPrecio)</h5>
-                Existencias:<h5> @Html.DisplayFor(p => p.iCantidad)</h5>
+<div class="tab-content mt-2">
+    <div class="tab-pane fade show active" id="detallesPanel" role="tabpanel">
+        <form class="contact_form" action="#" method="post" novalidate="novalidate" id="form4">
+            <div class="row">
+                <div class="col-md-6 form-group p_star">
+                    <label for="iIdCategoria">Categoría</label>
+                    @Html.DropDownList("iIdCategoria", (SelectList)ViewBag.ListaCategoria, new { @class = "form-control" })
 
-                <h5>Fecha de Registro: @Html.DisplayFor(p => p.dtFechaAlta)</h5>
-                <h5>Fecha de Modificación: @Html.DisplayFor(p => p.dtFechaModificacion)</h5>
-
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group p_star">
+                    <label for="cNombre">Nombre(s)</label>
+                    <input type="text" class="form-control" id="cNombre" placeholder="Nombre" name="cNombre" value="@Html.DisplayFor(model => model.cNombre)">
+                </div>
+                <div class="col-md-4 form-group p_star">
+                    <label for="dPrecio">Precio:</label>
+                    <div class="input-group mb-6">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input id="dPrecio" name="dPrecio" type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="@Html.DisplayFor(model => model.dPrecio)">
+                    </div>
+                </div>
+                <div class="col-md-4 form-group p_star">
+                    <label for="iCantidad">Cantidad</label>
+                    <input type="number" class="form-control" id="iCantidad" placeholder="Cantidad" name="iCantidad" value="@Html.DisplayFor(model => model.iCantidad)">
+                </div>
             </div>
 
-        </div>
-
+        </form>
+    </div>
+    <div class="tab-pane fade" id="descripcionPanel" role="tabpanel">
+        <h4>Agregar descripción</h4>
+        <textarea name="editor" id="editor" >
+        @Html.DisplayFor(model   => model.cDescripcion)
+        </textarea>
+    </div>
+    <div class="tab-pane fade" id="imagenPanel" role="tabpanel">
+        <h4>Agregar imagen</h4>
+        <form action="/file-upload" class="dropzone" id="my-awesome-dropzone">
+            <text value="@Html.DisplayFor(model => model.cImagen)" />
+        </form>
     </div>
 </div>
-
+<div class="progress mt-5">
+    <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">Paso 1 de 3</div>
+</div>
 @section footer{
-    <button type="button" class="btn btn-secondary" data-dismiss="modal" value="candel"> Cerrar</button>
+    <button id="continuar" type="button" class="btn btn-warning">Continuar</button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal" value="candel"> Cancelar</button>
 }

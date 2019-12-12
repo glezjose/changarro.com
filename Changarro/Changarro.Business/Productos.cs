@@ -36,40 +36,78 @@ namespace Changarro.Business
         {
 
         }
-        public ProductosDTO AgregarProducto(tblCat_Producto _objProducto)
-        {
-            DbContextTransaction dbTran = db.Database.BeginTransaction();//investigar 
-            try
-            {
-                db.tblCat_Producto.Add(_objProducto);
 
-                db.SaveChanges();
-                dbTran.Commit();
-            }
-            catch (Exception)
-            {
-                dbTran.Rollback();
-                throw;
-            }
-
-
-            return null;
-        }
-
+        /// <summary>
         /// 
-        /// <param name="iIdProducto"></param>
-        public void DesactivarProducto(int iIdProducto)
+        /// </summary>
+        /// <param name="_objProducto"></param>
+        public void AgregaProducto(tblCat_Producto _objProducto)
         {
+            tblCat_Producto otblProducto = new tblCat_Producto
+            {
+                iIdCategoria = _objProducto.iIdCategoria,
+                cNombre = _objProducto.cNombre,
+                iCantidad = _objProducto.iCantidad,
+                dPrecio = _objProducto.dPrecio,
+                cDescripcion = _objProducto.cDescripcion,
+                cImagen = "Foto",
+                lEstatus = true,
+                dtFechaAlta = DateTime.Now,
+                dfFechaBaja = null,
+                dtFechaModificacion = null
 
+            };
+            db.tblCat_Producto.Add(otblProducto);
+
+            db.SaveChanges();
         }
 
+        /// <summary>
         /// 
-        /// <param name="iIdProducto"></param>
-        public ProductosDTO EditarProducto(int iIdProducto)
+        /// </summary>
+        /// <param name="_objPrododucto"></param>
+        public void DesactivarProducto(tblCat_Producto _objPrododucto)
         {
+            tblCat_Producto otblProducto = db.tblCat_Producto.FirstOrDefault(Cat => Cat.iIdProducto == _objPrododucto.iIdProducto);
 
-            return null;
+            if (otblProducto.lEstatus == true)
+            {
+                otblProducto.lEstatus = false;
+                otblProducto.dfFechaBaja = DateTime.Now;
+            }
+            else
+            {
+                otblProducto.lEstatus = true;
+            }
+
+            db.Entry(otblProducto).State = EntityState.Modified;
+
+            db.SaveChanges();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_objProducto"></param>
+        public void EditarProducto(tblCat_Producto _objProducto)
+        {
+            tblCat_Producto otblProducto = db.tblCat_Producto.FirstOrDefault(Cat => Cat.iIdProducto == _objProducto.iIdProducto);
+
+            otblProducto.cNombre = _objProducto.cNombre;
+            otblProducto.iIdCategoria = _objProducto.iIdCategoria;
+            otblProducto.cNombre = _objProducto.cNombre;
+            otblProducto.iCantidad = _objProducto.iCantidad;
+            otblProducto.dPrecio = _objProducto.dPrecio;
+            otblProducto.cDescripcion = _objProducto.cDescripcion;
+            otblProducto.cImagen = "Foto";
+            otblProducto.lEstatus = true;
+            otblProducto.dtFechaModificacion = DateTime.Now;
+
+            db.Entry(otblProducto).State = EntityState.Modified;
+
+            db.SaveChanges();
+        }
+
 
         public List<ProductosDTO> ObtenerProductos()
         {
@@ -96,7 +134,9 @@ namespace Changarro.Business
                                                        iIdProducto = producto.iIdProducto,
                                                        cNombre = producto.cNombre,
                                                        NombreCate = cat.cNombre,
+                                                       dPrecio=producto.dPrecio,
                                                        iCantidad = producto.iCantidad,
+                                                       lEstatus= producto.lEstatus,
                                                        dtFechaAlta = producto.dtFechaAlta,
                                                        dtFechaModificacion = producto.dtFechaModificacion
 
@@ -134,7 +174,7 @@ namespace Changarro.Business
         }
 
         /// <summary>
-        /// Este método obtiene los productos relacionados a la categoría seleccionada.
+        /// Este método obtiene los productos relacionados a la categoría seleccionada. 
         /// </summary>
         /// <param name="iIdCategoria">La id de la categoría seleccionada.</param>
         /// <returns>Regresa un listado de los productos relacionados.</returns>
@@ -282,7 +322,7 @@ namespace Changarro.Business
                                 oProducto.iIdCategoria = ObtenerIdCategoria(oCeldaDatos.StringCellValue);
                                 break;
                             case 4:
-                                
+
                                 try
                                 {
                                     oProducto.lEstatus = Convert.ToBoolean(oCeldaDatos.NumericCellValue);
@@ -291,7 +331,7 @@ namespace Changarro.Business
                                 {
                                     oProducto.lEstatus = Convert.ToBoolean(oCeldaDatos.BooleanCellValue);
                                 }
-                                
+
                                 break;
                             case 5:
                                 oProducto.iCantidad = Convert.ToInt32(oCeldaDatos.NumericCellValue);
@@ -376,7 +416,7 @@ namespace Changarro.Business
 
                 for (int i = 0; i < lstProductos.Count; i++)
                 {
-                    IRow oFilaProducto = oHoja.CreateRow(i+1);
+                    IRow oFilaProducto = oHoja.CreateRow(i + 1);
                     ICell oCeldaNombre = oFilaProducto.CreateCell(0); oCeldaNombre.SetCellValue(lstProductos[i].cNombre);
                     ICell oCeldaDescripcion = oFilaProducto.CreateCell(1); oCeldaDescripcion.SetCellValue(lstProductos[i].cDescripcion);
                     ICell oCeldaPrecio = oFilaProducto.CreateCell(2); oCeldaPrecio.SetCellValue(double.Parse(lstProductos[i].dPrecio.ToString()));
