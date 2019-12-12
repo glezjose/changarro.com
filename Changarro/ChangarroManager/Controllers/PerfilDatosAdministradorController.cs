@@ -19,13 +19,9 @@ namespace ChangarroManager.Controllers
         {
             if (Session["iIdAdministrador"] != null)
             {
-                int iIdAdministrador = Convert.ToInt32(Session["iIdAdministrador"]);
-
-                AdministradorDTO _oAdministrador = oAdministrador.ObtenerAdministrador(iIdAdministrador);
-
-                return View(_oAdministrador);
+                return View();
             }
-            return null;
+            return RedirectToAction("Login","Inicio");
         }
 
         /// <summary>
