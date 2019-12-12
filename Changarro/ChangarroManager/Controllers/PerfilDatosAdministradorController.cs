@@ -19,10 +19,9 @@ namespace ChangarroManager.Controllers
         {
             if (Session["iIdAdministrador"] != null)
             {
-
                 return View();
             }
-            return null;
+            return RedirectToAction("Login","Inicio");
         }
 
         /// <summary>

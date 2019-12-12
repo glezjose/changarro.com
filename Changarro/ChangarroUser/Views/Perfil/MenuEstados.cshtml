@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Changarro.Model.DTO.ListaEstadosDTO>
+
+@foreach (var item in Model)
+{
+    <option value="@item.iIdEstado">@item.cNombre</option>
+}
+

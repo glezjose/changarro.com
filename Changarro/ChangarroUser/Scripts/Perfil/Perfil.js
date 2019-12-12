@@ -1,19 +1,70 @@
-﻿$(document).ready(function () {
-    ObtenerVistas("Perfil/MisDatos"); 
+﻿Dropzone.autoDiscover = false;
+$(document).ready(function () {
+    ObtenerVistas("Perfil/MisDatos", "v-pills-datos", HabilitarFormularioDatosPerfil); 
+    BarraHerramientasPerfil();
+    if (Dropzone.instances.length > 0) Dropzone.instances.forEach(dz => dz.destroy())
     //SubirImagen();
 });
+
+/**
+ * Método para inicializar los tabs de navegación del perfil
+ * */
+function BarraHerramientasPerfil() {
+
+    $("#v-pills-direcciones-tab").click(function (e) {
+
+        e.preventDefault();
+
+        AligerarCargaVistas("v-pills-direcciones-tab", "Perfil/MisDirecciones", "v-pills-direcciones", AbrirModalDomicilio);
+
+    });
+
+    $("#v-pills-tarjetas-tab").click(function (e) {
+
+        e.preventDefault();
+
+        AligerarCargaVistas("v-pills-tarjetas-tab", "Perfil/MisTarjetas", "v-pills-tarjetas", AbrirModalTarjetas);
+
+    });
+
+    $("#v-pills-historial-tab").click(function (e) {
+
+        e.preventDefault();
+
+        AligerarCargaVistas("v-pills-historial-tab", "Perfil/HistorialCompras", "v-pills-historial", null);
+
+    });
+}
+
+/**
+ * Método para evitar cargar las vistas parciales mas de una vez al seleccionar un tab
+ * @param {any} cIdTab Contiene el id del tab seleccionado
+ * @param {any} cUrlVista Contiene la url de la vista de la página parcial
+ * @param {any} cIdElemento Contiene el id del elemento que contendrá la vista parcial 
+ * @param {any} MiFuncion Función a llamar después de cargar la vista parcial
+ */
+function AligerarCargaVistas(cIdTab, cUrlVista, cIdElemento, MiFuncion) {
+
+    if ($("#" + cIdTab).hasClass("carga")) {
+
+        ObtenerVistas(cUrlVista, cIdElemento, MiFuncion);
+
+        $("#" + cIdTab).removeClass("carga");
+
+    }
+}
 
 /**
  * Método para obtener vistas parciales
  * @param {any} cUrl Dirección del método que devuelve la vista
  */
-function ObtenerVistas(cUrl) {
+function ObtenerVistas(cUrl, cIdElemento, MiFuncion) {
     $.ajax({
         type: "POST",
         url: ruta + cUrl,
         dataType: "html",
         success: function (response) {
-            MostrarVistas("v-pills-datos",response)
+            MostrarVistas(cIdElemento, response, MiFuncion)
         }
     });
 }
@@ -23,46 +74,18 @@ function ObtenerVistas(cUrl) {
  * @param {any} cElementoID Contiene el ID del elemento html que contendrá la vista
  * @param {any} cVista Contiene el html de la vista parcial
  */
-function MostrarVistas(cElementoID, cVista) {
+function MostrarVistas(cElementoID, cVista, MiFuncion) {
     $("#" + cElementoID).html(cVista);
 
-    $("#btnEditarDatos").click(function (e) {
-        
-        e.preventDefault();
-        
-        if ($("#btnEditarDatos").hasClass("editar")) {
-
-            $("#btnEditarDatos").html("Guardar Cambios")
-
-            $("#campoDatosForm").removeAttr("disabled");
-
-            $("#btnEditarDatos").removeClass("editar");
-
-        } else {
-            VerificarMisDatos();
-        }
-    });
+    MiFuncion();
 }
 
 /**
- * Método para validar los datos antes de guardar
- * */
-function VerificarMisDatos() {
-
-    ValidarFormularioMisDatos();
-
-    if ($('#misDatosForm').valid() === true) {
-
-        GuardarCambios("Perfil/ActualizarDatosCliente", { oCliente: JSON.stringify(LlenarObjetoCliente()) }, "Perfil/MisDatos");
-    }
-}
-
-/**
- * Método para guardar cambios realizados en los da
- * @param {any} cUrl 
- * @param {any} data
+ * Método para guardar cambios realizados.
+ * @param {any} cUrl Contiene la url del método a usar en el controlador
+ * @param {any} data Contiene los datos a guardar
  */
-function GuardarCambios(cUrl, data, cUrlVistas) {
+function GuardarCambios(cUrl, data, cUrlVistas, MiFuncion) {
     $.ajax({
         type: "POST",
         url: ruta + cUrl,
@@ -71,140 +94,17 @@ function GuardarCambios(cUrl, data, cUrlVistas) {
         success: function (response) {
             if (response.lStatus === true) {
 
-                VerificarCambiosRealizados(response._oDatos, cUrlVistas)
+                MiFuncion(response._oDatos, cUrlVistas);
 
             } else {
-                alert("no");
+                swalWithBootstrapButtons.fire({
+                    title: ':(',
+                    text: 'Ha ocurrido un error al realizar la operación, por favor intente mas tarde',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                })
             }
         }
     });
 }
 
-function VerificarCambiosRealizados(oDatos, cUrlVistas) {
-
-    if (oDatos.iIdCliente > 0) {
-
-        ObtenerVistas(cUrlVistas);
-
-        Toast.fire({
-            icon: 'success',
-            title: '¡Datos Actualizados!'
-        })
-
-    } else {
-
-        ValidarFormularioMisDatos(oDatos.cNombre, oDatos.cApellido, oDatos.cCorreo);
-        $('#misDatosForm').valid();
-    }
-}
-
-/**
- * Método para obtener los datos del formulario
- * */
-function LlenarObjetoCliente() {
-    const oCliente =
-    {
-        cNombre: $.trim($("#cNombre").val()),
-        cApellido: $.trim($("#cApellido").val()),
-        cTelefono: $.trim($("#cTelefono").val()),
-        cCorreo: $.trim($("#cCorreo").val().toLocaleLowerCase())
-    }
-
-    return oCliente;
-}
-
-
-function ValidarFormularioMisDatos(cNombre, cApellido, cCorreo) {
-
-    jQuery.validator.addMethod("emailRepetido", function (value, element) {
-        if (value.toLowerCase() == cCorreo) {
-            return false;
-        } else {
-            return true;
-        };
-    }, "Este correo electrónico ya ha sido registrado");
-
-    jQuery.validator.addMethod("nombreRepetido", function (value, element) {
-        if (value.toLowerCase() == cNombre) {
-            return false;
-        } else {
-            return true;
-        };
-    }, "Ya existe un usuario registrado con este nombre");
-
-    jQuery.validator.addMethod("apellidoRepetido", function (value, element) {
-        if (value.toLowerCase() == cApellido) {
-            return false;
-        } else {
-            return true;
-        };
-    }, "Ya existe un usuario registrado con este apellido");
-
-    $('#misDatosForm').validate({
-        rules: {
-            cNombre: {
-                required: true,
-                minlength: 2,
-                maxlength: 50,
-                nombreRepetido: true
-            },
-            cApellido: {
-                required: true,
-                minlength: 2,
-                maxlength: 50,
-                apellidoRepetido: true
-            },
-            cCorreo: {
-                required: true,
-                email: true,
-                emailRepetido: true
-            },
-            cTelefono: {
-                required: true,
-                number: true,
-                max: 9999999999,
-                min: 1000000000
-            }
-        },
-        messages: {
-            cNombre: {
-                required: "Por favor ingrese un nombre",
-                minlength: "El nombre debe contener mínimo 2 caracteres",
-                maxlength: "El máximo permitido es de 50 caracteres"
-            },
-            cApellido: {
-                required: "Por favor ingrese un apellido",
-                minlength: "El apellido debe contener mínimo 2 caracteres",
-                maxlength: "El máximo permitido es de 50 caracteres"
-            },
-            cCorreo: {
-                required: "Por favor ingrese un correo",
-                email: "Por favor ingrese un correo válido"
-            },
-            cTelefono: {
-                required: "Por favor ingrese un teléfono",
-                number: "Por favor ingrese un número de teléfono válido",
-                max: "Por favor ingrese un número de teléfono válido",
-                min: "Por favor ingrese un número de teléfono válido"
-            }            
-        },
-        errorElement: "em",
-        errorPlacement: function (error, element) {
-            // Agrega la clase 'invalid-feedback' al elemento de error
-
-            error.addClass("invalid-feedback");
-
-            if (element.prop("type") === "checkbox") {
-                error.insertAfter(element.next("label"));
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).addClass("is-invalid").removeClass("is-valid");
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).addClass("is-valid").removeClass("is-invalid");
-        }
-    });
-}

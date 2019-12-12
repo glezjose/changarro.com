@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Changarro.Model.DTO.HistorialCompraDTO>
+
+<div class="container">
+    <div class="d-flex justify-content-between blog_title">
+        <h4>Mis Compras</h4>
+    </div>
+    <br />
+
+    @if (Model.Any())
+    {
+        <div class="cart_inner">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                                DateTime dtFechaCompra = Convert.ToDateTime(item.dtFechaCompra);
+                                string _dtFechaCompra = dtFechaCompra.ToString("dd/MM/yyyy");
+                        <tr>
+                            <th scope="row">
+                                <div class="row align-items-center">
+                                    <div class="col-12 col-sm-12 col-md-4">
+                                        <img class="img-responsive" src="/Assets/img/cart.jpg" width="90" height="56">
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-8">
+                                        <div class="media-body">
+                                            <p>@Html.DisplayFor(modelItem => item.cNombre)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                            <td>@_dtFechaCompra</td>
+                            <td>@Html.DisplayFor(modelItem => item.iCantidad)</td>
+                            <td>$ @Html.DisplayFor(modelItem => item.dPrecio)</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <p class="lead">Parece que aún no ha realizado ninguna compra, cuando usted realice una o mas compras, usted podrá consultarlas aquí</p>
+            </div>
+        </div>
+    }
+</div>
+
+

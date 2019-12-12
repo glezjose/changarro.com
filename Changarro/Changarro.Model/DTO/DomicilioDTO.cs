@@ -10,104 +10,38 @@ namespace Changarro.Model.DTO
 {
     public class DomicilioDTO {
 
-		public DomicilioDTO(){
+        public DomicilioDTO(){
 
-		}
+        }
 
-		~DomicilioDTO(){
+        ~DomicilioDTO(){
 
-		}
+        }
 
-		public string cCalle{
-			get{
-				return cCalle;
-			}
-			set{
-				cCalle = value;
-			}
-		}
+        public int iIdDireccion { get; set; }
 
-		public string cCodigoPostal{
-			get{
-				return cCodigoPostal;
-			}
-			set{
-				cCodigoPostal = value;
-			}
-		}
+        public int iIdCliente { get; set; }
 
-		public string cColonia{
-			get{
-				return cColonia;
-			}
-			set{
-				cColonia = value;
-			}
-		}
+        public int iIdEstado { get; set; }
 
-		public string cDescripcion{
-			get{
-				return cDescripcion;
-			}
-			set{
-				cDescripcion = value;
-			}
-		}
+        public int iCodigoPostal { get; set; }
 
-		public string cMunicipio{
-			get{
-				return cMunicipio;
-			}
-			set{
-				cMunicipio = value;
-			}
-		}
+        public string cCalle { get; set; }        
 
-		public string cNombre{
-			get{
-				return cNombre;
-			}
-			set{
-				cNombre = value;
-			}
-		}
+        public string cColonia { get; set; }
 
-		public string cNumeroExterior{
-			get{
-				return cNumeroExterior;
-			}
-			set{
-				cNumeroExterior = value;
-			}
-		}
+        public string cDescripcion { get; set; }
 
-		public string cNumeroInterior{
-			get{
-				return cNumeroInterior;
-			}
-			set{
-				cNumeroInterior = value;
-			}
-		}
+        public string cMunicipio { get; set; }
 
-		public int iIdDireccion{
-			get{
-				return iIdDireccion;
-			}
-			set{
-				iIdDireccion = value;
-			}
-		}
+        public string cNombre { get; set; }
 
-		public int iIdEstado{
-			get{
-				return iIdEstado;
-			}
-			set{
-				iIdEstado = value;
-			}
-		}
+        public string cNumeroExterior { get; set; }
 
-	}//end DireccionClienteDTO
+        public string cNumeroInterior { get; set; }
+
+        public string cEstado { get; set; }        
+
+    }//end DireccionClienteDTO
 
 }//end namespace ChangarroDTO
