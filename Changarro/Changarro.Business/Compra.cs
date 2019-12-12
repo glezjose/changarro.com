@@ -13,46 +13,138 @@ using System.IO;
 using Changarro.Model;
 using Changarro.Model.DTO;
 using System.Linq;
+using System.Data.Entity;
 
-namespace Changarro.Business {
-	public class Compra {
+namespace Changarro.Business
+{
+    public class Compra
+    {
 
-        CHANGARROEntities db;
-		public Compra(){
+        private readonly CHANGARROEntities db;
+
+        public Compra()
+        {
             db = new CHANGARROEntities();
             db.Configuration.LazyLoadingEnabled = false;
             db.Configuration.ProxyCreationEnabled = false;
-		}
+        }
 
-		~Compra(){
+        ~Compra()
+        {
 
-		}
+        }
 
-		/// 
-		/// <param name="iIdCompra"></param>
-		public void CancelarCompra(int iIdCompra){
+        /// <summary>
+        /// Este método agrega una compra a la BD.
+        /// </summary>
+        /// <param name="iIdCliente">La ID del cliente comprador.</param>
+        /// <param name="iIdTarjeta">La ID de la tarjeta con la que se realizará la compra.</param>
+        /// <param name="iIdDireccion">La ID de la dirección donde se enviará la compra.</param>
+        /// <returns>Regresa la ID de la compra registrada.</returns>
+        public int AgregarCompra(int iIdCliente, tblCat_Compra oCompra)
+        {
+            oCompra.iIdCliente = iIdCliente;
+            oCompra.dtFechaCompra = DateTime.Now;
 
-		}
+            db.tblCat_Compra.Add(oCompra);
+            db.SaveChanges();
 
-		/// 
-		/// <param name="iIdCliente"></param>
-		public List<tblCat_Compra> ObtenerCompras(int iIdCliente){
+            return oCompra.iIdCompra;
+        }
+        /// 
+        /// <param name="iIdCompra"></param>
+        public void CancelarCompra(int iIdCompra)
+        {
 
-			return null;
-		}
+        }
 
-		/// 
-		/// <param name="iIdProducto"></param>
-		/// <param name="iCantidad"></param>
-		public void RealizarCompra(int iIdProducto, int iCantidad){
+        /// 
+        /// <param name="iIdCliente"></param>
+        public List<tbl_DetalleCompra> ObtenerCompra(int iIdCompra)
+        {
+            List<tbl_DetalleCompra> _lstCompras = db.tbl_DetalleCompra.AsNoTracking().Where(c => c.iIdCompra == iIdCompra).ToList();
 
-		}
+            return _lstCompras;
+        }
 
-		/// 
-		/// <param name="iIdCarrito"></param>
-		public void RealizarCompraCarrito(int iIdCarrito){
+        /// 
+        /// <param name="iIdProducto"></param>
+        /// <param name="iCantidad"></param>
+        public void RealizarCompraDirecta(ProductosCompraDTO oProducto, int iIdCompra)
+        {
+            tbl_DetalleCompra _oDetalleCompra = new tbl_DetalleCompra()
+            {
+                iIdCompra =  iIdCompra,
+                iIdProducto = oProducto.iIdProducto,
+                iCantidad = oProducto.iCantidadSeleccion
+            };
 
-		}
+            db.Entry(_oDetalleCompra).State = EntityState.Added;
+
+            tblCat_Producto _oProducto = db.tblCat_Producto.AsNoTracking().FirstOrDefault(p => p.iIdProducto == _oDetalleCompra.iIdProducto);
+            _oProducto.iCantidad -= _oDetalleCompra.iCantidad;
+
+            db.Entry(_oProducto).State = EntityState.Modified;
+
+            db.SaveChanges();
+        }
+
+        /// 
+        /// <param name="iIdCarrito"></param>
+        public void RealizarCompraCarrito(int iIdCarrito, int iIdCompra)
+        {
+            List<ProductosCompraDTO> _lstProductos = ObtenerProductosCompra(iIdCarrito);
+
+            foreach (var _producto in _lstProductos)
+            {
+                tbl_DetalleCompra _oDetalleCompra = new tbl_DetalleCompra();
+
+                _oDetalleCompra.iIdCompra = iIdCompra;
+                _oDetalleCompra.iIdProducto = _producto.iIdProducto;
+                _oDetalleCompra.iCantidad = _producto.iCantidadSeleccion;
+
+                db.Entry(_oDetalleCompra).State = EntityState.Added;
+
+                tblCat_Producto _oProducto = db.tblCat_Producto.AsNoTracking().FirstOrDefault(p => p.iIdProducto == _producto.iIdProducto);
+                _oProducto.iCantidad -= _producto.iCantidadSeleccion;
+
+                db.Entry(_oProducto).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+
+        }
+
+        public CarritoDTO ObtenerProductoCompraDirecta(int iIdProducto)
+        {
+            CarritoDTO _oProducto = db.tblCat_Producto.AsNoTracking().Where(p => p.iIdProducto == iIdProducto).Select(p => new CarritoDTO
+            {
+                iIdProducto = p.iIdProducto,
+                iIdCategoria = p.iIdCategoria,
+                iCantidad = 1,
+                iCantidadExistente = p.iCantidad,
+                dPrecio = p.dPrecio,
+                cNombre = p.cNombre,
+                cImagen = p.cImagen,
+                cDescripcion = p.cDescripcion
+            }).FirstOrDefault();
+
+            return _oProducto;
+
+        }
+
+        public ProductosCompraDTO ObtenerProductoCompraDirecta(int iIdProducto, int iCantidad)
+        {
+            ProductosCompraDTO _oProducto = db.tblCat_Producto.AsNoTracking().Where(p => p.iIdProducto == iIdProducto).Select(p => new ProductosCompraDTO
+            {
+                iIdProducto = p.iIdProducto,
+                iCantidadSeleccion = iCantidad,
+                dPrecioTotal = (iCantidad * p.dPrecio),
+                cNombre = p.cNombre,
+                cImagen = p.cImagen
+            }).FirstOrDefault();
+
+            return _oProducto;
+        }
 
         public List<ProductosCompraDTO> ObtenerProductosCompra(int iIdCarrito)
         {
@@ -68,6 +160,6 @@ namespace Changarro.Business {
             return _lstProductos;
         }
 
-	}//end Compra
+    }//end Compra
 
 }//end namespace ChangarroBusiness

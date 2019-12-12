@@ -9,18 +9,23 @@ namespace ChangarroManager.Controllers
     public class ClienteController : Controller
     {
 
-        Cliente lista = new Cliente();  // Instancia de la clase de negocios ClienteBusiness
-        Cliente cliente = new Cliente();  // Instancia de la clase de negocios ClienteBusiness
+        Cliente lista = new Cliente();  // Instancia de la clase de negocios ClienteBusiness.
+        Cliente cliente = new Cliente();  // Instancia de la clase de negocios ClienteBusiness.
 
-        public ActionResult Index()
+        [HttpGet]
+        /// <summary>
+        /// Método que carga la página principal de clientes.
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Principal()
         {
             return View();
         }
 
         /// <summary>
-        /// Método que carga los datos de todos los Clientes
+        /// Método que carga los datos de todos los Clientes.
         /// </summary>
-        /// <return>Objeto JSON con todos los Clientes y su información</return>
+        /// <return>Objeto JSON con todos los Clientes y su información.</return>
         [HttpPost]
         public JsonResult ObtenerClientes()
         {
@@ -30,10 +35,10 @@ namespace ChangarroManager.Controllers
         }
 
        /// <summary>
-       /// Método que carga los detalles del cliente seleccionado
+       /// Método que carga los detalles del cliente seleccionado.
        /// </summary>
-       /// <param name="iIdCliente"> ID del cliente seleccionado</param>
-       /// <returns>Vista con todos los datos de un cliente</returns>
+       /// <param name="iIdCliente"> ID del cliente seleccionado.</param>
+       /// <returns>Vista con todos los datos de un cliente.</returns>
        [HttpPost]
        public ActionResult VerDetallesCliente (int iIdCliente)
         {
@@ -43,11 +48,11 @@ namespace ChangarroManager.Controllers
         }
 
         /// <summary>
-        /// Método para cambiar el estatus del cliente seleccionado
+        /// Método para cambiar el estatus del cliente seleccionado.
         /// </summary>
-        /// <param name="iIdCliente"> ID del cliente seleccionado</param>
-        /// <param name="lEstatus"> Estatus del cliente seleccionado</param>
-        /// <returns>Json con el cambio del Estatus actualizado</returns>
+        /// <param name="iIdCliente"> ID del cliente seleccionado.</param>
+        /// <param name="lEstatus"> Estatus del cliente seleccionado.</param>
+        /// <returns>Json con el cambio del Estatus actualizado.</returns>
         [HttpPost]
         public JsonResult CambiarEstatusCliente(int iIdCliente, bool lEstatus)
         {

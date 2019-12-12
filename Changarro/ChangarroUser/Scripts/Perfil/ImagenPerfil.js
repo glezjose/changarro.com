@@ -1,17 +1,21 @@
-﻿
-$("#btnCambiarImagen").click(function (e) {
+﻿$("#btnCambiarImagen").click(function (e) {
 
     SubirImagen()
 
     e.preventDefault();
 
     AbrirModal("Perfil/ImagenPerfil", SubirImagen)
+
 });
 
-
-
+/**
+ * Método para cargar la imagen de perfil utilizando Dropzone
+ * */
 function SubirImagen() {
-    Dropzone.options.imagenPerfilDropzone = {
+  
+    $("#imagenPerfilDropzone").dropzone({
+        acceptedFiles: 'image/*',        
+        dictDefaultMessage: "Deposite su imagen aqui",
         maxFilesize: 2,
         maxFiles: 1,
         init: function () {
@@ -20,13 +24,15 @@ function SubirImagen() {
                 this.addFile(file);
             });
         },
-        url: '/Default/SubirImagen',
+        url: ruta + 'Perfil/SubirImagen',
+        success: function (file, response) {
+            MensajeErrorImagen(response)
+        },
         transformFile: function (file, done) {
 
-            // Create Dropzone reference for use in confirm button click handler
             var myDropZone = this;
 
-            // Create the image editor overlay
+            // Crear editor de imagen
             var editor = document.createElement('div');
             editor.style.position = 'fixed';
             editor.style.left = 0;
@@ -37,13 +43,13 @@ function SubirImagen() {
             editor.style.backgroundColor = '#000';
             document.body.appendChild(editor);
 
-            // Create confirm button at the top left of the viewport
+            // Crear botón de confirmación para recortar imagen
             var buttonConfirm = document.createElement('button');
             buttonConfirm.style.position = 'absolute';
             buttonConfirm.style.left = '10px';
             buttonConfirm.style.top = '10px';
             buttonConfirm.style.zIndex = 9999;
-            buttonConfirm.textContent = 'Confirm';
+            buttonConfirm.textContent = 'Aceptar';
             editor.appendChild(buttonConfirm);
             buttonConfirm.addEventListener('click', function () {
 
@@ -53,10 +59,9 @@ function SubirImagen() {
                     height: 120
                 });
 
-                // Turn the canvas into a Blob (file object without a name)
                 canvas.toBlob(function (blob) {
 
-                    // Create a new Dropzone file thumbnail
+                    // Crear thumbnail del archivo Dropzone      
                     myDropZone.createThumbnail(
                         blob,
                         myDropZone.options.thumbnailWidth,
@@ -65,24 +70,56 @@ function SubirImagen() {
                         false,
                         function (dataURL) {
 
-                            // Update the Dropzone file thumbnail
+                            // Actualizar el thumbnail del archivo                            
                             myDropZone.emit('thumbnail', file, dataURL);
-                            // Return the file to Dropzone
-                            done(blob);
+
+                            // Remover el archivo de Dropzone
+                            $("#btnSubirImagen").click(function (e) {
+
+                                e.preventDefault();
+
+                                done(blob);
+                            });
+                            //
                         });
                 });
 
-                // Remove the editor from the view
+                // Remover el editor de la vista
                 document.body.removeChild(editor);
             });
 
-            // Create an image node for Cropper.js
+            // Crear un nodo de imagen para Cropper.js
             var image = new Image();
             image.src = URL.createObjectURL(file);
             editor.appendChild(image);
 
-            // Create Cropper.js
+            // Crear objeto Cropper.js
             var cropper = new Cropper(image, { aspectRatio: 1 });
         }
-    };
+    });
+}
+
+/**
+ * Método para mostrar mensajes de error al guardar la imagen
+ * @param {any} oDatos
+ */
+function MensajeErrorImagen(oDatos) {
+
+    $('#modalGeneral').modal('hide');
+
+    if (oDatos._lStatus === true) {
+        Toast.fire({
+            icon: 'success',
+            title: '¡Imagen actualizada con éxito!'
+        });
+
+        $("#btnCambiarImagen").attr("src", oDatos._cNuevaImagen);
+    } else {
+        swalWithBootstrapButtons.fire({
+            title: ':(',
+            text: oDatos._cNuevaImagen,
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+        });
+    }
 }

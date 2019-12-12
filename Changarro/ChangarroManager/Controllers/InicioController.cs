@@ -12,10 +12,10 @@ namespace ChangarroManager.Controllers
 
     public class InicioController : Controller
     {
-        readonly ReporteGraficas oReportes = new ReporteGraficas(); //Instancia del business
-        readonly Administrador administrador = new Administrador();
+        readonly ReporteGraficas oReportes = new ReporteGraficas(); //Instancia del business gráficas.
+        readonly Administrador oAdministrador = new Administrador(); // Instancia del business administrador.
 
-        string _cMensaje = null;
+        string _cMensaje = null; // Variable que almacena un mensaje de error y validación.
 
         #region [Vistas]
         /// <summary>
@@ -55,10 +55,12 @@ namespace ChangarroManager.Controllers
         public JsonResult IniciarSesion()
         {
             LoginDTO _oAdministrador = JsonConvert.DeserializeObject<LoginDTO>(Request["oAdmin"]);
-            InicioSesion _Login = new InicioSesion();
+
+            InicioSesion _oLogin = new InicioSesion(); //Instancia de la clase business.
+
             try
             {
-                LoginDTO _oSesion = _Login.ValidarLogin(_oAdministrador, false);
+                LoginDTO _oSesion = _oLogin.ValidarLogin(_oAdministrador, false);
 
                 if (_oSesion.iIdUsuario > 0)
                 {
@@ -74,9 +76,9 @@ namespace ChangarroManager.Controllers
             }
             catch (Exception)
             {
-                _cMensaje = "Ha ocurrido un error al iniciar sesión por favor intente más tarde";
+                _cMensaje = "Ha ocurrido un error poder establecer una conexión para iniciar tu sesión, por favor intente más tarde.";
             }
-            return Json(new {_oAdministrador, _cMensaje });
+            return Json(new { _oAdministrador, _cMensaje });
         }
 
         /// <summary>
@@ -86,7 +88,7 @@ namespace ChangarroManager.Controllers
         [ChildActionOnly]
         public ActionResult ObtenerNombreAdministrador()
         {
-            ViewBag.cNombre = administrador.ObtenerNombreAdministrador(Convert.ToInt32(Session["iIdAdministrador"]));
+            ViewBag.cNombre = oAdministrador.ObtenerNombreAdministrador(Convert.ToInt32(Session["iIdAdministrador"]));
 
             return PartialView();
         }
@@ -95,12 +97,11 @@ namespace ChangarroManager.Controllers
         /// Método para cerrar sesión del administrador.
         /// </summary>
         /// <returns>Acción que redirige al administrador a la página de inicio de sesión.</returns>
-        [HttpPost]
         public ActionResult CerrarSesion()
         {
             FormsAuthentication.SignOut(); //Elimina información de autenticación.
-            Session.Abandon(); // Limpiará la sesión al final de la petición.
-            return RedirectToAction("Inicio", "Login");
+            Session.RemoveAll(); // Elimina los elementos agregados en el contenido del objeto session.
+            return RedirectToAction("Login");
         }
         #endregion
 
@@ -158,7 +159,7 @@ namespace ChangarroManager.Controllers
 
 
         /// <summary>
-        /// Método que obtiene productos por cada categoría.
+        /// Método que obtiene los productos por cada categoría.
         /// </summary>
         /// <returns>Devuelve la lista en objeto Json con el mensaje de excepción y validación.</returns>
         [HttpPost]

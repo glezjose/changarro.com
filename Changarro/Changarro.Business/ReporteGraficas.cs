@@ -15,7 +15,7 @@ namespace Changarro.Business
         /// </summary>
         public ReporteGraficas()
         {
-            ctx = new CHANGARROEntities();
+            ctx = new CHANGARROEntities(); 
             ctx.Configuration.LazyLoadingEnabled = false;
             ctx.Configuration.ProxyCreationEnabled = false;
         }

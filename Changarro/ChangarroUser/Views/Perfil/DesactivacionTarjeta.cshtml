@@ -1,0 +1,38 @@
+﻿@model Changarro.Model.DTO.TarjetaDTO
+
+@{
+    ViewBag.Title = "DesactivacionTarjeta";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+@section header{
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="ti-close"></span>
+        </button>
+    </div>
+}
+
+@Html.Hidden("iIdTarjetaEliminar", @Html.DisplayFor(model => model.iIdTarjeta))
+
+<h4><strong>Estas a punto de eliminar:</strong></h4>
+<hr />
+<p><strong>Tarjeta:</strong>&nbsp&nbsp&nbsp  @Html.DisplayFor(model => model.cNombre)</p>
+<hr />
+<p><strong>Número:</strong>&nbsp&nbsp&nbsp  @Html.DisplayFor(model => model.cNumeroTarjeta)</p>
+<hr />
+<p><strong>Mes de Expiración:</strong>&nbsp&nbsp&nbsp  @Html.DisplayFor(model => model.iMesExpiracion)</p>
+<hr />
+<p><strong>Año de Expiración:</strong>&nbsp&nbsp&nbsp  @Html.DisplayFor(model => model.iAnioExpiracion)</p>
+<hr />
+<br />
+<p>¡Esta acción no se puede deshacer!</p>
+
+
+@section footer{
+    <div class="modal-footer">
+        <a class="genric-btn default radius" href="#" data-dismiss="modal">Cancelar</a>
+        <a href="#" class="genric-btn primary radius" id="btnEliminarTarjeta">Aceptar</a>
+    </div>
+}

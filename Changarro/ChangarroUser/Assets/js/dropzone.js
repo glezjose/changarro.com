@@ -1036,9 +1036,14 @@ var Dropzone = function (_Emitter) {
       throw new Error("Invalid dropzone element.");
     }
 
+    if (this.element.dropzone) {
+        return this.element.dropzone;
+    }
+
+    /*
     if (_this.element.dropzone) {
       throw new Error("Dropzone already attached.");
-    }
+    }*/
 
     // Now add this dropzone to the instances.
     Dropzone.instances.push(_this);

@@ -1,4 +1,10 @@
-﻿function ValidarRegistro(cNombre, cApellido, cCorreo) {
+﻿/**
+ * Método para validar el formulario de registro del cliente
+ * @param {any} cNombre Cadena con el nombre del cliente
+ * @param {any} cApellido Cadena con el apellido del cliente
+ * @param {any} cCorreo Cadena con el correo del cliente
+ */
+function ValidarRegistro(cNombre, cApellido, cCorreo) {
 
     jQuery.validator.addMethod("emailRepetido", function (value, element) {
         if (value.toLowerCase() == cCorreo) {
@@ -101,6 +107,11 @@
     });
 }
 
+/**
+ * Método para validar el formulario de inicio de sesión
+ * @param {any} cCorreo Cadena con el correo del cliente
+ * @param {any} cContrasenia Cadena con el correo del cliente
+ */
 function ValidarLogin(cCorreo, cContrasenia) {
 
     jQuery.validator.addMethod("emailRegistrado", function (value, element) {

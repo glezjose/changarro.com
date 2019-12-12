@@ -2,6 +2,9 @@
     Boton();
 });
 
+/**
+ * Método para inicializar el botón para cancelar la suscripción
+ * */
 function Boton() {
 
     $("#btnCancelarCuenta").click(function (e) {
@@ -12,7 +15,12 @@ function Boton() {
     });
 }
 
+/**
+ * Método para Obtener la contraseña y confirmar la solicitud
+ * */
 function Desactivar() {
+
+    $("#cInputCorreoPerfil").val($("#cCorreoPerfil").text());
 
     $("#btnCancelarSuscripcion").click(function (e) {
 
@@ -22,6 +30,10 @@ function Desactivar() {
     });
 }
 
+/**
+ * Método para desactivar la cuenta
+ * @param {any} cContrasenia Contiene la contraseña del usuario
+ */
 function DesactivarCuenta(cContrasenia) {    
 
     $.ajax({
@@ -41,14 +53,11 @@ function DesactivarCuenta(cContrasenia) {
     });    
 }
 
-const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-        confirmButton: 'genric-btn primary radius',
- 
-    },
-    buttonsStyling: false
-})
-
+/**
+ * Método para desplegar mensajes de error
+ * @param {any} lStatus Contiene el estatus de la operación de desactivación de la cuenta
+ * @param {any} cMensaje Contiene el mensaje de error
+ */
 function MensajeError(lStatus, cMensaje) {
     if (lStatus === true) {
 
@@ -68,3 +77,11 @@ function MensajeError(lStatus, cMensaje) {
     }
 
 }
+
+const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+        confirmButton: 'genric-btn primary radius',
+
+    },
+    buttonsStyling: false
+})

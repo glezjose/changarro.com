@@ -40,6 +40,19 @@ namespace ChangarroUser.Controllers
         }
 
         /// <summary>
+        /// Método que unicamente limita el acceso a la url de compra.
+        /// </summary>
+        /// <returns>Regresa una re-dirección a la compra.</returns>
+        [HttpGet]
+        public ActionResult DirigirAcompra()
+        {
+            TempData["lValidarCompra"] = true;
+
+            return RedirectToAction("Inicio", "Compra");
+        }
+
+
+        /// <summary>
         /// Agrega un producto al carrito o checa si ya existe y simplemente agrega una cantidad de mas.
         /// </summary>
         /// <param name="iIdProducto">Es la id del producto que se desea agregar al carrito.</param>
@@ -79,6 +92,11 @@ namespace ChangarroUser.Controllers
             return Json(new { cMensaje, cIcono });
         }
 
+        /// <summary>
+        /// En este método se aumenta la cantidad del producto seleccionado.
+        /// </summary>
+        /// <param name="iIdProducto">Es la ID del producto que se desea aumentar cantidad.</param>
+        /// <returns>Regresa un JSON del precio total y subtotal.</returns>
         [HttpPost]
         public JsonResult AumentarCantidad(int iIdProducto)
         {
@@ -93,6 +111,11 @@ namespace ChangarroUser.Controllers
             return Json(new { dSubTotalPrecio, dTotalPrecio});
         }
 
+        /// <summary>
+        /// Este método disminuye la cantidad del producto seleccionado.
+        /// </summary>
+        /// <param name="iIdProducto">Es la ID del producto que se desea disminuir la cantidad.</param>
+        /// <returns>Regresa aun JSON del precio total y subtotal.</returns>
         [HttpPost]
         public JsonResult DisminuirCantidad(int iIdProducto)
         {
@@ -107,6 +130,11 @@ namespace ChangarroUser.Controllers
             return Json(new { dSubTotalPrecio, dTotalPrecio });
         }
 
+        /// <summary>
+        /// Es el método que elimina el producto seleccionado del carrito.
+        /// </summary>
+        /// <param name="iIdProducto">La ID del producto que se desea eliminar.</param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult EliminarProducto(int iIdProducto)
         {
@@ -123,6 +151,10 @@ namespace ChangarroUser.Controllers
             return Json(new { dSubTotalPrecio, dTotalPrecio, iTotalProductos });
         }
 
+        /// <summary>
+        /// Vista parcial que pinta el total de productos en el carrito.
+        /// </summary>
+        /// <returns>Regresa la vista.</returns>
         [ChildActionOnly]
         public ActionResult ProductosCarrito()
         {
@@ -134,6 +166,10 @@ namespace ChangarroUser.Controllers
             return PartialView();
         }
 
+        /// <summary>
+        /// Vista parcial que pinta la vista de carrito vacio.
+        /// </summary>
+        /// <returns></returns>
         [AjaxChildActionOnly]
         public ActionResult CarritoVacio()
         {

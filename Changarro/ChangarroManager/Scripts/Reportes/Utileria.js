@@ -19,23 +19,23 @@ function obtenerDatosGraficas(cTipo, cUrl, oElemento, funcion) {
             }
             else {
 
-                $("#" + oElemento.cId).removeClass(oElemento.cClase);
-                $("#" + oElemento.cId).addClass("cambiarTamaño");
+                $("#" + oElemento._ciId).removeClass(oElemento._cclaseGrafica);
+                $("#" + oElemento._ciId).addClass("cambiarTamaño");
 
-                $("#" + oElemento.cMensajeA).removeAttr("hidden");
-                $("#" + oElemento.cMensajeA).html(data._cMensaje);
+                $("#" + oElemento._cmensajeAdvertencia).removeAttr("hidden");
+                $("#" + oElemento._cmensajeAdvertencia).html(data._cMensaje);
 
             }
 
         },
         error: function () {
 
-            $("#" + oElemento.cId).removeClass(oElemento.cClase);
-            $("#" + oElemento.cId).addClass("cambiarTamaño");
+            $("#" + oElemento._ciId).removeClass(oElemento._cclaseGrafica);
+            $("#" + oElemento._ciId).addClass("cambiarTamaño");
 
 
-            $("#" + oElemento.cMensajeE).removeAttr("hidden");
-            $("#" + oElemento.cMensajeE).html("Ha ocurrido un error al tratar de cargar los datos del reporte.");
+            $("#" + oElemento._cmensajeError).removeAttr("hidden");
+            $("#" + oElemento._cmensajeError).html("Ha ocurrido un error al tratar de cargar los datos del reporte.");
            
         }
     });

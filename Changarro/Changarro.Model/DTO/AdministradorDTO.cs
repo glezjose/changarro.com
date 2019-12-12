@@ -5,20 +5,9 @@
     /// </summary>
     public class AdministradorDTO
     {
-        /// <summary>
-        /// Identificador del administrador.
-        /// </summary>
-        public int iIdAdministrador { get; set; }
-        /// <summary>
-        /// Nombre del administrador.
-        /// </summary>
-        public string cNombre { get; set; }
-        /// <summary>
-        /// Apellido del Administrador.
-        /// </summary>
         public string cApellido { get; set; }
         /// <summary>
-        /// Correo del administrador.
+        /// Correo electrónico del administrador.
         /// </summary>
         public string cCorreo { get; set; }
         /// <summary>
@@ -29,7 +18,14 @@
         /// Foto de perfil del administrador.
         /// </summary>
         public string cImagen { get; set; }
-       
-       
+        /// <summary>
+        /// Nombre del administrador.
+        /// </summary>
+        public string cNombre { get; set; }
+
+        /// <summary>
+        /// Identificador del administrador.
+        /// </summary>
+        public int iIdAdministrador { get; set; }
     }
 }
