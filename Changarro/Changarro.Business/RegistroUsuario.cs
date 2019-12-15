@@ -32,7 +32,7 @@ namespace Changarro.Business
                 cTelefono = "N/A",
                 cCorreo = oCliente.cCorreo,
                 cContrasenia = GenerarHash(oCliente.cContrasenia),
-                cImagen = "1574316321_ImagenClienteDef",
+                cImagen = "1576171758_ImagenClienteDef",
                 dtFechaAlta = DateTime.Today,
                 lEstatus = true
             };

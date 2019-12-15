@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "RegistroTarjeta";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+@section header{
+    <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLongTitle">Nueva Tarjeta</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="billing_details">
+    <form class="row contact_form" id="formTarjeta" novalidate="novalidate">
+        <div class="col-md-5 form-group p_star">
+            <label for="cNombre">Nombre descriptivo</label>
+            <input type="text" class="form-control" id="cNombreTarjeta" value="" name="cNombreTarjeta">
+        </div>
+        <div class="col-md-7 form-group p_star">
+            <label for="cTitular">Nombre del Titular</label>
+            <input type="text" class="form-control" id="cTitular" value="" name="cTitular">
+        </div>
+        <div class="col-md-12 form-group p_star">
+            <label for="cNumeroTarjeta">Numero de tarjeta</label>
+            <input type="text" class="form-control" id="cNumeroTarjeta" value="" name="cNumeroTarjeta">
+        </div>
+        <div class="col-md-6 form-group p_star">
+            <label>Mes de Espiración</label>
+            <br>
+            <select class="country_select form-control required" id="iMesExpiracion" name="iMesExpiracion">
+                <option disabled selected>--  Mes  --</option>
+                <option value="1">01</option>
+                <option value="2">02</option>
+                <option value="3">03</option>
+                <option value="4">04</option>
+                <option value="5">05</option>
+                <option value="6">06</option>
+                <option value="7">07</option>
+                <option value="8">08</option>
+                <option value="9">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+        <div class="col-md-6 form-group p_star">
+            <label>Año de Espiración</label>
+            <br>
+            <select class="form-control country_select required" id="iAnioExpiracion" name="iAnioExpiracion">
+                <option disabled selected>-- Año --</option>
+                <option value="19">2019</option>
+                <option value="20">2020</option>
+                <option value="21">2021</option>
+                <option value="22">2022</option>
+                <option value="23">2023</option>
+                <option value="24">2024</option>
+                <option value="25">2025</option>
+                <option value="26">2026</option>
+                <option value="27">2027</option>
+                <option value="18">2028</option>
+                <option value="29">2029</option>
+                <option value="30">2030</option>
+            </select>
+        </div>
+    </form>
+</div>
+
+@section footer{
+    <div class="modal-footer">
+        <a class="genric-btn default radius" href="#" data-dismiss="modal">Cancelar</a>
+        <a href="#" class="genric-btn primary radius" id="btnGuardarTarjeta">Guardar</a>
+    </div>
+}

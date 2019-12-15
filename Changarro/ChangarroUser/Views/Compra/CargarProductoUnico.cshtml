@@ -1,0 +1,19 @@
+﻿@model Changarro.Model.DTO.ProductosCompraDTO
+<tr>
+    <td>
+        <div class="media">
+            <div class="d-flex">
+                <img src="@Model.cImagen" alt="">
+            </div>
+            <div class="media-body">
+                <p>@Model.cNombre</p>
+            </div>
+        </div>
+    </td>
+    <td>
+        <h5>@Model.iCantidadSeleccion</h5>
+    </td>
+    <td>
+        <h5>$@Model.dPrecioTotal</h5>
+    </td>
+</tr>

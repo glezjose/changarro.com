@@ -20,43 +20,40 @@ namespace Changarro.Model.DTO {
 
         }
 
-        ~ClienteAdministradorDTO(){
-
-        }
         /// <summary>
-        /// Contiene el Apellido del cliente.
+        /// Apellido del cliente.
         /// </summary>
         public string cApellido { get; set; }
         /// <summary>
-        /// Contiene el Correo del cliente.
+        /// Correo electrónico del cliente.
         /// </summary>
         public string cCorreo { get; set; }
         /// <summary>
-        /// Contiene el Nombre del cliente.
+        /// Nombre del cliente.
         /// </summary>
         public string cNombre { get; set; }
         /// <summary>
-        /// Contiene el numero teléfonico del cliente.
+        /// Número telefónico del cliente.
         /// </summary>
         public string cTelefono { get; set; }
         /// <summary>
-        /// Contiene la fecha de alta del cliente.
+        /// Fecha de alta del cliente.
         /// </summary>
         public DateTime? dtFechaAlta { get; set; }
         /// <summary>
-        /// Contiene la fecha de Baja del cliente.
+        /// Fecha de Baja del cliente.
         /// </summary>
         public DateTime? dtFechaBaja { get; set; }
         /// <summary>
-        /// Contiene la fecha de Modificación del cliente.
+        /// Fecha de Modificación del cliente.
         /// </summary>
         public DateTime? dtFechaModificacion { get; set; }
         /// <summary>
-        /// Contiene el Identificador del Id.
+        /// Identificador del Id.
         /// </summary>
         public int iIdCliente { get; set; }
         /// <summary>
-        /// Contiene el Estatus del Cliente.
+        /// Estatus del Cliente.
         /// </summary>
         public bool lEstatus { get; set; }
     }

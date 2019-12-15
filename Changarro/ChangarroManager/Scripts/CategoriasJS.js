@@ -1,10 +1,13 @@
 ﻿let iIdCategoria;
 let tablaCategoria;
 let lEstatus;
+let cNombre;
+let DatosCategoria;
 
-
-
-/* toma los valores de el formulario y los guarda*/
+/* toma los valores de el formulario y los guarda
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
 function cargarTabla() {
     tablaCategoria = $('#tblCategoria').DataTable({
         "ajax": {
@@ -23,7 +26,19 @@ function cargarTabla() {
         "columns": [
             { "data": "iIdCategoria" },
             { "data": "cNombre" },
-            { "data": "lEstatus" }
+            {
+                "data": "lEstatus",
+                'render': function (data) {
+                    if (data == true) {
+                        const activo = '<span id= "activo" class="badge badge-success">Activo</span>';
+                        return activo;
+                    }
+                    else {
+                        const inactivo = '<span id="activo" class="badge badge-danger">Inactivo</span>';
+                        return inactivo;
+                    }
+                }
+            }
         ],
         "select": true,
 
@@ -48,74 +63,185 @@ function cargarTabla() {
             }
         }
     });
-
+    $("#tblCategoria tbody").on('click', 'tr', function () {
+        Fila = tablaCategoria.row(this).index();
+        DatosCategoria = (tablaCategoria.row(Fila).data());
+    });
 }
 
-/**inicia las funciones para categorias */
+
+/**inicia las funciones para categorías
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
 function IniciarCategoria() {
     cargarTabla();
     ObtenerEstatus();
     Obtenerid();
 
 
-    $("#btnGuardarCat").click(function (e) {
+    $("#btnGuarda").click(function (e) {
         e.preventDefault();
-        GuardarCategoria();
-        tablaCategoria.ajax.reload();
+        let validacion = $("#forcat").valid();
+        if (iIdCategoria > 0) {
+
+            if (validacion) {
+                EditarCategoria();
+            }
+        }
+        else {
+            if (validacion) {
+                GuardarCategoria();
+            }
+
+        }
+        iIdCategoria = 0;
     });
-    $("#btnEstatus").click(function (e) {
+    $("#btnEstatusCat").click(function (e) {
         e.preventDefault();
-        FbotonOn();
+        if (iIdCategoria > 0) {
+            CambiarEstatusCategoria();
+        }
+        else {
+            MsjseleccioneRegistro();
+        }
 
-    })
+    });
 }
 
-/*Guarda una nueva categoria*/
+
+/**Extrae el nombre de las categorías
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
+function obtenerNombreCategoria() {
+    $("#cNombre").val(DatosCategoria.cNombre);
+}
+
+
+/*Guarda una nueva categoría
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
 function GuardarCategoria() {
-    var Data = $("#forcat").serialize();
-    
+    var Data = {};
+
+    var Categoria = {
+        cNombre: $("#cNombre").val()
+    };
+
+    Data['Categoria'] = JSON.stringify(Categoria);
+
     LlamarMetodo("POST", "../Categoria/AgregarCategoria", Data, false);
+    LimpiarFormularioCategoria();
 }
 
-/**Editar una categoria */
-function GuardarCategoria() {
-    var Data = $("#forcat").serialize();
+
+/**Editar una categoría
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
+function EditarCategoria() {
+    var Data = {};
+    var Categoria = {
+        iIdCategoria: iIdCategoria,
+        cNombre: $("#cNombre").val()
+    };
+    Data['Categoria'] = JSON.stringify(Categoria);
 
     LlamarMetodo("POST", "../Categoria/EditarCategoria", Data, false);
+    LimpiarFormularioCategoria();
 }
 
+
+/**obtiene el estatus de la fila seleccionada
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
 function ObtenerEstatus() {
     tablaCategoria.on('select', function () {
         lEstatus = (tablaCategoria.rows({ selected: true }).data()[0]['lEstatus']);
-        var uno = document.getElementById('btnEstatus');
 
         if (lEstatus == true) {
 
-            uno.innerText = "Desactivar";
+            $("#btnEstatusCat").removeClass("btn-success");
+            $("#btnEstatusCat").addClass("btn-danger");
+            $("#btnEstatusCat").html('<i class="ti-close icon"></i>');
 
         }
         else {
-            uno.innerText = "Activar"
+
+            $("#btnEstatusCat").removeClass("btn-danger");
+            $("#btnEstatusCat").addClass("btn-success");
+            $("#btnEstatusCat").html('<i class="ti-check icon"></i>');
         }
-        console.log(lEstatus)
+        console.log(lEstatus);
     });
 }
+
+
+/**obtiene el id de la fila seleccionada
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
 function Obtenerid() {
     tablaCategoria.on('select', function () {
+
         iIdCategoria = (tablaCategoria.rows({ selected: true }).data()[0]['iIdCategoria']);
-        var uno = document.getElementById('btnGuardarCat');
-        uno.innerText = "Editar";
-        $("#btnGuardarCat").attr("id", "btnEditar");///cambia el id del boton *-*  $("#btnGuardarCat").attr("id", "btnEditar");/
+        obtenerNombreCategoria();
+        $("#btnGuarda").html('<i class="ti-pencil icon"></i>');
+        $("#btnGuarda").attr("id", "btnEditar");
     });
+
     tablaCategoria.on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
             iIdCategoria = 0;
-            var uno = document.getElementById('btnEditar');
-            $("#btnEditar").attr("id", "btnGuardarCat");
-            uno.innerText = "Guardar";
+            $("#cNombre").val("");
 
-            console.log(iIdCategoria)
+            $("#btnEditar").attr("id", "btnGuarda");
+            $("#btnGuarda").html('<i class="ti-plus icon"></i>');
         }
     });
 }
+
+
+/**función para cambiar el estatus de la fila seleccionada
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
+function CambiarEstatusCategoria() {
+    var Data = {};
+    var EstatusCat = { iIdCategoria: iIdCategoria };
+
+    Data['EstatusCat'] = JSON.stringify(EstatusCat);
+    swal.fire({
+        title: "¿Desea cambiar el estatus del producto?",
+        text: "No se podrá revertir el cambio",
+        icon: "warning",
+        buttons: true,
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true
+    }).then((respuesta) => {
+
+        if (respuesta) {
+            LlamarMetodo("POST", "../Categoria/CambiarEstatusCategoria", Data, false);
+            iIdCategoria = 0;
+            tablaCategoria.ajax.reload();
+        }
+    });
+    LimpiarFormularioCategoria();
+}
+
+
+/*Limpia el formulario de categoría
+ * No recibe ningún parámetro
+ * No retorna ningún valor
+ * */
+function LimpiarFormularioCategoria() {
+    iIdCategoria = 0;
+    tablaCategoria.ajax.reload();
+    $("#cNombre").val("");
+    $("#btnEditar").html('<i class="ti-plus icon"></i>');
+}
+

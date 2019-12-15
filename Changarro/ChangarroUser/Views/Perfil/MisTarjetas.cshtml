@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Changarro.Model.DTO.TarjetaDTO>
+
+    <div class="d-flex justify-content-between blog_title">
+        <h4>Mis Tarjetas</h4>
+        @if (Model.Count() < 4)
+        {
+            <button type="button" class="close" id="btnAgregarTarjeta">
+                <span class="ti-plus"></span>
+            </button>
+        }
+    </div>
+<br />
+
+<div class="row">
+
+    @if (Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-between">
+                            <div class="col-10">
+                                <h4 class="card-title">@Html.DisplayFor(modelItem => item.cNombre)</h4>
+                            </div>
+                            <div class="opcionTarjeta col-2">
+                                @Html.Hidden("iIdTarjeta", item.iIdTarjeta)
+                                <a class="close btnEliminarTarjeta" data-dismiss="modal" aria-label="Close">
+                                    <span class="ti-trash" style="color:#000000;"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                        <ul class="list">
+                            <li>
+                                <strong>Titular</strong>
+                                : @Html.DisplayFor(modelItem => item.cTitular)
+                            </li>
+                            <li>
+                                <strong>Numero de tarjeta</strong>
+                                : @Html.DisplayFor(modelItem => item.cNumeroTarjeta)
+                            </li>
+                            <li>
+                                <strong>Mes de Expiración</strong>
+                                : @Html.DisplayFor(modelItem => item.iMesExpiracion)
+                            </li>
+                            <li>
+                                <strong>Año de Expiración</strong>
+                                : @Html.DisplayFor(modelItem => item.iAnioExpiracion)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <br />
+            </div>
+        }
+    }
+    else
+    {
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <p class="lead">Parece que aún no ha registrado ninguna tarjeta como método de pago, cuando usted agregue una o mas tarjetas, usted podrá consultarlas aquí</p>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+

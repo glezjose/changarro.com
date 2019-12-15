@@ -1,30 +1,41 @@
 ﻿@model Changarro.Model.tblCat_Producto
+
+
 @{
     ViewBag.Title = "VisualizarProducto";
     Layout = "~/Views/Shared/_Modal.cshtml";
 }
 
+@section Titulo{
+    <h2>Información</h2>}
 
 <div class="row">
-    <div class="col-md-4">
-        <img src="~/Assets/img/react.png" />
-    </div>
-    <div class="col-md-8">
-        <h3>@Html.DisplayFor(p => p.cNombre)</h3>
-        <h4>@Html.DisplayFor(p => p.cDescripcion)</h4>
-
+    <div class="container">
         <div class="row">
-            <div class="col-md-8">
-                Precio:<h5> $@Html.DisplayFor(p => p.dPrecio)</h5>
-                Existencias:<h5> @Html.DisplayFor(p => p.iCantidad)</h5>
-
-                <h5>Fecha de Registro: @Html.DisplayFor(p => p.dtFechaAlta)</h5>
-                <h5>Fecha de Modificación: @Html.DisplayFor(p => p.dtFechaModificacion)</h5>
-
+            <div class="col-md-3">
+                <img src="~/Assets/img/iPad2.png" width="120" />
             </div>
-
+            <div class="col-md-9">
+                <h2>Producto: @Html.DisplayFor(c => c.cNombre)</h2>
+                <h4>Categoría: @ViewBag.cNombreCat</h4>
+                <h6>Precio: $@Html.DisplayFor(c => c.dPrecio)</h6>
+            </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-9">
+                <p><b>Descripción: </b>@Html.DisplayFor(c => c.cDescripcion)</p>
+                <p><b>Stock:</b> @Html.DisplayFor(c => c.iCantidad)</p>
+            </div>
+            <div class="col-md-6">
+                <b>Fecha de alta:</b>
+                @Html.DisplayFor(c => c.dtFechaAlta)
+                <b>Fecha de Baja:</b>
+                @Html.DisplayFor(c => c.dfFechaBaja)
+            </div>
+            <div class="col-md-6">
+                <b>Modificado el:</b> @Html.DisplayFor(c => c.dtFechaModificacion)
+            </div>
+        </div>
     </div>
 </div>
 

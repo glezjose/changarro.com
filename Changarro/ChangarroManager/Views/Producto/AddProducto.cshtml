@@ -1,55 +1,74 @@
-﻿
+﻿@model IEnumerable<Changarro.Model.DTO.ListaProductosDTO>
+
 @{
-    ViewBag.Title = "AddProducto";
     Layout = "~/Views/Shared/_Modal.cshtml";
 }
 @section header{
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#detallesPanel" role="tab">Detalles</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#descripcionPanel" role="tab">Descripción</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#imagenPanel" role="tab">Imagen</a>
-        </li>
-    </ul>
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-        <i class="ti-close"></i>
-    </button>
+    <div class="modal-header" id="modalProductosHeader">
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#detallesPanel" role="tab">Detalles</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#descripcionPanel" role="tab">Descripción</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#imagenPanel" role="tab">Imagen</a>
+            </li>
+        </ul>
+
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <i class="ti-close"></i>
+
+        </button>
+    </div>
 }
 
-@section Titulo{
-    Datos generales}
 
 <div class="tab-content mt-2">
     <div class="tab-pane fade show active" id="detallesPanel" role="tabpanel">
-        <h4>Agregar detalles</h4>
-        <form class="row contact_form" action="#" method="post" novalidate="novalidate" id="form4">
-            <div class="col-md-6 form-group p_star">
-                <label for="cNombre">Nombre(s)</label>
-                <input type="text" class="form-control" id="cNombre" placeholder="Nombre" name="cNombre" value="Alvin">
+        <form class="contact_form" action="#" method="post" novalidate="novalidate" id="form4">
+            <div class="row">
+                <div class="col-md-6 form-group p_star">
+                    <label for="iIdCategoria">Categoría</label>
+                    @Html.DropDownList("iIdCategoria", (SelectList)ViewBag.ListaCategoria, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group p_star">
+                    <label for="cNombre">Nombre(s)</label>
+                    <input type="text" class="form-control" id="cNombre" placeholder="Nombre" name="cNombre">
+                </div>
+                <div class="col-md-4  form-group p_star">
+                    <label for="dPrecio">Precio:</label>
+                    <input id="dPrecio" name="dPrecio" type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="$ Precio">
+                </div>
+
+                <div class="col-md-4 form-group p_star">
+                    <label for="iCantidad">Cantidad</label>
+                    <input type="number" class="form-control" id="iCantidad" placeholder="Cantidad" name="iCantidad" value="Alvin">
+                </div>
             </div>
         </form>
     </div>
-    <div class="tab-pane fade" id="descripcionPanel" role="tabpanel">
+    <div class="tab-pane " id="descripcionPanel" role="tabpanel">
         <h4>Agregar descripción</h4>
-        <textarea name="content" id="editor">
-                            Here goes the initial content of the editor.
-                            </textarea>
+        <textarea name="editor" id="editor" rows="10" cols="50"></textarea>
     </div>
     <div class="tab-pane fade" id="imagenPanel" role="tabpanel">
         <h4>Agregar imagen</h4>
-        <form action="/file-upload" class="dropzone" id="my-awesome-dropzone">
-        </form>
+        <div action="/file-upload" class="dropzone" id="my-awesome-dropzone">
+        </div>
     </div>
 </div>
 <div class="progress mt-5">
-    <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">Step 1 of 3</div>
+    <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">Paso 1 de 3</div>
 </div>
+
+
+
 @section footer{
-    <div class="modal-footer" id="modalProductosFooter">
-        <button id="continuar" type="button" class="btn btn-warning">Continuar</button>
-    </div>
+
+    <button id="continuar" type="button" class="btn btn-warning">Continuar</button>
 }

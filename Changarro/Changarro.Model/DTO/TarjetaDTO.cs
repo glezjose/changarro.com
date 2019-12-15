@@ -24,59 +24,18 @@ namespace Changarro.Model.DTO {
 
 		}
 
-		public string cNombre{
-			get{
-				return cNombre;
-			}
-			set{
-				cNombre = value;
-			}
-		}
+		public int iIdTarjeta { get; set; }
 
-		public string cNumeroTarjeta{
-			get{
-				return cNumeroTarjeta;
-			}
-			set{
-				cNumeroTarjeta = value;
-			}
-		}
+		public int iIdCliente { get; set; }
+		public string cNombre { get; set; }
 
-		public string cTitular{
-			get{
-				return cTitular;
-			}
-			set{
-				cTitular = value;
-			}
-		}
+		public string cNumeroTarjeta { get; set; }
 
-		public DateTime dtAnioExpiracion{
-			get{
-				return dtAnioExpiracion;
-			}
-			set{
-				dtAnioExpiracion = value;
-			}
-		}
+		public string cTitular { get; set; }
 
-		public DateTime dtMesExpiracion{
-			get{
-				return dtMesExpiracion;
-			}
-			set{
-				dtMesExpiracion = value;
-			}
-		}
+		public byte iAnioExpiracion { get; set; }
 
-		public int iIdTarjeta{
-			get{
-				return iIdTarjeta;
-			}
-			set{
-				iIdTarjeta = value;
-			}
-		}
+		public byte iMesExpiracion { get; set; }
 
 	}//end TarjetaDTO
 

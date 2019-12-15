@@ -14,8 +14,9 @@ function AbrirModal(cUrl, funcion) {
                 show: true,
                 backdrop: "static"
             });
-
-            funcion();
+            if (funcion != null) {
+                funcion();
+            }
         },
         error: function () {
             alert('falle');
@@ -104,4 +105,26 @@ function PersisteCarrito(cUrl, funcion) {
             alert('error');
         }
     });
+}
+
+/**
+ * Método que comprueba que una tecla este dentro de un rango de caracteres
+ * @param {any} iTecla Código de tecla
+ * @param {any} iMinimo Valor de tecla mínimo
+ * @param {any} iMaximo Valor de tecla Máximo
+ */
+function RangoCodigosTeclas(iTecla, iMinimo, iMaximo) {
+    return iTecla >= iMinimo && iTecla <= iMaximo;
+}
+
+function SinExistencia(event) {
+    event.preventDefault();
+
+    Toast.fire({
+        icon: "error",
+        title: "No hay existencia disponible para este producto."
+    });
+
+    $('#modalGeneral').modal('hide');
+
 }

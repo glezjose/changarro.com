@@ -1,67 +1,19 @@
-﻿@model Changarro.Model.DTO.AdministradorDTO
-
-@{
+﻿@{
     ViewBag.Title = "PerfilAdministrador";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>PerfilAdministrador</h2>
+@section Titulo{
+    Perfil Administrador
+}
 
-<div>
-    <h4>AdministradorDTO</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.cApellido)
-        </dt>
+<div class="container" id="contenedorDatos">
 
-        <dd>
-            @Html.DisplayFor(model => model.cApellido)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cCorreo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cCorreo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cImagen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cImagen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cNombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cNombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cTelefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cTelefono)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.iIdAdministrador)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.iIdAdministrador)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@section scripts{
+
+    <script src="~/Scripts/PerfilAdministrador/PerfilAdministrador.js"></script>
+    <script src="~/Scripts/PerfilAdministrador/Validaciones.js"></script>
+
+}

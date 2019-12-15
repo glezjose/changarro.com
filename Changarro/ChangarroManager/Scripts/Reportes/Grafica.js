@@ -8,42 +8,45 @@
  */
 function productosMasVendidos() {
 
-    const oElemento =
+    const _oElemento =
     {
-        cId: "productosVendidos",
-        cMensaje: "MensajeError",
-        cClase: "amchartdiv"
+        _ciId: "ProductosVendidos",
+        _cmensajeError: "Error",
+        _cmensajeAdvertencia: "Advertencia",
+        _cclaseGrafica: "chartdiv"
     }
 
-    obtenerDatosGraficas("POST", "Inicio/ListaProductosMasVendidos", oElemento, cargarGraficaProductos)
+    obtenerDatosGraficas("POST", "Inicio/ListaProductosMasVendidos", _oElemento, cargarGraficaProductos)
 }
 
 /** Función que obtiene datos de los clientes con más compras realizadas.
  */
 function clientesConMasCompras() {
 
-    const oElemento =
+    const _oElemento =
     {
-        cId: "ClientesCompras",
-        cMensaje: "MensajeError2",
-        cClase: "amchartdiv2"
+        _ciId: "ClientesCompras",
+        _cmensajeError: "Error2",
+        _cmensajeAdvertencia:"Advertencia2",
+        _cclaseGrafica: "amchartdiv2"
     }
 
-    obtenerDatosGraficas("POST", "Inicio/ListaClientesConMasCompras", oElemento, cargarGraficaUsuarios)
+    obtenerDatosGraficas("POST", "Inicio/ListaClientesConMasCompras", _oElemento, cargarGraficaUsuarios)
 }
 
 /** Función que obtiene el número de productos que hay en cada categoría.
  */
 function productosPorCategoria() {
 
-    const oElemento =
+    const _oElemento =
     {
-        cId: "CategoriasProductos",
-        cMensaje: "MensajeError3",
-        cClase: "amchartdiv"
+        _ciId: "CategoriasProductos",
+        _cmensajeError: "Error3",
+        _cmensajeAdvertencia: "Advertencia3",
+        _cclaseGrafica: "amchartdiv"
     }
 
-    obtenerDatosGraficas("POST", "Inicio/ListaProductosPorCategoria", oElemento, cargarGraficaCategorias)
+    obtenerDatosGraficas("POST", "Inicio/ListaProductosPorCategoria", _oElemento, cargarGraficaCategorias)
 
 }
 
