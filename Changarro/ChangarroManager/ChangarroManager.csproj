@@ -217,6 +217,7 @@
     <Content Include="Assets\js\core\bootstrap-material-design.min.js" />
     <Content Include="Assets\js\core\jquery.min.js" />
     <Content Include="Assets\js\core\popper.min.js" />
+    <Content Include="Assets\js\cropper.min.js" />
     <Content Include="Assets\js\datatables.min.js" />
     <Content Include="Assets\js\demo.js" />
     <Content Include="Assets\js\dropzone.js" />

@@ -37,14 +37,14 @@ function ObtenerListaProductos() {
                 "data": "dtFechaAlta",
                 'render': function (jsonDate) {
                     var newDate = new Date(parseInt(jsonDate.substr(6)));
-                    return newDate.format("dd/mm/yyyy");
+                    return newDate.format("mm/dd/yyyy");
                 }
             },
             {
                 "data": "dtFechaAlta",
                 'render': function (jsonDate) {
                     var newDate = new Date(parseInt(jsonDate.substr(6)));
-                    return newDate.format("dd/mm/yyyy");
+                    return newDate.format("mm/dd/yyyy");
                 }
             },
             {
@@ -81,7 +81,8 @@ function ObtenerListaProductos() {
                 "sNext": "Siguiente",
                 "sPrevious": "Anterior"
             }
-        }
+        },
+        "info": false
     });
 }
 
@@ -162,7 +163,7 @@ function MenuDesplegable() {
  * */
 function InicializarModalImportar() {
     console.log("Implementar función Inicializar Modal Importar");
-    
+
     var myDrop = new Dropzone("#dropZoneImportar", {
         url: ruta + "/Producto/SubirArchivo",
         maxfiles: 1,
@@ -173,7 +174,7 @@ function InicializarModalImportar() {
     //console.log(myDrop);
     $("#btnImportarPorductos").click(function () {
         console.log(myDrop);
-        
+
         $.ajax({
             type: "POST",
             url: ruta + "/Producto/ImportarRegistros",
@@ -233,6 +234,96 @@ function AgregaProducto() {
     TablaProducto.ajax.reload();
 }
 
+/**
+ * Método para cargar la imagen de perfil utilizando Dropzone
+ * */
+function SubirImagen() {
+
+    let oImagen;
+
+    $("#imgProductoDropzone").dropzone({
+        acceptedFiles: 'image/*',
+        dictDefaultMessage: "Deposite su imagen aqui",
+        dictInvalidFileType: "No puedes subir archivos de ese tipo",
+        dictFileTooBig: "Archivo demasiado grande ({{filesize}}MiB). Tamaño máximo: {{maxFilesize}}MiB",
+        maxFilesize: 5,
+        maxFiles: 1,
+        init: function () {
+            this.on("maxfilesexceeded", function (file) {
+                this.removeAllFiles();
+                this.addFile(file);
+            });
+        },
+        url: ruta + 'Perfil/SubirImagen',
+        success: function (file, response) {
+            MensajeErrorImagen(response)
+        },
+        transformFile: function (file, done) {
+
+            var myDropZone = this;
+
+            // Crear editor de imagen
+            var editor = document.createElement('div');
+            editor.style.position = 'fixed';
+            editor.style.left = 0;
+            editor.style.right = 0;
+            editor.style.top = 0;
+            editor.style.bottom = 0;
+            editor.style.zIndex = 9999;
+            editor.style.backgroundColor = '#000';
+            document.body.appendChild(editor);
+
+            // Crear botón de confirmación para recortar imagen
+            var buttonConfirm = document.createElement('button');
+            buttonConfirm.style.position = 'absolute';
+            buttonConfirm.style.left = '10px';
+            buttonConfirm.style.top = '10px';
+            buttonConfirm.style.zIndex = 9999;
+            buttonConfirm.textContent = 'Aceptar';
+            editor.appendChild(buttonConfirm);
+            buttonConfirm.addEventListener('click', function () {
+
+                // Get the canvas with image data from Cropper.js
+                var canvas = cropper.getCroppedCanvas({
+                    width: 120,
+                    height: 120
+                });
+
+                canvas.toBlob(function (blob) {
+
+                    // Crear thumbnail del archivo Dropzone      
+                    myDropZone.createThumbnail(
+                        blob,
+                        myDropZone.options.thumbnailWidth,
+                        myDropZone.options.thumbnailHeight,
+                        myDropZone.options.thumbnailMethod,
+                        false,
+                        function (dataURL) {
+
+                            // Actualizar el thumbnail del archivo                            
+                            myDropZone.emit('thumbnail', file, dataURL);                            
+
+                            oImagen = blob;
+                            //
+                        });
+                });
+
+                // Remover el editor de la vista
+                document.body.removeChild(editor);
+            });
+
+            // Crear un nodo de imagen para Cropper.js
+            var image = new Image();
+            image.src = URL.createObjectURL(file);
+            editor.appendChild(image);
+
+            // Crear objeto Cropper.js
+            var cropper = new Cropper(image, { aspectRatio: 1 });
+        }
+    });
+
+    return oImagen;
+}
 
 /**función para editar un producto 
  * No recibe ningún parámetro

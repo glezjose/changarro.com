@@ -41,7 +41,10 @@ function cargarTabla() {
             }
         ],
         "select": true,
-
+        "scrollY": "250px",
+        "scrollCollapse": true,
+        "paging": false,
+        "info": false,
         "oLanguage": {
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",
