@@ -379,6 +379,7 @@
     <Content Include="Views\Compra\TerminosYcondiciones.cshtml" />
     <Content Include="Views\Compra\SeleccionarCantidad.cshtml" />
     <Content Include="Views\Compra\CargarProductoUnico.cshtml" />
+    <Content Include="Views\Compra\FilaDomicilio.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

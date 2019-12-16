@@ -47,11 +47,11 @@
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <div style="float:right;">
-                                        <a href="#" id="#btnAgregarDomicilio">Agregar Domicilio</a>
+                                        <a href="#" id="btnAgregarDomicilio">Agregar Domicilio</a>
                                     </div>
                                     <div id="salto-1"></div>
                                     <table class="table">
-                                        <tbody>
+                                        <tbody id="body-domicilio">
                                             @{
                                                 Html.RenderAction("SeleccionDomicilio", "Compra");
                                             }
@@ -72,7 +72,7 @@
                             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <div style="float:right;">
-                                        <a href="#" data-toggle="modal" data-target="#modalitoxd">Agregar Tarjeta</a>
+                                        <a href="#" id="btnAgregarTarjeta">Agregar Tarjeta</a>
                                     </div>
                                     <div id="salto-2"></div>
                                     <table class="table">
@@ -167,5 +167,6 @@
 </section>
 
 @section scripts{
+    <script src="~/Scripts/Perfil/Domicilios.js"></script>
     <script src="~/Scripts/Compra/compra.js"></script>
 }

@@ -105,6 +105,7 @@ function HabilitarCVV() {
         $(this).attr("checked", true);
 
         $(".cvv").attr("hidden", true);
+        $(".cvv").val("");
         $(this).parent().siblings(".cvv-input").find(".cvv").removeAttr("hidden");
         $(this).parent().siblings(".cvv-input").find(".formCVV").attr("visible", true);
     });
@@ -162,7 +163,7 @@ function ObtenerCompra() {
 }
 
 function AgregarNuevoDomicilio() {
-    if (!$(".row-domicilio").length == 4) {
+    if ($(".row-domicilio").length != 4) {
         IniciarBotonNuevoDomicilio();
     } else {
         $("#btnAgregarDomicilio").hide();
@@ -171,12 +172,25 @@ function AgregarNuevoDomicilio() {
 
 function IniciarBotonNuevoDomicilio() {
     $("#btnAgregarDomicilio").click(function (e) {
-        AbrirModal("Perfil/RegistroDireccion", null);
+        AbrirModal("Perfil/RegistroDireccion", GuardarDomicilio);
+    });
+}
+
+function GuardarDomicilio() {
+    $("#btnGuardarCambiosDireccion").click(function (e) {
+        e.preventDefault();
+
+        ValidarFormularioDomicilio();
+
+        if ($('#formDomicilio').valid() === true) {
+
+            GuardarCambios("Compra/AgregarDomicilio", { oDomicilio: JSON.stringify(ObtenerDatosDomicilio()) }, AgregarFilaDomicilio);
+        }
     });
 }
 
 function AgregarNuevaTarjeta() {
-    if (!$(".row-tarjeta").length == 4) {
+    if ($(".row-tarjeta").length != 4) {
         IniciarBotonNuevaTarjeta();
     } else {
         $("#btnAgregarTarjeta").hide();
@@ -186,5 +200,44 @@ function AgregarNuevaTarjeta() {
 function IniciarBotonNuevaTarjeta() {
     $("#btnAgregarTarjeta").click(function (e) {
         AbrirModal("Perfil/RegistroTarjeta", null);
+    });
+}
+
+function GuardarCambios(cUrl, data, MiFuncion) {
+    $.ajax({
+        type: "POST",
+        url: ruta + cUrl,
+        data: data,
+        dataType: "json",
+        success: function (response) {
+            if (response.lStatus === true) {
+                let iIdDomicilio = response.iIdDomicilio;
+                let cUrlVistas = "Compra/FilaDomicilio?iIdDomicilio=" + iIdDomicilio;
+                MiFuncion(cUrlVistas);
+
+            }
+        }
+    });
+}
+
+function AgregarFilaDomicilio(cUrl) {
+    $.ajax({
+        type: "POST",
+        url: ruta + cUrl,
+        dataType: "html",
+        success: function (response) {
+            Toast.fire({
+                icon: "success",
+                title: "Nueva direccion agregada con exito"
+            });
+
+            $('#modalGeneral').modal('hide');
+
+            $("#body-domicilio").append(response);
+
+        },
+        error: function (response) {
+            alert("Error en fila nueva.");
+        }
     });
 }

@@ -160,6 +160,27 @@ namespace ChangarroUser.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult FilaDomicilio(int iIdDomicilio)
+        {
+            DomicilioCompraDTO _oDomicilio = domicilio.ObtenerDomicilioCompra(iIdDomicilio);
+
+            return PartialView(_oDomicilio);
+        }
+
+        public JsonResult AgregarDomicilio()
+        {
+
+            Domicilio oDomicilio = new Domicilio();
+
+            DomicilioDTO _oDomicilio = JsonConvert.DeserializeObject<DomicilioDTO>(Request["oDomicilio"]);
+
+            _oDomicilio.iIdCliente = Convert.ToInt32(Session["iIdCliente"]);
+            int iIdDomicilio =  oDomicilio.AgregarNuevoDomicilio(_oDomicilio);
+
+
+            return Json(new { iIdDomicilio });
+        }
         #endregion
 
         #region Hacer compra

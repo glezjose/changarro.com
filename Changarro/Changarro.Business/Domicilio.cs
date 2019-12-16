@@ -175,6 +175,43 @@ namespace Changarro.Business
             return _lstDomicilios;
         }
 
+        public DomicilioCompraDTO ObtenerDomicilioCompra(int iIdDomicilio)
+        {
+            DomicilioCompraDTO _oDomicilio = db.tblCat_Direccion.AsNoTracking().Where(d => d.iIdDireccion == iIdDomicilio).Select(d => new DomicilioCompraDTO
+            {
+                iIdDomicilio = d.iIdDireccion,
+                cNombre = d.cNombre,
+                cDomicilio = d.cCalle + " " + d.cNumeroExterior + " " + d.cColonia + ", " + d.cMunicipio + ", " + d.tbl_Estado.cNombre
+            }).FirstOrDefault();
+
+            return _oDomicilio;
+        }
+
+        public int AgregarNuevoDomicilio(DomicilioDTO oDomicilio)
+        {
+            tblCat_Direccion _oDireccion = new tblCat_Direccion()
+            {
+                lEstatus = true,
+                iIdCliente = oDomicilio.iIdCliente,
+                iIdEstado = oDomicilio.iIdEstado,
+                iCodigoPostal = oDomicilio.iCodigoPostal,
+                cNombre = oDomicilio.cNombre,
+                cCalle = oDomicilio.cCalle,
+                cColonia = oDomicilio.cColonia,
+                cDescripcion = oDomicilio.cDescripcion,
+                cMunicipio = oDomicilio.cMunicipio,
+                cNumeroExterior = oDomicilio.cNumeroExterior,
+                cNumeroInterior = oDomicilio.cNumeroInterior,
+            };
+
+            db.tblCat_Direccion.Add(_oDireccion);
+            db.SaveChanges();
+
+            int iIdDomicilio = _oDireccion.iIdDireccion;
+
+            return iIdDomicilio;
+        }
+
     }//end Domicilio
 
 }//end namespace ChangarroBusiness

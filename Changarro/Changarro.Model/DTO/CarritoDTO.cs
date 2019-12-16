@@ -21,7 +21,26 @@ namespace Changarro.Model.DTO {
         public int iCantidadExistente { get; set; }
         public decimal dPrecio { get; set; }
         public string cNombre { get; set; }
-        public string cImagen { get; set; }
+        /// <summary>
+        /// Variable representado como almacén de respaldo.
+        /// </summary>
+        private string _cImagen;
+
+        /// <summary>
+        /// Ruta de la imagen del producto.
+        /// </summary>
+        public string cImagen
+        {
+            get { return _cImagen; }
+            set
+            {
+                char[] separador = { '_' };
+
+                String[] _arrImagen = value.Split(separador);
+
+                _cImagen = "https://res.cloudinary.com/blue-ocean-technologies/image/upload/v" + _arrImagen[0] + "/Changarro/Productos/" + _arrImagen[1];
+            }
+        }
         public string cDescripcion { get; set; }
 
     }//end CarritoDTO

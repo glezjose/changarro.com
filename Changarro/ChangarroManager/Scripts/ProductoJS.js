@@ -164,7 +164,7 @@ function InicializarModalImportar() {
     console.log("Implementar función Inicializar Modal Importar");
     
     var myDrop = new Dropzone("#dropZoneImportar", {
-        url: "../Producto/SubirArchivo",
+        url: ruta + "/Producto/SubirArchivo",
         maxfiles: 1,
         maxFilesize: 5,
         acceptedFiles: ".xls, .xlsx",
@@ -176,7 +176,7 @@ function InicializarModalImportar() {
         
         $.ajax({
             type: "POST",
-            url: "../Producto/ImportarRegistros",
+            url: ruta + "/Producto/ImportarRegistros",
             data: {
                 _cNombreArchivo: myDrop.files[0].name.trim()
             },
