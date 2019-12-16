@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Web;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using System.Linq;
 
 namespace ChangarroUser.Controllers
 {
@@ -411,8 +412,8 @@ namespace ChangarroUser.Controllers
             try
             {
                 DatosClienteDTO _oDatosCliente = _oCliente.ObtenerDatosCliente(iIdCliente);
-
-                _cNombreImagen = _oDatosCliente.cTelefono.Substring(0, 4) + _oDatosCliente.cNombre.Substring(0, 5) + _oDatosCliente.cCorreo.Substring(0, 6);
+                _oDatosCliente.cTelefono = _oDatosCliente.cTelefono != "N/A" ? _oDatosCliente.cTelefono : "imgDefCliente";
+                _cNombreImagen = _oDatosCliente.cNombre.First() + new string(_oDatosCliente.cTelefono.Take(9).ToArray());
 
                 if (file != null || file.ContentLength != 0)
                 {

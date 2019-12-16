@@ -77,6 +77,7 @@ namespace ChangarroManager.Controllers
         /// </summary>
         /// <returns>Devuelve un mensaje de acuerdo al estatus de la acción</returns>
         [HttpPost]
+        [ValidateInput(false)]
         public JsonResult AgregarProducto()
         {
             tblCat_Producto _objProducto;
