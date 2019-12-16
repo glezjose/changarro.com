@@ -44,6 +44,8 @@ function Continuar() {
         if (counter == 2) {
             event.preventDefault();
 
+            AgregarNuevaTarjeta();
+
             $("#collapseTwo").slideDown();
 
             $("#btnPago").text("Revisar compra");
@@ -69,10 +71,28 @@ function Continuar() {
             ValidarCVV();
             const lValidar = $(".radio-card:checked").parent().siblings(".cvv-input").find(".formCVV").valid();
             if (lValidar) {
-                RealizarCompra();
+                if ($("#checkTerminos").attr("checked")) {
+                    RealizarCompra();
+                } else {
+                    Toast.fire({
+                        icon: "warning",
+                        title: "Por favor lea los terminos y condiciones."
+                    });
+                }
             } else {
                 LlevarAcvv();
             }
+        }
+    });
+}
+
+function HabilitarTerminosyCondiciones() {
+    $("#checkTerminos").click(function (e) {
+        if ($(this).attr("checked")) {
+            $(this).removeAttr("checked");
+        } else {
+            this.checked = true;
+            $(this).attr("checked", true);
         }
     });
 }
@@ -104,6 +124,10 @@ function CargarBotonesInicio() {
 
         AbrirModal(cUrl, null);
     });
+
+    HabilitarTerminosyCondiciones();
+
+    AgregarNuevoDomicilio();
 }
 
 function RealizarCompra() {
@@ -135,4 +159,32 @@ function ObtenerCompra() {
         iIdTarjeta: $(".radio-card:checked").siblings("#iIdTarjeta").val()
     }
     return _oCompra;
+}
+
+function AgregarNuevoDomicilio() {
+    if (!$(".row-domicilio").length == 4) {
+        IniciarBotonNuevoDomicilio();
+    } else {
+        $("#btnAgregarDomicilio").hide();
+    }
+}
+
+function IniciarBotonNuevoDomicilio() {
+    $("#btnAgregarDomicilio").click(function (e) {
+        AbrirModal("Perfil/RegistroDireccion", null);
+    });
+}
+
+function AgregarNuevaTarjeta() {
+    if (!$(".row-tarjeta").length == 4) {
+        IniciarBotonNuevaTarjeta();
+    } else {
+        $("#btnAgregarTarjeta").hide();
+    }
+}
+
+function IniciarBotonNuevaTarjeta() {
+    $("#btnAgregarTarjeta").click(function (e) {
+        AbrirModal("Perfil/RegistroTarjeta", null);
+    });
 }

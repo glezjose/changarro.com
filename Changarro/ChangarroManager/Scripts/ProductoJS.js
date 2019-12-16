@@ -37,14 +37,14 @@ function ObtenerListaProductos() {
                 "data": "dtFechaAlta",
                 'render': function (jsonDate) {
                     var newDate = new Date(parseInt(jsonDate.substr(6)));
-                    return newDate.format("dd/mm/yyyy");
+                    return newDate.format("mm/dd/yyyy");
                 }
             },
             {
                 "data": "dtFechaAlta",
                 'render': function (jsonDate) {
                     var newDate = new Date(parseInt(jsonDate.substr(6)));
-                    return newDate.format("dd/mm/yyyy");
+                    return newDate.format("mm/dd/yyyy");
                 }
             },
             {
@@ -81,7 +81,8 @@ function ObtenerListaProductos() {
                 "sNext": "Siguiente",
                 "sPrevious": "Anterior"
             }
-        }
+        },
+        "info": false
     });
 }
 
@@ -145,6 +146,10 @@ function MenuDesplegable() {
         window.location = "../Producto/ExportarRegistros";
     });
 
+    $("#exportarProductosPdf").click(function () {
+        window.location.replace("../Producto/ExportarRegistrosPdf");
+    });
+
     $("#btncategoria").click(function (e) {
         e.preventDefault();
         MostrarModal("POST", "../Categoria/Categoria", null, IniciarCategoria);
@@ -158,7 +163,7 @@ function MenuDesplegable() {
  * */
 function InicializarModalImportar() {
     console.log("Implementar función Inicializar Modal Importar");
-    
+
     var myDrop = new Dropzone("#dropZoneImportar", {
         url: "../Producto/SubirArchivo",
         maxfiles: 1,
@@ -169,7 +174,7 @@ function InicializarModalImportar() {
     //console.log(myDrop);
     $("#btnImportarPorductos").click(function () {
         console.log(myDrop);
-        
+
         $.ajax({
             type: "POST",
             url: "../Producto/ImportarRegistros",
@@ -221,7 +226,7 @@ function AgregaProducto() {
         iIdCategoria: $("#iIdCategoria").val(),
         dPrecio: $("#dPrecio").val(),
         iCantidad: $("#iCantidad").val(),
-        cDescripcion: data
+        cDescripcion: $("#cDescripcion").val()
     };
     Data['Producto'] = JSON.stringify(Producto);
 

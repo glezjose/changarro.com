@@ -338,6 +338,9 @@
     <Content Include="Assets\scss\theme\_product.scss" />
     <Content Include="Assets\scss\theme\_reset.scss" />
     <Content Include="Assets\scss\theme\_variables.scss" />
+    <Content Include="Assets\fonts\Roboto-Regular.ttf" />
+    <Content Include="Assets\fonts\Poppins-Regular.ttf" />
+    <Content Include="Assets\fonts\Poppins-Medium.ttf" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

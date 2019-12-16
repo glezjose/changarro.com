@@ -543,7 +543,6 @@
     <Content Include="Views\Producto\EditarProducto.cshtml" />
     <Content Include="Views\Categoria\Categoria.cshtml" />
     <Content Include="Views\Producto\ImportarProducto.cshtml" />
-    <Content Include="Plantillas\PlantillaVacia\test.xls" />
     <Content Include="Plantillas\PlantillaVacia\Plantilla.xlsx" />
     <Content Include="Views\PerfilAdministrador\Index.cshtml" />
     <Content Include="Views\Inicio\Login.cshtml" />
