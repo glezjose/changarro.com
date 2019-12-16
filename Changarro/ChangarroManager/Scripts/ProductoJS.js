@@ -145,6 +145,10 @@ function MenuDesplegable() {
         window.location = "../Producto/ExportarRegistros";
     });
 
+    $("#exportarProductosPdf").click(function () {
+        window.location.replace("../Producto/ExportarRegistrosPdf");
+    });
+
     $("#btncategoria").click(function (e) {
         e.preventDefault();
         MostrarModal("POST", "../Categoria/Categoria", null, IniciarCategoria);
