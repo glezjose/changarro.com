@@ -45,6 +45,7 @@ namespace Changarro.Business
         {
             oCompra.iIdCliente = iIdCliente;
             oCompra.dtFechaCompra = DateTime.Now;
+            oCompra.lEstatus = true;
 
             db.tblCat_Compra.Add(oCompra);
             db.SaveChanges();
@@ -60,14 +61,19 @@ namespace Changarro.Business
 
         /// 
         /// <param name="iIdCliente"></param>
-        public List<tbl_DetalleCompra> ObtenerCompra(int iIdCompra)
+        public List<CatalogoProductosDTO> ObtenerCompra(int iIdCompra)
         {
             using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
                 ctx.Configuration.LazyLoadingEnabled = true;
                 ctx.Configuration.ProxyCreationEnabled = true;
 
-                List<tbl_DetalleCompra> _lstCompras = ctx.tbl_DetalleCompra.Where(c => c.iIdCompra == iIdCompra).ToList();
+                List<CatalogoProductosDTO> _lstCompras = ctx.tbl_DetalleCompra.Where(c => c.iIdCompra == iIdCompra).Select(p => new CatalogoProductosDTO
+                {
+                    iCantidad = p.iCantidad,
+                    dPrecio = p.tblCat_Producto.dPrecio * p.iCantidad,
+                    cNombre = p.tblCat_Producto.cNombre
+                }).ToList();
 
                 return _lstCompras;
             }

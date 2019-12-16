@@ -217,7 +217,7 @@ function AgregaProducto() {
         iIdCategoria: $("#iIdCategoria").val(),
         dPrecio: $("#dPrecio").val(),
         iCantidad: $("#iCantidad").val(),
-        cDescripcion: data
+        cDescripcion: $("#cDescripcion").val()
     };
     Data['Producto'] = JSON.stringify(Producto);
 

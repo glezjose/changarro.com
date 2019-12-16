@@ -164,6 +164,7 @@ namespace Changarro.Business
             {
                 iIdProducto = p.iIdProducto,
                 iIdCategoria = p.iIdCategoria,
+                iCantidad = p.iCantidad,
                 dPrecio = p.dPrecio,
                 cNombre = p.cNombre,
                 cImagen = p.cImagen,
@@ -184,6 +185,7 @@ namespace Changarro.Business
             {
                 iIdProducto = p.iIdProducto,
                 iIdCategoria = p.iIdCategoria,
+                iCantidad = p.iCantidad,
                 dPrecio = p.dPrecio,
                 cNombre = p.cNombre,
                 cImagen = p.cImagen,
@@ -199,6 +201,7 @@ namespace Changarro.Business
             {
                 iIdProducto = p.iIdProducto,
                 iIdCategoria = p.iIdCategoria,
+                iCantidad = p.iCantidad,
                 dPrecio = p.dPrecio,
                 cNombre = p.cNombre,
                 cImagen = p.cImagen,
