@@ -8275,3 +8275,8 @@ input[type=number] {
 .table td{
     vertical-align: middle;
 }
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+}

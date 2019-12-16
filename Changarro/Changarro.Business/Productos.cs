@@ -14,8 +14,10 @@ using System.Data.Entity;
 using System;
 using System.IO;
 using NPOI.SS.UserModel;
-using NPOI.HSSF.UserModel;
 using NPOI.XSSF.UserModel;
+using NPOI.SS.Util;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Changarro.Business
 {
@@ -258,19 +260,39 @@ namespace Changarro.Business
                 "Existencia"
             };
 
+            List<string> lstCategorias = (from cat in db.tblCat_Categoria
+                                          select cat.cNombre).ToList();
+
             using (FileStream _oFileStream = new FileStream(cRutaPlantilla, FileMode.Create, FileAccess.Write))
             {
                 IWorkbook oLibro = new XSSFWorkbook();
                 ISheet oHoja = oLibro.CreateSheet("Plantilla");
+                ISheet oHojaCategorias = oLibro.CreateSheet("Categorias");
                 ICreationHelper oAyudanteCreacion = oLibro.GetCreationHelper();
                 IRow oFilaEncabezados = oHoja.CreateRow(0);
+                ICellStyle oEstiloDeCelda = oLibro.CreateCellStyle();
+                oEstiloDeCelda.Alignment = HorizontalAlignment.Center;
+                XSSFFont fuenteDeCelda = new XSSFFont();
+                fuenteDeCelda.Boldweight = 700;
+                oEstiloDeCelda.SetFont(fuenteDeCelda);
                 for (int i = 0; i < lstEncabezados.Count; i++)
                 {
                     ICell oCelda = oFilaEncabezados.CreateCell(i);
                     oCelda.SetCellValue(lstEncabezados[i]);
+                    oCelda.CellStyle = oEstiloDeCelda;
                     oHoja.AutoSizeColumn(i);
                     GC.Collect();
                 }
+                
+                IDataValidationHelper oAyudanteDeValidacionExcel = new XSSFDataValidationHelper((XSSFSheet)oHoja); 
+                CellRangeAddressList oRangoDeCeldasCategoria = new CellRangeAddressList(1, 300, 3, 3);
+                CellRangeAddressList oRangoDeCeldasEstatus = new CellRangeAddressList(1, 300, 4, 4);
+                XSSFDataValidationConstraint oReglaValidacionListaCategorias = (XSSFDataValidationConstraint)oAyudanteDeValidacionExcel.CreateExplicitListConstraint(lstCategorias.ToArray());
+                XSSFDataValidationConstraint oReglaDeValidacionEstatus = (XSSFDataValidationConstraint)oAyudanteDeValidacionExcel.CreateExplicitListConstraint(new string[] { "Activo", "Inactivo" });
+                IDataValidation oValidadorCategorias = oAyudanteDeValidacionExcel.CreateValidation(oReglaValidacionListaCategorias, oRangoDeCeldasCategoria);
+                IDataValidation oValidadorEstatus = oAyudanteDeValidacionExcel.CreateValidation(oReglaDeValidacionEstatus, oRangoDeCeldasEstatus);
+                oHoja.AddValidationData(oValidadorCategorias);
+                oHoja.AddValidationData(oValidadorEstatus);
                 oLibro.Write(_oFileStream);
 
                 oLibro.Close();
@@ -325,16 +347,20 @@ namespace Changarro.Business
                                 oProducto.iIdCategoria = ObtenerIdCategoria(oCeldaDatos.StringCellValue);
                                 break;
                             case 4:
+                                
+                                bool lEstatusActivoProducto = true;
+                                string cDatoEstatusEnCelda = oCeldaDatos.StringCellValue;
 
-                                try
+                                if (cDatoEstatusEnCelda.Equals("Activo"))
                                 {
-                                    oProducto.lEstatus = Convert.ToBoolean(oCeldaDatos.NumericCellValue);
+                                    lEstatusActivoProducto = true;
                                 }
-                                catch (Exception)
+                                else
                                 {
-                                    oProducto.lEstatus = Convert.ToBoolean(oCeldaDatos.BooleanCellValue);
+                                    lEstatusActivoProducto = false;
                                 }
-
+                                oProducto.lEstatus = lEstatusActivoProducto;
+                                
                                 break;
                             case 5:
                                 oProducto.iCantidad = Convert.ToInt32(oCeldaDatos.NumericCellValue);
@@ -344,7 +370,7 @@ namespace Changarro.Business
                         }
 
                     }
-                    oProducto.cImagen = "N/A";
+                    oProducto.cImagen = "Foto";
                     oProducto.dtFechaAlta = DateTime.Now;
                     oProducto.dtFechaModificacion = DateTime.Now;
                     try
@@ -419,13 +445,25 @@ namespace Changarro.Business
 
                 for (int i = 0; i < lstProductos.Count; i++)
                 {
-                    IRow oFilaProducto = oHoja.CreateRow(i + 1);
+                    
+                    
+                    IRow oFilaProducto = oHoja.CreateRow(i+1);
+                    
                     ICell oCeldaNombre = oFilaProducto.CreateCell(0); oCeldaNombre.SetCellValue(lstProductos[i].cNombre);
                     ICell oCeldaDescripcion = oFilaProducto.CreateCell(1); oCeldaDescripcion.SetCellValue(lstProductos[i].cDescripcion);
                     ICell oCeldaPrecio = oFilaProducto.CreateCell(2); oCeldaPrecio.SetCellValue(double.Parse(lstProductos[i].dPrecio.ToString()));
                     string _cCategoriaAux = db.tblCat_Categoria.Find(lstProductos[i].iIdCategoria).cNombre;
                     ICell oCeldaCategoria = oFilaProducto.CreateCell(3); oCeldaCategoria.SetCellValue(_cCategoriaAux);
-                    ICell oCeldaEstatus = oFilaProducto.CreateCell(4); oCeldaEstatus.SetCellValue(lstProductos[i].lEstatus);
+                    string cEstatus = "NA";
+                    if (lstProductos[i].lEstatus)
+                    {
+                        cEstatus = "Activo";
+                    }
+                    else
+                    {
+                        cEstatus = "Inactivo";
+                    }
+                    ICell oCeldaEstatus = oFilaProducto.CreateCell(4); oCeldaEstatus.SetCellValue(cEstatus);
                     ICell oCeldaExistencia = oFilaProducto.CreateCell(5); oCeldaExistencia.SetCellValue(lstProductos[i].iCantidad);
                     oHoja.AutoSizeColumn(i);
                     GC.Collect();
@@ -440,6 +478,67 @@ namespace Changarro.Business
 
             return cRutaAbsolutaPlantilla;
         }
+
+        /// <summary>
+        /// Método que Genera un archivo PDF con los datos de los productos registrados en la BDD
+        /// No recibe ningún parámetro
+        /// </summary>
+        /// <returns>Retorna la ruta del archivo generado (string)</returns>
+        public string ExportarRegistrosPDF()
+        {
+            string cRutaAbsoluta = "";
+            string cNombreArchivo = "DatosChangarro.pdf";
+            string cHome = AppDomain.CurrentDomain.BaseDirectory;
+            cRutaAbsoluta = cHome + "Plantillas\\PlantillaLlena\\" + cNombreArchivo;
+            using (FileStream _oFileStream = new FileStream(cRutaAbsoluta, FileMode.Create, FileAccess.Write)){
+                using (Document _oArchivoPdf = new Document(PageSize.LETTER, 10f, 10f, 50f, 10f))
+                {
+                    try
+                    {
+                        PdfWriter oEscritorPdf = PdfWriter.GetInstance(_oArchivoPdf, _oFileStream);
+                        _oArchivoPdf.Open();
+                        
+                        Paragraph oParrafoTitulo = new Paragraph(@"Productos Changarro™", new Font(Font.FontFamily.TIMES_ROMAN, 24));
+                        oParrafoTitulo.Alignment = Element.ALIGN_CENTER;
+                        _oArchivoPdf.Add(oParrafoTitulo);
+                        _oArchivoPdf.Add(Chunk.NEWLINE);
+                        PdfPTable oTablaProductos = new PdfPTable(6);
+                        List<tblCat_Producto> lstProductos = db.tblCat_Producto.ToList();
+                        Font oFuenteNegritas = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+                        List<Phrase> lstEncabezados = new List<Phrase>() {
+                            new Phrase("Nombre", oFuenteNegritas),
+                            new Phrase("Descripcion", oFuenteNegritas),
+                            new Phrase("Precio", oFuenteNegritas),
+                            new Phrase("Categoria", oFuenteNegritas),
+                            new Phrase("Estatus", oFuenteNegritas),
+                            new Phrase("Existencia", oFuenteNegritas)
+                        };
+                        foreach(Phrase contenido in lstEncabezados)
+                        {
+                            oTablaProductos.AddCell(contenido);
+                        }
+                        foreach (var producto in lstProductos)
+                        {
+                            oTablaProductos.AddCell(producto.cNombre);
+                            oTablaProductos.AddCell(producto.cDescripcion);
+                            oTablaProductos.AddCell(producto.dPrecio.ToString());
+                            oTablaProductos.AddCell(db.tblCat_Categoria.Find(producto.iIdCategoria).cNombre);
+                            oTablaProductos.AddCell(producto.lEstatus ? "Activo" : "Inactivo");
+                            oTablaProductos.AddCell(producto.iCantidad.ToString());
+                        }
+                        _oArchivoPdf.Add(oTablaProductos);
+
+                    }
+                    catch (Exception e)
+                    {
+                        string mensaje = e.Message;
+                        cRutaAbsoluta = "NA";
+                    }
+                }
+            }
+                return cRutaAbsoluta;
+        }
+
     }//end Productos
 
 }//end namespace ChangarroBusiness

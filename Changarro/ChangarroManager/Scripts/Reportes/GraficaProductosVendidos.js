@@ -17,11 +17,14 @@ function cargarGraficaProductos(oProductos) {
     categoryAxis.dataFields.category = "cNombre";
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.minGridDistance = 30;
-    categoryAxis.renderer.labels.template.horizontalCenter = "right";
-    categoryAxis.renderer.labels.template.verticalCenter = "middle";
-    categoryAxis.renderer.labels.template.rotation = 270;
+   
+    categoryAxis.renderer.labels.template.dy = 5;
     categoryAxis.tooltip.disabled = true;
     categoryAxis.renderer.minHeight = 110;
+
+    var label = categoryAxis.renderer.labels.template; //Cortar letras de las etiquetas.
+    label.truncate = true;
+    label.maxWidth = 150;
 
     var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());  //Crear eje Y
     valueAxis.renderer.minWidth = 50;
@@ -34,7 +37,7 @@ function cargarGraficaProductos(oProductos) {
     series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
     series.columns.template.strokeWidth = 0;
 
-    series.tooltip.pointerOrientation = "vertical";
+    series.tooltip.pointerOrientation = "down";
 
     series.columns.template.column.cornerRadiusTopLeft = 10;
     series.columns.template.column.cornerRadiusTopRight = 10;
@@ -46,5 +49,6 @@ function cargarGraficaProductos(oProductos) {
 
     
     chart.cursor = new am4charts.XYCursor(); // Cursor
+
 }
 

@@ -77,6 +77,7 @@ namespace ChangarroManager.Controllers
         /// </summary>
         /// <returns>Devuelve un mensaje de acuerdo al estatus de la acción</returns>
         [HttpPost]
+        [ValidateInput(false)]
         public JsonResult AgregarProducto()
         {
             tblCat_Producto _objProducto;
@@ -199,9 +200,9 @@ namespace ChangarroManager.Controllers
         public ActionResult ExportarRegistros()
         {
             Productos oLogicaProducto = new Productos();
-            string cRutaPlantilla = oLogicaProducto.ExportarRegistrosExcel();
-            byte[] datosBinariosPlantilla = System.IO.File.ReadAllBytes(cRutaPlantilla);
-            return File(datosBinariosPlantilla, System.Net.Mime.MediaTypeNames.Application.Octet, "DatosChangarro.xlsx");
+            string cRutaArchivo = oLogicaProducto.ExportarRegistrosExcel();
+            byte[] datosBinariosArchivo = System.IO.File.ReadAllBytes(cRutaArchivo);
+            return File(datosBinariosArchivo, System.Net.Mime.MediaTypeNames.Application.Octet, "DatosChangarro.xlsx");
         }
 
         /// <summary>
@@ -260,5 +261,15 @@ namespace ChangarroManager.Controllers
             return Json(new { Mensaje = cMensaje, Estatus = cEstatus }, JsonRequestBehavior.AllowGet);
         }
 
+
+
+        [HttpGet]
+        public ActionResult ExportarRegistrosPdf()
+        {
+            Productos oLogicaProductos = new Productos();
+            string cRutaArchivo = oLogicaProductos.ExportarRegistrosPDF();
+            byte[] datosBinariosArchivo = System.IO.File.ReadAllBytes(cRutaArchivo);
+            return File(datosBinariosArchivo, System.Net.Mime.MediaTypeNames.Application.Octet, "DatosChangarro.pdf");
+        }
     }
 }
