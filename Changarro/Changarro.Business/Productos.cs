@@ -14,10 +14,10 @@ using System.Data.Entity;
 using System;
 using System.IO;
 using NPOI.SS.UserModel;
-using NPOI.HSSF.UserModel;
 using NPOI.XSSF.UserModel;
-using NPOI.OpenXmlFormats.Spreadsheet;
 using NPOI.SS.Util;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Changarro.Business
 {
@@ -166,6 +166,7 @@ namespace Changarro.Business
             {
                 iIdProducto = p.iIdProducto,
                 iIdCategoria = p.iIdCategoria,
+                iCantidad = p.iCantidad,
                 dPrecio = p.dPrecio,
                 cNombre = p.cNombre,
                 cImagen = p.cImagen,
@@ -186,6 +187,7 @@ namespace Changarro.Business
             {
                 iIdProducto = p.iIdProducto,
                 iIdCategoria = p.iIdCategoria,
+                iCantidad = p.iCantidad,
                 dPrecio = p.dPrecio,
                 cNombre = p.cNombre,
                 cImagen = p.cImagen,
@@ -201,6 +203,7 @@ namespace Changarro.Business
             {
                 iIdProducto = p.iIdProducto,
                 iIdCategoria = p.iIdCategoria,
+                iCantidad = p.iCantidad,
                 dPrecio = p.dPrecio,
                 cNombre = p.cNombre,
                 cImagen = p.cImagen,
@@ -367,7 +370,7 @@ namespace Changarro.Business
                         }
 
                     }
-                    oProducto.cImagen = "N/A";
+                    oProducto.cImagen = "Foto";
                     oProducto.dtFechaAlta = DateTime.Now;
                     oProducto.dtFechaModificacion = DateTime.Now;
                     try
@@ -474,6 +477,66 @@ namespace Changarro.Business
             }
 
             return cRutaAbsolutaPlantilla;
+        }
+
+        /// <summary>
+        /// Método que Genera un archivo PDF con los datos de los productos registrados en la BDD
+        /// No recibe ningún parámetro
+        /// </summary>
+        /// <returns>Retorna la ruta del archivo generado (string)</returns>
+        public string ExportarRegistrosPDF()
+        {
+            string cRutaAbsoluta = "";
+            string cNombreArchivo = "DatosChangarro.pdf";
+            string cHome = AppDomain.CurrentDomain.BaseDirectory;
+            cRutaAbsoluta = cHome + "Plantillas\\PlantillaLlena\\" + cNombreArchivo;
+            using (FileStream _oFileStream = new FileStream(cRutaAbsoluta, FileMode.Create, FileAccess.Write)){
+                using (Document _oArchivoPdf = new Document(PageSize.LETTER, 10f, 10f, 50f, 10f))
+                {
+                    try
+                    {
+                        PdfWriter oEscritorPdf = PdfWriter.GetInstance(_oArchivoPdf, _oFileStream);
+                        _oArchivoPdf.Open();
+                        
+                        Paragraph oParrafoTitulo = new Paragraph(@"Productos Changarro™", new Font(Font.FontFamily.TIMES_ROMAN, 24));
+                        oParrafoTitulo.Alignment = Element.ALIGN_CENTER;
+                        _oArchivoPdf.Add(oParrafoTitulo);
+                        _oArchivoPdf.Add(Chunk.NEWLINE);
+                        PdfPTable oTablaProductos = new PdfPTable(6);
+                        List<tblCat_Producto> lstProductos = db.tblCat_Producto.ToList();
+                        Font oFuenteNegritas = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+                        List<Phrase> lstEncabezados = new List<Phrase>() {
+                            new Phrase("Nombre", oFuenteNegritas),
+                            new Phrase("Descripcion", oFuenteNegritas),
+                            new Phrase("Precio", oFuenteNegritas),
+                            new Phrase("Categoria", oFuenteNegritas),
+                            new Phrase("Estatus", oFuenteNegritas),
+                            new Phrase("Existencia", oFuenteNegritas)
+                        };
+                        foreach(Phrase contenido in lstEncabezados)
+                        {
+                            oTablaProductos.AddCell(contenido);
+                        }
+                        foreach (var producto in lstProductos)
+                        {
+                            oTablaProductos.AddCell(producto.cNombre);
+                            oTablaProductos.AddCell(producto.cDescripcion);
+                            oTablaProductos.AddCell(producto.dPrecio.ToString());
+                            oTablaProductos.AddCell(db.tblCat_Categoria.Find(producto.iIdCategoria).cNombre);
+                            oTablaProductos.AddCell(producto.lEstatus ? "Activo" : "Inactivo");
+                            oTablaProductos.AddCell(producto.iCantidad.ToString());
+                        }
+                        _oArchivoPdf.Add(oTablaProductos);
+
+                    }
+                    catch (Exception e)
+                    {
+                        string mensaje = e.Message;
+                        cRutaAbsoluta = "NA";
+                    }
+                }
+            }
+                return cRutaAbsoluta;
         }
 
     }//end Productos

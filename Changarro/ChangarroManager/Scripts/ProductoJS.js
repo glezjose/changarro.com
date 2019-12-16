@@ -146,6 +146,10 @@ function MenuDesplegable() {
         window.location = "../Producto/ExportarRegistros";
     });
 
+    $("#exportarProductosPdf").click(function () {
+        window.location.replace("../Producto/ExportarRegistrosPdf");
+    });
+
     $("#btncategoria").click(function (e) {
         e.preventDefault();
         MostrarModal("POST", "../Categoria/Categoria", null, IniciarCategoria);
@@ -222,7 +226,7 @@ function AgregaProducto() {
         iIdCategoria: $("#iIdCategoria").val(),
         dPrecio: $("#dPrecio").val(),
         iCantidad: $("#iCantidad").val(),
-        cDescripcion: data
+        cDescripcion: $("#cDescripcion").val()
     };
     Data['Producto'] = JSON.stringify(Producto);
 

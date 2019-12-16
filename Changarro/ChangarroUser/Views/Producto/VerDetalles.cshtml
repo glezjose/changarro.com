@@ -27,14 +27,14 @@
                     <h3>@Model.cNombre</h3>
                     <h2>$@Model.dPrecio</h2>
                     <ul class="list">
-                        <li><a class="active" href="#"><span>Categoría</span> : @ViewBag.NombreCategoria</a></li>
+                        <li><a class="active" href="#"><span>Categoría:</span> @ViewBag.NombreCategoria</a></li>
                         @if (@Model.iCantidad != 0)
                         {
-                            <li><a href="#"><span>Disponibilidad</span> : En stock</a></li>
+                            <li><a href="#"><span>Disponibilidad</span>: En stock</a></li>
                         }
                         else
                         {
-                            <li><a href="#"><span>Disponibilidad</span> : Agotado</a></li>
+                            <li><a href="#"><span>Disponibilidad</span>: <span style="color:red;">Agotado</span></a></li>
 
                         }
 

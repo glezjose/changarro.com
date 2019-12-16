@@ -10,6 +10,7 @@ namespace Changarro.Model.DTO
     {
         public int iIdProducto { get; set; }
         public int iIdCategoria { get; set; }
+        public int iCantidad { get; set; }
         public decimal dPrecio { get; set; }
         public string cNombre { get; set; }
         public string cImagen { get; set; }

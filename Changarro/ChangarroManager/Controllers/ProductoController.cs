@@ -200,9 +200,9 @@ namespace ChangarroManager.Controllers
         public ActionResult ExportarRegistros()
         {
             Productos oLogicaProducto = new Productos();
-            string cRutaPlantilla = oLogicaProducto.ExportarRegistrosExcel();
-            byte[] datosBinariosPlantilla = System.IO.File.ReadAllBytes(cRutaPlantilla);
-            return File(datosBinariosPlantilla, System.Net.Mime.MediaTypeNames.Application.Octet, "DatosChangarro.xlsx");
+            string cRutaArchivo = oLogicaProducto.ExportarRegistrosExcel();
+            byte[] datosBinariosArchivo = System.IO.File.ReadAllBytes(cRutaArchivo);
+            return File(datosBinariosArchivo, System.Net.Mime.MediaTypeNames.Application.Octet, "DatosChangarro.xlsx");
         }
 
         /// <summary>
@@ -266,7 +266,10 @@ namespace ChangarroManager.Controllers
         [HttpGet]
         public ActionResult ExportarRegistrosPdf()
         {
-            return null;
+            Productos oLogicaProductos = new Productos();
+            string cRutaArchivo = oLogicaProductos.ExportarRegistrosPDF();
+            byte[] datosBinariosArchivo = System.IO.File.ReadAllBytes(cRutaArchivo);
+            return File(datosBinariosArchivo, System.Net.Mime.MediaTypeNames.Application.Octet, "DatosChangarro.pdf");
         }
     }
 }
