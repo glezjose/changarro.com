@@ -16,7 +16,9 @@ function SubirImagen() {
     $("#imagenPerfilDropzone").dropzone({
         acceptedFiles: 'image/*',        
         dictDefaultMessage: "Deposite su imagen aqui",
-        maxFilesize: 2,
+        dictInvalidFileType: "No puedes subir archivos de ese tipo",
+        dictFileTooBig: "Archivo demasiado grande ({{filesize}}MiB). Tamaño máximo: {{maxFilesize}}MiB",
+        maxFilesize: 5,
         maxFiles: 1,
         init: function () {
             this.on("maxfilesexceeded", function (file) {
@@ -74,6 +76,7 @@ function SubirImagen() {
                             myDropZone.emit('thumbnail', file, dataURL);
 
                             // Remover el archivo de Dropzone
+                            $("#btnSubirImagen").removeClass("disabled");
                             $("#btnSubirImagen").click(function (e) {
 
                                 e.preventDefault();
