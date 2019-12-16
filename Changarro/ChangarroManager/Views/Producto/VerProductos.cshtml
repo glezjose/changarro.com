@@ -9,7 +9,7 @@
 }
 
 @section styles{
-
+    <link href="~/Assets/css/dropzone.css" rel="stylesheet" />
     <link href="~/assets/css/productos.css" rel="stylesheet" />
     <link href="~/Assets/Library/SweetAlert/sweetalert2.min.css" rel="stylesheet" />
 }
@@ -26,7 +26,7 @@
                                 Herramientas
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" id="categoria">Categorias</a>
+                                <a class="dropdown-item" id="btncategoria">Categorias</a>
                                 <a class="dropdown-item" id="descargarPlantilla">Descargar Plantilla</a>
                                 <a class="dropdown-item" id="importarProductos">Importar productos</a>
                                 <a class="dropdown-item" id="exportarProductosXlsx">Exportar productos a Excel</a>
@@ -92,5 +92,6 @@
     <script src="~/Scripts/productos.js"></script>
     <script src="~/Scripts/ProductoJS.js"></script>
     <script src="~/Scripts/CategoriasJS.js"></script>
+    <script src="~/Assets/js/cropper.min.js"></script>
 
 }

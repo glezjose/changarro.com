@@ -51,6 +51,7 @@ function Continuar2() {
     });
 }
 function GuardarProducto() {
+    const oImagen = SubirImagen();
     $('#guardar').click(function (e) {
         e.preventDefault();
         if (iIdProducto > 0) {

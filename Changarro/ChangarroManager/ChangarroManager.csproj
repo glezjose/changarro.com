@@ -217,6 +217,7 @@
     <Content Include="Assets\js\core\bootstrap-material-design.min.js" />
     <Content Include="Assets\js\core\jquery.min.js" />
     <Content Include="Assets\js\core\popper.min.js" />
+    <Content Include="Assets\js\cropper.min.js" />
     <Content Include="Assets\js\datatables.min.js" />
     <Content Include="Assets\js\demo.js" />
     <Content Include="Assets\js\dropzone.js" />
@@ -563,7 +564,6 @@
     <Folder Include="Models\" />
     <Folder Include="Plantillas\PlantillaLlena\" />
     <Folder Include="Plantillas\PlantillaSubida\" />
-    <Folder Include="Plantillas\PlantillaVacia\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Changarro.Business\Changarro.Business.csproj">
