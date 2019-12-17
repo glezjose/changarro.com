@@ -27,6 +27,7 @@ function LlamarMetodo(cTipo, cUrl, Data, Funcion) {
         async: false,
         dataType: "json",
         success: function (response) {
+            console.log(response.Mensaje);
             Swal.fire({
                 icon: "success",
                 title: response.Estatus,

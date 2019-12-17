@@ -62,6 +62,10 @@ namespace Changarro.Business
 
             using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                ctx.Configuration.ProxyCreationEnabled = false;
+                ctx.Configuration.AutoDetectChangesEnabled = false;
+
                 _oAdministrador = ctx.tblCat_Administrador.AsNoTracking()
                                     .Where(c => c.cCorreo == cCorreo)
                                     .Select(l => new LoginDTO
@@ -87,6 +91,10 @@ namespace Changarro.Business
 
             using (CHANGARROEntities ctx = new CHANGARROEntities())
             {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                ctx.Configuration.ProxyCreationEnabled = false;
+                ctx.Configuration.AutoDetectChangesEnabled = false;
+
                 _oUsuario = ctx.tblCat_Cliente.AsNoTracking()
                                     .Where(c => c.cCorreo == cCorreo && c.lEstatus == true)
                                     .Select(l => new LoginDTO

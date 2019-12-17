@@ -169,6 +169,7 @@
     <Content Include="Assets\css\basic.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\clientes.css" />
+    <Content Include="Assets\css\cropper.min.css" />
     <Content Include="Assets\css\datatables.min.css" />
     <Content Include="Assets\css\demo.css" />
     <Content Include="Assets\css\login.css" />

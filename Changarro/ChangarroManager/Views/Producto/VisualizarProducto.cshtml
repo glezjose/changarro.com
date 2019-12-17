@@ -23,7 +23,7 @@
         </div>
         <div class="row">
             <div class="col-md-9">
-                <p><b>Descripción: </b>@Html.DisplayFor(c => c.cDescripcion)</p>
+                <p><b>Descripción: </b>@(new HtmlString(Model.cDescripcion))</p>
                 <p><b>Stock:</b> @Html.DisplayFor(c => c.iCantidad)</p>
             </div>
             <div class="col-md-6">

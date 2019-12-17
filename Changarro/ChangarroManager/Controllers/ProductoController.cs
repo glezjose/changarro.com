@@ -1,12 +1,12 @@
-﻿using Changarro.Model;
+﻿using Changarro.Business;
+using Changarro.Model;
 using Changarro.Model.DTO;
-using Changarro.Business;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
-using System.Web;
 using System.IO;
-using Newtonsoft.Json;
+using System.Web;
+using System.Web.Mvc;
 
 namespace ChangarroManager.Controllers
 {
@@ -78,9 +78,9 @@ namespace ChangarroManager.Controllers
         /// <returns>Devuelve un mensaje de acuerdo al estatus de la acción</returns>
         [HttpPost]
         [ValidateInput(false)]
-        public JsonResult AgregarProducto()
+        public JsonResult AgregarProducto(HttpPostedFileBase file)
         {
-            tblCat_Producto _objProducto;
+            tblCat_Producto _objProducto; 
             try
             {
                 _objProducto = JsonConvert.DeserializeObject<tblCat_Producto>(Request["Producto"]);
@@ -210,6 +210,7 @@ namespace ChangarroManager.Controllers
         /// </summary>
         /// <returns>Devuelve un mensaje de acuerdo al estatus de la acción</returns>
         [HttpPost]
+        [ValidateInput(false)]
         public JsonResult ActualizaProducto()
         {
             tblCat_Producto _objProducto;
