@@ -78,6 +78,7 @@
     <Compile Include="DTO\CategoriasDTO.cs" />
     <Compile Include="DTO\ClienteAdministradorDTO.cs" />
     <Compile Include="DTO\ClienteDTO.cs" />
+    <Compile Include="DTO\DatosClienteCompraDTO.cs" />
     <Compile Include="DTO\DatosClienteDTO.cs" />
     <Compile Include="DTO\DetallesProductoDTO.cs" />
     <Compile Include="DTO\DomicilioCompraDTO.cs" />

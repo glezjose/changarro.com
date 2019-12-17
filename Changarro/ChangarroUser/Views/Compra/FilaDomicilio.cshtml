@@ -1,0 +1,15 @@
+﻿@model Changarro.Model.DTO.DomicilioCompraDTO
+<tr class="row-padding row-domicilio">
+    <td>
+        <input type="radio" name="domicilo" class="checkbox-round radio-address" checked>
+        @Html.Hidden("iIdDomicilio", Model.iIdDomicilio)
+    </td>
+    <td>
+        <div class="media">
+            <h5>@Model.cNombre</h5>
+        </div>
+    </td>
+    <td>
+        <h5>@Model.cDomicilio</h5>
+    </td>
+</tr>

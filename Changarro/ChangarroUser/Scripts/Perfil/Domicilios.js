@@ -93,7 +93,7 @@ function GuardarDatosDomicilio() {
 
     if ($('#formDomicilio').valid() === true) {
 
-        GuardarCambios("Perfil/ActualizarDomicilio", { oDomicilio: JSON.stringify(ObtenerDatosDomicilio()) }, null, LlamarVistaDomicilios);
+        GuardarCambios("Compra/AgregarDomicilio", { oDomicilio: JSON.stringify(ObtenerDatosDomicilio()) }, null, LlamarVistaDomicilios);
     }
 }
 

@@ -26,11 +26,26 @@ namespace Changarro.Model.DTO
         /// Propiedad que almacena el nombre del producto
         /// </summary>
         public string cNombre { get; set; }
+        /// <summary>
+        /// Variable representado como almacén de respaldo.
+        /// </summary>
+        private string _cImagen;
 
         /// <summary>
-        /// Propiedad que almacena la imagen del producto
+        /// Ruta de la imagen de perfil del cliente.
         /// </summary>
-        public string cImagen { get; set; }
+        public string cImagen
+        {
+            get { return _cImagen; }
+            set
+            {
+                char[] separador = { '_' };
+
+                String[] _arrImagen = value.Split(separador);
+
+                _cImagen = "https://res.cloudinary.com/blue-ocean-technologies/image/upload/v" + _arrImagen[0] + "/Changarro/Productos/" + _arrImagen[1];
+            }
+        }
 
         /// <summary>
         /// Propiedad la descripción del producto

@@ -8280,3 +8280,7 @@ a.disabled {
     pointer-events: none;
     cursor: default;
 }
+
+.pagination li.active a {
+    background: #e5ecee;
+}

@@ -162,5 +162,39 @@ namespace Changarro.Business
 
             return _lstTarjetas;
         }
+
+        public TarjetaCompraDTO ObtenerTarjetaCompra(int iIdTarjeta)
+        {
+            TarjetaCompraDTO _oTarjeta = db.tblCat_Tarjeta.AsNoTracking().Where(t => t.iIdTarjeta == iIdTarjeta).Select(t => new TarjetaCompraDTO
+            {
+                iIdTarjeta = t.iIdTarjeta,
+                cNombre = t.cNombre,
+                cTarjeta = t.cNumeroTarjeta.Substring(t.cNumeroTarjeta.Length - 4)
+            }).FirstOrDefault();
+
+            return _oTarjeta;
+        }
+
+        public int AgregarNuevaTarjeta(TarjetaDTO oTarjeta)
+        {
+            tblCat_Tarjeta _oTarjeta = new tblCat_Tarjeta
+            {
+                iIdCliente = oTarjeta.iIdCliente,
+                itMesExpiracion = oTarjeta.iMesExpiracion,
+                iAnioExpiracion = oTarjeta.iAnioExpiracion,
+                lEstatus = true,
+                cNombre = oTarjeta.cNombre,
+                cTitular = oTarjeta.cTitular,
+                cNumeroTarjeta = oTarjeta.cNumeroTarjeta,
+            };
+            db.tblCat_Tarjeta.Add(_oTarjeta);
+
+            db.SaveChanges();
+
+            int iIdTarjeta = _oTarjeta.iIdTarjeta;
+
+            return iIdTarjeta;
+        }
     }
+
 }

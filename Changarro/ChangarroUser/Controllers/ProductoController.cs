@@ -84,7 +84,7 @@ namespace ChangarroUser.Controllers
 
             List<CatalogoProductosDTO> _lstProductos = productos.ObtenerProductosPorCategoria(iIdCategoria);
 
-            IPagedList<CatalogoProductosDTO> _pagedlstProductos = _lstProductos.ToPagedList(_iIndicePagina, 1);
+            IPagedList<CatalogoProductosDTO> _pagedlstProductos = _lstProductos.ToPagedList(_iIndicePagina, 9);
 
             return View(_pagedlstProductos);
         }
@@ -128,7 +128,7 @@ namespace ChangarroUser.Controllers
                 ViewBag.cMensaje = "";
             }
 
-            IPagedList<CatalogoProductosDTO> _pagedlstProductos = _lstProductos.ToPagedList(_iIndicePagina, 1);
+            IPagedList<CatalogoProductosDTO> _pagedlstProductos = _lstProductos.ToPagedList(_iIndicePagina, 9);
 
             return View(_pagedlstProductos);
         }

@@ -186,8 +186,9 @@ namespace ChangarroManager.Controllers
         /// <param name="_cNombreArchivo">Nombre del archivo subido por el lado del cliente</param>
         /// <returns>retorna un json con un mensaje que de estatus de la operación</returns>
         [HttpPost]
-        public ActionResult ImportarRegistros(string _cNombreArchivo)
+        public ActionResult ImportarRegistros()
         {
+            string _cNombreArchivo = Request["_cNombreArchivo"];
             Productos oProductosBusiness = new Productos();
             string Mensaje = oProductosBusiness.ImportarProductosEnPlantilla(_cNombreArchivo);
             return Json(new { message = Mensaje });

@@ -160,6 +160,55 @@ namespace ChangarroUser.Controllers
             return View();
         }
 
+        /// <summary>
+        /// En este metodo se agrega una vista parcial de domicilios.
+        /// </summary>
+        /// <param name="iIdDomicilio"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult FilaDomicilio(int iIdDomicilio)
+        {
+            DomicilioCompraDTO _oDomicilio = domicilio.ObtenerDomicilioCompra(iIdDomicilio);
+
+            return PartialView(_oDomicilio);
+        }
+
+        /// <summary>
+        /// En esta fila se agrega domicilio obteniendo del DTO
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult AgregarDomicilio()
+        {
+
+            DomicilioDTO _oDomicilio = JsonConvert.DeserializeObject<DomicilioDTO>(Request["oDomicilio"]);
+
+            _oDomicilio.iIdCliente = Convert.ToInt32(Session["iIdCliente"]);
+            int iIdDomicilio =  domicilio.AgregarNuevoDomicilio(_oDomicilio);
+
+
+            return Json(new { iIdDomicilio });
+        }
+
+        [HttpPost]
+        public ActionResult FilaTarjeta(int iIdTarjeta)
+        {
+            TarjetaCompraDTO _oTarjeta = tarjeta.ObtenerTarjetaCompra(iIdTarjeta);
+
+            return PartialView(_oTarjeta);
+        }
+
+        [HttpPost]
+        public JsonResult AgregarTarjeta()
+        {
+
+            TarjetaDTO _oTarjeta = JsonConvert.DeserializeObject<TarjetaDTO>(Request["oTarjeta"]);
+
+            _oTarjeta.iIdCliente = Convert.ToInt32(Session["iIdCliente"]);
+            int iIdTarjeta = tarjeta.AgregarNuevaTarjeta(_oTarjeta);
+
+            return Json(new { iIdTarjeta });
+        }
         #endregion
 
         #region Hacer compra
@@ -192,7 +241,7 @@ namespace ChangarroUser.Controllers
 
                     carrito.VaciarCarrito(iIdCarrito);
 
-                    MailMessage _mmMensaje = generar.GenerarPDF(iIdCliente, iIdCompra);
+                    MailMessage _mmMensaje = generar.GenerarPDF(iIdCompra);
 
                     generar.EnviarCorreo(_mmMensaje);
 
@@ -212,7 +261,7 @@ namespace ChangarroUser.Controllers
 
                     compra.RealizarCompraDirecta(_oProducto, iIdCompra);
 
-                    MailMessage _mmMensaje = generar.GenerarPDF(iIdCliente, iIdCompra);
+                    MailMessage _mmMensaje = generar.GenerarPDF(iIdCompra);
 
                     generar.EnviarCorreo(_mmMensaje);
 
