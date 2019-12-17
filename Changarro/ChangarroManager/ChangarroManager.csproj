@@ -551,6 +551,7 @@
     <Content Include="Views\PerfilDatosAdministrador\DatosPerfilAdministrador.cshtml" />
     <Content Include="Views\Inicio\ObtenerNombreAdministrador.cshtml" />
     <Content Include="Views\Producto\OpcionesCategoria.cshtml" />
+    <Content Include="Plantillas\PlantillaSubida\Plantilla.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -562,7 +563,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Plantillas\PlantillaLlena\" />
-    <Folder Include="Plantillas\PlantillaSubida\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Changarro.Business\Changarro.Business.csproj">

@@ -173,6 +173,18 @@ namespace Changarro.Business
             return _lstProductos;
         }
 
+        public DatosClienteCompraDTO ObtenerInfoCompra(int iIdCompra)
+        {
+            DatosClienteCompraDTO _oDatos = db.tblCat_Compra.AsNoTracking().Where(c => c.iIdCompra == iIdCompra).Select(c => new DatosClienteCompraDTO
+            {
+                cNombre = c.tblCat_Cliente.cNombre,
+                cDomicilio = c.tblCat_Direccion.cCalle + " " + c.tblCat_Direccion.cNumeroExterior + " " + c.tblCat_Direccion.cColonia + ", " + c.tblCat_Direccion.cMunicipio + ", " + c.tblCat_Direccion.tbl_Estado.cNombre,
+                cCorreo = c.tblCat_Cliente.cCorreo,
+                dtFecha = (DateTime)c.dtFechaCompra
+            }).FirstOrDefault();
+
+            return _oDatos;
+        }
     }//end Compra
 
 }//end namespace ChangarroBusiness

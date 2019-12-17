@@ -16,10 +16,6 @@ using System.IO;
 namespace Changarro.Model.DTO {
     public class ClienteAdministradorDTO {
 
-        public ClienteAdministradorDTO(){
-
-        }
-
         /// <summary>
         /// Apellido del cliente.
         /// </summary>

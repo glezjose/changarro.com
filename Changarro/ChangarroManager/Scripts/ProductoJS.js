@@ -165,7 +165,7 @@ function InicializarModalImportar() {
     console.log("Implementar función Inicializar Modal Importar");
 
     var myDrop = new Dropzone("#dropZoneImportar", {
-        url: ruta + "/Producto/SubirArchivo",
+        url: ruta + "Producto/SubirArchivo",
         maxfiles: 1,
         maxFilesize: 5,
         acceptedFiles: ".xls, .xlsx",
@@ -177,7 +177,7 @@ function InicializarModalImportar() {
 
         $.ajax({
             type: "POST",
-            url: ruta + "/Producto/ImportarRegistros",
+            url: ruta + "Producto/ImportarRegistros",
             data: {
                 _cNombreArchivo: myDrop.files[0].name.trim()
             },
@@ -218,7 +218,6 @@ function ObtenerId() {
 /**Función para agregar un producto */
 function AgregaProducto() {
 
-    var data = CKEDITOR.instances.editor.getData();
 
     var Data = {};
     var Producto = {

@@ -49,13 +49,13 @@
                                     <div style="float:right;">
                                         <a href="#" id="btnAgregarDomicilio">Agregar Domicilio</a>
                                     </div>
-                                    <div id="salto-1"></div>
                                     <table class="table">
                                         <tbody id="body-domicilio">
                                             @{
                                                 Html.RenderAction("SeleccionDomicilio", "Compra");
                                             }
                                         </tbody>
+                                        <tfoot id="salto-1"></tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -74,13 +74,13 @@
                                     <div style="float:right;">
                                         <a href="#" id="btnAgregarTarjeta">Agregar Tarjeta</a>
                                     </div>
-                                    <div id="salto-2"></div>
                                     <table class="table">
-                                        <tbody>
+                                        <tbody id="body-tarjeta">
                                             @{
                                                 Html.RenderAction("SeleccionTarjeta", "Compra");
                                             }
                                         </tbody>
+                                        <tfoot id="salto-2"></tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -168,5 +168,6 @@
 
 @section scripts{
     <script src="~/Scripts/Perfil/Domicilios.js"></script>
+    <script src="~/Scripts/Perfil/Tarjetas.js"></script>
     <script src="~/Scripts/Compra/compra.js"></script>
 }

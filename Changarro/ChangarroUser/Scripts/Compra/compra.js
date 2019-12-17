@@ -3,6 +3,8 @@
     CargarBotonesInicio();
 });
 
+/**
+ * En este método se valida si el cvv cumple con lo requerido.*/
 function ValidarCVV() {
     $(".radio-card:checked").parent().siblings(".cvv-input").find(".formCVV").validate({
         rules: {
@@ -25,6 +27,9 @@ function ValidarCVV() {
     });
 }
 
+/**
+ * En este método se lleva a la parte del dom, donde se encuentra el CVV vacio.
+ * */
 function LlevarAcvv() {
     $('html, body').animate({
         scrollTop: $("#salto-1").offset().top
@@ -37,6 +42,10 @@ function LlevarAcvv() {
 
     $(".radio-card:checked").parent().siblings(".cvv-input").find(".cvv").focus();
 }
+
+/**
+ * En este método se lleva a cabo toda la funcionalidad de la compra donde se realiza la compra
+ * */
 function Continuar() {
     var counter = 1;
     $("#btnPago").click(function (event) {
@@ -44,7 +53,6 @@ function Continuar() {
         if (counter == 2) {
             event.preventDefault();
 
-            AgregarNuevaTarjeta();
 
             $("#collapseTwo").slideDown();
 
@@ -55,6 +63,8 @@ function Continuar() {
             }, 1000);
 
             HabilitarCVV();
+
+            AgregarNuevaTarjeta();
 
         } else if (counter == 3) {
             event.preventDefault();
@@ -86,6 +96,9 @@ function Continuar() {
     });
 }
 
+/**
+ * En este método se realiza el habilitar los términos y condiciones.
+ * */
 function HabilitarTerminosyCondiciones() {
     $("#checkTerminos").click(function (e) {
         if ($(this).attr("checked")) {
@@ -97,6 +110,9 @@ function HabilitarTerminosyCondiciones() {
     });
 }
 
+/**
+ * En este método se habilita el CVV
+ * */
 function HabilitarCVV() {
 
     $(".radio-card").click(function (e) {
@@ -111,6 +127,9 @@ function HabilitarCVV() {
     });
 }
 
+/**
+ * En este método se cargan los botones de inicio
+ * */
 function CargarBotonesInicio() {
     $(".radio-address").click(function (e) {
         $(".radio-address").removeAttr("checked");
@@ -131,6 +150,9 @@ function CargarBotonesInicio() {
     AgregarNuevoDomicilio();
 }
 
+/**
+ * En este método se hace una petición ajax para realizar la compra.
+ * */
 function RealizarCompra() {
     let oCompra = ObtenerCompra();
     $.ajax({
@@ -144,6 +166,7 @@ function RealizarCompra() {
                 title: data.cMensaje
             });
 
+            console.log(data.cMensaje);
             setTimeout(function () {
                 window.location.href = "/Changarro";
             }, 2000);
@@ -154,6 +177,9 @@ function RealizarCompra() {
     });
 }
 
+/**
+ * En este método se obtienen las ID de la dirección y tarjeta para realizar compra.
+ * */
 function ObtenerCompra() {
     let _oCompra = {
         iIdDireccion: $(".radio-address:checked").siblings("#iIdDomicilio").val(),
@@ -162,6 +188,9 @@ function ObtenerCompra() {
     return _oCompra;
 }
 
+/**
+ * En este método se valida si se habilita para agregar nuevo domicilio.
+ * */
 function AgregarNuevoDomicilio() {
     if ($(".row-domicilio").length != 4) {
         IniciarBotonNuevoDomicilio();
@@ -170,6 +199,9 @@ function AgregarNuevoDomicilio() {
     }
 }
 
+/**
+ * En este método se inicializa el botón de Agregar Domicilio.
+ * */
 function IniciarBotonNuevoDomicilio() {
     $("#btnAgregarDomicilio").click(function (e) {
         AbrirModal("Perfil/RegistroDireccion", GuardarDomicilio);
@@ -199,10 +231,39 @@ function AgregarNuevaTarjeta() {
 
 function IniciarBotonNuevaTarjeta() {
     $("#btnAgregarTarjeta").click(function (e) {
-        AbrirModal("Perfil/RegistroTarjeta", null);
+        AbrirModal("Perfil/RegistroTarjeta", GuardarTarjeta);
     });
 }
 
+function GuardarTarjeta() {
+    $("#cNumeroTarjeta").keypress(function (e) {
+        var iTecla = e.keyCode;
+
+        if (!RangoCodigosTeclas(iTecla, 48, 57)) {
+            e.preventDefault();
+        }
+    });
+
+    $("#btnGuardarTarjeta").click(function (e) {
+
+        e.preventDefault();
+
+        ValidarFormularioTarjeta();
+
+        if ($('#formTarjeta').valid() === true) {
+
+            GuardarCambios("Compra/AgregarTarjeta", { oTarjeta: JSON.stringify(ObtenerDatosTarjeta()) }, AgregarFilaTarjeta);
+        }
+
+    });
+}
+
+/**
+ * Método genérico de petición de ajax para guardar los registros a la BD.
+ * @param {any} cUrl
+ * @param {any} data
+ * @param {any} MiFuncion
+ */
 function GuardarCambios(cUrl, data, MiFuncion) {
     $.ajax({
         type: "POST",
@@ -210,34 +271,66 @@ function GuardarCambios(cUrl, data, MiFuncion) {
         data: data,
         dataType: "json",
         success: function (response) {
-            if (response.lStatus === true) {
-                let iIdDomicilio = response.iIdDomicilio;
-                let cUrlVistas = "Compra/FilaDomicilio?iIdDomicilio=" + iIdDomicilio;
-                MiFuncion(cUrlVistas);
 
-            }
+            MiFuncion(response);
         }
     });
 }
 
-function AgregarFilaDomicilio(cUrl) {
+/**
+ * Método genérico de petición de ajax para agregar la fila de dirección o tarjeta.
+ * @param {any} cUrl La url para hacer petición.
+ * @param {any} Selector El selector jquery donde se pintara la vista.
+ * @param {any} cMensaje El mensaje de alerta.
+ * @param {any} MiFuncion La función a ejecutar.
+ */
+function AgregarFila(cUrl, Selector, cMensaje, MiFuncion) {
     $.ajax({
         type: "POST",
         url: ruta + cUrl,
+        async: false,
         dataType: "html",
         success: function (response) {
             Toast.fire({
                 icon: "success",
-                title: "Nueva direccion agregada con exito"
+                title: cMensaje
             });
 
             $('#modalGeneral').modal('hide');
 
-            $("#body-domicilio").append(response);
+            Selector.append(response);
 
+            MiFuncion();
         },
         error: function (response) {
             alert("Error en fila nueva.");
         }
     });
+}
+
+/**
+ * Método que se utiliza para agregar la fila de domicilio.
+ * @param {any} oDatos El objeto de datos.
+ */
+function AgregarFilaDomicilio(oDatos) {
+    let iIdDomicilio = oDatos.iIdDomicilio;
+    let cUrlVistas = "Compra/FilaDomicilio?iIdDomicilio=" + iIdDomicilio;
+
+    AgregarFila(cUrlVistas, $("#body-domicilio"), "Se ha agregado un nuevo domicilio.", AgregarNuevoDomicilio);
+}
+
+/**
+ * Método que se utiliza para agregar la fila de tarjeta.
+ * @param {any} oDatos El objeto de datos.
+ */
+function AgregarFilaTarjeta(oDatos) {
+    let iIdTarjeta = oDatos.iIdTarjeta;
+    let cUrlVistas = "Compra/FilaTarjeta?iIdTarjeta=" + iIdTarjeta;
+
+    $(".cvv").attr("hidden", true);
+    $(".cvv").val("");
+
+    AgregarFila(cUrlVistas, $("#body-tarjeta"), "Se ha agregado una nueva tarjeta.", AgregarNuevaTarjeta);
+
+    HabilitarCVV();
 }

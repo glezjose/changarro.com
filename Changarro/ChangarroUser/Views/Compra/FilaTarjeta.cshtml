@@ -1,0 +1,22 @@
+﻿@model Changarro.Model.DTO.TarjetaCompraDTO
+<tr class="row-padding row-tarjeta">
+
+    <td>
+        <input type="radio" name="tarjeta" class="checkbox-round radio-card" checked>
+        @Html.Hidden("iIdTarjeta", Model.iIdTarjeta)
+    </td>
+    <td>
+        <div class="media">
+            <h5>@Model.cNombre</h5>
+        </div>
+    </td>
+    <td>
+        <h5>Termina en @Model.cTarjeta</h5>
+    </td>
+    <td class="cvv-input">
+        <form class="formCVV">
+            <input type="password" name="cCVV" placeholder="CVV" maxlength="3" onfocus="this.placeholder = ''" onblur="this.placeholder = 'CVV'" class="single-input-primary col-lg-4 float-right cvv">
+        </form>
+    </td>
+
+</tr>

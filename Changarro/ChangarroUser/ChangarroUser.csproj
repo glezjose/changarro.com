@@ -380,6 +380,7 @@
     <Content Include="Views\Compra\SeleccionarCantidad.cshtml" />
     <Content Include="Views\Compra\CargarProductoUnico.cshtml" />
     <Content Include="Views\Compra\FilaDomicilio.cshtml" />
+    <Content Include="Views\Compra\FilaTarjeta.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
