@@ -286,7 +286,6 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Carrito\Carrito.js" />
     <Content Include="Scripts\Compra\SeleccionarCantidad.js" />
-    <Content Include="Scripts\Inicio\Inicio.js" />
     <Content Include="Scripts\Inicio\ValidarFormularios.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Perfil\CancelarSuscripcion.js" />

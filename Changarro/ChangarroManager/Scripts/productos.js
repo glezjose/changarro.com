@@ -52,10 +52,30 @@ function Continuar2() {
 }
 
 function GuardarProducto() {
-    var oImagen;
+
+    let lStatus;
+
+    $('#guardar').click(function (e) {
+
+        $(this).data('clicked', true);
+
+        e.preventDefault();
+
+        console.log("xd");
+
+        if (iIdProducto > 0) {
+
+            EditarProducto();
+        }
+        else {
+
+            AgregaProducto();
+        }
+
+    });
 
     $("#imgProductoDropzone").dropzone({
-
+        //autoProcessQueue: false
         acceptedFiles: 'image/*',
         dictDefaultMessage: "Deposite su imagen aqui",
         dictInvalidFileType: "No puedes subir archivos de ese tipo",
@@ -112,21 +132,14 @@ function GuardarProducto() {
                         function (dataURL) {
 
                             // Actualizar el thumbnail del archivo                            
-                            myDropZone.emit('thumbnail', file, dataURL);                            
+                            myDropZone.emit('thumbnail', file, dataURL); 
 
-                            done(blob);
-
-                            oImagen = file;
-
-                            /*
-                            $("#btnSubirImagen").removeClass("disabled");
-                            $("#btnSubirImagen").click(function (e) {
-
-                                e.preventDefault();
-
+                            if (lStatus === true) {
+                                console.log(lStatus);
                                 done(blob);
-                            });
-                            */
+
+                            }
+                            
                         });
                 });
 
@@ -142,19 +155,9 @@ function GuardarProducto() {
             // Crear objeto Cropper.js
             var cropper = new Cropper(image, { aspectRatio: 1 });
         }
-    });
-
-    $('#guardar').click(function (e) {
-        e.preventDefault();
-        if (iIdProducto > 0) {
-            EditarProducto();
-        }
-        else {
-
-            AgregaProducto(oImagen);
-        }
 
     });
+
 }
 
 function CambiarBtn(paso) {

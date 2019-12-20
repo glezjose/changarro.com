@@ -4,7 +4,6 @@ using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 
@@ -253,6 +252,10 @@ namespace Changarro.Business
             return _mmMensaje;
         }
 
+        /// <summary>
+        /// Método para enviar correo
+        /// </summary>
+        /// <param name="mmMensaje"></param>
         public void EnviarCorreo(MailMessage mmMensaje)
         {
             SmtpClient smtp = new SmtpClient

@@ -1,12 +1,11 @@
-﻿using Changarro.Model;
+﻿using Changarro.Business;
+using Changarro.Model;
 using Changarro.Model.DTO;
-using Changarro.Business;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using PagedList;
 
 namespace ChangarroUser.Controllers
 {

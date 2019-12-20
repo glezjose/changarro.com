@@ -1,4 +1,7 @@
-﻿function ValidarFormulario() {
+﻿/**
+ * Función para validar el formulario del administrador
+ * */
+function ValidarFormulario() {
     $('#Datos').validate({
         rules: {
             cNombre: {

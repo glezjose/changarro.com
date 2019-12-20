@@ -4,6 +4,9 @@
     CargarBotonesCantidad();
 });
 
+/**
+ * Función para inicializar el botón de cantidad
+ * */
 function CargarBotonesCantidad() {
     $('.increase').click(function (e) {
         e.preventDefault();
@@ -43,6 +46,9 @@ function CargarBotonesCantidad() {
     });
 }
 
+/**
+ * Función para validar la cantidad de productos existentes
+ * */
 function ValidarCantidades() {
     $('.increase').each(function () {
         let cantidad = $(this).siblings('.qty').val();
@@ -61,6 +67,11 @@ function ValidarCantidades() {
     });
 }
 
+/**
+ * Función para actualizar el carrito de compras
+ * @param {any} cUrl Url del método en el controlador
+ * @param {any} funcion Función a ejecutar
+ */
 function ActualizarCarrito(cUrl, funcion) {
     $.ajax({
         type: "POST",
@@ -76,23 +87,38 @@ function ActualizarCarrito(cUrl, funcion) {
     });
 }
 
+/**
+ * Función para aumentar la cantidad de productos
+ * */
 function AgregarCantidad() {
     let iTotalProductos = +$('#total-products').text() + 1;
     $('#total-products').text(iTotalProductos);
     $('#cart-products').text(iTotalProductos);
 }
 
+/**
+ * Función para restar la cantidad de productos
+ * */
 function DisminuirCantidad() {
     let iTotalProductos = +$('#total-products').text() - 1;
     $('#total-products').text(iTotalProductos);
     $('#cart-products').text(iTotalProductos);
 }
 
+/**
+ * Función para actualizar el precio 
+ * @param {any} dSubTotal Cantidad subtotal
+ * @param {any} dTotal Cantidad total
+ */
 function ActualizarPrecio(dSubTotal, dTotal) {
     $('#subtotal-price').text(dSubTotal + '.00');
     $('#total-price').text(dTotal + '.00');
 }
 
+/**
+ * Función para verificar que el carrito este vacío
+ * @param {any} oCarrito Objeto con datos del producto
+ */
 function ValidarCarritoVacio(oCarrito) {
     CambiarTotalProductos(oCarrito.iTotalProductos);
     if ($('.product-card').length == 0) {
@@ -112,6 +138,8 @@ function CambiarTotalProductos(iTotalProductos) {
     $('#cart-products').text(iTotalProductos);
 }
 
+/**
+ * Inicializa el botón de eliminar producto del carrito*/
 function CargarBotonesEliminar() {
     $('.close-btn').click(function (e) {
         e.preventDefault();

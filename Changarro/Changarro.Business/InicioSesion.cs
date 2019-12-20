@@ -52,7 +52,7 @@ namespace Changarro.Business
         }
 
         /// <summary>
-        /// Método para obtener datos del administrador.
+        /// Método para obtener datos de inicio de sesión del administrador.
         /// </summary>
         /// <param name="cCorreo">Correo del administrador.</param>
         /// <returns>Devuelve datos completos del administrador.</returns>
@@ -81,10 +81,10 @@ namespace Changarro.Business
         }
 
         /// <summary>
-        /// 
+        /// Método para obtener datos de inicio de sesión del cliente
         /// </summary>
-        /// <param name="cCorreo"></param>
-        /// <returns></returns>
+        /// <param name="cCorreo">Cadena con el correo del cliente</param>
+        /// <returns>Objeto con datos del cliente</returns>
         public LoginDTO ObtenerCliente(string cCorreo)
         {
             LoginDTO _oUsuario = new LoginDTO();

@@ -4,12 +4,12 @@ using System.Linq;
 using Changarro.Model;
 using Changarro.Model.DTO;
 
-
 namespace Changarro.Business
 {
     public class ReporteGraficas
     {
         private readonly CHANGARROEntities ctx;
+
         /// <summary>
         /// Constructor para inicializar el contexto y las configuraciones.
         /// </summary>
@@ -19,6 +19,7 @@ namespace Changarro.Business
             ctx.Configuration.LazyLoadingEnabled = false;
             ctx.Configuration.ProxyCreationEnabled = false;
         }
+
         /// <summary>
         /// Método que obtiene los productos más vendidos.
         /// </summary>
@@ -35,7 +36,6 @@ namespace Changarro.Business
                 }).OrderByDescending(p => p.iCantidad).Take(10).ToList();
 
             return _lstTopProductos;
-
         }
 
         /// <summary>
@@ -58,14 +58,12 @@ namespace Changarro.Business
             return _lstTopClientes;
         }
 
-
         /// <summary>
         /// Método que obtiene la cantidad de productos que hay en cada categoría.
         /// </summary>
         /// <returns>Devuelve la lista de los productos por cada categoría.</returns>
         public List<ReporteCategoriasDTO> ObtenerProductosporCategoria()
         {
-
 
             List<ReporteCategoriasDTO> _lstProductosPorCategoria = ctx.tblCat_Producto.AsNoTracking()
                 .Where(e => e.tblCat_Categoria.lEstatus == true)
@@ -75,7 +73,6 @@ namespace Changarro.Business
                     cNombre = p.Key.cNombre,
                     iCantidad = p.Count()
                 }).ToList();
-
 
             return _lstProductosPorCategoria;
         }

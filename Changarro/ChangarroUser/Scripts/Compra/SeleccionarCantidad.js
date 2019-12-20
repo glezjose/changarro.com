@@ -3,6 +3,9 @@
     CargarBotonProceder();
 });
 
+/**
+ * Función para iniciar los botones para actualizar la cantidad
+ * */
 function CargarBotonesCantidad() {
     $('.increase').click(function (e) {
         e.preventDefault();
@@ -51,6 +54,8 @@ function CargarBotonesCantidad() {
     });
 }
 
+/**
+ * Función para iniciar el botón para proceder a comprar*/
 function CargarBotonProceder() {
     $("#btnProceder").click(function (e) {
         e.preventDefault();

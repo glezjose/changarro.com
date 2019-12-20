@@ -1,10 +1,13 @@
 ﻿using Changarro.Business;
 using Changarro.Model;
 using Changarro.Model.DTO;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -46,8 +49,6 @@ namespace ChangarroManager.Controllers
 
             return View(oProducto);
         }
-
-
        
         /// <summary>
         /// Vista que carga un modal para agregar un nuevo producto
@@ -78,27 +79,87 @@ namespace ChangarroManager.Controllers
         /// <returns>Devuelve un mensaje de acuerdo al estatus de la acción</returns>
         [HttpPost]
         [ValidateInput(false)]
-        public JsonResult AgregarProducto(HttpPostedFileBase file)
+        public JsonResult AgregarProducto()
         {
+            bool _lStatus;
+
+            int _iIdProducto = 0;
+
             tblCat_Producto _objProducto; 
             try
             {
                 _objProducto = JsonConvert.DeserializeObject<tblCat_Producto>(Request["Producto"]);
-                ProductoBus.AgregaProducto(_objProducto);
+                _iIdProducto = ProductoBus.AgregaProducto(_objProducto);
 
                 cMensaje = "Se agregó un producto correctamente.";
-                cEstatus = "¡Guardado!";
+                _lStatus = true;
 
             }
             catch (Exception e)
             {
                 cMensaje = e.Message;
-                cEstatus = "Error";
+                _lStatus = false;
             }
 
-            return Json(new { Mensaje = cMensaje, Estatus = cEstatus }, JsonRequestBehavior.AllowGet);
+            return Json(new { Mensaje = cMensaje, iIdProducto = _iIdProducto, Estatus = _lStatus }, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Método para subir imágenes
+        /// </summary>
+        /// <returns>Objeto json con bandera tipo bool y cadena con mensaje de error</returns>
+        [HttpPost]
+        public JsonResult SubirImagen(HttpPostedFileBase file)
+        {
+            bool _lStatus;
+
+            int iIdCliente = Convert.ToInt32(Session["iIdCliente"]);
+
+            string _cNuevaImagen = null;
+
+            string _cNombreImagen;
+
+            Cliente _oCliente = new Cliente();
+
+            try
+            {
+                DatosClienteDTO _oDatosCliente = _oCliente.ObtenerDatosCliente(iIdCliente);
+                _oDatosCliente.cTelefono = _oDatosCliente.cTelefono != "N/A" ? _oDatosCliente.cTelefono : "imgDefCliente";
+                _cNombreImagen = _oDatosCliente.cNombre.First() + new string(_oDatosCliente.cTelefono.Take(9).ToArray());
+
+                if (file != null || file.ContentLength != 0)
+                {
+                    Account account = new Account(
+
+                      "blue-ocean-technologies",
+                      "488187921138398",
+                      "zqhipLe2tEf3tIr5FI_JAIQaU-I");
+
+                    Cloudinary cloudinary = new Cloudinary(account);
+
+                    ImageUploadParams uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(file.FileName, file.InputStream),
+                        PublicId = "Changarro/Clientes/" + _cNombreImagen,
+                        Overwrite = true,
+                    };
+
+                    string _cImagen = String.Format(cloudinary.Upload(uploadParams).Version + "_" + _cNombreImagen);
+
+                    _cNuevaImagen = _oCliente.CambiarImagen(iIdCliente, _cImagen);
+                }
+
+                _lStatus = true;
+            }
+            catch (Exception)
+            {
+                _lStatus = false;
+
+                _cNuevaImagen = "Tu imagen no pudo ser actualizada, por favor intente más tarde";
+            }
+
+            return Json(new { _lStatus, _cNuevaImagen });
+        }
 
         /// <summary>
         /// vista que toma el id de un registro y muestra los datos en un formulario

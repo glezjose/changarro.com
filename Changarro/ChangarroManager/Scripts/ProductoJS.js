@@ -1,5 +1,6 @@
 ﻿let iIdProducto;
 let TablaProducto;
+let lStatusProducto;
 
 $(document).ready(function () {
     Botones();
@@ -217,9 +218,8 @@ function ObtenerId() {
 }
 
 /**Función para agregar un producto */
-function AgregaProducto(oImagen) {
-
-
+function AgregaProducto() {
+    var data = CKEDITOR.instances.editor.getData();
     var Data = {};
     var Producto = {
         cNombre: $("#cNombre").val(),
@@ -231,10 +231,10 @@ function AgregaProducto(oImagen) {
 
     Data['Producto'] = JSON.stringify(Producto);
 
-    Data['Imagen'] = oImagen;
-
-    LlamarMetodo("POST", "../Producto/AgregarProducto", Data, false);
+    GuardarCambiosProducto("../Producto/AgregarProducto", Data);
     TablaProducto.ajax.reload();
+
+    return lStatusProducto;
 }
 
 /**función para editar un producto 
@@ -254,7 +254,7 @@ function EditarProducto() {
     };
     Data['Producto'] = JSON.stringify(Producto);
 
-    LlamarMetodo("POST", "../Producto/ActualizaProducto", Data, false);
+    GuardarCambiosProducto("../Producto/ActualizaProducto", Data);
     iIdProducto = 0;
     TablaProducto.ajax.reload();
 }
@@ -305,4 +305,23 @@ function DesactivarProducto() {
             TablaProducto.ajax.reload();
         }
     });
+}
+
+function GuardarCambiosProducto(cUrl, Data) {
+
+    $.ajax({
+        type: "POST",
+        url: cUrl,
+        data: Data,
+        dataType: "json",
+        success: function (response) {
+            if (response.Estatus === true) {
+
+                lStatusProducto = response.Estatus;
+
+            }
+        }
+
+    });
+
 }

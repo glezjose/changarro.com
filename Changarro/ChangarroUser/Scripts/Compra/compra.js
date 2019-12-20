@@ -208,6 +208,9 @@ function IniciarBotonNuevoDomicilio() {
     });
 }
 
+/**
+ * Función para guardar nuevo domicilio
+ * */
 function GuardarDomicilio() {
     $("#btnGuardarCambiosDireccion").click(function (e) {
         e.preventDefault();
@@ -221,6 +224,9 @@ function GuardarDomicilio() {
     });
 }
 
+/**
+ * Función para guardar nueva tarjeta
+ * */
 function AgregarNuevaTarjeta() {
     if ($(".row-tarjeta").length != 4) {
         IniciarBotonNuevaTarjeta();
@@ -229,12 +235,17 @@ function AgregarNuevaTarjeta() {
     }
 }
 
+/**
+ * Función para iniciar el botón de agregar nueva tarjeta*/
 function IniciarBotonNuevaTarjeta() {
     $("#btnAgregarTarjeta").click(function (e) {
         AbrirModal("Perfil/RegistroTarjeta", GuardarTarjeta);
     });
 }
 
+/**
+ * Función para guardar tarjeta
+ * */
 function GuardarTarjeta() {
     $("#cNumeroTarjeta").keypress(function (e) {
         var iTecla = e.keyCode;

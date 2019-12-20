@@ -1,3 +1,5 @@
+using System;
+
 namespace Changarro.Model.DTO
 {
     public class DetallesProductoDTO {
